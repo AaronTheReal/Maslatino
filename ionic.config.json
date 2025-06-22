@@ -1,0 +1,7 @@
+{
+  "name": "app-mas-latino",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
