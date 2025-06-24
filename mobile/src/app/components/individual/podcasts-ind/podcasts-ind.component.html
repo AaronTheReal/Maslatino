@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Podcast</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="podcasts-content">
+  <!-- Buscador -->
+  <div class="search-wrapper">
+    <ion-icon name="search-outline"></ion-icon>
+    <input
+      type="text"
+      placeholder="Buscar podcast"
+      class="search-input"
+    />
+  </div>
+
+  <!-- Filtros por categoría -->
+  <div class="filter-tabs">
+    <button class="tab-button selected">Todos</button>
+    <button class="tab-button">Arte</button>
+    <button class="tab-button">Deportes</button>
+    <button class="tab-button">Educación</button>
+    <!-- ... -->
+  </div>
+
+  <!-- Grid de podcasts -->
+  <div class="podcast-grid">
+    <div class="podcast-card" *ngFor="let pod of [1,2,3,4]">
+      <div class="iframe-wrapper">
+        <iframe
+          [src]="'https://open.spotify.com/embed/episode/ID_' + pod"
+          allow="encrypted-media"
+          frameborder="0"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="podcast-info">
+        <h3 class="podcast-title">Título del Podcast {{ pod }}</h3>
+        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-content>

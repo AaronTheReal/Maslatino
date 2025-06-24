@@ -1,0 +1,38 @@
+<div class="categories-section">
+  <!-- Cabecera: título y botón "Ver todo" -->
+  <div class="categories-header">
+    <h2 class="categories-title">Categorías</h2>
+    <ion-button
+      fill="clear"
+      size="small"
+      class="view-all-button"
+      (click)="viewAll()">
+      Ver todo
+    </ion-button>
+  </div>
+
+  <!-- Scroll horizontal de categorías -->
+  <ng-container *ngIf="categoriesList?.length; else noCategories">
+    <div class="categories-scroll">
+      <div
+        class="category-card"
+        *ngFor="let cat of categoriesList; let i = index"
+        (click)="onSelect(cat, i)"
+      >
+        <div
+          class="category-content"
+          [style.background-color]="getColor(i)"
+        >
+          <span class="category-text">{{ cat.name }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Placeholder si no hay categorías -->
+  <ng-template #noCategories>
+    <div class="categories-placeholder">
+      <p>No hay categorías disponibles</p>
+    </div>
+  </ng-template>
+</div>

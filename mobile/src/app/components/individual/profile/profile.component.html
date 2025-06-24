@@ -1,0 +1,49 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="editProfile()" aria-label="Editar perfil">
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="profile-page">
+  <!-- Cabecera de perfil -->
+  <div class="profile-header">
+    <ion-card class="profile-card">
+      <div class="profile-avatar-container">
+        <ion-avatar class="profile-avatar">
+          <ng-container *ngIf="user.avatarUrl; else showInitials">
+            <img [src]="user.avatarUrl" alt="Avatar de {{ user.name }}" />
+          </ng-container>
+          <ng-template #showInitials>
+            <div class="initials">{{ initials }}</div>
+          </ng-template>
+        </ion-avatar>
+      </div>
+      <div class="profile-info">
+        <h2 class="profile-name">{{ user.name }}</h2>
+        <p class="profile-email">{{ user.email }}</p>
+      </div>
+    </ion-card>
+  </div>
+
+  <!-- Lista de opciones -->
+  <div class="menu-container">
+    <ng-container *ngFor="let section of menuSections">
+      <ion-list lines="full" class="menu-section-list">
+        <ion-list-header class="menu-section-header">
+          {{ section.header }}
+        </ion-list-header>
+        <ng-container *ngFor="let item of section.items">
+          <ion-item button detail="true" (click)="item.action()" class="menu-item">
+            <ion-icon slot="start" [name]="item.icon"></ion-icon>
+            <ion-label>{{ item.label }}</ion-label>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+    </ng-container>
+  </div>
+</ion-content>

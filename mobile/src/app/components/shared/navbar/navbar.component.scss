@@ -1,0 +1,65 @@
+:host {
+  display: block;
+  --icon-spacing: 1rem; /* Variable para controlar la distancia entre íconos y texto */
+  --toolbar-padding: 1.2rem; /* Padding general para los bordes del toolbar */
+  --background: var(--ion-toolbar-background, #f7f7f7);
+  --color: var(--ion-toolbar-color, #000);
+  --border-color: var(--ion-toolbar-border-color, rgba(0, 0, 0, 0.2));
+  --min-height: 44px;
+}
+
+ion-toolbar {
+  --padding-start: var(--toolbar-padding);
+  --padding-end: var(--toolbar-padding);
+  --padding-top: 3px;
+  --padding-bottom: 3px;
+}
+
+.lock-icon {
+  font-size: 28px;
+  color: #6c63ff;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  margin-right: var(--icon-spacing); /* Espacio dinámico entre candado y texto */
+}
+
+.welcome-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.greeting {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.2;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.2;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: var(--icon-spacing); /* Espacio dinámico entre texto y lupa */
+}
+
+.search-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
+}
+@media (min-width: 768px) {
+  :host {
+    --icon-spacing: 0.8rem; /* Más espacio en pantallas grandes */
+    --toolbar-padding: 0.8rem;
+  }
+}

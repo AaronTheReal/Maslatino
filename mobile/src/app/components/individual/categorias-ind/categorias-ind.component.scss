@@ -1,0 +1,82 @@
+:host {
+  --ion-background-color: #f2f2f2;
+}
+
+.categorias-content {
+  padding: 16px;
+  background: var(--ion-background-color);
+}
+
+/* Barra de búsqueda */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 0 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+
+  ion-icon {
+    font-size: 20px;
+    color: #666;
+    margin-right: 8px;
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    height: 40px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+  }
+}
+
+/* Grid */
+.categories-grid {
+  ion-row {
+    --ion-grid-column-padding: 12px;
+  }
+}
+
+/* Tarjetas */
+.category-card {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* cuadrado perfecto */
+  border-radius: 16px;
+  background: var(--card-bg, #ccc);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+  }
+
+  .category-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    padding: 0 8px;
+  }
+}
+
+/* Ejemplo de colores por defecto si no llegan desde TS */
+.category-card:nth-child(1) { --card-bg: #1abc9c; }
+.category-card:nth-child(2) { --card-bg: #9b59b6; }
+.category-card:nth-child(3) { --card-bg: #e74c3c; }
+.category-card:nth-child(4) { --card-bg: #f39c12; }
+.category-card:nth-child(5) { --card-bg: #2ecc71; }
+.category-card:nth-child(6) { --card-bg: #34495e; }
+.category-card:nth-child(7) { --card-bg: #e67e22; }
+.category-card:nth-child(8) { --card-bg: #d35400; }

@@ -1,0 +1,146 @@
+/* news-section.component.scss */
+
+.news-section {
+  /* Espacio desde el elemento superior (ej. carrusel) */
+  margin-top: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+  /* background: opcional si quisieras un fondo distinto; normalmente transparente/desplazable */
+}
+
+.news-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+
+  /* Asegura que el header no choque con márgenes globales */
+  h2.news-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ion-text-color, #000);
+  }
+  ion-button.view-all-button {
+    --padding-start: 4px;
+    --padding-end: 4px;
+    --padding-top: 2px;
+    --padding-bottom: 2px;
+    font-size: 0.9rem;
+    color: var(--ion-color-primary, #3880ff);
+  }
+}
+
+.news-scroll {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  /* Oculta scrollbar en algunos navegadores pero permite scroll táctil */
+  -webkit-overflow-scrolling: touch;
+  gap: 12px;
+  padding-bottom: 8px;
+
+  /* Opcional: estilizar scrollbar para webkit si deseas */
+  /*::-webkit-scrollbar {
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }*/
+}
+
+.news-card {
+  flex: 0 0 auto;
+  /* Ajusta el ancho según diseño: 
+     En móvil quizá mostrar 1.5 tarjetas parcialmente: min-width ~70% o ~160px.
+     Aquí ejemplo: mínimo 160px, ideal ~45% en móvil (depende de padding).
+  */
+  min-width: 160px;
+  max-width: 240px;
+  cursor: pointer;
+
+  .image-wrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    /* Sombra sutil si lo deseas */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  img.news-img {
+    display: block;
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Gradiente de fondo para mejorar legibilidad */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    padding: 8px 10px;
+    box-sizing: border-box;
+  }
+
+  .news-text {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.2;
+    /* Limitar líneas si es muy largo */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Ajustes responsivos */
+@media (min-width: 576px) {
+  .news-card {
+    min-width: 180px;
+    /* altura de imagen quizás mayor en pantallas más grandes: */
+    .image-wrapper img.news-img {
+      height: 140px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .news-section {
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-top: 32px;
+  }
+  .news-header h2.news-title {
+    font-size: 1.5rem;
+  }
+  .news-card {
+    min-width: 200px;
+    max-width: 280px;
+    .image-wrapper img.news-img {
+      height: 160px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-section {
+    padding-left: 32px;
+    padding-right: 32px;
+    margin-top: 40px;
+  }
+  .news-card {
+    min-width: 220px;
+    max-width: 300px;
+    .image-wrapper img.news-img {
+      height: 180px;
+    }
+  }
+}

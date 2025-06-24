@@ -1,0 +1,55 @@
+.footer-toolbar {
+  padding: 0;
+  box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1);
+  background: var(--ion-background-color, #fff);
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-top: 4px;
+}
+
+.footer-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  stroke: var(--ion-color-medium, #888);
+  transition: stroke 0.2s;
+}
+
+.footer-button.active .icon,
+.footer-button svg.active {
+  stroke: var(--ion-color-primary, #3880ff);
+}
+
+.footer-button:active {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 576px) {
+  .footer-buttons { padding-top: 6px; }
+  .icon { width: 26px; height: 26px; }
+}
+
+@media (min-width: 768px) {
+  .footer-buttons { padding-top: 8px; }
+  .icon { width: 28px; height: 28px; }
+}
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}

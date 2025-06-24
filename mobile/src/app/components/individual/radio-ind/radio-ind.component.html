@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title>Radio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="radios-content">
+  <!-- Buscador -->
+  <div class="search-wrapper">
+    <ion-icon name="search-outline"></ion-icon>
+    <input
+      type="text"
+      placeholder="Buscar radio"
+      class="search-input"
+    />
+  </div>
+
+  <!-- Filtros por categoría -->
+  <div class="filter-tabs">
+    <button class="tab-button selected">Todos</button>
+    <button class="tab-button">Arte</button>
+    <button class="tab-button">Deportes</button>
+    <button class="tab-button">Educación</button>
+    <!-- ... -->
+  </div>
+
+  <!-- Grid de radios -->
+  <div class="radio-grid">
+    <div class="radio-card" *ngFor="let pod of [1,2,3,4]">
+      <div class="iframe-wrapper">
+        <iframe
+          [src]="'https://open.spotify.com/embed/episode/ID_' + pod"
+          allow="encrypted-media"
+          frameborder="0"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="radio-info">
+        <h3 class="radio-title">Nombre de la radio {{ pod }}</h3>
+        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+      </div>
+    </div>
+  </div>
+</ion-content>

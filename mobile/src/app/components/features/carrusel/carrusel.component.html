@@ -1,0 +1,40 @@
+<!-- src/app/components/features/carrusel/carrusel.component.html -->
+
+<div class="carrusel-container">
+  <!-- Si no hay slides o el array está vacío, muestra un placeholder / loader -->
+  <ng-container *ngIf="slides && slides.length > 0; else noSlides">
+    <swiper-container
+      slides-per-view="1"
+      loop="true"
+      autoplay="true"
+      [attr.autoplay-delay]="autoplayDelay"
+      autoplay-disable-on-interaction="false"
+      pagination="true"
+      class="my-swiper"
+    >
+      <swiper-slide *ngFor="let slide of slides">
+        <!-- Si quieres que la imagen navegue al click, envuélvela en <a> si tiene link -->
+        <div class="slide-wrapper">
+          <img
+            [src]="slide.img"
+            [alt]="slide.title || 'Slide'"
+            class="slide-img"
+            loading="lazy"
+          />
+          <!-- Título overlay opcional -->
+          <div *ngIf="slide.title" class="slide-title">
+            {{ slide.title }}
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </ng-container>
+
+  <ng-template #noSlides>
+    <!-- Placeholder minimalista; puedes personalizar o usar ion-spinner -->
+    <div class="no-slides">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>No hay contenido para mostrar.</p>
+    </div>
+  </ng-template>
+</div>

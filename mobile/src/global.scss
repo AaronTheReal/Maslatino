@@ -1,0 +1,78 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+/* Evitar que contenido custom choque con notch */
+ion-app, ion-content {
+  /* Ionic ya maneja safe-area internamente, pero si tienes contenedores custom: */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Carrusel: limitar ancho en desktop, proporción en mobile */
+.my-swiper {
+  width: 100%;
+  max-width: 480px;
+  margin: 16px auto;
+}
+
+.slide-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Paginación (si usas Swiper Element) */
+swiper-container::part(pagination) {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+swiper-container::part(pagination-bullet) {
+  background: #bbb;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+swiper-container::part(pagination-bullet-active) {
+  background: #ffffff;
+}
+
+/*  background: #6c63ff;
+*/
+/* Evita que el router-outlet se oculte tras el footer */
+.app-content {
+  padding-bottom: calc(50px + env(safe-area-inset-bottom));
+}

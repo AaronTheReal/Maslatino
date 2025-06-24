@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Admin Panel</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modulos-content">
+  <!-- Barra de búsqueda -->
+  <div class="search-wrapper">
+    <ion-icon name="search-outline"></ion-icon>
+    <input
+      type="text"
+      placeholder="Buscar módulo"
+      class="search-input"
+    />
+  </div>
+
+  <!-- Grid de módulos -->
+  <ion-grid class="modulos-grid">
+    <ion-row>
+      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let cat of sampleAdminCategories">
+        <div class="modulo-card" [ngStyle]="{'--card-bg': cat.color}">
+          <ng-container [ngSwitch]="cat.name">
+            <!-- Noticias -->
+            <svg *ngSwitchCase="'Noticias'" class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+              <line x1="7" y1="14" x2="13" y2="14"></line>
+              <line x1="7" y1="18" x2="13" y2="18"></line>
+            </svg>
+            <!-- Podcasts -->
+            <svg *ngSwitchCase="'Podcasts'" class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M12 1a4 4 0 0 0-4 4v7a4 4 0 0 0 8 0V5a4 4 0 0 0-4-4z"></path>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <!-- Calendario -->
+            <svg *ngSwitchCase="'Calendario'" class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <!-- Categorías -->
+            <svg *ngSwitchCase="'Categorias'" class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M4 7V4h3l8.5 8.5a2 2 0 0 1 0 2.828l-5 5a2 2 0 0 1-2.828 0L4 14v-3"></path>
+              <circle cx="5.5" cy="5.5" r="1.5"></circle>
+            </svg>
+            <!-- Radio -->
+            <svg *ngSwitchCase="'Radio'" class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="12" rx="2" ry="2"></rect>
+              <circle cx="8" cy="13" r="1"></circle>
+              <path d="M16 13a3 3 0 0 1-6 0 3 3 0 0 1 6 0z"></path>
+              <line x1="18" y1="4" x2="22" y2="0"></line>
+            </svg>
+            <!-- Usuarios -->
+            <svg *ngSwitchCase="'Usuarios'" class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M7 21v-2a4 4 0 0 1 3-3.87"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <!-- Fallback -->
+            <svg *ngSwitchDefault class="modulo-svg-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12" y2="16"></line>
+            </svg>
+          </ng-container>
+          <span class="modulo-label">{{ cat.name }}</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

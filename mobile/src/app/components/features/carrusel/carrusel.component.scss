@@ -1,0 +1,95 @@
+/* src/app/components/features/carrusel/carrusel.component.scss */
+
+/* Host: asegurar que ocupe el ancho completo y tenga separación inferior */
+:host {
+  display: block;
+  width: 100%;
+  margin-bottom: 24px; /* espacio agradable antes de la siguiente sección */
+}
+
+/* Contenedor principal: opcional si necesitas padding interno */
+.carrusel-container {
+  /* Si tu ion-content ya aplica padding horizontal, quizá no necesites más */
+  width: 100%;
+}
+
+/* Swiper personalizado */
+.my-swiper {
+  width: 100%;
+  /* Altura automática basada en imagen: la altura de slide se determina por la imagen con aspect-ratio */
+}
+
+/* Cada slide: wrapper para controlar posición de título */
+.slide-wrapper {
+  position: relative;
+  width: 100%;
+  /* Usar aspect-ratio para que la altura se ajuste automáticamente:
+     Si tus imágenes tienen ratio 16:9, usa 16/9; si no, ajusta o quita aspect-ratio.
+  */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen en slide */
+.slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay de título en la parte inferior */
+.slide-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  color: #fff;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  /* Limitar líneas a 2 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Placeholder cuando no hay slides */
+.no-slides {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  color: var(--ion-color-medium);
+}
+.no-slides p {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Media queries: si quieres ajustar aspect-ratio o margin en pantallas más grandes */
+@media (min-width: 576px) {
+  :host {
+    margin-bottom: 32px;
+  }
+  .slide-wrapper {
+    aspect-ratio: 16 / 9; /* o 4/3 si prefieres en tablets */
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    margin-bottom: 40px;
+  }
+  .slide-wrapper {
+    aspect-ratio: 16 / 9;
+  }
+}
