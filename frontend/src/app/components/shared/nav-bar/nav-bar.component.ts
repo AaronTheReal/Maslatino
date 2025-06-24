@@ -1,13 +1,14 @@
 // nav-bar.component.ts
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
-  imports:[CommonModule]
+  imports:[CommonModule,RouterModule]
 })
 export class NavBarComponent {
   @Output() searchClicked = new EventEmitter<void>();
