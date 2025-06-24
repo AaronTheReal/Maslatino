@@ -1,0 +1,91 @@
+/* nav-bar.component.css */
+
+/* Altura base: 25vh en desktop, con un mínimo para pantallas pequeñas */
+.custom-navbar-height {
+  height: 25vh;
+  min-height: 80px;
+  display: flex;
+  align-items: center; /* centrar verticalmente */
+}
+
+/* Asegurar que el contenedor ocupe toda la altura y centre el contenido interno */
+.custom-navbar-height .container-fluid {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Botones de icono: ancho y alto fijos para mantener igual espacio a ambos lados */
+.icon-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Remover subrayado predeterminado de btn-link en hover/focus, manteniendo el color */
+.icon-btn:hover,
+.icon-btn:focus {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+/* Texto “Mas latino”: tamaño responsivo */
+.custom-navbar-brand {
+  font-size: calc(1.5rem + 2vw);
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff; /* Seguro: color blanco */
+}
+
+/* Espaciado horizontal interno para que no queden pegados a bordes */
+.d-flex.w-100.px-3 {
+  /* Ya aplica padding horizontal */
+}
+
+/* Media queries para responsividad */
+
+/* Pantallas muy pequeñas (<576px): reducir altura y tamaño de fuente */
+@media (max-width: 576px) {
+  .custom-navbar-height {
+    height: 15vh;
+    min-height: 60px;
+  }
+  .custom-navbar-brand {
+    font-size: 1.5rem;
+  }
+  .icon-btn {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+/* Pantallas intermedias (>=576px y <992px) */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .custom-navbar-height {
+    height: 20vh;
+    min-height: 70px;
+  }
+  .custom-navbar-brand {
+    font-size: 2.5rem;
+  }
+  .icon-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+/* Pantallas grandes (>=992px) */
+@media (min-width: 992px) {
+  .custom-navbar-brand {
+    font-size: 4rem;
+  }
+  .icon-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
