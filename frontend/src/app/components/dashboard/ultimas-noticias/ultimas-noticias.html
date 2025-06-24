@@ -1,1 +1,38 @@
-<p>ultimas-noticias works!</p>
+<div class="ultimas container py-4">
+  <!-- Título y pestañas de categoría -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="ultimas-title">ÚLTIMAS NOTICIAS</h2>
+    <ul class="ultimas-tabs list-unstyled d-flex mb-0">
+      <li
+        *ngFor="let cat of categorias"
+        (click)="selectedCat = cat"
+        [class.active]="selectedCat === cat"
+      >
+        {{ cat }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Grid de noticias -->
+  <div class="ultimas-grid">
+    <ng-container *ngFor="let n of noticias">
+      <div
+        class="ultima-card"
+        [class.large]="n.size === 'large'"
+        [class.small]="n.size === 'small'"
+      >
+        <img [src]="n.img" [alt]="n.titulo" />
+        <div class="info">
+          <div class="category-date">
+            {{ n.tipo }} <small>{{ n.fecha }}</small>
+          </div>
+          <h3 class="title">{{ n.titulo }}</h3>
+          <p class="resumen" *ngIf="n.size === 'small'">{{ n.resumen }}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+
+

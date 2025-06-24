@@ -1,0 +1,211 @@
+/* Título */
+.ultimas-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Pestañas */
+.ultimas-tabs li {
+  margin-left: 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #555;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s;
+}
+.ultimas-tabs li:hover,
+.ultimas-tabs li.active {
+  background-color: #000;
+  color: #fff;
+  border-radius: 4px;
+}
+
+/* Grid general: grandes en dos columnas, pequeñas en filas siguientes */
+.ultimas-grid {
+  display: grid;
+  grid-template-areas:
+    "lg1 lg2"
+    "sm1 sm2"
+    "sm3 sm4";
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* --------------------------------------------- */
+/* Tarjetas grandes ("large")                    */
+/* --------------------------------------------- */
+.ultima-card.large {
+  position: relative;
+  overflow: hidden;
+}
+/* Ajusta posiciones en la grid: 
+   Asume que la primera .ultima-card.large es lg1, la segunda lg2 */
+.ultima-card.large:nth-child(1) {
+  grid-area: lg1;
+}
+.ultima-card.large:nth-child(2) {
+  grid-area: lg2;
+}
+
+/* Info superpuesta en grandes */
+.ultima-card.large .info {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+}
+
+/* --------------------------------------------- */
+/* Tarjetas pequeñas ("small") con imagen a la   */
+/* izquierda y texto a la derecha                 */
+/* --------------------------------------------- */
+.ultima-card.small {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  overflow: hidden;
+  background-color: #fff;
+  /* Borde inferior para separar tarjetas small; ajústalo o quítalo si no lo deseas */
+  border-bottom: 1px dashed #ccc;
+  padding: 0.75rem 0;
+}
+
+/* Posicionamiento en la grid de las tarjetas small.
+   Ajusta si tu estructura de ngFor difiere. Este ejemplo asume:
+   - El tercer elemento overall es sm1, el cuarto sm2, quinto sm3, sexto sm4. */
+.ultima-card.small:nth-of-type(3) {
+  grid-area: sm1;
+}
+.ultima-card.small:nth-of-type(4) {
+  grid-area: sm2;
+}
+.ultima-card.small:nth-of-type(5) {
+  grid-area: sm3;
+}
+.ultima-card.small:nth-of-type(6) {
+  grid-area: sm4;
+}
+
+/* Imagen pequeña a la izquierda */
+.ultima-card.small img {
+  flex-shrink: 0;
+  width: 40%;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  transition: transform 0.3s;
+  border-radius: 4px;
+  display: block;
+}
+
+/* Hover de imagen */
+.ultima-card.small:hover img {
+  transform: scale(0.97);
+}
+
+/* Info a la derecha */
+.ultima-card.small .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0; /* El padding vertical ya lo aplicamos en .ultima-card.small */
+  color: #000;
+}
+
+/* Texto dentro de .info para small */
+.ultima-card.small .category-date {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+.ultima-card.small .category-date small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-left: 0.5rem;
+}
+.ultima-card.small .title {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.ultima-card.small .resumen {
+  font-size: 0.85rem;
+  color: #555;
+  margin-top: 0.5rem;
+  /* Limitar a 2 líneas (opcional) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --------------------------------------------- */
+/* Imagen en ambas (large y small)               */
+/* --------------------------------------------- */
+.ultima-card img {
+  /* Para large: ocupe 100% ancho del contenedor parent */
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+  transition: transform 0.3s;
+}
+.ultima-card:hover img {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------- */
+/* Texto común (puede aplicarse en large y small) */
+/* --------------------------------------------- */
+.category-date {
+  font-size: 0.9rem;
+}
+.category-date small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-left: 0.5rem;
+}
+.title {
+  font-size: 1.25rem;
+  margin: 0.5rem 0 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.resumen {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 0.5rem 0 0;
+}
+
+/* --------------------------------------------- */
+/* Responsive: grid apila todo en 1 columna      */
+/* Responsive: small cards apilan imagen/texto   */
+/* --------------------------------------------- */
+@media (max-width: 991.98px) {
+  .ultimas-grid {
+    grid-template-areas:
+      "lg1"
+      "lg2"
+      "sm1"
+      "sm2"
+      "sm3"
+      "sm4";
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 575.98px) {
+  .ultima-card.small {
+    flex-direction: column;
+    height: auto;
+  }
+  .ultima-card.small img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .ultima-card.small .info {
+    margin-top: 0.5rem;
+    justify-content: flex-start;
+  }
+}

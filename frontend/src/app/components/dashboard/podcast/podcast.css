@@ -1,0 +1,53 @@
+.podcast-bar {
+  background-color: #000;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+}
+
+.podcast-title {
+  color: #fff;
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+.podcast-grid {
+  display: grid;
+  /* Fija 2 columnas iguales */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Espacio vertical y horizontal uniforme */
+  gap: 2rem;
+  column-gap: 10rem;
+  /* Máximo ancho del conjunto y centrado */
+  max-width: 600px;   /* sube o baja este valor para agrandar o achicar */
+  margin: 0 auto;     /* centrado horizontal */
+  margin-top: 1rem;
+}
+
+/* Tarjeta ocupa todo el ancho de su columna */
+.podcast-card {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Imagen cuadrada más grande */
+.podcast-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* Hover: pequeña contracción */
+.podcast-card:hover {
+  transform: scale(0.95);
+}
+
+/* Responsive: en móvil pasa a 1 columna */
+@media (max-width: 575.98px) {
+  .podcast-grid {
+    grid-template-columns: 1fr;
+  }
+}

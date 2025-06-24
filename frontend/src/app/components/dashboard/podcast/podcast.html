@@ -1,1 +1,13 @@
-<p>podcast works!</p>
+<div class="podcast container py-4">
+  <!-- Barra negra -->
+  <div class="podcast-bar mb-4">
+    <h2 class="podcast-title">Podcast</h2>
+  </div>
+
+  <!-- Grid de posters -->
+  <div class="podcast-grid">
+    <div class="podcast-card" *ngFor="let p of podcasts">
+      <img [src]="p.img" [alt]="p.alt" />
+    </div>
+  </div>
+</div>

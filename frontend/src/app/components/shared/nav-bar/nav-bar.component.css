@@ -1,21 +1,21 @@
 /* nav-bar.component.css */
 
+/* ---------- Primera barra (oscura) ---------- */
 /* Altura base: 25vh en desktop, con un mínimo para pantallas pequeñas */
 .custom-navbar-height {
-  height: 25vh;
+  height: 40vh;
   min-height: 80px;
   display: flex;
-  align-items: center; /* centrar verticalmente */
+  align-items: center;
 }
-
-/* Asegurar que el contenedor ocupe toda la altura y centre el contenido interno */
+.navbar-dark {
+  background-color: black !important;
+}
 .custom-navbar-height .container-fluid {
   height: 100%;
   display: flex;
   align-items: center;
 }
-
-/* Botones de icono: ancho y alto fijos para mantener igual espacio a ambos lados */
 .icon-btn {
   width: 2.5rem;
   height: 2.5rem;
@@ -24,32 +24,79 @@
   justify-content: center;
   padding: 0;
 }
-
-/* Remover subrayado predeterminado de btn-link en hover/focus, manteniendo el color */
 .icon-btn:hover,
 .icon-btn:focus {
   text-decoration: none;
   opacity: 0.8;
 }
-
-/* Texto “Mas latino”: tamaño responsivo */
 .custom-navbar-brand {
   font-size: calc(1.5rem + 2vw);
   font-weight: bold;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
-  color: #fff; /* Seguro: color blanco */
+  color: #fff;
 }
 
-/* Espaciado horizontal interno para que no queden pegados a bordes */
-.d-flex.w-100.px-3 {
-  /* Ya aplica padding horizontal */
+/* ---------- Segunda barra (blanca) ---------- */
+.secondary-navbar {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+}
+/* Hacemos container relativo para posicionar elementos absolutos */
+.secondary-navbar .container-fluid {
+  position: relative;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  height: 100%;
+}
+
+/* Enlaces centrados: posición absoluta centrada horizontalmente */
+.nav-center-group {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Lista de enlaces */
+.nav-center-group .nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* Espaciado entre enlaces */
+.secondary-navbar .nav-link {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  color: #000;
+}
+.secondary-navbar .nav-link:hover,
+.secondary-navbar .nav-link:focus {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.25rem;
+}
+
+/* Botón login a la derecha: posición absoluta */
+.login-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 /* Media queries para responsividad */
 
-/* Pantallas muy pequeñas (<576px): reducir altura y tamaño de fuente */
+/* Pantallas muy pequeñas (<576px) */
 @media (max-width: 576px) {
   .custom-navbar-height {
     height: 15vh;
@@ -61,6 +108,15 @@
   .icon-btn {
     width: 2rem;
     height: 2rem;
+  }
+  .secondary-navbar .nav-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+  }
+  .login-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    right: 0.5rem;
   }
 }
 
@@ -77,6 +133,15 @@
     width: 2.25rem;
     height: 2.25rem;
   }
+  .secondary-navbar .nav-link {
+    padding: 0.4rem 0.75rem;
+    font-size: 1rem;
+  }
+  .login-btn {
+    width: 1.75rem;
+    height: 1.75rem;
+    right: 0.75rem;
+  }
 }
 
 /* Pantallas grandes (>=992px) */
@@ -85,7 +150,16 @@
     font-size: 4rem;
   }
   .icon-btn {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .secondary-navbar .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+  }
+  .login-btn {
+    width: 2rem;
+    height: 2rem;
+    right: 1rem;
   }
 }

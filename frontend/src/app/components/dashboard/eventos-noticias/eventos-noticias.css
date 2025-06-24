@@ -1,0 +1,52 @@
+.eventos-bar {
+  background-color: #000;     /* barra negra */
+  padding: 0.75rem 1rem;      /* ajusta vertical u horizontal según necesites */
+  border-radius: 4px;         /* opcional, para un toque suave */
+}
+
+/* El h2 dentro, con texto blanco y sin márgenes extra */
+.eventos-title {
+  color: #fff;
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+/* Contenedor de la imagen: mantiene márgenes del container */
+.evento-image-container {
+  margin-top: 1.5rem;
+  width: 100%;
+  overflow: hidden;        /* recorta la imagen al hacer transform */
+  border-radius: 6px;      /* opcional, esquinas suaves */
+}
+
+/* Imagen que ocupa todo el ancho y mantiene proporción */
+.evento-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;    /* ajusta al ratio que prefieras */
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;  /* animación suave */
+}
+
+/* Al pasar el ratón, la imagen se encoge ligeramente */
+.evento-image-container:hover .evento-image {
+  transform: scale(0.95);
+}
+.mas-info-container{
+    text-align: center;
+
+
+}
+.mas-info{
+    text-align: center;
+    font-size: 16px;
+    font-style: Sans-serif;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+
+}
+.mas-info:hover {
+  text-decoration: underline; /* opcional si quieres un efecto al pasar el mouse */
+}

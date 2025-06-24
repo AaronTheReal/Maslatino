@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-anuncio-principal',
-  imports: [],
+  standalone: true,
+  imports: [ CommonModule ],
   templateUrl: './anuncio-principal.html',
-  styleUrl: './anuncio-principal.css'
+  styleUrls: ['./anuncio-principal.css']
 })
-export class AnuncioPrincipal {
-
-}
+export class AnuncioPrincipal {}

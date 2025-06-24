@@ -1,0 +1,33 @@
+/* Wrapper del póster con sombreado */
+.anuncio-poster {
+  width: 50%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* sombra más pronunciada */
+}
+
+/* Imagen del póster */
+.anuncio-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover sigue igual */
+.anuncio-poster:hover .anuncio-img {
+  transform: scale(0.98);
+}
+
+/* Texto debajo del póster con estilo rojo y sombra */
+.anuncio-text {
+  margin-top: 1rem;
+  font-family: 'Oswald', sans-serif;
+  font-size: 2rem;                      /* tamaño mayor */
+  font-weight: 600;
+  color: #e63946;                       /* rojo vibrante */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* sombra en el texto */
+}

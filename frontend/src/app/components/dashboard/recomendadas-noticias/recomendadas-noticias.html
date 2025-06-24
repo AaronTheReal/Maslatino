@@ -1,1 +1,19 @@
-<p>recomendadas-noticias works!</p>
+
+<div class="recomendadas container py-4">
+  <h2 class="recomendadas-title">Recomendadas para ti</h2>
+  <div class="recomendadas-grid">
+    <div
+      class="rec-card"
+      *ngFor="let n of recomendaciones; let last = last"
+      [class.no-border]="last"
+    >
+      <img [src]="n.img" alt="{{ n.titulo }}" />
+      <div class="rec-info">
+        <div class="category-date">
+          {{ n.categoria }} <small>{{ n.fecha }}</small>
+        </div>
+        <h3 class="rec-title">{{ n.titulo }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
