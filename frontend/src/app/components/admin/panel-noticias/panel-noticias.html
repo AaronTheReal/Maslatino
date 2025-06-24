@@ -1,1 +1,259 @@
-<p>panel-noticias works!</p>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Crear / Editar Noticia</h2>
+          <form [formGroup]="noticiaForm" (ngSubmit)="onSubmit()">
+            <!-- Título -->
+            <div class="form-group mb-3">
+              <label for="title">Título <span class="required">*</span></label>
+              <input id="title" type="text" class="form-control" formControlName="title" placeholder="Título de la noticia">
+              <div *ngIf="noticiaForm.get('title')?.touched && noticiaForm.get('title')?.invalid" class="text-danger">
+                <small *ngIf="noticiaForm.get('title')?.errors?.['required']">El título es obligatorio.</small>
+                <small *ngIf="noticiaForm.get('title')?.errors?.['maxlength']">Máx 200 caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="form-group mb-3">
+              <label for="summary">Resumen</label>
+              <textarea id="summary" class="form-control" formControlName="summary" rows="2"
+                        placeholder="Breve resumen (opcional)"></textarea>
+              <div *ngIf="noticiaForm.get('summary')?.touched && noticiaForm.get('summary')?.invalid" class="text-danger">
+                <small *ngIf="noticiaForm.get('summary')?.errors?.['maxlength']">Máx 500 caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Categorías -->
+            <div class="form-group mb-3">
+              <label for="categories">Categorías</label>
+              <input id="categories" type="text" class="form-control" formControlName="categories"
+                     placeholder="Escribe categorías separadas por comas">
+              <small class="form-text text-muted">Ej: Deportes, Tecnología, Cultura</small>
+            </div>
+
+            <!-- Ubicación -->
+            <div formGroupName="location" class="form-group mb-3">
+              <label>Ubicación (opcional)</label>
+              <div class="d-flex flex-wrap gap-2">
+                <input type="text" class="form-control flex-fill" formControlName="country" placeholder="País">
+                <input type="text" class="form-control flex-fill" formControlName="region" placeholder="Región/Estado">
+                <input type="text" class="form-control flex-fill" formControlName="city" placeholder="Ciudad">
+              </div>
+            </div>
+
+            <!-- Estado y fecha de publicación -->
+            <div class="form-group mb-4 d-flex flex-wrap gap-3 align-items-end">
+              <div class="flex-fill">
+                <label for="state">Estado</label>
+                <select id="state" class="form-control" formControlName="state">
+                  <option value="draft">Borrador</option>
+                  <option value="published">Publicado</option>
+                </select>
+              </div>
+              <div class="flex-fill">
+                <label for="publishAt">Fecha de publicación</label>
+                <input id="publishAt" type="datetime-local" class="form-control" formControlName="publishAt">
+               <!--<small class="form-text text-muted">Opcional: si dejas vacío, se publicará de inmediato al guardar.</small>--> 
+              </div>
+            </div>
+
+            <!-- Botones para añadir bloques -->
+            <div class="form-group mb-4">
+              <label>Contenido</label>
+              <div class="btn-group flex-wrap mb-2" role="group">
+                <button type="button" class="btn btn-outline-primary" (click)="addBlock('text')">+ Texto</button>
+                <button type="button" class="btn btn-outline-primary" (click)="addBlock('image')">+ Imagen</button>
+                <button type="button" class="btn btn-outline-primary" (click)="addBlock('list')">+ Lista</button>
+                <button type="button" class="btn btn-outline-primary" (click)="addBlock('quote')">+ Cita</button>
+                <button type="button" class="btn btn-outline-primary" (click)="addBlock('link')">+ Enlace</button>
+              </div>
+              <!--<small class="form-text text-muted">Pulsa un botón para añadir un bloque. Verás su editor abajo.</small>-->
+            </div>
+
+            <!-- DEBUG opcional: mostrar longitud de content -->
+            <div class="mb-2">
+              <small class="text-muted">DEBUG content.length = {{ content.length }}</small>
+            </div>
+
+            <!-- Vista de lista de bloques agregados -->
+            <div class="content-blocks-preview mb-4">
+              <label>Bloques agregados:</label>
+              <div *ngIf="content.length === 0" class="text-muted mb-2">
+                Aún no hay bloques. Usa “+ Texto”, “+ Imagen”, etc., para agregarlos.
+              </div>
+              <!-- Iterar bloques -->
+              <div *ngFor="let blockCtrl of content.controls; let i = index"
+                   [formGroup]="blockCtrl"
+                   class="border rounded p-3 mb-2">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <strong>Bloque {{ i + 1 }}:</strong>
+                    <em>tipo: {{ blockCtrl.get('type')?.value }}</em>
+                  </div>
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger"
+                      (click)="content.removeAt(i)">
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Switch para cada tipo de bloque -->
+                <ng-container [ngSwitch]="blockCtrl.get('type')?.value">
+
+                  <!-- BLOQUE TEXTO -->
+                  <div *ngSwitchCase="'text'">
+                    <div class="form-group mb-2">
+                      <label>Texto</label>
+                      <textarea class="form-control" formControlName="text" rows="3"
+                                placeholder="Escribe el texto..."></textarea>
+                      <div *ngIf="blockCtrl.get('text')?.touched && blockCtrl.get('text')?.invalid" class="text-danger">
+                        <small *ngIf="blockCtrl.get('text')?.errors?.['required']">El texto es obligatorio.</small>
+                      </div>
+                    </div>
+                    <div class="form-group mb-2 d-flex gap-2 align-items-center">
+                      <label class="mb-0 me-2">Etiqueta:</label>
+                      <select class="form-select w-auto" formControlName="tag">
+                        <option value="p">Párrafo</option>
+                        <option value="h1">H1</option>
+                        <option value="h2">H2</option>
+                        <option value="h3">H3</option>
+                        <option value="h4">H4</option>
+                        <option value="h5">H5</option>
+                        <option value="h6">H6</option>
+                        <option value="span">Span</option>
+                      </select>
+                    </div>
+                    <div formGroupName="style" class="form-group mb-2 d-flex flex-wrap gap-2">
+                      <div class="flex-fill">
+                        <label class="form-label">Tamaño de fuente</label>
+                        <input type="text" class="form-control" formControlName="fontSize" placeholder="ej. 16px o 1rem">
+                      </div>
+                      <div class="flex-fill">
+                        <label class="form-label">Peso de fuente</label>
+                        <input type="text" class="form-control" formControlName="fontWeight" placeholder="ej. bold o 400">
+                      </div>
+                      <div class="flex-fill">
+                        <label class="form-label">Familia de fuente</label>
+                        <input type="text" class="form-control" formControlName="fontFamily" placeholder="ej. Arial">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- BLOQUE IMAGEN -->
+                  <div *ngSwitchCase="'image'">
+                    <div class="form-group mb-2">
+                      <label>URL de la imagen</label>
+                      <input type="text" class="form-control" formControlName="url" placeholder="https://...">
+                      <div *ngIf="blockCtrl.get('url')?.touched && blockCtrl.get('url')?.invalid" class="text-danger">
+                        <small *ngIf="blockCtrl.get('url')?.errors?.['required']">La URL es obligatoria.</small>
+                      </div>
+                    </div>
+                    <div class="form-group mb-2">
+                      <label>Texto alternativo (alt)</label>
+                      <input type="text" class="form-control" formControlName="alt" placeholder="Descripción de la imagen">
+                    </div>
+                    <div class="form-group mb-2">
+                      <label>Pie de foto (caption)</label>
+                      <input type="text" class="form-control" formControlName="caption" placeholder="Pie de foto (opcional)">
+                    </div>
+                    <div *ngIf="blockCtrl.get('url')?.valid && blockCtrl.get('url')?.value" class="mt-2 text-center">
+                      <img [src]="blockCtrl.get('url')?.value" alt="Preview" style="max-width: 100%; height: auto;"/>
+                    </div>
+                  </div>
+
+                  <!-- BLOQUE LISTA -->
+                  <div *ngSwitchCase="'list'">
+                    <div class="form-group mb-2 d-flex align-items-center gap-2">
+                      <label class="mb-0">Ordenada?</label>
+                      <input type="checkbox" formControlName="ordered" />
+                    </div>
+                    <div formArrayName="items">
+                      <label>Items de la lista</label>
+                      <div *ngFor="let itemCtrl of getListItems(i).controls; let j = index"
+                           class="d-flex mb-2 gap-2">
+                        <input [formControlName]="j"
+                               type="text"
+                               class="form-control"
+                               placeholder="Texto del ítem">
+                        <button type="button"
+                                class="btn btn-sm btn-danger"
+                                (click)="removeListItem(i, j)"
+                                [disabled]="getListItems(i).controls.length <= 1">
+                          Eliminar
+                        </button>
+                      </div>
+                      <button type="button"
+                              class="btn btn-sm btn-outline-secondary"
+                              (click)="addListItem(i)">
+                        + Añadir ítem
+                      </button>
+                      <div *ngIf="getListItems(i).invalid && getListItems(i).touched"
+                           class="text-danger mt-1">
+                        <small>Cada ítem es obligatorio.</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- BLOQUE CITA -->
+                  <div *ngSwitchCase="'quote'">
+                    <div class="form-group mb-2">
+                      <label>Cita</label>
+                      <textarea class="form-control" formControlName="quote" rows="2" placeholder="Texto de la cita"></textarea>
+                      <div *ngIf="blockCtrl.get('quote')?.touched && blockCtrl.get('quote')?.invalid" class="text-danger">
+                        <small>La cita es obligatoria.</small>
+                      </div>
+                    </div>
+                    <div class="form-group mb-2">
+                      <label>Autor / Fuente (opcional)</label>
+                      <input type="text" class="form-control" formControlName="authorQuote" placeholder="Autor o fuente">
+                    </div>
+                  </div>
+
+                  <!-- BLOQUE ENLACE -->
+                  <div *ngSwitchCase="'link'">
+                    <div class="form-group mb-2">
+                      <label>Texto del enlace</label>
+                      <input type="text" class="form-control" formControlName="textLink" placeholder="Texto visible">
+                      <div *ngIf="blockCtrl.get('textLink')?.touched && blockCtrl.get('textLink')?.invalid" class="text-danger">
+                        <small>El texto del enlace es obligatorio.</small>
+                      </div>
+                    </div>
+                    <div class="form-group mb-2">
+                      <label>URL (href)</label>
+                      <input type="text" class="form-control" formControlName="href" placeholder="https://...">
+                      <div *ngIf="blockCtrl.get('href')?.touched && blockCtrl.get('href')?.invalid" class="text-danger">
+                        <small *ngIf="blockCtrl.get('href')?.errors?.['required']">La URL es obligatoria.</small>
+                        <small *ngIf="blockCtrl.get('href')?.errors?.['pattern']">Debe ser una URL válida (http/https).</small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- TIPO DESCONOCIDO -->
+                  <div *ngSwitchDefault>
+                    <div class="form-group mb-2">
+                      <label>Datos genéricos</label>
+                      <input type="text"
+                             class="form-control"
+                             formControlName="data"
+                             placeholder="Valor">
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+            <!-- Botón de submit -->
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-success px-5">Guardar noticia</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
