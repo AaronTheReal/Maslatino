@@ -31,7 +31,48 @@
  * For more info, please see:
  * https://ionicframework.com/docs/theming/dark-mode
  */
+/* Evitar que contenido custom choque con notch */
+ion-app, ion-content {
+  /* Ionic ya maneja safe-area internamente, pero si tienes contenedores custom: */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Carrusel: limitar ancho en desktop, proporción en mobile */
+.my-swiper {
+  width: 100%;
+  max-width: 480px;
+  margin: 16px auto;
+}
+
+.slide-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Paginación (si usas Swiper Element) */
+swiper-container::part(pagination) {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+swiper-container::part(pagination-bullet) {
+  background: #bbb;
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+swiper-container::part(pagination-bullet-active) {
+  background: #ffffff;
+}
+
+/*  background: #6c63ff;
+*/
+/* Evita que el router-outlet se oculte tras el footer */
+.app-content {
+  padding-bottom: calc(50px + env(safe-area-inset-bottom));
+}

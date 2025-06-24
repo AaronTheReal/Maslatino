@@ -1,0 +1,35 @@
+<!-- news-section.component.html -->
+<div class="news-section">
+  <!-- Cabecera: título y botón "Ver todo" -->
+  <div class="news-header">
+    <h2 class="news-title">Noticias</h2>
+    <!-- Puedes usar ion-button si quieres apariencia Ionic -->
+    <ion-button
+      fill="clear"
+      size="small"
+      class="view-all-button"
+      (click)="viewAll()">
+      Ver todo
+    </ion-button>
+  </div>
+
+  <!-- Contenedor de tarjetas horizontales -->
+  <div class="news-scroll">
+    <div
+      class="news-card"
+      *ngFor="let item of newsList"
+      (click)="onSelect(item)"
+    >
+      <div class="image-wrapper">
+        <img
+          [src]="item.img"
+          [alt]="item.title"
+          class="news-img"
+        />
+        <div class="overlay">
+          <p class="news-text">{{ item.title }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

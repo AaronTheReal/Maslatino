@@ -1,20 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content fullscreen class="ion-padding-bottom">
+  <!-- Aquí tu contenido principal: carrusel, secciones, etc. -->
+  <app-carrusel [slides]="slidesArray"></app-carrusel>
+  <app-noticias
+    [newsList]="noticiasArray"
+    (selectNoticia)="onNoticiaSeleccionada($event)"
+  ></app-noticias>
+  <app-podcasts
+    [podcastsList]="podcastsArray"
+    (selectPodcast)="onPodcastSeleccionado($event)"
+  ></app-podcasts>
+  <app-radio
+    [radioList]="radiosArray"
+    (selectRadio)="onRadioSeleccionada($event)"
+  ></app-radio>
+  <app-categorias
+    [categoriesList]="categoriesArray"
+    (selectCategory)="onCategoriaSeleccionada($event)"
+  ></app-categorias>
+
+
+
+  <!-- Espaciador para que el contenido final no quede oculto bajo el footer -->
+  <!--<div style="height: calc(120px + env(safe-area-inset-bottom));"></div>-->
+
 </ion-content>

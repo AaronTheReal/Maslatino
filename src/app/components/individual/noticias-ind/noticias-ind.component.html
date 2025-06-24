@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Noticias</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="news-list">
+    <ion-card
+      *ngFor="let item of articles"
+      class="news-card"
+      (click)="onCardClick(item.id)"
+      [style.backgroundImage]="'url(' + item.img + ')'">
+      <div class="news-overlay">
+        <h2 class="news-title">{{ item.title }}</h2>
+        <p *ngIf="item.category" class="news-category">{{ item.category }}</p>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
