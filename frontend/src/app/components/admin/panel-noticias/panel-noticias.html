@@ -1,8 +1,9 @@
 <div class="container my-4">
   <div class="row">
 
+    <!-- Formulario -->
     <div class="col-12 col-md-6">
-        <div class="card shadow-sm">
+      <div class="card shadow-sm">
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Crear / Editar Noticia</h2>
           <form [formGroup]="noticiaForm" (ngSubmit)="onSubmit()">
@@ -19,8 +20,7 @@
             <!-- Resumen -->
             <div class="form-group mb-3">
               <label for="summary">Resumen</label>
-              <textarea id="summary" class="form-control" formControlName="summary" rows="2"
-                        placeholder="Breve resumen (opcional)"></textarea>
+              <textarea id="summary" class="form-control" formControlName="summary" rows="2" placeholder="Breve resumen (opcional)"></textarea>
               <div *ngIf="noticiaForm.get('summary')?.touched && noticiaForm.get('summary')?.invalid" class="text-danger">
                 <small *ngIf="noticiaForm.get('summary')?.errors?.['maxlength']">Máx 500 caracteres.</small>
               </div>
@@ -30,8 +30,7 @@
             <div class="form-group mb-3">
               <label for="categories">Categorías</label>
               <input id="categories" type="text" class="form-control" formControlName="categories"
-                     placeholder="Escribe categorías separadas por comas">
-              <small class="form-text text-muted">Ej: Deportes, Tecnología, Cultura</small>
+                     placeholder="Ej: Deportes, Tecnología, Cultura">
             </div>
 
             <!-- Ubicación -->
@@ -44,7 +43,7 @@
               </div>
             </div>
 
-            <!-- Estado y fecha de publicación -->
+            <!-- Estado y Fecha de publicación -->
             <div class="form-group mb-4 d-flex flex-wrap gap-3 align-items-end">
               <div class="flex-fill">
                 <label for="state">Estado</label>
@@ -56,7 +55,6 @@
               <div class="flex-fill">
                 <label for="publishAt">Fecha de publicación</label>
                 <input id="publishAt" type="datetime-local" class="form-control" formControlName="publishAt">
-               <!--<small class="form-text text-muted">Opcional: si dejas vacío, se publicará de inmediato al guardar.</small>--> 
               </div>
             </div>
 
@@ -70,50 +68,46 @@
                 <button type="button" class="btn btn-outline-primary" (click)="addBlock('quote')">+ Cita</button>
                 <button type="button" class="btn btn-outline-primary" (click)="addBlock('link')">+ Enlace</button>
               </div>
-              <!--<small class="form-text text-muted">Pulsa un botón para añadir un bloque. Verás su editor abajo.</small>-->
             </div>
 
-            <!-- DEBUG opcional: mostrar longitud de content -->
+            <!-- DEBUG -->
             <div class="mb-2">
               <small class="text-muted">DEBUG content.length = {{ content.length }}</small>
             </div>
 
-            <!-- Vista de lista de bloques agregados -->
+            <!-- Bloques agregados -->
             <div class="content-blocks-preview mb-4">
               <label>Bloques agregados:</label>
               <div *ngIf="content.length === 0" class="text-muted mb-2">
                 Aún no hay bloques. Usa “+ Texto”, “+ Imagen”, etc., para agregarlos.
               </div>
-              <!-- Iterar bloques -->
-              <div *ngFor="let blockCtrl of content.controls; let i = index"
-                   [formGroup]="blockCtrl"
+
+              <div *ngFor="let _ of content.controls; let i = index"
+                   [formGroup]="getBlock(i)"
                    class="border rounded p-3 mb-2">
+
+                <!-- Encabezado -->
                 <div class="d-flex justify-content-between align-items-start mb-2">
                   <div>
                     <strong>Bloque {{ i + 1 }}:</strong>
-                    <em>tipo: {{ blockCtrl.get('type')?.value }}</em>
+                    <em>{{ getBlock(i).get('type')?.value }}</em>
                   </div>
-                  <div class="btn-group">
-                    <button
-                      type="button"
-                      class="btn btn-sm btn-danger"
-                      (click)="content.removeAt(i)">
-                      Eliminar
-                    </button>
-                  </div>
+                  <button type="button" class="btn btn-sm btn-danger" (click)="content.removeAt(i)">
+                    Eliminar
+                  </button>
                 </div>
 
-                <!-- Switch para cada tipo de bloque -->
-                <ng-container [ngSwitch]="blockCtrl.get('type')?.value">
+                <!-- Switch de tipos de bloque -->
+                <ng-container [ngSwitch]="getBlock(i).get('type')?.value">
 
-                  <!-- BLOQUE TEXTO -->
+                  <!-- Texto -->
                   <div *ngSwitchCase="'text'">
                     <div class="form-group mb-2">
                       <label>Texto</label>
                       <textarea class="form-control" formControlName="text" rows="3"
                                 placeholder="Escribe el texto..."></textarea>
-                      <div *ngIf="blockCtrl.get('text')?.touched && blockCtrl.get('text')?.invalid" class="text-danger">
-                        <small *ngIf="blockCtrl.get('text')?.errors?.['required']">El texto es obligatorio.</small>
+                      <div *ngIf="getBlock(i).get('text')?.touched && getBlock(i).get('text')?.invalid" class="text-danger">
+                        <small *ngIf="getBlock(i).get('text')?.errors?.['required']">El texto es obligatorio.</small>
                       </div>
                     </div>
                     <div class="form-group mb-2 d-flex gap-2 align-items-center">
@@ -122,36 +116,38 @@
                         <option value="p">Párrafo</option>
                         <option value="h1">H1</option>
                         <option value="h2">H2</option>
+                      <!--
                         <option value="h3">H3</option>
                         <option value="h4">H4</option>
                         <option value="h5">H5</option>
                         <option value="h6">H6</option>
+                        -->
                         <option value="span">Span</option>
                       </select>
                     </div>
                     <div formGroupName="style" class="form-group mb-2 d-flex flex-wrap gap-2">
                       <div class="flex-fill">
                         <label class="form-label">Tamaño de fuente</label>
-                        <input type="text" class="form-control" formControlName="fontSize" placeholder="ej. 16px o 1rem">
+                        <input type="text" class="form-control" formControlName="fontSize" placeholder="e.g. 16px o 1rem">
                       </div>
                       <div class="flex-fill">
                         <label class="form-label">Peso de fuente</label>
-                        <input type="text" class="form-control" formControlName="fontWeight" placeholder="ej. bold o 400">
+                        <input type="text" class="form-control" formControlName="fontWeight" placeholder="e.g. bold o 400">
                       </div>
                       <div class="flex-fill">
                         <label class="form-label">Familia de fuente</label>
-                        <input type="text" class="form-control" formControlName="fontFamily" placeholder="ej. Arial">
+                        <input type="text" class="form-control" formControlName="fontFamily" placeholder="e.g. Arial">
                       </div>
                     </div>
                   </div>
 
-                  <!-- BLOQUE IMAGEN -->
+                  <!-- Imagen -->
                   <div *ngSwitchCase="'image'">
                     <div class="form-group mb-2">
                       <label>URL de la imagen</label>
                       <input type="text" class="form-control" formControlName="url" placeholder="https://...">
-                      <div *ngIf="blockCtrl.get('url')?.touched && blockCtrl.get('url')?.invalid" class="text-danger">
-                        <small *ngIf="blockCtrl.get('url')?.errors?.['required']">La URL es obligatoria.</small>
+                      <div *ngIf="getBlock(i).get('url')?.touched && getBlock(i).get('url')?.invalid" class="text-danger">
+                        <small *ngIf="getBlock(i).get('url')?.errors?.['required']">La URL es obligatoria.</small>
                       </div>
                     </div>
                     <div class="form-group mb-2">
@@ -162,50 +158,41 @@
                       <label>Pie de foto (caption)</label>
                       <input type="text" class="form-control" formControlName="caption" placeholder="Pie de foto (opcional)">
                     </div>
-                    <div *ngIf="blockCtrl.get('url')?.valid && blockCtrl.get('url')?.value" class="mt-2 text-center">
-                      <img [src]="blockCtrl.get('url')?.value" alt="Preview" style="max-width: 100%; height: auto;"/>
+                    <div *ngIf="getBlock(i).get('url')?.valid && getBlock(i).get('url')?.value" class="mt-2 text-center">
+                      <img [src]="getBlock(i).get('url')?.value" alt="Preview" style="max-width: 100%; height: auto;">
                     </div>
                   </div>
 
-                  <!-- BLOQUE LISTA -->
+                  <!-- Lista -->
                   <div *ngSwitchCase="'list'">
                     <div class="form-group mb-2 d-flex align-items-center gap-2">
                       <label class="mb-0">Ordenada?</label>
-                      <input type="checkbox" formControlName="ordered" />
+                      <input type="checkbox" formControlName="ordered">
                     </div>
                     <div formArrayName="items">
                       <label>Items de la lista</label>
-                      <div *ngFor="let itemCtrl of getListItems(i).controls; let j = index"
-                           class="d-flex mb-2 gap-2">
-                        <input [formControlName]="j"
-                               type="text"
-                               class="form-control"
-                               placeholder="Texto del ítem">
-                        <button type="button"
-                                class="btn btn-sm btn-danger"
-                                (click)="removeListItem(i, j)"
+                      <div *ngFor="let itemCtrl of getListItems(i).controls; let j = index" class="d-flex mb-2 gap-2">
+                        <input [formControlName]="j" type="text" class="form-control" placeholder="Texto del ítem">
+                        <button type="button" class="btn btn-sm btn-danger" (click)="removeListItem(i, j)"
                                 [disabled]="getListItems(i).controls.length <= 1">
                           Eliminar
                         </button>
                       </div>
-                      <button type="button"
-                              class="btn btn-sm btn-outline-secondary"
-                              (click)="addListItem(i)">
+                      <button type="button" class="btn btn-sm btn-outline-secondary" (click)="addListItem(i)">
                         + Añadir ítem
                       </button>
-                      <div *ngIf="getListItems(i).invalid && getListItems(i).touched"
-                           class="text-danger mt-1">
+                      <div *ngIf="getListItems(i).invalid && getListItems(i).touched" class="text-danger mt-1">
                         <small>Cada ítem es obligatorio.</small>
                       </div>
                     </div>
                   </div>
 
-                  <!-- BLOQUE CITA -->
+                  <!-- Cita -->
                   <div *ngSwitchCase="'quote'">
                     <div class="form-group mb-2">
                       <label>Cita</label>
                       <textarea class="form-control" formControlName="quote" rows="2" placeholder="Texto de la cita"></textarea>
-                      <div *ngIf="blockCtrl.get('quote')?.touched && blockCtrl.get('quote')?.invalid" class="text-danger">
+                      <div *ngIf="getBlock(i).get('quote')?.touched && getBlock(i).get('quote')?.invalid" class="text-danger">
                         <small>La cita es obligatoria.</small>
                       </div>
                     </div>
@@ -215,40 +202,38 @@
                     </div>
                   </div>
 
-                  <!-- BLOQUE ENLACE -->
+                  <!-- Enlace -->
                   <div *ngSwitchCase="'link'">
                     <div class="form-group mb-2">
                       <label>Texto del enlace</label>
                       <input type="text" class="form-control" formControlName="textLink" placeholder="Texto visible">
-                      <div *ngIf="blockCtrl.get('textLink')?.touched && blockCtrl.get('textLink')?.invalid" class="text-danger">
+                      <div *ngIf="getBlock(i).get('textLink')?.touched && getBlock(i).get('textLink')?.invalid" class="text-danger">
                         <small>El texto del enlace es obligatorio.</small>
                       </div>
                     </div>
                     <div class="form-group mb-2">
                       <label>URL (href)</label>
                       <input type="text" class="form-control" formControlName="href" placeholder="https://...">
-                      <div *ngIf="blockCtrl.get('href')?.touched && blockCtrl.get('href')?.invalid" class="text-danger">
-                        <small *ngIf="blockCtrl.get('href')?.errors?.['required']">La URL es obligatoria.</small>
-                        <small *ngIf="blockCtrl.get('href')?.errors?.['pattern']">Debe ser una URL válida (http/https).</small>
+                      <div *ngIf="getBlock(i).get('href')?.touched && getBlock(i).get('href')?.invalid" class="text-danger">
+                        <small *ngIf="getBlock(i).get('href')?.errors?.['required']">La URL es obligatoria.</small>
+                        <small *ngIf="getBlock(i).get('href')?.errors?.['pattern']">Debe ser una URL válida.</small>
                       </div>
                     </div>
                   </div>
 
-                  <!-- TIPO DESCONOCIDO -->
+                  <!-- Default -->
                   <div *ngSwitchDefault>
                     <div class="form-group mb-2">
                       <label>Datos genéricos</label>
-                      <input type="text"
-                             class="form-control"
-                             formControlName="data"
-                             placeholder="Valor">
+                      <input type="text" class="form-control" formControlName="data" placeholder="Valor">
                     </div>
                   </div>
+
                 </ng-container>
               </div>
             </div>
 
-            <!-- Botón de submit -->
+            <!-- Guardar -->
             <div class="form-group text-center">
               <button type="submit" class="btn btn-success px-5">Guardar noticia</button>
             </div>
@@ -257,21 +242,15 @@
       </div>
     </div>
 
-
-
-
-    <!-- Columna preview -->
-     <div class="col-12 col-md-6">
+    <!-- Vista previa -->
+    <div class="col-12 col-md-6">
       <div class="card shadow-sm h-100">
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Vista previa</h2>
-          <!-- Le pasamos el JSON actual del form -->
-          <app-vista-previa [data]="noticiaForm.value"></app-vista-previa>
+      <app-vista-previa [data]="previewData"></app-vista-previa>
         </div>
       </div>
     </div>
-
-
 
   </div>
 </div>

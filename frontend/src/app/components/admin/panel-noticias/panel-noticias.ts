@@ -1,13 +1,19 @@
+// src/app/admin/panel-noticias/panel-noticias.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import  {NoticiasService} from '../../../services/noticias-service';
-import {VistaPrevia} from '../../admin/panel-noticias/vista-previa/vista-previa';
+import { NoticiasService } from '../../../services/noticias-service';
+import { VistaPrevia } from '../../admin/panel-noticias/vista-previa/vista-previa';
+
+// Para convertir Markdown a HTML y sanitizarlo
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { marked } from 'marked';
+
 @Component({
   selector: 'app-panel-noticias',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule,VistaPrevia],
+  imports: [ReactiveFormsModule, CommonModule, VistaPrevia],
   templateUrl: './panel-noticias.html',
   styleUrls: ['./panel-noticias.css']
 })
@@ -15,54 +21,69 @@ export class PanelNoticias implements OnInit {
   noticiaForm: FormGroup;
 
   categoriasDisponibles: string[] = ['Deportes', 'Tecnología', 'Política', 'Cultura'];
+  previewDataObj: any;
 
   constructor(
-  private fb: FormBuilder,
-  private noticiasService: NoticiasService
-  )
-   {
+    private fb: FormBuilder,
+    private noticiasService: NoticiasService,
+    private sanitizer: DomSanitizer
+  ) {
     this.noticiaForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       summary: ['', Validators.maxLength(500)],
       categories: [''],
-      location: this.fb.group({
-        country: [''],
-        region: [''],
-        city: ['']
-      }),
+      location: this.fb.group({ country: [''], region: [''], city: [''] }),
       state: ['draft'],
       publishAt: [null],
-      content: this.fb.array([])  // FormArray de FormGroup para bloques
+      content: this.fb.array([])
     });
   }
 
   ngOnInit(): void {
+      this.previewDataObj = this.buildPreviewData();
+// Cada vez que cambie el form, reconstruimos
+  this.noticiaForm.valueChanges.subscribe(() => {
+    this.previewDataObj = this.buildPreviewData();
+  });
     console.log('PanelNoticias inicializado');
   }
 
-  /** 
-   * Tipamos como FormArray<FormGroup> para que Angular entienda 
-   * que content.controls es FormGroup[]
-   */
-  get content(): FormArray<FormGroup> {
-    return this.noticiaForm.get('content') as FormArray<FormGroup>;
+
+private buildPreviewData() {
+  const raw = this.noticiaForm.value;
+  return {
+    ...raw,
+    content: raw.content.map((block: any) => {
+      if (block.type === 'text') {
+        const mdHtml = marked.parse(block.text || '');
+        return { ...block, html: mdHtml, style: block.style };
+      }
+      if (block.type === 'list') {
+      const itemsHtml = block.items.map((item: string) => marked.parse(item));
+      return {
+        ...block,        // incluye block.items
+        itemsHtml        // tu nuevo campo
+      };
+      }
+
+      return block;
+    })
+  };
+}
+
+
+  get content(): FormArray {
+    return this.noticiaForm.get('content') as FormArray;
   }
 
-  /**
-   * Helper: obtener FormArray de items de un bloque de lista
-   * Si el bloque no tiene items o es inesperado, retorna array vacío
-   */
   getListItems(blockIndex: number): FormArray {
     const blockGroup = this.content.at(blockIndex) as FormGroup;
     const itemsControl = blockGroup.get('items');
-    if (itemsControl instanceof FormArray) {
-      return itemsControl;
-    }
-    // En caso inesperado, devolver FormArray vacío
-    return this.fb.array([]);
+    return itemsControl instanceof FormArray ? itemsControl : this.fb.array([]);
   }
-
-  /** Crear FormGroup según tipo de bloque */
+  getBlock(i: number): FormGroup {
+    return this.content.at(i) as FormGroup;
+  }
   private createBlockGroup(type: string): FormGroup {
     switch (type) {
       case 'text':
@@ -70,128 +91,77 @@ export class PanelNoticias implements OnInit {
           type: ['text'],
           text: ['', Validators.required],
           tag: ['p'],
-          style: this.fb.group({
-            fontSize: [''],
-            fontWeight: [''],
-            fontFamily: ['']
-          })
+          style: this.fb.group({ fontSize: [''], fontWeight: [''], fontFamily: [''] })
         });
       case 'image':
-        return this.fb.group({
-          type: ['image'],
-          url: ['', Validators.required],
-          alt: [''],
-          caption: ['']
-        });
+        return this.fb.group({ type: ['image'], url: ['', Validators.required], alt: [''], caption: [''] });
       case 'list':
-        return this.fb.group({
-          type: ['list'],
-          ordered: [false],
-          items: this.fb.array([
-            this.fb.control('', Validators.required)
-          ])
-        });
+        return this.fb.group({ type: ['list'], ordered: [false], items: this.fb.array([this.fb.control('', Validators.required)]) });
       case 'quote':
-        return this.fb.group({
-          type: ['quote'],
-          quote: ['', Validators.required],
-          authorQuote: ['']
-        });
+        return this.fb.group({ type: ['quote'], quote: ['', Validators.required], authorQuote: [''] });
       case 'link':
-        return this.fb.group({
-          type: ['link'],
-          href: ['', [Validators.required, Validators.pattern(/https?:\/\/.+/)]],
-          textLink: ['', Validators.required]
-        });
+        return this.fb.group({ type: ['link'], href: ['', [Validators.required, Validators.pattern(/https?:\/\/.+/)]], textLink: ['', Validators.required] });
       default:
-        // Bloque genérico en caso de tipo no reconocido
-        return this.fb.group({
-          type: [type],
-          data: ['']
-        });
+        return this.fb.group({ type: [type], data: [''] });
     }
   }
 
-  /** Añadir un bloque nuevo */
   addBlock(type: string) {
-    console.log('▶ addBlock llamado con type=', type);
     const blockGroup = this.createBlockGroup(type);
     this.content.push(blockGroup);
-    console.log('   → Nuevo content.length =', this.content.length, 'content.value =', this.content.value);
   }
 
-  /** Añadir ítem en bloque lista */
   addListItem(blockIndex: number) {
-    const items = this.getListItems(blockIndex);
-    items.push(this.fb.control('', Validators.required));
+    this.getListItems(blockIndex).push(this.fb.control('', Validators.required));
   }
-  /** Quitar ítem en bloque lista */
+
   removeListItem(blockIndex: number, itemIndex: number) {
     const items = this.getListItems(blockIndex);
-    if (items.length > 1) {
-      items.removeAt(itemIndex);
-    }
+    if (items.length > 1) items.removeAt(itemIndex);
   }
 
-  /** Envío del formulario */
   onSubmit() {
-    // Marcar touched para mostrar errores, incluidas listas
-    this.content.controls.forEach((blockGroup, i) => {
-      const type = blockGroup.get('type')?.value;
-      if (type === 'list') {
-        const itemsFA = this.getListItems(i);
-        itemsFA.controls.forEach(ctrl => ctrl.markAsTouched());
-        itemsFA.markAsTouched();
+    this.markAllTouched();
+    if (this.noticiaForm.invalid) return;
+
+    const data = this.prepareSubmitData();
+    this.noticiasService.createNoticia(data).subscribe({
+      next: res => {
+        console.log('Noticia creada:', res);
+        this.resetForm();
+      },
+      error: err => console.error('Error:', err)
+    });
+  }
+
+  private markAllTouched() {
+    this.noticiaForm.markAllAsTouched();
+    this.content.controls.forEach((group, i) => {
+      if (group.get('type')?.value === 'list') {
+        this.getListItems(i).markAllAsTouched();
       } else {
-        // Marcar otros controles del bloque
-        Object.values((blockGroup as FormGroup).controls).forEach(ctrl => ctrl.markAsTouched());
+        Object.values((group as FormGroup).controls).forEach(ctrl => ctrl.markAsTouched());
       }
     });
-    if (this.noticiaForm.invalid) {
-      this.noticiaForm.markAllAsTouched();
-      console.warn('Formulario inválido');
-      return;
-    }
-    const data = this.prepareSubmitData();
-    console.log('Enviar al backend:', data);
-
-      this.noticiasService.createNoticia(data).subscribe({
-        next: (res) => {
-          console.log('Noticia creada:', res);
-          // Reset o feedback:
-          this.noticiaForm.reset();
-          while (this.content.length) {
-            this.content.removeAt(0);
-          }
-          // Si se usan state/publishAt por defecto:
-          this.noticiaForm.patchValue({ state: 'draft', publishAt: null });
-          // Mostrar alerta o mensaje de éxito
-        },
-        error: (err) => {
-          console.error('Error al crear noticia:', err);
-          // Mostrar mensaje de error al usuario
-        }
-      });
-
-
   }
 
-  /** Preparar datos para enviar al backend */
+  private resetForm() {
+    this.noticiaForm.reset({ state: 'draft', publishAt: null });
+    while (this.content.length) this.content.removeAt(0);
+  }
+
   private prepareSubmitData() {
     const raw = this.noticiaForm.value;
-    const categoriasArray = raw.categories
+    const categories = raw.categories
       ? raw.categories.split(',').map((c: string) => c.trim()).filter((c: string) => c)
       : [];
-    const autorId = 'a94f23c8bd7e4ad1f6c30ae5'; // Reemplaza obteniendo desde AuthService
-    return {
-      title: raw.title,
-      summary: raw.summary,
-      categories: categoriasArray,
-      location: raw.location,
-      state: raw.state,
-      publishAt: raw.publishAt,
-      author: autorId,
-      content: raw.content
-    };
+    const authorId = 'a94f23c8bd7e4ad1f6c30ae5';
+
+    return { ...raw, categories, author: authorId };
   }
+
+get previewData() {
+  return this.buildPreviewData();
+}
+
 }

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './vista-previa.html',
   styleUrls: ['./vista-previa.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class VistaPrevia {
   @Input() data!: {
@@ -15,6 +15,24 @@ export class VistaPrevia {
     summary: string;
     location: { city: string; region: string; country: string; };
     publishAt: string | null;
-    content: any[];
+    content: Array<{
+      type: string;
+      // para bloques de texto:
+      html?: string;
+      style?: { fontSize?: string; fontWeight?: string; fontFamily?: string };
+      // los demás campos que ya tenías…
+      text?: string;
+      url?: string;
+      alt?: string;
+      caption?: string;
+      quote?: string;
+      authorQuote?: string;
+      ordered?: boolean;
+      items?: string[];
+      /** elementos de lista convertidos a HTML */
+      itemsHtml?: string[];
+      href?: string;
+      textLink?: string;
+    }>;
   };
 }
