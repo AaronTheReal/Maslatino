@@ -3,6 +3,9 @@ import multer from 'multer';
 import path from 'path';
 import MainController from './MainController.js';
 import SpotifyController from './SpotifyController.js';
+import NoticiasController from './NoticiasController.js'
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,6 +28,12 @@ export default class MainRoute {
     router.route('/search').get(SpotifyController.apiSearchPodcast);
     router.route('/podcast').post(SpotifyController.savePodcast);
     router.route('/podcasts').get(SpotifyController.getAllPodcasts);
+
+    router.route('/podcasts').get(SpotifyController.getAllPodcasts);
+
+    //noticias
+    //router.route('/noticiasGet').get(NoticiasController.getAllNoticias);
+    router.route('/noticiasPost').post(NoticiasController.createNoticia);
 
 
 

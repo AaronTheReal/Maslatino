@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import  {NoticiasService} from '../../../services/noticias-service'
 @Component({
   selector: 'app-panel-noticias',
   standalone: true,
@@ -15,7 +15,11 @@ export class PanelNoticias implements OnInit {
 
   categoriasDisponibles: string[] = ['Deportes', 'Tecnología', 'Política', 'Cultura'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+  private fb: FormBuilder,
+  private noticiasService: NoticiasService
+  )
+   {
     this.noticiaForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       summary: ['', Validators.maxLength(500)],
@@ -149,7 +153,35 @@ export class PanelNoticias implements OnInit {
     }
     const data = this.prepareSubmitData();
     console.log('Enviar al backend:', data);
-    // Aquí llamarías al servicio: this.noticiasService.createNoticia(data).subscribe(...)
+
+    /*
+      this.noticiasService.createNoticia(data).subscribe({
+        next: (res) => {
+          console.log('Noticia creada:', res);
+          // Reset o feedback:
+          this.noticiaForm.reset();
+          while (this.content.length) {
+            this.content.removeAt(0);
+          }
+          // Si se usan state/publishAt por defecto:
+          this.noticiaForm.patchValue({ state: 'draft', publishAt: null });
+          // Mostrar alerta o mensaje de éxito
+        },
+        error: (err) => {
+          console.error('Error al crear noticia:', err);
+          // Mostrar mensaje de error al usuario
+        }
+      });
+
+      */
+
+
+
+
+
+
+
+
   }
 
   /** Preparar datos para enviar al backend */
