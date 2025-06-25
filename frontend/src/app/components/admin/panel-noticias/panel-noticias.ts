@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import  {NoticiasService} from '../../../services/noticias-service'
+import  {NoticiasService} from '../../../services/noticias-service';
+import {VistaPrevia} from '../../admin/panel-noticias/vista-previa/vista-previa';
 @Component({
   selector: 'app-panel-noticias',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule,VistaPrevia],
   templateUrl: './panel-noticias.html',
   styleUrls: ['./panel-noticias.css']
 })

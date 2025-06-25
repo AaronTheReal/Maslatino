@@ -1,1 +1,80 @@
-<p>vista-previa works!</p>
+<div *ngIf="data">
+  <!-- Título -->
+  <h1 class="preview-title">{{ data.title || '— Título vacío —' }}</h1>
+
+  <!-- Resumen -->
+  <p class="preview-summary text-muted">
+    {{ data.summary || '— Resumen vacío —' }}
+  </p>
+
+  <!-- Metadatos -->
+  <small class="d-block mb-3 text-secondary">
+    Ubicación: 
+    <span *ngIf="data.location.city">{{ data.location.city }},</span>
+    <span *ngIf="data.location.region">{{ data.location.region }},</span>
+    <span *ngIf="data.location.country">{{ data.location.country }}</span>
+    |
+    {{ data.publishAt 
+         ? (data.publishAt | date:'medium') 
+         : 'Borrador' }}
+  </small>
+
+  <hr/>
+
+  <!-- Render de bloques -->
+  <ng-container *ngFor="let block of data.content">
+    <ng-container [ngSwitch]="block.type">
+
+      <!-- Bloque de texto -->
+      <p *ngSwitchCase="'text'"
+         [ngStyle]="{
+           'font-size': block.style.fontSize,
+           'font-weight': block.style.fontWeight,
+           'font-family': block.style.fontFamily
+         }">
+        {{ block.text }}
+      </p>
+
+      <!-- Bloque de imagen -->
+      <figure *ngSwitchCase="'image'" class="mb-4">
+        <img [src]="block.url" [alt]="block.alt" class="img-fluid"/>
+        <figcaption *ngIf="block.caption" class="text-muted">
+          {{ block.caption }}
+        </figcaption>
+      </figure>
+
+      <!-- Bloque de cita -->
+      <blockquote *ngSwitchCase="'quote'" class="blockquote">
+        “{{ block.quote }}”
+        <footer *ngIf="block.authorQuote" class="blockquote-footer">
+          {{ block.authorQuote }}
+        </footer>
+      </blockquote>
+
+      <!-- Bloque de lista -->
+      <ng-container *ngSwitchCase="'list'">
+        <ol *ngIf="block.ordered" class="mb-3">
+          <li *ngFor="let item of block.items">{{ item }}</li>
+        </ol>
+        <ul *ngIf="!block.ordered" class="mb-3">
+          <li *ngFor="let item of block.items">{{ item }}</li>
+        </ul>
+      </ng-container>
+
+      <!-- Bloque de enlace -->
+      <p *ngSwitchCase="'link'" class="mb-3">
+        <a [href]="block.href"
+           target="_blank"
+           rel="noopener noreferrer">
+          {{ block.textLink }}
+        </a>
+      </p>
+
+      <!-- Tipo desconocido -->
+      <pre *ngSwitchDefault class="bg-light p-2">
+        {{ block | json }}
+      </pre>
+
+    </ng-container>
+  </ng-container>
+</div>
