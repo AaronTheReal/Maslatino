@@ -22,6 +22,7 @@ export class PanelNoticias implements OnInit {
 
   categoriasDisponibles: string[] = ['Deportes', 'Tecnología', 'Política', 'Cultura'];
   previewDataObj: any;
+  blockOpenState: boolean[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -109,8 +110,17 @@ private buildPreviewData() {
   addBlock(type: string) {
     const blockGroup = this.createBlockGroup(type);
     this.content.push(blockGroup);
+    // Inicialmente cerrado
+    this.blockOpenState.push(true);
+  }
+  removeBlock(i: number) {
+    this.content.removeAt(i);
+    this.blockOpenState.splice(i, 1);
   }
 
+  toggleBlock(i: number) {
+    this.blockOpenState[i] = !this.blockOpenState[i];
+  }
   addListItem(blockIndex: number) {
     this.getListItems(blockIndex).push(this.fb.control('', Validators.required));
   }

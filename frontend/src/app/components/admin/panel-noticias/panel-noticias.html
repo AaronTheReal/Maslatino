@@ -82,20 +82,29 @@
                 Aún no hay bloques. Usa “+ Texto”, “+ Imagen”, etc., para agregarlos.
               </div>
 
-              <div *ngFor="let _ of content.controls; let i = index"
-                   [formGroup]="getBlock(i)"
-                   class="border rounded p-3 mb-2">
+                <div *ngFor="let _ of content.controls; let i = index"
+            [formGroup]="getBlock(i)"
+            class="border rounded mb-2">
 
-                <!-- Encabezado -->
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                  <div>
-                    <strong>Bloque {{ i + 1 }}:</strong>
-                    <em>{{ getBlock(i).get('type')?.value }}</em>
-                  </div>
-                  <button type="button" class="btn btn-sm btn-danger" (click)="content.removeAt(i)">
-                    Eliminar
-                  </button>
-                </div>
+          <div class="d-flex justify-content-between align-items-center p-2 bg-light">
+            <div (click)="toggleBlock(i)" style="cursor: pointer;">
+              <strong>Bloque {{ i + 1 }}</strong>
+              <small class="text-muted">({{ getBlock(i).get('type')?.value }})</small>
+            </div>
+            <div>
+              <button type="button" class="btn btn-sm btn-outline-secondary me-1"
+                      (click)="toggleBlock(i)">
+                {{ blockOpenState[i] ? 'Ocultar' : 'Mostrar' }}
+              </button>
+              <button type="button" class="btn btn-sm btn-danger"
+                      (click)="removeBlock(i)">
+                Eliminar
+              </button>
+            </div>
+          </div>
+
+
+            <div *ngIf="blockOpenState[i]" class="p-3">
 
                 <!-- Switch de tipos de bloque -->
                 <ng-container [ngSwitch]="getBlock(i).get('type')?.value">
@@ -230,6 +239,8 @@
                   </div>
 
                 </ng-container>
+                  </div>
+
               </div>
             </div>
 
