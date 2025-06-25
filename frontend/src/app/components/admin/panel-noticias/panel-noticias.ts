@@ -154,7 +154,6 @@ export class PanelNoticias implements OnInit {
     const data = this.prepareSubmitData();
     console.log('Enviar al backend:', data);
 
-    /*
       this.noticiasService.createNoticia(data).subscribe({
         next: (res) => {
           console.log('Noticia creada:', res);
@@ -173,7 +172,7 @@ export class PanelNoticias implements OnInit {
         }
       });
 
-      */
+   
 
 
 
@@ -190,7 +189,7 @@ export class PanelNoticias implements OnInit {
     const categoriasArray = raw.categories
       ? raw.categories.split(',').map((c: string) => c.trim()).filter((c: string) => c)
       : [];
-    const autorId = 'ID_AUTOR_TEMPORAL'; // Reemplaza obteniendo desde AuthService
+    const autorId = 'a94f23c8bd7e4ad1f6c30ae5'; // Reemplaza obteniendo desde AuthService
     return {
       title: raw.title,
       summary: raw.summary,

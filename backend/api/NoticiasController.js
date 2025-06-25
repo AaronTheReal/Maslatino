@@ -16,6 +16,7 @@ class noticiasController {
 
 
   async createNoticia(req, res, next) {
+    console.log(req.body)
     try {
       // Extraer datos del body
       const {

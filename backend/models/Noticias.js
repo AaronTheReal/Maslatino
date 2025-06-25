@@ -37,7 +37,9 @@ const BlockSchema = new Schema({
   // Campos para cita / frase destacada:
   quote: { type: String },          // texto de la cita
   authorQuote: { type: String },    // autor o fuente de la cita
-}, { _id: true, timestamps: false });
+}, 
+//{ _id: true, timestamps: false }
+);
 
 // Validación personalizada para asegurar campos según tipo
 BlockSchema.pre('validate', function(next) {
