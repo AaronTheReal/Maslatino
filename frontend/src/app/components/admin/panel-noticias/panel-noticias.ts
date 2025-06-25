@@ -172,14 +172,6 @@ export class PanelNoticias implements OnInit {
         }
       });
 
-   
-
-
-
-
-
-
-
 
   }
 
