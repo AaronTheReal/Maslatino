@@ -26,13 +26,20 @@
               </div>
             </div>
 
-            <!-- Categorías -->
-            <div class="form-group mb-3">
-              <label for="categories">Categorías</label>
-              <input id="categories" type="text" class="form-control" formControlName="categories"
-                     placeholder="Ej: Deportes, Tecnología, Cultura">
-            </div>
+          <!-- Categorías (NgSelect con multiselección) -->
+         <div class="form-group mb-3">
 
+         <label for="summary">Categorías</label>
+
+          <ng-select
+            formControlName="categories"
+            [items]="categoriasDisponibles"
+            bindLabel="."
+            [multiple]="true"
+            [closeOnSelect]="false"
+            placeholder="Selecciona categorías">
+          </ng-select>
+        </div>
             <!-- Ubicación -->
             <div formGroupName="location" class="form-group mb-3">
               <label>Ubicación (opcional)</label>

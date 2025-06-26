@@ -1,10 +1,11 @@
 // src/app/admin/panel-noticias/panel-noticias.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NoticiasService } from '../../../services/noticias-service';
 import { VistaPrevia } from '../../admin/panel-noticias/vista-previa/vista-previa';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // Para convertir Markdown a HTML y sanitizarlo
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -13,14 +14,28 @@ import { marked } from 'marked';
 @Component({
   selector: 'app-panel-noticias',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, VistaPrevia],
+  imports: [
+    ReactiveFormsModule, 
+    CommonModule, 
+    VistaPrevia,
+    FormsModule,
+    NgSelectModule
+  ],
   templateUrl: './panel-noticias.html',
   styleUrls: ['./panel-noticias.css']
 })
 export class PanelNoticias implements OnInit {
   noticiaForm: FormGroup;
 
-  categoriasDisponibles: string[] = ['Deportes', 'Tecnología', 'Política', 'Cultura'];
+  categoriasDisponibles: string[] = [
+    'Mundo',
+    'Arte',
+    'Política',
+    'Finanzas',
+    'Familia',
+    'Deportes',
+    'Salud'
+  ];
   previewDataObj: any;
   blockOpenState: boolean[] = [];
 
@@ -29,15 +44,16 @@ export class PanelNoticias implements OnInit {
     private noticiasService: NoticiasService,
     private sanitizer: DomSanitizer
   ) {
-    this.noticiaForm = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(200)]],
-      summary: ['', Validators.maxLength(500)],
-      categories: [''],
-      location: this.fb.group({ country: [''], region: [''], city: [''] }),
-      state: ['draft'],
-      publishAt: [null],
-      content: this.fb.array([])
-    });
+  this.noticiaForm = this.fb.group({
+    title: ['', [Validators.required, Validators.maxLength(200)]],
+    summary: ['', Validators.maxLength(500)],
+    categories: [[], Validators.required],
+    location: this.fb.group({ country: [''], region: [''], city: [''] }),
+    state: ['draft'],
+    publishAt: [null],
+    content: this.fb.array([])
+  });
+
   }
 
   ngOnInit(): void {
@@ -49,28 +65,52 @@ export class PanelNoticias implements OnInit {
     console.log('PanelNoticias inicializado');
   }
 
-
 private buildPreviewData() {
   const raw = this.noticiaForm.value;
   return {
     ...raw,
     content: raw.content.map((block: any) => {
-      if (block.type === 'text') {
-        const mdHtml = marked.parse(block.text || '');
-        return { ...block, html: mdHtml, style: block.style };
-      }
-      if (block.type === 'list') {
-      const itemsHtml = block.items.map((item: string) => marked.parse(item));
-      return {
-        ...block,        // incluye block.items
-        itemsHtml        // tu nuevo campo
-      };
-      }
+      const base = { ...block, style: { ...(block.style || {}) } };
 
-      return block;
+      switch (block.type) {
+        case 'text':
+          return { 
+            ...base, 
+            html: marked.parse(block.text || '') 
+          };
+
+        case 'list':
+          return { 
+            ...base, 
+            itemsHtml: block.items.map((item: string) => marked.parse(item)) 
+          };
+
+        case 'quote':
+          const quoteHtml = marked.parse(`> ${block.quote || ''}`);
+          return { 
+            ...base, 
+            html: quoteHtml, 
+            style: { ...base.style, textAlign: 'center' } 
+          };
+
+        case 'image':
+          const captionHtml = block.caption
+            ? marked.parse(block.caption)
+            : '';
+          return {
+            ...base,
+            captionHtml
+          };
+
+
+        default:
+          return base;
+      }
     })
   };
 }
+
+
 
 
   get content(): FormArray {
@@ -98,8 +138,22 @@ private buildPreviewData() {
         return this.fb.group({ type: ['image'], url: ['', Validators.required], alt: [''], caption: [''] });
       case 'list':
         return this.fb.group({ type: ['list'], ordered: [false], items: this.fb.array([this.fb.control('', Validators.required)]) });
+
       case 'quote':
-        return this.fb.group({ type: ['quote'], quote: ['', Validators.required], authorQuote: [''] });
+        return this.fb.group({
+          type: ['quote'],
+          quote: ['', Validators.required],
+          authorQuote: [''],
+          // <-- Agregamos estilo al bloque de cita
+          style: this.fb.group({
+            fontFamily: ['Arial, sans-serif'],
+            fontStyle:  ['italic'],
+            textAlign:  ['center']
+          })
+        });
+        //case 'quote':
+        // en createBlockGroup(type==='quote')
+        //return this.fb.group({ type: ['quote'], quote: ['', Validators.required], authorQuote: [''] });
       case 'link':
         return this.fb.group({ type: ['link'], href: ['', [Validators.required, Validators.pattern(/https?:\/\/.+/)]], textLink: ['', Validators.required] });
       default:
@@ -162,9 +216,8 @@ private buildPreviewData() {
 
   private prepareSubmitData() {
     const raw = this.noticiaForm.value;
-    const categories = raw.categories
-      ? raw.categories.split(',').map((c: string) => c.trim()).filter((c: string) => c)
-      : [];
+    const categories: string[] = raw.categories;  // ya es un string[]
+  
     const authorId = 'a94f23c8bd7e4ad1f6c30ae5';
 
     return { ...raw, categories, author: authorId };

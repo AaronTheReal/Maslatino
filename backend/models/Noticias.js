@@ -27,15 +27,21 @@ const BlockSchema = new Schema({
     default: 'p'
   },
   style: {
-    fontSize: String,
+    fontSize:   String,
     fontWeight: String,
-    fontFamily: String
+    fontFamily: String,
+    textAlign: {
+      type: String,
+      enum: ['left','center','right'],
+      default: 'left'
+    }
   },
 
   // Imagen
   url: { type: String },
   alt: { type: String },
   caption: { type: String },
+  captionHtml: { type: String },
 
   // Enlace
   href: { type: String },
@@ -87,6 +93,10 @@ BlockSchema.pre('save', function(next) {
     const rawHtml = marked(`> ${this.quote}`);
     this.html = DOMPurify.sanitize(rawHtml);
   }
+   if (this.type === 'image' && this.caption) {
+    const rawCaptionHtml = marked(this.caption);
+    this.caption = DOMPurify.sanitize(rawCaptionHtml);
+  }
   next();
 });
 
@@ -95,7 +105,11 @@ const NoticiaSchema = new Schema({
   title: { type: String, required: true, trim: true },
   summary: { type: String, trim: true },
   author: { type: Types.ObjectId, ref: 'User', required: true },
-  categories: [{ type: String, trim: true }],
+categories: [{
+  type: String,
+  enum: ['Mundo','Arte','Política','Finanzas','Familia','Deportes','Salud'],
+  required: true
+}],
   tags: [{ type: String, trim: true }],
   location: {
     country: { type: String, trim: true },
