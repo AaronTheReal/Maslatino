@@ -37,6 +37,8 @@
   -webkit-overflow-scrolling: touch;
   gap: 12px;
   padding-bottom: 8px;
+   scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 /* Tarjeta de estación */

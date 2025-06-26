@@ -21,8 +21,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
+}
+ion-button{
+  background: none;
+}
 .icon {
   stroke: var(--ion-color-medium, #888);
   transition: stroke 0.2s;
@@ -33,9 +36,7 @@
   stroke: var(--ion-color-primary, #3880ff);
 }
 
-.footer-button:active {
-  background: rgba(0, 0, 0, 0.05);
-}
+
 
 @media (min-width: 576px) {
   .footer-buttons { padding-top: 6px; }

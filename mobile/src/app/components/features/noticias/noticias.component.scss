@@ -39,6 +39,8 @@
   -webkit-overflow-scrolling: touch;
   gap: 12px;
   padding-bottom: 8px;
+   scrollbar-width: none;
+    -ms-overflow-style: none;
 
   /* Opcional: estilizar scrollbar para webkit si deseas */
   /*::-webkit-scrollbar {
@@ -52,7 +54,7 @@
 
 .news-card {
   flex: 0 0 auto;
-  /* Ajusta el ancho según diseño: 
+  /* Ajusta el ancho según diseño:
      En móvil quizá mostrar 1.5 tarjetas parcialmente: min-width ~70% o ~160px.
      Aquí ejemplo: mínimo 160px, ideal ~45% en móvil (depende de padding).
   */

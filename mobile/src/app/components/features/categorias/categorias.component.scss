@@ -37,7 +37,8 @@
   -webkit-overflow-scrolling: touch;
   gap: 12px;
   padding-bottom: 8px;
-
+ scrollbar-width: none;
+    -ms-overflow-style: none;
   /* Opcional: estilizar scrollbar Webkit si deseas */
   /* ::-webkit-scrollbar { height: 6px; }
      ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 3px; } */

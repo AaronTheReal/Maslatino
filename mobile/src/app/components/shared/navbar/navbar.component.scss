@@ -13,6 +13,12 @@ ion-toolbar {
   --padding-end: var(--toolbar-padding);
   --padding-top: 3px;
   --padding-bottom: 3px;
+    --border-width: 0px;
+}
+
+#Cleantoolbar
+{
+    --border-width: 0px;
 }
 
 .lock-icon {

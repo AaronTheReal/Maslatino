@@ -45,6 +45,34 @@ ion-app, ion-content {
   margin: 16px auto;
 }
 
+ion-toolbar {
+  --border-width: 0px;
+}
+
+ion-button{
+  background: none;
+}
+
+.title-isla {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #00c4ff; /* azul turquesa vibrante */
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.icono-isla {
+  font-size: 18px;
+  color: white;
+}
+
 .slide-img {
   width: 100%;
   aspect-ratio: 16/9;
@@ -73,6 +101,5 @@ swiper-container::part(pagination-bullet-active) {
 /*  background: #6c63ff;
 */
 /* Evita que el router-outlet se oculte tras el footer */
-.app-content {
-  padding-bottom: calc(50px + env(safe-area-inset-bottom));
-}
+
+
