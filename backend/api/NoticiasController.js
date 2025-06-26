@@ -12,6 +12,61 @@ dotenv.config();
 
 class noticiasController {
 
+
+    async getNoticiaDespliegue(req,res,next ){
+  try {
+    const noticiaId = req.body.noticia || [];
+
+    if (!Array.isArray(noticiaId) || noticiaId.length === 0) {
+      return res.status(400).json({ error: 'Debes proporcionar al menos una categoría.' });
+    }
+
+
+    // 4. Consulta filtrando por categorías
+    const noticia = await Noticia.find({
+      _id: noticiaId
+    })
+      console.log(noticia)
+    res.status(200).json(noticia);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Error al obtener noticias por categoría' });
+  }
+    }
+
+
+    
+async getNoticiaCategorias(req, res, next) {
+
+  try {
+    // 1. Recibe las categorías (simuladas o desde el usuario más adelante)
+    const categorias = req.body.categorias || [];
+
+    // 2. Si no hay categorías, responde vacío
+    if (!Array.isArray(categorias) || categorias.length === 0) {
+      return res.status(400).json({ error: 'Debes proporcionar al menos una categoría.' });
+    }
+
+    // 3. Número máximo de noticias (puedes ajustarlo)
+    const limite = parseInt(req.body.limite) || 3;
+
+    console.log(categorias)
+    // 4. Consulta filtrando por categorías
+    const noticias = await Noticia.find({
+      categories: { $in: categorias }
+    })
+      .sort({ createdAt: -1 })
+      .limit(limite);
+
+      console.log(noticias)
+    res.status(200).json(noticias);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Error al obtener noticias por categoría' });
+  }
+}
+
+
   
 async getAllNoticias(req, res, next) {
   try {

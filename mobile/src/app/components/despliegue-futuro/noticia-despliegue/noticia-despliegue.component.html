@@ -1,3 +1,49 @@
-<p>
-  noticia-despliegue works!
-</p>
+<ion-content class="noticia-individual" fullscreen *ngIf="noticia">
+
+  <!-- Cabecera visual -->
+  <div class="noticia-header">
+    <img
+      [src]="noticia.meta?.image || 'assets/default.jpg'"
+      [alt]="noticia.title"
+      class="noticia-portada"
+    />
+    <div class="noticia-header-overlay">
+      <h1 class="noticia-title">{{ noticia.title }}</h1>
+      <p class="noticia-meta">
+        {{ noticia.authorName || 'Redacción' }} · {{ noticia.createdAt | date: 'mediumDate' }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Contenido dinámico renderizado -->
+  <div class="noticia-body" *ngIf="noticia.content">
+    <ng-container *ngFor="let block of noticia.content">
+      
+      <!-- TEXTOS -->
+      <div *ngIf="block.type === 'text'" [ngClass]="'tag-' + block.tag" [innerHTML]="block.html"></div>
+
+      <!-- IMÁGENES -->
+      <div *ngIf="block.type === 'image'" class="block-image">
+        <img [src]="block.url" [alt]="block.alt || 'Imagen'" />
+        <div class="caption" [innerHTML]="block.captionHtml"></div>
+      </div>
+
+      <!-- LISTAS -->
+      <div *ngIf="block.type === 'list'" [innerHTML]="block.html"></div>
+
+      <!-- CITAS -->
+      <blockquote *ngIf="block.type === 'quote'" class="noticia-quote">
+        <div [innerHTML]="block.html"></div>
+        <footer *ngIf="block.authorQuote">— {{ block.authorQuote }}</footer>
+      </blockquote>
+
+      <!-- ENLACES -->
+      <div *ngIf="block.type === 'link'" class="noticia-link">
+        <a [href]="block.href" target="_blank" rel="noopener noreferrer">
+          {{ block.textLink }}
+        </a>
+      </div>
+
+    </ng-container>
+  </div>
+</ion-content>

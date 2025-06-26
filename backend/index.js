@@ -19,6 +19,7 @@ const upload = multer({ storage: storage });
 
 const allowedOrigins = [
   'http://localhost:4200',
+  'http://localhost:8100',
   'http://localhost:3000',
   'http://192.168.1.10:5000',
   'http://192.168.1.10:4200',

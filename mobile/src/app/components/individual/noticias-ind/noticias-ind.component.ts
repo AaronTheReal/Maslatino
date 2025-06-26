@@ -2,12 +2,16 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonIcon } from '@ionic/angular/standalone';
 
 import {
+  
   IonHeader, IonToolbar,
   IonButtons, IonBackButton,
   IonTitle, IonContent,
-  IonCard
+  IonCard,
+  
+ 
 } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
@@ -22,10 +26,12 @@ export interface Noticia {
   selector: 'app-noticias-ind',
   standalone: true,
   imports: [CommonModule,
+    
     IonHeader, IonToolbar,
     IonButtons, IonBackButton,
     IonTitle, IonContent,
-    IonCard],
+    IonCard,
+  IonIcon],
   templateUrl: './noticias-ind.component.html',
   styleUrls: ['./noticias-ind.component.scss'],
 })

@@ -1,5 +1,4 @@
-
-.app-content {
-  padding-bottom: calc(80px + env(safe-area-inset-bottom)); /* Ajusta a la altura real del footer */
-  --background: #fff; /* Asegura que el fondo no sea transparente o negro */
+ion-content.app-content {
+  --background: #ffffff;
+  --padding-bottom: calc(56px + env(safe-area-inset-bottom));  // ✅
 }

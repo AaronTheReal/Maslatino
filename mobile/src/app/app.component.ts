@@ -6,17 +6,20 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
+  IonFooter
 } from '@ionic/angular/standalone';
 import { register } from 'swiper/element/bundle';
 import { CommonModule } from '@angular/common'; // <-- importa CommonModule
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 register();
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [IonApp, IonRouterOutlet,IonHeader,IonButtons, IonIcon, IonToolbar, IonTitle, IonContent,NavbarComponent,FooterComponent,CommonModule],
+  imports: [HttpClientModule,IonApp, IonRouterOutlet,IonHeader,IonFooter, IonButtons, IonIcon, IonToolbar, IonTitle, IonContent,NavbarComponent,FooterComponent,CommonModule],
+  
 })
 export class AppComponent {
     activeTab: string = 'home';

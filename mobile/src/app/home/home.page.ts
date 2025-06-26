@@ -10,7 +10,10 @@ import { RadioComponent } from '../components/features/radio/radio.component';
 import { CategoriesComponent, CategoryItem } from '../components/features/categorias/categorias.component';
 import { FooterComponent } from '../components/shared/footer/footer.component';
 import { CommonModule } from '@angular/common'; // <-- importa CommonModule
-
+import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { Injectable } from '@angular/core';
 @Component({
   standalone: true,
   imports: [
@@ -22,7 +25,8 @@ import { CommonModule } from '@angular/common'; // <-- importa CommonModule
     RadioComponent,
     CategoriesComponent,
     FooterComponent,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -43,9 +47,15 @@ export class HomePage implements OnInit {
   /** Pestaña activa en el footer */
   activeTab: string = 'home';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+    /*
+     const user = localStorage.getItem('user');
+  if (!user) {
+    this.router.navigate(['/login']);
+  }
+    */
     this.noticiasArray = [
       { img: 'assets/imgNews/noticia1.png', title: 'Primera Noticia Importante', id: 1 },
       { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Noticia Relevante', id: 2 },

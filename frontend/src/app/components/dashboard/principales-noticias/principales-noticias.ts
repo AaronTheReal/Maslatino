@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 export class PrincipalesNoticias {
 noticias = [
     {
+      
       img: 'assets/PrincipalesNoticias/noticia1.jpg',
       categoria: 'Política',
       fecha: '24 de junio, 2025',

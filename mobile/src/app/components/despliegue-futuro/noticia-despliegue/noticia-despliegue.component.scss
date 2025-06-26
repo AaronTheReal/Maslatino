@@ -1,0 +1,96 @@
+.noticia-individual {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.noticia-header {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.noticia-portada {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.noticia-header-overlay {
+  position: absolute;
+  bottom: 0;
+  padding: 1rem;
+  color: white;
+}
+
+.noticia-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.noticia-meta {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* CUERPO DE LA NOTICIA */
+.noticia-body {
+  padding: 1.2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.block-image {
+  margin: 1.5rem 0;
+  text-align: center;
+
+  img {
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  .caption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+}
+
+/* Estilos según el tipo de etiqueta HTML */
+.tag-h1, .tag-h2, .tag-h3, .tag-h4, .tag-h5, .tag-h6 {
+  margin-top: 1.8rem;
+  font-weight: bold;
+}
+.tag-h1 { font-size: 1.8rem; }
+.tag-h2 { font-size: 1.5rem; }
+.tag-h3 { font-size: 1.3rem; }
+.tag-h4 { font-size: 1.15rem; }
+.tag-h5 { font-size: 1rem; }
+.tag-h6 { font-size: 0.9rem; }
+
+.tag-p, .tag-span {
+  margin: 1rem 0;
+}
+
+.noticia-quote {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-left: 4px solid #000;
+  background-color: #f9f9f9;
+  font-style: italic;
+  color: #444;
+
+  footer {
+    margin-top: 0.5rem;
+    text-align: right;
+    font-size: 0.85rem;
+  }
+}
+
+.noticia-link a {
+  color: #007aff;
+  text-decoration: underline;
+  font-weight: 500;
+}

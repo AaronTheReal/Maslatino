@@ -1,7 +1,6 @@
 
 
-<ion-content fullscreen class="ion-padding-bottom">
-  <!-- Aquí tu contenido principal: carrusel, secciones, etc. -->
+<ion-content fullscreen>
   <app-carrusel [slides]="slidesArray"></app-carrusel>
   <app-noticias
     [newsList]="noticiasArray"
@@ -19,9 +18,5 @@
     [categoriesList]="categoriesArray"
     (selectCategory)="onCategoriaSeleccionada($event)"
   ></app-categorias>
-
-
-  <!-- Espaciador para que el contenido final no quede oculto bajo el footer -->
-  <!--<div style="height: calc(120px + env(safe-area-inset-bottom));"></div>-->
-
 </ion-content>
+

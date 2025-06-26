@@ -1,9 +1,7 @@
-<!-- news-section.component.html -->
 <div class="news-section">
   <!-- Cabecera: título y botón "Ver todo" -->
   <div class="news-header">
     <h2 class="news-title">Noticias</h2>
-    <!-- Puedes usar ion-button si quieres apariencia Ionic -->
     <ion-button
       fill="clear"
       size="small"
@@ -17,12 +15,12 @@
   <div class="news-scroll">
     <div
       class="news-card"
-      *ngFor="let item of newsList"
+      *ngFor="let item of noticiasFiltradas"
       (click)="onSelect(item)"
     >
       <div class="image-wrapper">
         <img
-          [src]="item.img"
+          [src]="item.meta?.image || 'assets/default.jpg'"
           [alt]="item.title"
           class="news-img"
         />

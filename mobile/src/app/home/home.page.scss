@@ -1,10 +1,13 @@
+/*home page.scss*/
 #container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  /* ... */
+ margin: 2rem auto;          /* o lo que necesites */
+ max-width: 800px;           /* ejemplo */
+}
+.home-content {
+  display: block;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom)); // espacio para footer
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 #container strong {
@@ -24,11 +27,12 @@
 #container a {
   text-decoration: none;
 }
-app-carrusel {
-  display: block;
-  margin-top: -15px;
+
+ion-content {
+  --padding-top: calc(56px + env(safe-area-inset-top));  // espacio para el header
+  --padding-bottom: calc(70px + env(safe-area-inset-bottom)); // espacio para el footer
 }
+
 :host {
   display: block;
-  margin-top: var(--carousel-gap, 0px);
 }

@@ -1,0 +1,63 @@
+<ion-content fullscreen class="login-page">
+  <div class="login-container">
+    <h1>Login</h1>
+    <p class="sub-title">
+      Inicia sesión para acceder a tu cuenta y personalizar tu experiencia.
+    </p>
+
+    <form>
+      <!-- Email -->
+      <div class="form-group">
+        <ion-label class="input-label">Email</ion-label>
+        <div class="input-wrapper">
+          <ion-input
+            type="email"
+            placeholder="Digite su email"
+          ></ion-input>
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="form-group">
+        <ion-label class="input-label">Contraseña</ion-label>
+        <div class="input-wrapper">
+          <ion-input
+            type="password"
+            placeholder="Digite su contraseña"
+          ></ion-input>
+        </div>
+      </div>
+
+      <div class="forgot-password">
+        <a (click)="recoverPassword()">Recuperar contraseña</a>
+      </div>
+
+      <ion-button expand="block" class="login-button">
+        Ingresar
+      </ion-button>
+    </form>
+
+    <p class="continue-with">Continuar con</p>
+    <div class="social-buttons">
+      <ion-button
+        fill="clear"
+        class="social-btn"
+        (click)="loginWith('google')"
+      >
+        <ion-icon name="logo-google"></ion-icon>
+      </ion-button>
+      <ion-button
+        fill="clear"
+        class="social-btn"
+        (click)="loginWith('apple')"
+      >
+        <ion-icon name="logo-apple"></ion-icon>
+      </ion-button>
+    </div>
+
+    <p class="signup-text">
+      No tienes cuenta?
+      <a (click)="goToRegister()">Registrate</a>
+    </p>
+  </div>
+</ion-content>
