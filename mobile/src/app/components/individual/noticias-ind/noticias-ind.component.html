@@ -6,19 +6,38 @@
  <ion-icon name="newspaper-outline" class="icono-isla"></ion-icon>
 </div>
 -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Noticias</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content fullscreen>
-  <div class="news-list">
-    <ion-card
-      *ngFor="let item of articles"
-      class="news-card"
-      (click)="onCardClick(item.id)"
-      [style.backgroundImage]="'url(' + item.img + ')'">
-      <div class="news-overlay">
-        <h2 class="news-title">{{ item.title }}</h2>
-        <p *ngIf="item.category" class="news-category">{{ item.category }}</p>
-      </div>
-    </ion-card>
-  </div>
+  <ion-grid class="news-list">
+    <ion-row>
+      <ion-col size="12" size-sm="6" size-md="4" *ngFor="let item of paginatedArticles">
+        <ion-card
+          class="card-custom"
+          (click)="onCardClick(item._id!)"
+          [style.background-image]="getBackground(item.meta?.image)">
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="pagination-controls ion-align-items-center">
+      <ion-col size="auto">
+        <ion-button fill="outline" size="small" (click)="prevPage()" [disabled]="currentPage === 1">
+          Anterior
+        </ion-button>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        Página {{ currentPage }} de {{ totalPages }}
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button fill="outline" size="small" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Siguiente
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-wadawfg

@@ -19,6 +19,7 @@ export interface Noticia {
   meta?: {
     description?: string;
     image?: string;
+    category?: string;    // ← aquí lo agregas
   };
   createdAt?: string;
   updatedAt?: string;

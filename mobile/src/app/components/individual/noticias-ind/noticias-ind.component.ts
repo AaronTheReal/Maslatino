@@ -1,57 +1,89 @@
-// src/app/components/individual/noticias-ind/noticias-ind.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonIcon } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
+import { NoticiasService } from '../../../services/noticias-service';
+import { Noticia } from '../../../models/noticia.model';
 
 import {
-  
-  IonHeader, IonToolbar,
-  IonButtons, IonBackButton,
-  IonTitle, IonContent,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
   IonCard,
-  
- 
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton
 } from '@ionic/angular/standalone';
-import { CommonModule } from '@angular/common';
-
-export interface Noticia {
-  id: number;
-  img: string;
-  title: string;
-  category?: string;
-}
 
 @Component({
   selector: 'app-noticias-ind',
-  standalone: true,
-  imports: [CommonModule,
-    
-    IonHeader, IonToolbar,
-    IonButtons, IonBackButton,
-    IonTitle, IonContent,
-    IonCard,
-  IonIcon],
   templateUrl: './noticias-ind.component.html',
   styleUrls: ['./noticias-ind.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonButton
+  ]
 })
 export class NoticiasIndComponent implements OnInit {
   articles: Noticia[] = [];
+  paginatedArticles: Noticia[] = [];
 
-  constructor(private router: Router) {}
+  currentPage = 1;
+  pageSize = 6;
+  totalPages = 1;
 
-  ngOnInit() {
-    // Aquí podías llamar a un servicio, pero de momento:
-    this.articles = [
-      { id: 1, title: 'Gobernador visita la región', category: 'Política', img: 'assets/imgNews/noticia1.png' },
-      { id: 2, title: 'La selección gana 3-0',          category: 'Deportes', img: 'assets/imgNews/noticia2.jpg' },
-      { id: 3, title: 'Economía crece 2.5%',            category: 'Economía', img: 'assets/imgNews/noticia3.jpg' },
-      // ... más noticias de prueba
-    ];
+  constructor(
+    private noticiasService: NoticiasService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.noticiasService.getNoticias().subscribe({
+      next: (data: Noticia[]) => {
+        this.articles = data;
+        this.totalPages = Math.ceil(this.articles.length / this.pageSize);
+        this.updatePaginatedArticles();
+      },
+      error: (err) => console.error('Error al cargar noticias', err)
+    });
   }
 
-  onCardClick(id: number) {
-    this.router.navigate(['/news', id]);
+  updatePaginatedArticles(): void {
+    const start = (this.currentPage - 1) * this.pageSize;
+    this.paginatedArticles = this.articles.slice(start, start + this.pageSize);
   }
 
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedArticles();
+    }
+  }
+
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedArticles();
+    }
+  }
+
+  onCardClick(id?: string): void {
+    if (id) {
+      this.router.navigate(['/noticia-despliegue', id]);
+    }
+  }
+
+  getBackground(image?: string): string {
+    return image ? `url(${image})` : 'none';
+  }
 }

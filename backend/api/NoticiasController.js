@@ -70,7 +70,7 @@ async getNoticiaCategorias(req, res, next) {
   
 async getAllNoticias(req, res, next) {
   try {
-    const noticias = await Noticia.find({}).sort({ createdAt: -1 }).limit(10); // solo las más recientes
+    const noticias = await Noticia.find({})  //.sort({ createdAt: -1 }).limit(10); // solo las más recientes
     res.status(200).json(noticias);
   } catch (e) {
     console.error(e);
