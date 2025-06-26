@@ -7,7 +7,7 @@
 
 /* Pestañas */
 .ultimas-tabs li {
-  margin-left: 1.5rem;
+  /* margin-left: 1.5rem; */
   cursor: pointer;
   font-size: 1rem;
   color: #555;
@@ -32,6 +32,23 @@
   gap: 1.5rem;
 }
 
+.scrollable-nav {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* suave en iOS */
+}
+
+.scrollable-nav .nav {
+  display: flex;
+  flex-wrap: nowrap; /* evita que baje a segunda línea */
+  white-space: nowrap;
+  gap: 0.5rem; /* espacio entre elementos */
+}
+
+.scrollable-nav .nav-link {
+  min-width: max-content; /* evita que los enlaces se achiquen */
+}
+
+
 /* --------------------------------------------- */
 /* Tarjetas grandes ("large")                    */
 /* --------------------------------------------- */
@@ -39,7 +56,7 @@
   position: relative;
   overflow: hidden;
 }
-/* Ajusta posiciones en la grid: 
+/* Ajusta posiciones en la grid:
    Asume que la primera .ultima-card.large es lg1, la segunda lg2 */
 .ultima-card.large:nth-child(1) {
   grid-area: lg1;

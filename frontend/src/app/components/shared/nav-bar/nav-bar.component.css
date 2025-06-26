@@ -63,7 +63,88 @@
   transform: none;
   left: auto;
   top: auto;
-  margin: 0; 
+  margin: 0;
+}
+
+.card {
+  background-image: linear-gradient(#ca1eb3, #FD2E24, #FFD701 70%);
+    padding: 5px;
+}
+
+.card__content {
+  background-color: #212121cf;
+  backdrop-filter: blur(50px);
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+}
+
+.card-details {
+  height: 100%;
+  gap: .5em;
+  display: grid;
+  place-content: center;
+}
+
+.text-body {
+  margin-top: -35px;
+  color: #ff8d79;
+  text-align: center;
+}
+
+.text-title {
+  color: #FD2E24;
+  font-size: 1.75em;
+  font-weight: bold;
+  text-align: center;
+  z-index: +1;
+  margin-bottom: 3rem;
+
+}
+
+.sunsetsvg {
+  width: 500px;
+  /* margin-left: -51.9px; */
+  /* margin-top: -165px; */
+  fill: black;
+  margin-bottom: -60px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: auto;
+  z-index: 0; /* detrás de otros elementos si es decorativa */
+  pointer-events: none; /* si no quieres que interfiera */
+}
+
+#sun {
+  fill: url(#MyGradient);
+}
+
+.scrollable-nav {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* suave en iOS */
+}
+
+.scrollable-nav .nav {
+  display: flex;
+  flex-wrap: nowrap; /* evita que baje a segunda línea */
+  white-space: nowrap;
+  gap: 0.5rem; /* espacio entre elementos */
+}
+
+.scrollable-nav .nav-link {
+  min-width: max-content; /* evita que los enlaces se achiquen */
+}
+
+.scrollable-nav .nav {
+  display: flex;
+  flex-wrap: nowrap; /* evita que baje a segunda línea */
+  white-space: nowrap;
+}
+
+.scrollable-nav .nav-link {
+  min-width: max-content; /* evita que los enlaces se achiquen */
 }
 .nav-center-group .nav {
   display: flex;
@@ -88,8 +169,8 @@
   justify-content: center;
   padding: 0;
 }
-/* Si prefieres position absolute: 
-   .login-btn { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); } 
+/* Si prefieres position absolute:
+   .login-btn { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); }
    pero con flex y margin-left:auto no hace falta absolute. */
 
 /* Media queries para responsividad */
@@ -115,6 +196,9 @@
     height: 1.5rem;
     margin-left: 0.5rem;
   }
+  .sunsetsvg {
+  width: 50%;
+}
 }
 
 /* Pantallas intermedias (576px ≤ width < 992px) */
