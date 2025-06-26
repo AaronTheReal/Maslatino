@@ -1,1 +1,47 @@
-<p>noticia-individual works!</p>
+<!-- noticia-individual.html -->
+<main class="noticias-container">
+  <section *ngFor="let noticia of noticias" class="noticia-card">
+    <h2 class="noticia-title">{{ noticia.title }}</h2>
+    <div class="noticia-meta">
+      <span *ngIf="noticia.authorName">Por {{ noticia.authorName }}</span>
+      <span>{{ noticia.createdAt | date:'mediumDate' }}</span>
+    </div>
+        <div *ngIf="noticia.meta?.image" class="noticia-imagen">
+        <img [src]="noticia.meta?.image" [alt]="noticia.title" />
+        </div>
+
+    <p class="noticia-summary">{{ noticia.summary }}</p>
+
+    <div class="noticia-content">
+      <ng-container *ngFor="let block of noticia.content">
+            <ng-container [ngSwitch]="block.type">
+        <p *ngSwitchCase="'text'" [ngClass]="block.tag">{{ block.text }}</p>
+
+        <blockquote *ngSwitchCase="'quote'">
+            <p>{{ block.quote }}</p>
+            <footer *ngIf="block.authorQuote">— {{ block.authorQuote }}</footer>
+        </blockquote>
+
+        <ng-container *ngSwitchCase="'list'">
+            <ol *ngIf="block.ordered">
+            <li *ngFor="let item of block.items">{{ item }}</li>
+            </ol>
+            <ul *ngIf="!block.ordered">
+            <li *ngFor="let item of block.items">{{ item }}</li>
+            </ul>
+        </ng-container>
+
+        <div *ngSwitchCase="'image'" class="bloque-imagen">
+            <img [src]="block.url" [alt]="block.alt" />
+            <div class="caption" [innerHTML]="block.captionHtml"></div>
+        </div>
+
+        <a *ngSwitchCase="'link'" [href]="block.href" target="_blank">{{ block.textLink }}</a>
+        </ng-container>
+
+      </ng-container>
+    </div>
+
+    <hr />
+  </section>
+</main>

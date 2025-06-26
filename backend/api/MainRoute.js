@@ -34,6 +34,7 @@ export default class MainRoute {
     //noticias
     //router.route('/noticiasGet').get(NoticiasController.getAllNoticias);
     router.route('/noticiasPost').post(NoticiasController.createNoticia);
+    router.route('/getNoticias').get(NoticiasController.getAllNoticias);
 
 
 

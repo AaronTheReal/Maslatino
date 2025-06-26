@@ -11,8 +11,18 @@ import Noticia from '../models/Noticias.js'; // asegúrate de importar el modelo
 dotenv.config();
 
 class noticiasController {
-  async createNoticia(req, res, next) {
+
+  
+async getAllNoticias(req, res, next) {
+  try {
+    const noticias = await Noticia.find({}).sort({ createdAt: -1 }).limit(10); // solo las más recientes
+    res.status(200).json(noticias);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Error al obtener noticias' });
   }
+}
+
 
 
   async createNoticia(req, res, next) {

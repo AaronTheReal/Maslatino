@@ -28,11 +28,17 @@ export class NoticiasService {
     return this.http.post<Noticia>( `${this.baseUrl}/noticiasPost` , data);
   }
 
-}
-  /*
-  getNoticias(params?: any): Observable<any> {
-    return this.http.get<any>(this.baseUrl, { params });
+  getNoticias(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getNoticias`);
   }
+
+}
+
+
+
+
+  /*
+ 
   getNoticia(id: string): Observable<Noticia> {
     return this.http.get<Noticia>(`${this.baseUrl}/${id}`);
   }

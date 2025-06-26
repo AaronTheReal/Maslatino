@@ -7,6 +7,7 @@ import { PanelUsuarios } from './components/admin/panel-usuarios/panel-usuarios'
 import { PanelMultimedia } from './components/admin/panel-multimedia/panel-multimedia';
 import { PanelNoticias } from './components/admin/panel-noticias/panel-noticias';
 import {PanelRadio} from './components/admin/panel-radio/panel-radio'
+import {NoticiaIndividual} from './components/individual/noticia-individual/noticia-individual'
 
 export const routes: Routes = [
 
@@ -19,6 +20,9 @@ export const routes: Routes = [
       {path: 'noticias-panel',component: PanelNoticias },
       {path: 'podcast-panel',component: PanelPodcast },
       {path: 'radio-panel',component: PanelRadio },
+
+
+      {path: 'noticia-individual',component: NoticiaIndividual },
 
 
     

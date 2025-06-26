@@ -1,0 +1,40 @@
+.noticias-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.noticia-card {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.noticia-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.noticia-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.noticia-summary {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.noticia-imagen img,
+.bloque-imagen img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.caption {
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
