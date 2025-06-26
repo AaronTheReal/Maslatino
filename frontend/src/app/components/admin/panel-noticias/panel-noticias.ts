@@ -110,9 +110,6 @@ private buildPreviewData() {
   };
 }
 
-
-
-
   get content(): FormArray {
     return this.noticiaForm.get('content') as FormArray;
   }
