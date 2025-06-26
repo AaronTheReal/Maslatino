@@ -12,7 +12,8 @@ import { register } from 'swiper/element/bundle';
 import { CommonModule } from '@angular/common'; // <-- importa CommonModule
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 register();
 
 @Component({
@@ -23,8 +24,16 @@ register();
 })
 export class AppComponent {
     activeTab: string = 'home';
+  isLoginPage = false;
 
-  constructor() {}
+  constructor(private router: Router) {
+
+  this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.isLoginPage = event.url.includes('/login');
+      });
+  }
   onFooterTabChanged(tabName: string) {
   console.log('Footer seleccionó pestaña:', tabName);
   this.activeTab = tabName;
