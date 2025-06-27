@@ -76,13 +76,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/admin/admin-panel/admin-panel.component').then((m) => m.AdminPanelComponent),
 
-  },
+  },/*
   {
   path: 'noticia-despliegue/:id',
   loadComponent: () =>
     import('./components/despliegue-futuro/noticia-despliegue/noticia-despliegue.component')
       .then(m => m.NoticiaDespliegueComponent)
-  },{
+  }
+      ,*/{
   path: 'siguenos',
   loadComponent: () =>
     import('./components/individual/profile/siguenos/siguenos.component')

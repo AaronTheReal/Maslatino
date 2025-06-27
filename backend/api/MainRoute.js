@@ -5,7 +5,7 @@ import MainController from './MainController.js';
 import SpotifyController from './SpotifyController.js';
 import NoticiasController from './NoticiasController.js'
 import UsuariosController from './UsuariosController.js'
-
+import AuthController from './AuthController.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,6 +25,11 @@ export default class MainRoute {
   static configRoutes(router) {
     // ✅ Usa rutas bien formadas
     router.route('/').get(MainController.apiGetTests);
+
+
+    //login
+    router.route('/login').post(AuthController.login);
+
     router.route('/search').get(SpotifyController.apiSearchPodcast);
     router.route('/podcast').post(SpotifyController.savePodcast);
     router.route('/podcasts').get(SpotifyController.getAllPodcasts);

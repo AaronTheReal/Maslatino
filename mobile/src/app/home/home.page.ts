@@ -7,7 +7,7 @@ import { NavbarComponent } from '../components/shared/navbar/navbar.component';
 import { NoticiasComponent } from '../components/features/noticias/noticias.component';
 import { PodcastsComponent } from '../components/features/podcasts/podcasts.component';
 import { InicioComponent } from '../../app/components/features/inicio/inicio.component';
-
+import { AuthService } from '../services/auth-service';
 import { RadioComponent } from '../components/features/radio/radio.component';
 import { CategoriesComponent, CategoryItem } from '../components/features/categorias/categorias.component';
 import { FooterComponent } from '../components/shared/footer/footer.component';
@@ -54,8 +54,8 @@ export class HomePage implements OnInit {
 
   /** Pestaña activa en el footer */
   activeTab: string = 'home';
-
-  constructor(private router: Router) {
+  user: any;
+  constructor(private router: Router, private authService : AuthService) {
 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -66,6 +66,10 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
+  this.authService.getUser().then(user => {
+    this.user = user;
+    console.log("usuario", this.user);
+  });
     /*
      const user = localStorage.getItem('user');
   if (!user) {

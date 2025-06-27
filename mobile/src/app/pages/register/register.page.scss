@@ -91,4 +91,8 @@ ion-input::part(placeholder), ion-select::part(placeholder) {
   color: #000;
   text-align: left;
 }
-
+.button-primary {
+  --background: #000000;
+  --border-color: #000000;
+    border: 1px solid var(--border-color);
+}

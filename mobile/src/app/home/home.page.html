@@ -2,7 +2,7 @@
 
 <ion-header *ngIf="!isLoginPage">
   <ion-toolbar>
-    <app-navbar [username]="'Aaron Rodriguez'"></app-navbar>
+<app-navbar *ngIf="user" [username]="user.name"></app-navbar>
   </ion-toolbar>
 </ion-header>
 
