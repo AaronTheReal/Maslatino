@@ -1,0 +1,34 @@
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <div class="login-container">
+          <h1>Login</h1>
+          <p>Inicia sesión para acceder a tu cuenta y personalizar tu experiencia.</p>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <ion-label position="stacked">Email</ion-label>
+            <ion-item>
+              <ion-input type="email" formControlName="email" placeholder="Escribe tu email"></ion-input>
+            </ion-item>
+                          <ion-label position="stacked">Contraseña</ion-label>
+            <ion-item>
+              <ion-input type="password" formControlName="password" placeholder="Escribe tu contraseña"></ion-input>
+            </ion-item>
+            <a class="recover-link">¿Olvidaste tu contraseña?</a>
+            <ion-button expand="block" type="submit" class="login-button">Login</ion-button>
+          </form>
+          <p class="continue-with">O continua con</p>
+          <div class="social-buttons">
+            <ion-button class="social-button google">
+              <span class="icon-google"></span>
+            </ion-button>
+            <ion-button class="social-button apple">
+              <span class="icon-apple"></span>
+            </ion-button>
+          </div>
+          <p class="register-link">¿No tienes cuenta? <a href="#">Regístrate</a></p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

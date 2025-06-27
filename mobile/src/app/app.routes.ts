@@ -85,6 +85,7 @@ export const routes: Routes = [
   },
  
   {
+
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
@@ -97,6 +98,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
   },
   
+
 
 ];
 
