@@ -3,15 +3,11 @@ ion-content.home-content {
   --offset-top: 0px;
   --offset-bottom: 0px;
 }
-<<<<<<< HEAD
-
-=======
 ion-content {
   --padding-bottom: calc(56px + env(safe-area-inset-bottom));
   --offset-top: 0px !important;
   --offset-bottom: 0px !important;
 }
->>>>>>> a14a614e97f5081d3e785cbae3cd667e689d529c
 .scroll-wrapper {
   display: flex;
   flex-direction: column;
