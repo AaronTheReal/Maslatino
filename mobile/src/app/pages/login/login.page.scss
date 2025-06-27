@@ -67,14 +67,17 @@ ion-input::part(placeholder) {
   margin-bottom: 20px;
 }
 
-.login-button {
-  --background: #000000;
-  --color: #FFFFFF;
-  --border-radius: 25px;
-  font-size: 16px;
+.button-primary {
+ --background: #007bff;
+  --background-hover: #0056b3;
+  --color: #fff;
   font-weight: bold;
-  height: 50px;
   margin-bottom: 20px;
+  font-size: 16px;
+  border-radius: 40px;
+  height: 48px;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  transition: background 0.25s ease-in-out;
 }
 
 .continue-with {
@@ -88,19 +91,32 @@ ion-input::part(placeholder) {
   justify-content: center;
   gap: 20px;
   margin-bottom: 20px;
+  margin-top: 20px;
+
 }
 
 .social-button {
-  --background: #FFFFFF;
-  --border-color: #E0E0E0;
-  --border-width: 1px;
-  --border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  background-color: #f0f0f0; /* gris tenue */
+  border: 1px solid #e0e0e0;
+  border-radius: 50px; /* círculo perfecto */
+  width: 48px;
+  height: 48px;
   display: flex;
-  align-items: center;
+
   justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #333;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* sombra suave inicial */
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* sombra más notoria en hover */
+  }
 }
+
 
 .icon-google {
   width: 24px;
@@ -123,4 +139,152 @@ ion-input::part(placeholder) {
   font-weight: bold;
   text-decoration: underline;
   color: #000000;
+}
+
+
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.up {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.down {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
+
+.card1 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 90px 5px 5px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.instagram {
+  margin-top: 1.5em;
+  margin-left: 1.2em;
+  fill: #cc39a4;
+}
+
+.card2 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 90px 5px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.twitter {
+  margin-top: 1.5em;
+  margin-left: -.9em;
+  fill: #03A9F4;
+}
+
+.card3 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 5px 5px 90px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.github {
+  margin-top: -.6em;
+  margin-left: 1.2em;
+}
+
+.card3:hover .github {
+  fill: white;
+}
+
+.circular-container {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: auto; /* centrar horizontalmente */
+}
+
+.circular-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* mantiene proporción y recorta en círculo */
+  display: block;
+}
+
+.card4 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 5px 90px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.discord {
+  margin-top: -.9em;
+  margin-left: -1.2em;
+  fill: #8c9eff;
+}
+
+.card1:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #cc39a4;
+}
+
+.card1:hover .instagram {
+  fill: white;
+}
+
+.card2:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #03A9F4;
+}
+
+.card2:hover .twitter {
+  fill: white;
+}
+
+.card3:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: black;
+}
+
+.card3:hover .github {
+  fill: white;
+}
+
+.card4:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: #8c9eff;
+}
+
+.card4:hover .discord {
+  fill: white;
 }

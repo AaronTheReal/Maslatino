@@ -3,75 +3,95 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6" size-lg="4">
         <div class="register-container">
+
+          <!-- Botón de regreso -->
           <ion-button fill="clear" class="back-button" size="small" (click)="goBack()">
             <ion-icon name="chevron-back-outline"></ion-icon>
           </ion-button>
-          <h1>Register</h1>
-          <p>You are just one step away from joining the most flavorful community in existence. Please complete the registration form to create your account and start enjoying the news.</p>
-         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <!-- Name -->
-  <ion-item>
-    <ion-label position="stacked">Name</ion-label>
-    <ion-input type="text" formControlName="name" placeholder="Type your name"></ion-input>
-  </ion-item>
-  <ion-text color="danger" *ngIf="name.invalid && (name.dirty || name.touched)">
-    <small *ngIf="name.errors?.['required']">Name is required.</small>
-  </ion-text>
 
-  <!-- Gender -->
-  <ion-item lines="none">
-    <ion-label>Gender</ion-label>
-    <ion-radio-group formControlName="gender" class="gender-group">
+          <!-- Título y descripción -->
+          <h1>Regístrate</h1>
+        <p>
+  Estás a solo un paso de unirte a la comunidad más sabrosa que existe.
+  Por favor completa el formulario de registro para crear tu cuenta y comenzar a disfrutar de las noticias.
+</p>
+
+
+          <!-- Formulario -->
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <!-- Nombre -->
+            <ion-item>
+              <ion-input type="text" formControlName="name" placeholder="Escribe tu Nombre"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <small *ngIf="name.errors?.['required']">Se requiere tu nombre.</small>
+            </ion-text>
+
+            <!-- Género -->
+            <ion-label class="label-left">Selecciona tu Género:</ion-label>
+<ion-radio-group formControlName="gender">
+  <ion-row>
+    <ion-col size="auto">
       <ion-item lines="none">
         <ion-radio slot="start" value="male"></ion-radio>
-        <ion-label>Male</ion-label>
+        <ion-label>Hombre</ion-label>
       </ion-item>
+    </ion-col>
+    <ion-col size="auto">
       <ion-item lines="none">
         <ion-radio slot="start" value="female"></ion-radio>
-        <ion-label>Female</ion-label>
+        <ion-label>Mujer</ion-label>
       </ion-item>
-    </ion-radio-group>
-  </ion-item>
-  <ion-text color="danger" *ngIf="gender.invalid && (gender.dirty || gender.touched)">
-    <small>Gender is required.</small>
-  </ion-text>
+    </ion-col>
+  </ion-row>
+</ion-radio-group>
+            <ion-text color="danger" *ngIf="gender.invalid && (gender.dirty || gender.touched)">
+              <small>Se requiere tu Género.</small>
+            </ion-text>
 
-  <!-- Country -->
-  <ion-item>
-    <ion-label position="stacked">Country</ion-label>
-    <ion-select interface="popover" placeholder="Select an option" formControlName="country">
-      <ion-select-option value="mx">Mexico</ion-select-option>
-      <ion-select-option value="us">United States</ion-select-option>
-      <ion-select-option value="es">Spain</ion-select-option>
-    </ion-select>
-  </ion-item>
-  <ion-text color="danger" *ngIf="country.invalid && (country.dirty || country.touched)">
-    <small>Country is required.</small>
-  </ion-text>
+            <!-- País -->
+           <ion-item lines="none" class="country-item">
+  <ion-label>País</ion-label>
+  <ion-select interface="popover" placeholder="Selecciona una Opción" formControlName="country">
+    <ion-select-option value="mx">México</ion-select-option>
+    <ion-select-option value="us">Estados Unidos</ion-select-option>
+    <ion-select-option value="es">España</ion-select-option>
+  </ion-select>
+</ion-item>
 
-  <!-- Email -->
-  <ion-item>
-    <ion-label position="stacked">Email</ion-label>
-    <ion-input type="email" formControlName="email" placeholder="Type your email"></ion-input>
-  </ion-item>
-  <ion-text color="danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-    <small *ngIf="email.errors?.['required']">Email is required.</small>
-    <small *ngIf="email.errors?.['email']">Invalid email format.</small>
-  </ion-text>
+<ion-text color="danger" *ngIf="country.invalid && (country.dirty || country.touched)">
+  <small>Se requiere tu País.</small>
+</ion-text>
 
-  <!-- Password -->
-  <ion-item>
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input type="password" formControlName="password" placeholder="Type your password"></ion-input>
-  </ion-item>
-  <ion-text color="danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-    <small *ngIf="password.errors?.['required']">Password is required.</small>
-    <small *ngIf="password.errors?.['minlength']">At least 6 characters.</small>
-  </ion-text>
+            <ion-text color="danger" *ngIf="country.invalid && (country.dirty || country.touched)">
+              <small>Se requiere tu País.</small>
+            </ion-text>
 
-  <!-- Submit -->
-  <ion-button expand="block" type="submit" [disabled]="registerForm.invalid">Register</ion-button>
-</form>
+            <!-- Correo -->
+            <ion-item>
+              <ion-input type="email" formControlName="email" placeholder="Escribe tu Correo"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+              <small *ngIf="email.errors?.['required']">Se requiere tu Correo.</small>
+              <small *ngIf="email.errors?.['email']">Formato de Correo inválido.</small>
+            </ion-text>
+
+            <!-- Contraseña -->
+            <ion-item>
+              <ion-input type="password" formControlName="password" placeholder="Escribe tu Contraseña"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+              <small *ngIf="password.errors?.['required']">Se requiere tu Contraseña.</small>
+              <small *ngIf="password.errors?.['minlength']">Usa una contraseña de al menos 6 caracteres.</small>
+            </ion-text>
+
+            <!-- Botón de registro -->
+            <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="button-primary">
+              Registrar
+            </ion-button>
+
+          </form>
 
         </div>
       </ion-col>
