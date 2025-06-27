@@ -1,0 +1,84 @@
+ion-content {
+  --background: #ffffff;
+}
+
+ion-grid {
+  height: 100%;
+}
+
+ion-row {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.register-container {
+  text-align: center;
+  padding: 20px;
+  max-width: 400px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+p {
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+ion-item {
+  --background: #F5F5F5;
+  --border-radius: 25px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  margin-bottom: 20px;
+  --border-width: 1px;
+  --border-color: #E0E0E0;
+}
+
+ion-label {
+  font-size: 14px;
+  color: #000000;
+  font-weight: 500;
+}
+
+ion-input, ion-select {
+  font-size: 14px;
+  color: #000000;
+  height: 50px;
+}
+
+ion-input::part(placeholder), ion-select::part(placeholder) {
+  color: #A0A0A0;
+}
+
+.login-button {
+  --background: #000000;
+  --color: #FFFFFF;
+  --border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  height: 50px;
+  margin-bottom: 20px;
+}
+
+.gender-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.back-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}

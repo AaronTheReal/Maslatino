@@ -15,7 +15,7 @@ import {
   IonCol,
   IonButton,
   IonIcon,
-  IonButtons  
+  IonButtons
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -23,29 +23,23 @@ import {
   templateUrl: './noticias-ind.component.html',
   styleUrls: ['./noticias-ind.component.scss'],
   standalone: true,
-imports: [
-  CommonModule,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonCard,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonButton,
-  IonIcon,
-  IonButtons
-]
-
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonButton,
+    IonIcon,
+    IonButtons
+  ]
 })
 export class NoticiasIndComponent implements OnInit {
   articles: Noticia[] = [];
-  paginatedArticles: Noticia[] = [];
-
-  currentPage = 1;
-  pageSize = 6;
-  totalPages = 1;
 
   constructor(
     private noticiasService: NoticiasService,
@@ -56,30 +50,9 @@ export class NoticiasIndComponent implements OnInit {
     this.noticiasService.getNoticias().subscribe({
       next: (data: Noticia[]) => {
         this.articles = data;
-        this.totalPages = Math.ceil(this.articles.length / this.pageSize);
-        this.updatePaginatedArticles();
       },
       error: (err) => console.error('Error al cargar noticias', err)
     });
-  }
-
-  updatePaginatedArticles(): void {
-    const start = (this.currentPage - 1) * this.pageSize;
-    this.paginatedArticles = this.articles.slice(start, start + this.pageSize);
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updatePaginatedArticles();
-    }
-  }
-
-  prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updatePaginatedArticles();
-    }
   }
 
   onCardClick(id?: string): void {
@@ -88,14 +61,11 @@ export class NoticiasIndComponent implements OnInit {
     }
   }
 
-  getBackground(image?: string): string {
-    return image ? `url(${image})` : 'none';
+  goBack(): void {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
-  goBack() {
-  if (window.history.length > 1) {
-    window.history.back();
-  } else {
-    this.router.navigate(['/home']);
-  }
-}
 }

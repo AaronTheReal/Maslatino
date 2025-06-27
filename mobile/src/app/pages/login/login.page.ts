@@ -1,53 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButton,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonIcon,
-} from '@ionic/angular/standalone';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonButton,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonIcon,
-  ]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonicModule]
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
+  loginForm: FormGroup;
 
-  constructor() { }
-
-  ngOnInit() { }
-
-  loginWith(provider: string) {
-    console.log('Login con', provider);
+  constructor() {
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
+    });
   }
 
-  recoverPassword() {
-    console.log('Recuperar contraseña');
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log('Formulario enviado', this.loginForm.value);
+      // Aquí puedes agregar la lógica para enviar el formulario
+    }
   }
-
-  goToRegister() {
-    console.log('Ir a registro');
-  }
-
 }

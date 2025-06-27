@@ -83,26 +83,27 @@ export const routes: Routes = [
     import('./components/despliegue-futuro/noticia-despliegue/noticia-despliegue.component')
       .then(m => m.NoticiaDespliegueComponent)
   },
+ 
   {
-  path: 'login',
-  loadComponent: () =>
-    import('./components/primera-vez/login/login.component').then(m => m.LoginComponent),
-}
-,{
-  path: 'registro',
-  loadComponent: () =>
-    import('./components/primera-vez/registro/registro.component').then(m => m.RegistroComponent),
-},
-  {
+
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
   },
   {
-    path: 'home',
-    loadComponent: () => import('./pages/home/home.page').then( m => m.HomePage)
-  }
+    path: 'register',
+    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
+  },
+  {
+    path: 'change-password',
+    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
+  },
+  
+
 
 ];
+
+
+
 /*
 // src/app/app.routes.ts
 import { Routes } from '@angular/router';
