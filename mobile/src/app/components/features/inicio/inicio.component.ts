@@ -1,16 +1,13 @@
-// src/app/home/home.page.ts
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 
-import { CarruselComponent } from '../components/features/carrusel/carrusel.component';
-import { NavbarComponent } from '../components/shared/navbar/navbar.component';
-import { NoticiasComponent } from '../components/features/noticias/noticias.component';
-import { PodcastsComponent } from '../components/features/podcasts/podcasts.component';
-import { InicioComponent } from '../../app/components/features/inicio/inicio.component';
-
-import { RadioComponent } from '../components/features/radio/radio.component';
-import { CategoriesComponent, CategoryItem } from '../components/features/categorias/categorias.component';
-import { FooterComponent } from '../components/shared/footer/footer.component';
+import { CarruselComponent } from '../../../components/features/carrusel/carrusel.component';
+import { NavbarComponent } from '../../../components/shared/navbar/navbar.component';
+import { NoticiasComponent } from '../../../components/features/noticias/noticias.component';
+import { PodcastsComponent } from '../../../components/features/podcasts/podcasts.component';
+import { RadioComponent } from '../../../components/features/radio/radio.component';
+import { CategoriesComponent, CategoryItem } from '../../../components/features/categorias/categorias.component';
+import { FooterComponent } from '../../../components/shared/footer/footer.component';
 import { CommonModule } from '@angular/common'; // <-- importa CommonModule
 import { HttpClientModule } from '@angular/common/http';
 import { Router,NavigationEnd } from '@angular/router';
@@ -18,9 +15,10 @@ import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { filter } from 'rxjs/operators';
 
-
-
 @Component({
+  selector: 'app-inicio',
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.scss'],
   standalone: true,
   imports: [
     IonicModule,
@@ -35,11 +33,8 @@ import { filter } from 'rxjs/operators';
     HttpClientModule,
     InicioComponent
   ],
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class InicioComponent  implements OnInit {
   slidesArray = [
     { img: 'assets/img/carousel1.jpg', title: 'Noticias de Interés' },
     { img: 'assets/img/carousel2.jpg', title: 'Eventos Especiales' },
@@ -54,18 +49,10 @@ export class HomePage implements OnInit {
 
   /** Pestaña activa en el footer */
   activeTab: string = 'home';
+  constructor() { }
 
-  constructor(private router: Router) {
+  ngOnInit() {
 
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.isLoginPage = event.url.includes('/login');
-      });
-  
-  }
-
-  ngOnInit(): void {
     /*
      const user = localStorage.getItem('user');
   if (!user) {
@@ -92,8 +79,8 @@ export class HomePage implements OnInit {
       // ... más categorías
     ];
     // podcastsArray similar...
-  }
 
+  }
   onNoticiaSeleccionada(item: any) {
     console.log('HomePage navega a detalle de:', item);
     // this.router.navigate(['/detalle-noticia', item.id]);
@@ -112,6 +99,4 @@ onFooterTabChanged(tabName: string) {
   this.activeTab = tabName;
   // Aquí decide si navegas a otra página o cambias secciones en esta vista.
 }
-
-
 }

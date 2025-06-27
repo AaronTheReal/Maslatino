@@ -1,4 +1,31 @@
+<!--home.component-->
 
+<ion-header *ngIf="!isLoginPage">
+  <ion-toolbar>
+    <app-navbar [username]="'Aaron Rodriguez'"></app-navbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="home-content">
+  <app-carrusel [slides]="slidesArray"></app-carrusel>
+  <app-noticias [newsList]="noticiasArray" (selectNoticia)="onNoticiaSeleccionada($event)"></app-noticias>
+  <app-podcasts [podcastsList]="podcastsArray" (selectPodcast)="onPodcastSeleccionado($event)"></app-podcasts>
+  <app-radio [radioList]="radiosArray" (selectRadio)="onRadioSeleccionada($event)"></app-radio>
+  <app-categorias [categoriesList]="categoriesArray" (selectCategory)="onCategoriaSeleccionada($event)"></app-categorias>
+</ion-content>
+
+<ion-footer *ngIf="!isLoginPage">
+  <app-footer [activeTab]="activeTab" (tabChange)="onFooterTabChanged($event)"></app-footer>
+</ion-footer>
+
+
+<!--
+<ion-app>
+  <ion-header *ngIf="!isLoginPage">
+    <ion-toolbar>
+      <app-navbar [username]="'Aaron Rodriguez'"></app-navbar>
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content fullscreen>
   <app-carrusel [slides]="slidesArray"></app-carrusel>
@@ -20,3 +47,11 @@
   ></app-categorias>
 </ion-content>
 
+  <ion-footer *ngIf="!isLoginPage">
+    <app-footer
+      [activeTab]="activeTab"
+      (tabChange)="onFooterTabChanged($event)"
+    ></app-footer>
+  </ion-footer>
+</ion-app>
+-->

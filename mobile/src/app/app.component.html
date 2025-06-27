@@ -1,31 +1,11 @@
 <!--app.component-html-->
+
 <ion-app>
-  <ion-header *ngIf="!isLoginPage">
-    <ion-toolbar>
-      <app-navbar [username]="'Aaron Rodriguez'"></app-navbar>
-    </ion-toolbar>
-  </ion-header>
 
     <ion-router-outlet></ion-router-outlet>
 
 
-  <ion-footer *ngIf="!isLoginPage">
-    <app-footer
-      [activeTab]="activeTab"
-      (tabChange)="onFooterTabChanged($event)"
-    ></app-footer>
-  </ion-footer>
-
-  
 </ion-app>
-
-
-
-
-
-
-
-
 
 
 <!--
