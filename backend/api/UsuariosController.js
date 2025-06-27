@@ -5,6 +5,40 @@ import Usuario from '../models/Usuarios.js';
 dotenv.config();
 
 class UsuariosController {
+
+async postIdiomaUsuario(req, res) {
+  try {
+    const { providerId, language } = req.body;
+
+    // Validar que los datos requeridos estén presentes
+    if (!providerId || !language) {
+      return res.status(400).json({ message: 'providerId y language son requeridos' });
+    }
+
+    // Validar que el idioma esté en los valores permitidos
+    const validLanguages = ['es', 'en', 'fr', 'pt'];
+    if (!validLanguages.includes(language)) {
+      return res.status(400).json({ message: 'Idioma no válido' });
+    }
+
+    // Buscar y actualizar el usuario
+    const updatedUser = await Usuario.findOneAndUpdate(
+      { providerId }, // Condición para encontrar al usuario
+      { language },   // Actualizar solo el campo language
+      { new: true, runValidators: true } // Retornar el documento actualizado y validar
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    return res.status(200).json({ message: 'Idioma actualizado exitosamente', user: updatedUser });
+  } catch (error) {
+    console.error('Error al actualizar el idioma:', error);
+    return res.status(500).json({ message: 'Error interno del servidor', error: error.message });
+  }
+}
+
   async postNuevoUsuario(req, res) {
     console.log(req.body);
     try {

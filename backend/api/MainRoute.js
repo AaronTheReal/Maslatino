@@ -45,6 +45,7 @@ export default class MainRoute {
     router.route('/getNoticiaDespliegue').post(NoticiasController.getNoticiaDespliegue);
 
     router.route('/registrarUsuario').post(UsuariosController.postNuevoUsuario);
+    router.route('/IdiomaUsuarioInicio').put(UsuariosController.postIdiomaUsuario);
 
     return router;
   }

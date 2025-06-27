@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { IonicModule, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UsuariosService, Usuario } from '../../services/usuarios-service';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-register',
@@ -44,19 +45,24 @@ export class RegisterPage implements OnInit {
 
   async onSubmit() {
     if (this.registerForm.valid) {
+      const { value: storedLanguage } = await Storage.get({ key: 'selectedLanguage' });
+        const allowedLanguages = ['es', 'en', 'fr', 'pt'] as const;
+        const selectedLanguage = allowedLanguages.includes(storedLanguage as any)
+          ? storedLanguage as (typeof allowedLanguages)[number]
+          : 'es';
       const nuevoUsuario: Usuario = {
         name: this.name.value,
         email: this.email.value,
         password: this.password.value,
         gender: this.gender.value,
         country: this.country.value,
-        provider: 'email', // <- por defecto si no es social
-        providerId: '', // <- podrías generar uno si lo usas
+        provider: 'email',
+        providerId: this.email.value,
         avatar: '',
-        categories: [], // <- vacío por ahora, luego se puede seleccionar
-        language: 'es'
+        categories: [],
+        language: selectedLanguage
       };
-      console.log("información usuario",nuevoUsuario)
+      console.log("información usuario", nuevoUsuario)
 
       this.usuariosService.createUsuario(nuevoUsuario).subscribe({
         next: async () => {
@@ -66,7 +72,9 @@ export class RegisterPage implements OnInit {
             color: 'success'
           });
           await toast.present();
-          this.router.navigate(['/login']);
+
+          await Storage.set({ key: 'hasCompletedOnboarding', value: 'true' });
+          this.router.navigate(['/bienvenida']);
         },
         error: async (err) => {
           console.error('Error en registro', err);

@@ -28,7 +28,11 @@ export class UsuariosService {
     return this.http.post<Usuario>( `${this.baseUrl}/registrarUsuario` , data);
   }
 
-
+  updateLanguage(providerId: string, language: string): Observable<any> {
+    const url = `${this.baseUrl}/IdiomaUsuarioInicio`;
+    const body = { providerId, language };
+    return this.http.put(url, body);
+  }
 }
 
 

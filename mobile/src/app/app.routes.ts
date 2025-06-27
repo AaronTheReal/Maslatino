@@ -103,6 +103,22 @@ export const routes: Routes = [
     path: 'change-password',
     loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
   },
+  {
+  path: 'start',
+  loadComponent: () => import('./pages/start/start.page').then(m => m.StartPage)
+},
+{
+  path: 'select-language',
+  loadComponent: () => import('./pages/select-language/select-language.page').then(m => m.SelectLanguagePage)
+},
+{
+  path: 'intro-tour',
+  loadComponent: () => import('./pages/intro-tour/intro-tour.page').then(m => m.IntroTourPage)
+},
+{
+  path: 'bienvenida',
+  loadComponent: () => import('./pages/bienvenida/bienvenida.page').then(m => m.BienvenidaPage)
+},
   
 
 

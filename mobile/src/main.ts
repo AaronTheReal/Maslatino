@@ -13,7 +13,6 @@ import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { importProvidersFrom } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'; // <-- IMPORTA ESTO
-
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

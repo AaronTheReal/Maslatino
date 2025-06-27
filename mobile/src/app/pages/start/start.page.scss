@@ -1,0 +1,54 @@
+ion-content {
+  --background: black;
+}
+
+.logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Asegura que el contenedor no restrinja el tamaño */
+  height: auto;
+}
+
+.logo {
+  max-width: 300px; /* Aumentado para un logo más grande */
+  max-height: 300px; /* Aumentado para un logo más grande */
+  width: 100%; /* Permite que la imagen use el máximo espacio disponible */
+  height: auto; /* Mantiene la proporción */
+  object-fit: contain; /* Evita distorsión */
+}
+
+.animation-container {
+  position: absolute;
+  bottom: 50px; /* Mantiene el espacio en la parte inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 30px solid white; /* Triángulo apunta a la derecha */
+  animation: moveRight 1.5s infinite;
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px); /* Movimiento hacia la derecha */
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

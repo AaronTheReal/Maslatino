@@ -3,13 +3,14 @@ import { AuthService } from '../../services/auth-service';
 import { Router } from '@angular/router';
 import { ToastController, IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Storage } from '@capacitor/storage';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule,ReactiveFormsModule]
+  imports: [IonicModule, ReactiveFormsModule]
 })
 export class LoginPage {
   loginForm: FormGroup;
@@ -25,19 +26,32 @@ export class LoginPage {
     });
   }
 
+  registrarse() {
+    this.router.navigate(['/register']);
+  }
+
   async onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
       this.authService.login(email, password).subscribe({
-        next: async () => {
+        next: async (res) => {
           const toast = await this.toastController.create({
-            message: 'Bienvenido!',
+            message: '¡Bienvenido!',
             duration: 2000,
             color: 'success'
           });
-          toast.present();
-          this.router.navigate(['/home']); // o donde quieras ir después del login
+          await toast.present();
+
+          await Storage.set({ key: 'hasCompletedOnboarding', value: 'true' });
+
+          // 🔥 Opcional: guardar el idioma actual del usuario
+          const user = res?.user;
+          if (user?.language) {
+            await Storage.set({ key: 'selectedLanguage', value: user.language });
+          }
+
+          this.router.navigate(['/bienvenida']);
         },
         error: async (err) => {
           const toast = await this.toastController.create({
@@ -45,7 +59,7 @@ export class LoginPage {
             duration: 3000,
             color: 'danger'
           });
-          toast.present();
+          await toast.present();
         }
       });
     }
