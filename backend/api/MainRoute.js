@@ -4,7 +4,7 @@ import path from 'path';
 import MainController from './MainController.js';
 import SpotifyController from './SpotifyController.js';
 import NoticiasController from './NoticiasController.js'
-
+import UsuariosController from './UsuariosController.js'
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +39,7 @@ export default class MainRoute {
 
     router.route('/getNoticiaDespliegue').post(NoticiasController.getNoticiaDespliegue);
 
+    router.route('/registrarUsuario').post(UsuariosController.postNuevoUsuario);
 
     return router;
   }

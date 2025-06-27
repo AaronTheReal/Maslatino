@@ -21,7 +21,7 @@ const FavoriteSchema = new Schema({
 const UserSchema = new Schema({
   provider: {
     type: String,
-    enum: ['google', 'facebook', 'apple', 'microsoft'],
+    enum: ['email', 'google', 'facebook', 'apple', 'microsoft'],
     required: true
   },
   providerId: {
@@ -29,9 +29,9 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-
   name: { type: String, trim: true },
   email: { type: String, trim: true },
+  password: { type: String, required: function () { return this.provider === 'email'; } },
   avatar: { type: String, trim: true },
 
   categories: [{
@@ -39,7 +39,6 @@ const UserSchema = new Schema({
     enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
     required: true
   }],
-
   language: {
     type: String,
     enum: ['es', 'en', 'fr', 'pt'],
