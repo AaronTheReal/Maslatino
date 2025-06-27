@@ -11,18 +11,46 @@ swiper-container {
 
 swiper-slide {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  text-align: center;
+  padding: 40px 20px;
 }
 
-swiper-slide img {
-  width: 100%;
+.intro-img {
+  width: 60%;
+  max-width: 250px;
   height: auto;
-  object-fit: cover;
+  margin-bottom: 24px;
+}
+
+.intro-title {
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.intro-subtitle {
+  color: #000;
+  font-size: 16px;
 }
 
 .action-btn {
-  margin-top: 20px;
+  margin-top: 40px;
   width: 80%;
+}
+
+.action-btn ion-button {
+  --background: #000;
+  color: #fff;
+}
+
+.intro-swiper::part(pagination-bullet) {
+  background: #ccc;
+}
+
+.intro-swiper::part(pagination-bullet-active) {
+  background: #000;
 }

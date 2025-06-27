@@ -1,0 +1,15 @@
+.video-page {
+  --background: #000;
+  ion-content {
+    padding: 0;
+  }
+}
+
+.fullscreen-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}

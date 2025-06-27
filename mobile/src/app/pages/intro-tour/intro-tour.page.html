@@ -1,11 +1,26 @@
-
 <ion-content>
-  <swiper-container slides-per-view="1" pagination="true" class="intro-swiper">
+  <swiper-container
+    slides-per-view="1"
+    pagination="true"
+    class="intro-swiper"
+  >
     <swiper-slide>
-      <img src="assets/img/intro1.jpg" alt="Introducción 1" />
+      <img
+        src="assets/Logo/Intro1.png"
+        alt="Introducción 1"
+        class="intro-img"
+      />
+      <h1 class="intro-title">Título introductorio</h1>
+      <p class="intro-subtitle">Descripción breve de la aplicación.</p>
     </swiper-slide>
     <swiper-slide class="with-button">
-      <img src="assets/img/intro2.jpg" alt="Introducción 2" />
+      <img
+        src="assets/Logo/Intro2.png"
+        alt="Introducción 2"
+        class="intro-img"
+      />
+      <h1 class="intro-title">Mantente informado</h1>
+      <p class="intro-subtitle">Explora todas nuestras secciones.</p>
       <div class="action-btn">
         <ion-button expand="block" (click)="proceed()">Continuar</ion-button>
       </div>
