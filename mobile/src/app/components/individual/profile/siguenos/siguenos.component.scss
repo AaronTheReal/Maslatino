@@ -1,0 +1,84 @@
+   .follow-us-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .follow-us-container h1 {
+      font-size: 28px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .follow-us-container p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .social-buttons {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px; /* Espaciado entre botones */
+    }
+
+    .social-button {
+      width: 100%;
+      height: 70px; /* Aumentado para alargar los botones */
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: capitalize;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    }
+
+    .social-button ion-icon {
+      margin-right: 10px;
+      font-size: 24px;
+    }
+
+    .social-button.instagram {
+      --background: #C13584; /* Morado de Instagram */
+    }
+
+    .social-button.tiktok {
+      --background: #000000; /* Negro de TikTok */
+    }
+
+    .social-button.facebook {
+      --background: #1877F2; /* Azul de Facebook */
+    }
+
+    .social-button.youtube {
+      --background: #FF0000; /* Rojo de YouTube */
+    }
+
+    .social-button.twitter {
+      --background: #1DA1F2; /* Azul claro de Twitter */
+    }
+
+    .social-button:hover {
+      opacity: 0.9; /* Efecto hover para interactividad */
+    }
+
+    ion-tab-bar {
+      background: #fff;
+      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    ion-tab-button ion-icon {
+      color: #666;
+    }
+
+    ion-tab-button.tab-selected ion-icon {
+      color: #000;
+    }

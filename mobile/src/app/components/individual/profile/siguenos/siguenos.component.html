@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+<br><br><br>
+  <ion-content>
+    <div class="follow-us-container">
+      <h1>Follow us</h1>
+      <p>You can also follow us on our social networks to get the latest news with flavor.</p>
+      <br>
+      <div class="social-buttons">
+        <ion-button class="social-button instagram">
+          <ion-icon name="logo-instagram"></ion-icon>
+          Instagram
+        </ion-button>
+        <ion-button class="social-button tiktok">
+          <ion-icon name="logo-tiktok"></ion-icon>
+          TikTok
+        </ion-button>
+        <ion-button class="social-button facebook">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Facebook
+        </ion-button>
+        <ion-button class="social-button youtube">
+          <ion-icon name="logo-youtube"></ion-icon>
+          YouTube
+        </ion-button>
+        <ion-button class="social-button twitter">
+          <ion-icon name="logo-twitter"></ion-icon>
+          Twitter
+        </ion-button>
+      </div>
+    </div>
+  </ion-content>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="home-outline"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="chat">
+        <ion-icon name="chatbubble-outline"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="play">
+        <ion-icon name="play-outline"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="calendar">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="plus" selected>
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>

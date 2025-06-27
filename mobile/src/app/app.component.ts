@@ -24,6 +24,7 @@ register();
 })
 export class AppComponent {
     activeTab: string = 'home';
+
   isLoginPage = false;
 
   constructor(private router: Router) {

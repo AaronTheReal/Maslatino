@@ -1,34 +1,74 @@
-// src/app/components/individual/profile/profile.component.ts
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import {
+  createOutline,
+  settingsOutline,
+  gridOutline,
+  heartOutline,
+  notificationsOutline,
+  peopleOutline,
+  languageOutline,
+  logOutOutline,
+  constructOutline
+} from 'ionicons/icons';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonAvatar,
+  IonButton,
+  IonIcon,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonButtons,       // Añadido para <ion-buttons>
+  IonListHeader,    // Añadido para <ion-list-header>
+  IonFooter         // Añadido para <ion-footer>
+} from '@ionic/angular/standalone';
 
-// Si tienes un UserService, descomenta e inyecta para obtener datos reales
-// import { UserService } from 'src/app/services/user.service';
+import { FooterComponent } from '../../../components/shared/footer/footer.component';
 
 interface UserProfile {
   name: string;
   email: string;
-  avatarUrl?: string; // URL de la imagen de perfil, opcional
+  avatarUrl?: string;
 }
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonAvatar,
+    IonButton,
+    IonIcon,
+    IonList,
+    IonItem,
+    IonLabel,
+    IonButtons,       // Añadido
+    IonListHeader,    // Añadido
+    IonFooter,        // Añadido
+    FooterComponent
+  ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
   user: UserProfile = {
-    // Valores por defecto o de prueba. Reemplaza obteniendo de tu UserService.
     name: 'Nombre Apellido',
     email: 'usuario@ejemplo.com',
-    avatarUrl: '', // deja vacío para mostrar iniciales
+    avatarUrl: '',
   };
 
-  // Define las opciones de menú en un array para iterar en template
   menuSections: Array<{
     header?: string;
     items: Array<{
@@ -37,17 +77,24 @@ export class ProfileComponent implements OnInit {
       action: () => void;
     }>;
   }> = [];
+  isLoginPage = false;
+  activeTab: string = 'profile';
 
-  constructor(
-    private router: Router,
-    // private userService: UserService
-  ) {}
+  constructor(private router: Router) {
+    addIcons({
+      'create-outline': createOutline,
+      'settings-outline': settingsOutline,
+      'grid-outline': gridOutline,
+      'heart-outline': heartOutline,
+      'notifications-outline': notificationsOutline,
+      'people-outline': peopleOutline,
+      'language-outline': languageOutline,
+      'log-out-outline': logOutOutline,
+      'construct-outline': constructOutline,
+    });
+  }
 
   ngOnInit() {
-    // Ejemplo: si tienes un UserService, obtén los datos reales:
-    // this.userService.getProfile().subscribe(profile => this.user = profile);
-
-    // Configura los items de menú:
     this.menuSections = [
       {
         header: 'General',
@@ -76,11 +123,14 @@ export class ProfileComponent implements OnInit {
             label: 'Cambiar idioma',
             icon: 'language-outline',
             action: () => this.navigateTo('/settings/language'),
-          },     {
+          },
+          /*
+          {
             label: 'Admin-Panel',
-            icon: 'admin-panel',
+            icon: 'construct-outline',
             action: () => this.navigateTo('/admin-panel'),
           },
+          */
           {
             label: 'Cerrar sesión',
             icon: 'log-out-outline',
@@ -88,38 +138,30 @@ export class ProfileComponent implements OnInit {
           },
         ],
       },
-      // Puedes añadir más secciones si lo requieres:
-      // {
-      //   header: 'Privacidad',
-      //   items: [
-      //     { label: 'Seguridad', icon: 'shield-checkmark-outline', action: () => this.navigateTo('/seguridad') },
-      //     ...
-      //   ]
-      // }
     ];
   }
 
-  /** Navega a una ruta interna */
   navigateTo(path: string) {
-    // Ajusta según tu esquema de rutas
     this.router.navigate([path]);
   }
 
-  /** Acción de editar perfil */
   editProfile() {
-    // Navega a página de edición de perfil
     this.router.navigate(['/profile/edit']);
   }
 
-  /** Cerrar sesión */
-  logout() {
-    // Lógica de logout: invocar tu servicio de autenticación, limpiar tokens, etc.
-    // this.authService.logout();
-    // Luego navegar a login o landing
-    this.router.navigate(['/login']);
+  openSettings() {
+    console.log('Abrir configuración');
   }
 
-  /** Devuelve iniciales si no hay avatarUrl */
+  logout() {
+    console.log('Cerrar sesión');
+  }
+
+  onFooterTabChanged(tabName: string) {
+    console.log('Footer seleccionó pestaña:', tabName);
+    this.activeTab = tabName;
+  }
+
   get initials(): string {
     if (!this.user.name) {
       return '';

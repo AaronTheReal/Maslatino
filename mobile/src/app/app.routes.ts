@@ -82,6 +82,11 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./components/despliegue-futuro/noticia-despliegue/noticia-despliegue.component')
       .then(m => m.NoticiaDespliegueComponent)
+  },{
+  path: 'siguenos',
+  loadComponent: () =>
+    import('./components/individual/profile/siguenos/siguenos.component')
+      .then(m => m.SiguenosComponent)
   },
  
   {
