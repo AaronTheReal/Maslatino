@@ -92,7 +92,15 @@ export const routes: Routes = [
   path: 'registro',
   loadComponent: () =>
     import('./components/primera-vez/registro/registro.component').then(m => m.RegistroComponent),
-}
+},
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.page').then( m => m.HomePage)
+  }
 
 ];
 /*

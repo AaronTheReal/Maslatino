@@ -32,11 +32,11 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 /* Evitar que contenido custom choque con notch */
-ion-app, ion-content {
-  /* Ionic ya maneja safe-area internamente, pero si tienes contenedores custom: */
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+ion-content {
+  --offset-top: 0px;
+  --offset-bottom: 0px;
 }
+
 
 /* Carrusel: limitar ancho en desktop, proporción en mobile */
 .my-swiper {

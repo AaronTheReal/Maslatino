@@ -1,48 +1,34 @@
-<div class="ion-page">
-  <ion-content [fullscreen]="true" class="login-page">
-    <div class="login-wrapper">
-      <div class="login-box">
-        <!-- Título -->
-        <h1 class="login-title">Login</h1>
-        <p class="login-subtitle">Inicia sesión para acceder a tu cuenta y personalizar tu experiencia.</p>
-
-        <!-- Formulario -->
-        <form>
-          <ion-item lines="none" class="custom-input">
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6" size-lg="4">
+        <div class="login-container">
+          <h1>Login</h1>
+          <p>Inicia sesión para acceder a tu cuenta y personalizar tu experiencia.</p>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <ion-label position="stacked">Email</ion-label>
-            <ion-input type="email" placeholder="Digite su email"></ion-input>
-          </ion-item>
-
-          <ion-item lines="none" class="custom-input">
-            <ion-label position="stacked">Contraseña</ion-label>
-            <ion-input type="password" placeholder="Digite su contraseña"></ion-input>
-          </ion-item>
-
-          <!-- Recuperar contraseña -->
-          <div class="text-right link-small" (click)="recoverPassword()">Recuperar contraseña</div>
-
-          <!-- Botón -->
-          <ion-button expand="block" class="btn-black">Ingresar</ion-button>
-
-          <!-- Divider -->
-          <div class="text-center continuar-con">Continuar con</div>
-
-          <!-- Social buttons -->
+            <ion-item>
+              <ion-input type="email" formControlName="email" placeholder="Escribe tu email"></ion-input>
+            </ion-item>
+                          <ion-label position="stacked">Contraseña</ion-label>
+            <ion-item>
+              <ion-input type="password" formControlName="password" placeholder="Escribe tu contraseña"></ion-input>
+            </ion-item>
+            <a class="recover-link">¿Olvidaste tu contraseña?</a>
+            <ion-button expand="block" type="submit" class="login-button">Login</ion-button>
+          </form>
+          <p class="continue-with">O continua con</p>
           <div class="social-buttons">
-            <div class="circle" (click)="loginWith('google')">
-              <ion-icon name="logo-google"></ion-icon>
-            </div>
-            <div class="circle" (click)="loginWith('apple')">
-              <ion-icon name="logo-apple"></ion-icon>
-            </div>
+            <ion-button class="social-button google">
+              <span class="icon-google"></span>
+            </ion-button>
+            <ion-button class="social-button apple">
+              <span class="icon-apple"></span>
+            </ion-button>
           </div>
-
-          <!-- Registro -->
-          <div class="text-center link-bottom">
-            ¿No tienes cuenta? <span (click)="goToRegister()"> <strong>Regístrate</strong></span>
-          </div>
-        </form>
-      </div>
-    </div>
-  </ion-content>
-</div>
+          <p class="register-link">¿No tienes cuenta? <a href="#">Regístrate</a></p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

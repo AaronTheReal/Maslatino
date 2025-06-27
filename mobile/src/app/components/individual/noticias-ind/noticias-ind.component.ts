@@ -13,7 +13,9 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonButton
+  IonButton,
+  IonIcon,
+  IonButtons  
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -21,18 +23,21 @@ import {
   templateUrl: './noticias-ind.component.html',
   styleUrls: ['./noticias-ind.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonCard,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonButton
-  ]
+imports: [
+  CommonModule,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton,
+  IonIcon,
+  IonButtons
+]
+
 })
 export class NoticiasIndComponent implements OnInit {
   articles: Noticia[] = [];
@@ -86,4 +91,11 @@ export class NoticiasIndComponent implements OnInit {
   getBackground(image?: string): string {
     return image ? `url(${image})` : 'none';
   }
+  goBack() {
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    this.router.navigate(['/home']);
+  }
+}
 }
