@@ -1,17 +1,36 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth-service';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ToastController, IonicModule } from '@ionic/angular';
-import { ReactiveFormsModule, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonItem,
+  IonInput,
+  IonButton,
+  ToastController,
+} from '@ionic/angular/standalone';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@capacitor/storage';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, ReactiveFormsModule]
-})
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonItem,
+    IonInput,
+    IonButton
+  ]})
 export class LoginPage {
   loginForm: FormGroup;
 

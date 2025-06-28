@@ -35,7 +35,7 @@ export class NoticiasService {
   getNoticiasInicio(categorias: string[]): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/getNoticiasInicio`, {
       categorias,
-      limite: 3 // Aquí decides cuántas quieres mostrar en dashboard
+      limite: 10 // Aquí decides cuántas quieres mostrar en dashboard
     });
   }
   getNoticia(noticia: string[]): Observable<any> {

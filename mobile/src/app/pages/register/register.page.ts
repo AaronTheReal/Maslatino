@@ -1,21 +1,50 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IonicModule, ToastController } from '@ionic/angular';
+import {
+  IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonItem,
+  IonInput,
+  IonRadio,
+  IonRadioGroup,
+  IonLabel,
+  IonText,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
+  IonIcon,
+  ToastController,
+} from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { UsuariosService, Usuario } from '../../services/usuarios-service';
 import { Storage } from '@capacitor/storage';
+
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-  imports: [
+imports: [
     CommonModule,
     ReactiveFormsModule,
-    IonicModule
-  ]
+    IonContent,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonItem,
+    IonInput,
+    IonRadio,
+    IonRadioGroup,
+    IonLabel,
+    IonText,
+    IonSelect,
+    IonSelectOption,
+    IonButton,
+    IonIcon]
 })
 export class RegisterPage implements OnInit {
   registerForm!: FormGroup;

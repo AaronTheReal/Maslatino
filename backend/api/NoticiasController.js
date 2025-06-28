@@ -48,7 +48,7 @@ async getNoticiaCategorias(req, res, next) {
     }
 
     // 3. Número máximo de noticias (puedes ajustarlo)
-    const limite = parseInt(req.body.limite) || 3;
+    const limite = parseInt(req.body.limite) || 10;
 
     console.log(categorias)
     // 4. Consulta filtrando por categorías

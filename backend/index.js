@@ -26,7 +26,9 @@ const allowedOrigins = [
   'http://localhost:5000',
   'https://phoenixdatam.com',
   'https://optometriaual.netlify.app',
-  'https://phoenixdatam.netlify.app'
+  'https://phoenixdatam.netlify.app',
+  'https://maslatinomobile.netlify.app'
+
 ];
 
 app.use(cors({
