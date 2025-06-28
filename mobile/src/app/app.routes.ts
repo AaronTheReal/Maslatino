@@ -48,18 +48,19 @@ export const routes: Routes = [
       import('./components/despliegue-futuro/noticia-despliegue/noticia-despliegue.component').then((m) => m.NoticiaDespliegueComponent),
 
   },
+  {
+    path: 'podcast-despliegue/:id',
+    loadComponent: () =>
+      import('./components/despliegue-futuro/podcast-despliegue/podcast-despliegue.component').then((m) => m.PodcastDespliegueComponent),
+
+  },
    {
     path: 'radio-despliegue/:id',
     loadComponent: () =>
       import('./components/despliegue-futuro/radio-despliegue/radio-despliegue.component').then((m) => m.RadioDespliegueComponent),
 
   },
-   {
-    path: 'podcast-despliegue/:id',
-    loadComponent: () =>
-      import('./components/despliegue-futuro/podcast-despliegue/podcast-despliegue.component').then((m) => m.PodcastDespliegueComponent),
 
-  },
 {
     path: 'play',
     loadComponent: () =>
@@ -76,14 +77,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/admin/admin-panel/admin-panel.component').then((m) => m.AdminPanelComponent),
 
-  },/*
-  {
-  path: 'noticia-despliegue/:id',
-  loadComponent: () =>
-    import('./components/despliegue-futuro/noticia-despliegue/noticia-despliegue.component')
-      .then(m => m.NoticiaDespliegueComponent)
-  }
-      ,*/{
+  },{
   path: 'siguenos',
   loadComponent: () =>
     import('./components/individual/profile/siguenos/siguenos.component')

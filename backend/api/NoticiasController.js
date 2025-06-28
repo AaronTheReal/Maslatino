@@ -26,7 +26,6 @@ class noticiasController {
     const noticia = await Noticia.find({
       _id: noticiaId
     })
-      console.log(noticia)
     res.status(200).json(noticia);
   } catch (e) {
     console.error(e);
@@ -50,7 +49,6 @@ async getNoticiaCategorias(req, res, next) {
     // 3. Número máximo de noticias (puedes ajustarlo)
     const limite = parseInt(req.body.limite) || 10;
 
-    console.log(categorias)
     // 4. Consulta filtrando por categorías
     const noticias = await Noticia.find({
       categories: { $in: categorias }
@@ -58,7 +56,6 @@ async getNoticiaCategorias(req, res, next) {
       .sort({ createdAt: -1 })
       .limit(limite);
 
-      console.log(noticias)
     res.status(200).json(noticias);
   } catch (e) {
     console.error(e);
@@ -81,7 +78,6 @@ async getAllNoticias(req, res, next) {
 
 
   async createNoticia(req, res, next) {
-    console.log(req.body)
     try {
       // Extraer datos del body
       const {

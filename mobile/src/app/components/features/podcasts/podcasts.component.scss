@@ -1,176 +1,138 @@
-/* src/app/components/features/podcasts/podcasts.component.scss */
-
 .podcast-section {
-  margin-top: 24px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 16px;
+  background-color: #f8f8f8;
 }
 
-/* Header */
 .podcast-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-
-  .podcast-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0;
-    color: var(--ion-text-color, #000);
-  }
-  ion-button.view-all-button {
-    --padding-start: 4px;
-    --padding-end: 4px;
-    --padding-top: 2px;
-    --padding-bottom: 2px;
-    font-size: 0.9rem;
-    color: var(--ion-color-primary, #3880ff);
-  }
+  margin-bottom: 16px;
 }
 
-/* Scroll horizontal de tarjetas */
+.podcast-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.view-all-button {
+  --color: #007bff;
+  font-size: 14px;
+}
+
+.podcast-content {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
 .podcast-scroll {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  gap: 12px;
-  padding-bottom: 8px;
-   scrollbar-width: none;
-    -ms-overflow-style: none;
+  gap: 16px;
 }
 
-/* Cada tarjeta de podcast en lista */
 .podcast-card {
-  flex: 0 0 auto;
-  /* Ancho de tarjeta: más estrecho que en noticias/carrusel */
-  min-width: 120px;
-  max-width: 160px;
-  background: var(--ion-background-color, #fff);
+  display: inline-block; /* Opcional, puedes quitarlo */
+  width: 160px;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  /* Ajusta espaciado interno si deseas */
-  /* padding: 8px; */
+  transition: transform 0.2s ease-in-out;
+  flex-shrink: 0; /* Línea añadida */
 }
 
-/* Imagen o icono en la tarjeta */
-.podcast-img-wrapper {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* cuadro cuadrado para miniatura */
-  overflow: hidden;
+.podcast-card:hover {
+  transform: translateY(-4px);
 }
+
+.podcast-image-container {
+  position: relative;
+  width: 100%;
+  height: 160px;
+}
+
 .podcast-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* Icono por defecto cuando no hay imagen */
-.podcast-default-icon {
+.podcast-placeholder-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+  background: #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--ion-background-color, #f0f0f0);
-}
-.podcast-default-icon ion-icon {
-  font-size: 2rem;
-  color: var(--ion-color-medium);
 }
 
-/* Texto dentro de la tarjeta */
+.placeholder-icon {
+  font-size: 48px;
+  color: #666;
+}
+
+.play-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 32px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 4px;
+}
+
 .podcast-text {
-  padding: 8px 6px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  padding: 12px;
 }
+
 .podcast-item-title {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--ion-text-color, #000);
-  line-height: 1.2;
-  /* Limitar una o dos líneas según largo */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.podcast-item-desc {
-  margin: 4px 0 0;
-  font-size: 0.8rem;
-  color: var(--ion-color-medium);
-  line-height: 1.2;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Placeholder cuando no hay podcasts */
-.podcast-placeholder-card {
-  margin: 0 auto;
-  max-width: 280px;
-  background: var(--ion-background-color, #fff);
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-.podcast-placeholder-card .placeholder-icon {
-  font-size: 2.5rem;
-  color: var(--ion-color-medium);
-}
-.podcast-placeholder-card .placeholder-icon ion-icon {
-  font-size: inherit;
-}
-.podcast-placeholder-card .placeholder-title {
-  margin: 0;
-  font-size: 1.1rem;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--ion-text-color, #000);
-}
-.podcast-placeholder-card .placeholder-text {
+  color: #1a1a1a;
   margin: 0;
-  font-size: 0.9rem;
-  color: var(--ion-color-medium);
-  line-height: 1.4;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-/* Responsivo: ajustar tamaños en pantallas más grandes */
-@media (min-width: 576px) {
-  .podcast-section {
-    padding-left: 24px;
-    padding-right: 24px;
-    margin-top: 28px;
-  }
-  .podcast-card {
-    min-width: 140px;
-    max-width: 180px;
-  }
+.podcast-item-desc {
+  font-size: 12px;
+  color: #666;
+  margin: 4px 0 0;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
-@media (min-width: 768px) {
-  .podcast-section {
-    padding-left: 32px;
-    padding-right: 32px;
-    margin-top: 32px;
-  }
-  .podcast-card {
-    min-width: 160px;
-    max-width: 200px;
-  }
+
+.podcast-placeholder {
+  text-align: center;
+  padding: 20px;
+}
+
+.podcast-placeholder-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 10px 0;
+}
+
+.placeholder-text {
+  font-size: 14px;
+  color: #666;
 }

@@ -1,53 +1,43 @@
-<!-- src/app/components/features/podcasts/podcasts.component.html -->
 <div class="podcast-section">
-  <!-- Cabecera: "Podcasts" y "Ver todo" -->
+  <!-- Encabezado -->
   <div class="podcast-header">
     <h2 class="podcast-title">Podcasts</h2>
-   <ion-button
-      fill="clear"
-      size="small"
-      class="view-all-button"
-      (click)="viewAll()">
+    <ion-button fill="clear" size="small" class="view-all-button" (click)="viewAll()">
       Ver todo
     </ion-button>
   </div>
 
-  <!-- Contenido: o bien lista horizontal si hay elementos, o placeholder -->
-  <ng-container *ngIf="podcastsList && podcastsList.length > 0; else noPodcasts">
-    <div class="podcast-scroll">
-      <div
-        class="podcast-card"
-        *ngFor="let pod of podcastsList"
-        (click)="onSelect(pod)"
-      >
-        <!-- Si hay imagen de portada -->
-        <div class="podcast-img-wrapper" *ngIf="pod.img; else defaultIcon">
-          <img [src]="pod.img" [alt]="pod.title" class="podcast-img" loading="lazy" />
+  <!-- Lista de podcasts -->
+  <div *ngIf="podcastsList && podcastsList.length > 0" class="podcast-content">
+  <div class="podcast-scroll">
+    <div class="podcast-card" *ngFor="let pod of podcastsList | slice:0:10" (click)="onSelect(pod)">
+      <!-- Imagen con ícono de reproducción -->
+      <div class="podcast-image-container">
+        <img *ngIf="pod.image" [src]="pod.image" [alt]="pod.title" class="podcast-img" loading="lazy" />
+        <div *ngIf="!pod.image" class="podcast-placeholder-image">
+          <ion-icon name="mic-circle-outline" class="placeholder-icon"></ion-icon>
         </div>
-        <ng-template #defaultIcon>
-          <div class="podcast-default-icon">
-            <ion-icon name="mic-outline"></ion-icon>
-          </div>
-        </ng-template>
-        <!-- Texto: título y opcional descripción breve -->
-        <div class="podcast-text">
-          <p class="podcast-item-title">{{ pod.title }}</p>
-          <p class="podcast-item-desc" *ngIf="pod.description">{{ pod.description }}</p>
-        </div>
+        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+      </div>
+      <!-- Texto del podcast -->
+      <div class="podcast-text">
+        <p class="podcast-item-title">{{ pod.title }}</p>
+        <p class="podcast-item-desc" *ngIf="pod.description">{{ pod.description | slice:0:50 }}...</p>
       </div>
     </div>
-  </ng-container>
+  </div>
+</div>
 
-  <!-- Placeholder cuando no hay podcasts -->
-  <ng-template #noPodcasts>
+  <!-- Marcador de posición si no hay podcasts -->
+  <div *ngIf="!podcastsList || podcastsList.length === 0" class="podcast-placeholder">
     <div class="podcast-placeholder-card">
       <div class="placeholder-icon">
         <ion-icon name="alert-circle-outline"></ion-icon>
       </div>
       <h3 class="placeholder-title">No hay podcasts disponibles</h3>
       <p class="placeholder-text">
-        ¡Ups! Parece que aún no tenemos podcasts aquí. Mientras tanto, explora otras categorías o idiomas y descubre más contenido que te encantará. ¡Vuelve pronto!
+        ¡Ups! Parece que aún no tenemos podcasts aquí. Explora otras categorías o idiomas y descubre más contenido que te encantará. ¡Vuelve pronto!
       </p>
     </div>
-  </ng-template>
+  </div>
 </div>

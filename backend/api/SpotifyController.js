@@ -16,6 +16,22 @@ class SpotifyController {
     // Enlazar método si vas a usarlo como handler directamente
     this.apiSearchPodcast = this.apiSearchPodcast.bind(this);
   }
+  async getPodcastDespliegue(req, res) {
+    try {
+
+      const podcastId = req.body.id; // Obtener el ID del parámetro de la URL
+
+      const podcast = await Podcast.findById(podcastId); // Buscar el podcast en la base de datos
+      if (!podcast) {
+        return res.status(404).json({ message: 'Podcast no encontrado' });
+      }
+      res.json(podcast); // Devolver los detalles del podcast
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error del servidor' });
+    }
+  }
+
   async getSpotifyToken() {
     
     const now = Date.now();
@@ -141,6 +157,7 @@ async savePodcast(req, res) {
 async getAllPodcasts(req, res) {
   try {
     const all = await Podcast.find().sort({ addedAt: -1 });
+
     res.json(all);
   } catch (err) {
     console.error(err);

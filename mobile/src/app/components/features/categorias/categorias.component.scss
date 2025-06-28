@@ -49,8 +49,8 @@
   flex: 0 0 auto;
   /* Ajusta ancho: prueba algo como min-width: 80px o 90px para mostrar varias en pantalla móvil.
      Aquí un ejemplo: */
-  min-width: 80px;
-  max-width: 100px;
+  min-width: 90px;
+  max-width: 110px;
   cursor: pointer;
 }
 
@@ -101,8 +101,8 @@
     margin-top: 28px;
   }
   .category-card {
-    min-width: 90px;
-    max-width: 110px;
+    min-width: 100px;
+    max-width: 120px;
   }
 }
 @media (min-width: 768px) {
@@ -112,7 +112,7 @@
     margin-top: 32px;
   }
   .category-card {
-    min-width: 100px;
-    max-width: 120px;
+    min-width: 120px;
+    max-width: 140px;
   }
 }

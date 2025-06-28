@@ -40,7 +40,6 @@ async postIdiomaUsuario(req, res) {
 }
 
   async postNuevoUsuario(req, res) {
-    console.log(req.body);
     try {
       const {
         name,

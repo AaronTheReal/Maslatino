@@ -2,7 +2,7 @@
 
 <ion-header *ngIf="!isLoginPage">
   <ion-toolbar>
-<app-navbar *ngIf="user" [username]="user.name"></app-navbar>
+    <app-navbar *ngIf="user" [username]="user.name"></app-navbar>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,6 @@
 <ion-footer *ngIf="!isLoginPage">
   <app-footer [activeTab]="activeTab" (tabChange)="onFooterTabChanged($event)"></app-footer>
 </ion-footer>
-
 <!--
 <ion-app>
   <ion-header *ngIf="!isLoginPage">

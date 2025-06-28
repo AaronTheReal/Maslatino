@@ -33,8 +33,8 @@ export default class MainRoute {
     router.route('/search').get(SpotifyController.apiSearchPodcast);
     router.route('/podcast').post(SpotifyController.savePodcast);
     router.route('/podcasts').get(SpotifyController.getAllPodcasts);
+    router.route('/podcastIndividual').post(SpotifyController.getPodcastDespliegue);
 
-    router.route('/podcasts').get(SpotifyController.getAllPodcasts);
 
     //noticias
     //router.route('/noticiasGet').get(NoticiasController.getAllNoticias);

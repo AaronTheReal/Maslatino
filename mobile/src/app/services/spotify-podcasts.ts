@@ -1,14 +1,22 @@
-// spotify-podcasts.service.ts
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
-export class SpotifyPodcastsService {
-  private baseUrl = 'http://localhost:3000/aaron/maslatino'; // Ajuste necesario para que coincida con tu backend
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PodcastService { // Cambia el nombre si ya tienes otro servicio
+  private baseUrl = 'http://localhost:3000/aaron/maslatino'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 
-  searchPodcasts(query: string) {
-    return this.http.get<any[]>(`${this.baseUrl}/search?q=${encodeURIComponent(query)}`);
+  // Método para obtener todos los podcasts
+  getPodcasts(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/podcasts`);
   }
+  getPodcastById(id:any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/podcastIndividual`, {id});
+  }
+
 }

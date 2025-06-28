@@ -24,10 +24,8 @@ const allowedOrigins = [
   'http://192.168.1.10:5000',
   'http://192.168.1.10:4200',
   'http://localhost:5000',
-  'https://phoenixdatam.com',
-  'https://optometriaual.netlify.app',
-  'https://phoenixdatam.netlify.app',
-  'https://maslatinomobile.netlify.app'
+  'https://maslatinomobile.netlify.app',
+  'https://super-cajeta-50e752.netlify.app'
 
 ];
 
