@@ -29,6 +29,38 @@ h1 {
   margin-bottom: 20px;
 }
 
+.content-wrapper {
+  text-align: left; /* ← Alinea todo el texto a la izquierda */
+  padding: 20px;
+}
+
+.content-wrapper h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.content-wrapper p {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+
+.flag-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+.language-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 p {
   font-family: 'Roboto', sans-serif;
   font-weight: normal;
