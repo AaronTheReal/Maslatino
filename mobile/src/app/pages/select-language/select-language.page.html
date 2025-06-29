@@ -7,15 +7,20 @@
           <h1>ANTES DE CONTINUAR...</h1>
           <!-- Subencabezado -->
           <p>Selecciona tu preferencia</p>
-          
+
           <!-- Contenedor de botones de idioma -->
-          <div class="language-buttons">
-            <ion-button *ngFor="let lang of languages" class="language-btn" [class.selected]="selectedLanguage === lang.code" (click)="selectLanguage(lang.code)">
-              <div class="flag-placeholder"></div>
-              {{ lang.name }}
-            </ion-button>
-          </div>
-          
+        <!-- Contenedor de botones de idioma -->
+<div class="language-buttons">
+  <ion-button *ngFor="let lang of languages"
+              class="language-btn"
+              [class.selected]="selectedLanguage === lang.code"
+              (click)="selectLanguage(lang.code)">
+    <img [src]="getFlagUrl(lang.code)" class="flag-icon" alt="{{ lang.name }} flag" />
+    {{ lang.name }}
+  </ion-button>
+</div>
+
+
           <!-- Botón Continuar -->
           <ion-button class="continue-btn" (click)="onContinue()">CONTINUAR</ion-button>
         </div>

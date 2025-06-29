@@ -30,6 +30,12 @@ export class SelectLanguagePage implements OnInit {
     this.selectedLanguage = code;
   }
 
+  getFlagUrl(code: string): string {
+  return `/assets/flags/${code}.png`;
+}
+
+
+
   async onContinue() {
     // Guardar el idioma seleccionado en Storage
     await Preferences.set({ key: 'selectedLanguage', value: this.selectedLanguage });
