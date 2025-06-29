@@ -5,6 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { PodcastService } from '../../../services/spotify-podcasts';
 import { FormsModule } from '@angular/forms';
 import { SafePipe } from '../../../pipes/safe.pipe';
+import { addIcons } from 'ionicons'; // Importar addIcons desde ionicons
+import { heartOutline, heart } from 'ionicons/icons';
 
 @Component({
   selector: 'app-podcast-despliegue',
@@ -15,11 +17,15 @@ import { SafePipe } from '../../../pipes/safe.pipe';
 })
 export class PodcastDespliegueComponent implements OnInit {
   podcast: any;
+  isFavorite: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private podcastService: PodcastService
-  ) {}
+  ) {
+    // Registrar los íconos
+    addIcons({ 'heart-outline': heartOutline, heart });
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -27,6 +33,10 @@ export class PodcastDespliegueComponent implements OnInit {
       this.podcast = data;
       console.log('🎙️ Podcast:', this.podcast);
     });
+  }
+
+  toggleFavorite() {
+    this.isFavorite = !this.isFavorite;
   }
 
   share() {
