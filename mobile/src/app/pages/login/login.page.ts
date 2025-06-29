@@ -59,8 +59,10 @@ export class LoginPage {
           const toast = await this.toastController.create({
             message: '¡Bienvenido!',
             duration: 2000,
-            color: 'success'
+      cssClass: 'custom-toast'  // Aquí defines tu clase personalizada
           });
+
+ 
           await toast.present();
 
           await Preferences.set({ key: 'hasCompletedOnboarding', value: 'true' });

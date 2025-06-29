@@ -39,10 +39,12 @@ export class SelectLanguagePage implements OnInit {
   async onContinue() {
     // Guardar el idioma seleccionado en Storage
     await Preferences.set({ key: 'selectedLanguage', value: this.selectedLanguage });
+
+    
     const toast = await this.toastController.create({
       message: 'Idioma seleccionado: ' + this.selectedLanguage,
       duration: 2000,
-      color: 'success'
+      cssClass: 'custom-toast'  // Aquí defines tu clase personalizada
     });
     await toast.present();
     // Redirigir a la siguiente pantalla del flujo de bienvenida

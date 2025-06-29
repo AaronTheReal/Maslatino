@@ -119,3 +119,18 @@ p {
   font-size: 16px;
   text-transform: uppercase;
 }
+
+
+/* En styles.scss o componente.scss */
+.custom-toast {
+  --background: #000000;
+  --color: #ffffff;
+  font-family: 'Poppins', sans-serif;  /* Puedes cambiar por 'Roboto', 'Montserrat', etc. */
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  text-align: center;
+  padding: 14px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(255, 255, 255, 0.1);
+}
