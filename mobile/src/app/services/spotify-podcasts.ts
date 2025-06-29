@@ -1,22 +1,43 @@
-
-import { Injectable } from '@angular/core';
+// podcast.service.ts
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class PodcastService { // Cambia el nombre si ya tienes otro servicio
-  private baseUrl = 'http://localhost:3000/aaron/maslatino'; // Reemplaza con la URL de tu backend
+export class PodcastService {
+  private baseUrl = 'http://localhost:3000/aaron/maslatino';
 
   constructor(private http: HttpClient) {}
 
-  // Método para obtener todos los podcasts
+      getShows(): Observable<any[]> {
+          return this.http.get<any>(`${this.baseUrl}/shows`).pipe(
+            map(data => {
+              // Ensure the response is an array
+              if (Array.isArray(data)) {
+                return data;
+              } else if (data && data.shows && Array.isArray(data.shows)) {
+                // Handle case where array is nested, e.g., { shows: [...] }
+                return data.shows;
+              } else {
+                // Fallback to empty array if data is invalid
+                return [];
+              }
+            })
+          );
+        }
+  // Fetch a specific show by ID (including its episodes)
+  getShowById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/shows/${id}`);
+  }
+
+  // Existing methods for individual podcasts (if needed)
   getPodcasts(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/podcasts`);
   }
-  getPodcastById(id:any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/podcastIndividual`, {id});
-  }
 
+  getPodcastById(id: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/podcastIndividual`, { id });
+  }
 }

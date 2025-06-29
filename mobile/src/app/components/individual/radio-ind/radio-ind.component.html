@@ -1,42 +1,51 @@
-<div class="title-isla">
-  Radio
-  <ion-icon name="add"></ion-icon>
- <!-- <ion-icon name="newspaper-outline" class="icono-isla"></ion-icon> -->
-</div>
-
 <ion-content class="radios-content">
-  <!-- Buscador -->
+  <!-- Back button -->
+  <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+  <!-- Main title -->
+  <h1 class="page-title">Radio</h1>
+
+  <!-- Search bar -->
   <div class="search-wrapper">
-    <ion-icon name="search-outline"></ion-icon>
+    <div class="search-icon">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
     <input
       type="text"
-      placeholder="Buscar radio"
+      placeholder="Buscar radio..."
       class="search-input"
+      [(ngModel)]="searchTerm"
+      (input)="filterShows()"
     />
   </div>
 
-  <!-- Filtros por categoría -->
-  <div class="filter-tabs">
+  <!-- Category filters (non-functional for now) -->
+  <div class="filter-tabs hide-scrollbar">
     <button class="tab-button selected">Todos</button>
+    <button class="tab-button">Mundo</button>
     <button class="tab-button">Arte</button>
+    <button class="tab-button">Política</button>
+    <button class="tab-button">Finanzas</button>
+    <button class="tab-button">Familia</button>
     <button class="tab-button">Deportes</button>
+    <button class="tab-button">Salud</button>
     <button class="tab-button">Educación</button>
-    <!-- ... -->
   </div>
 
-  <!-- Grid de radios -->
+  <!-- Shows grid -->
   <div class="radio-grid">
-    <div class="radio-card" *ngFor="let pod of [1,2,3,4]">
-      <div class="iframe-wrapper">
-        <iframe
-          [src]="'https://open.spotify.com/embed/episode/ID_' + pod"
-          allow="encrypted-media"
-          frameborder="0"
-          loading="lazy"
-        ></iframe>
+    <div
+      class="radio-card"
+      *ngFor="let show of filteredShows"
+      (click)="goToShowDetail(show._id)"
+    >
+      <div class="image-wrapper">
+        <img [src]="show.image" [alt]="show.title" />
       </div>
       <div class="radio-info">
-        <h3 class="radio-title">Nombre de la radio {{ pod }}</h3>
+        <h3 class="radio-title">{{ show.title }}</h3>
         <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
       </div>
     </div>

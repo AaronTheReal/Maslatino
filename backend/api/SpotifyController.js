@@ -3,6 +3,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import Podcast from '../models/Podcast.js'; // asegúrate de importar el modelo
+import Show from '../models/Show.js'; // asegúrate de importar el modelo
 
 
 dotenv.config();
@@ -16,6 +17,27 @@ class SpotifyController {
     // Enlazar método si vas a usarlo como handler directamente
     this.apiSearchPodcast = this.apiSearchPodcast.bind(this);
   }
+
+
+async getShowsAndEpisodes(req, res) {
+    try {
+      // Query all shows with relevant fields and their episodes
+      const shows = await Show.find()
+        .select('spotifyId title image embedUrl episodes')
+        .lean(); // Convert to plain JavaScript objects for better performance
+        console.log(shows)
+ res.status(200).json(shows); // sin `{ success, data }`
+
+    } catch (error) {
+      console.error('Error fetching shows and episodes:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Error fetching shows and episodes',
+        error: error.message,
+      });
+    }
+  }
+
   async getPodcastDespliegue(req, res) {
     try {
 

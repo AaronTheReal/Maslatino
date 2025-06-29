@@ -1,22 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Noticias</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content fullscreen>
+  <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+  <h1 class="page-title">Noticias</h1>
+
+  <div class="search-wrapper">
+    <div class="search-icon">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filter()"
+      placeholder="Buscar por título..."
+      class="search-input"
+    />
+  </div>
+
   <ion-grid class="news-list-grid">
     <ion-row>
       <ion-col
         size="12"
         size-sm="6"
         size-md="4"
-        *ngFor="let item of articles"
+        *ngFor="let item of filtered"
       >
         <div class="news-card" (click)="onCardClick(item._id!)">
           <div class="image-wrapper">
