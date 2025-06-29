@@ -6,6 +6,7 @@ import { PodcastService } from '../../../services/spotify-podcasts';
 import { FormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
 import { playBack, play, playForward, share, pause } from 'ionicons/icons';
+import { SafePipe } from '../../../pipes/safe.pipe'; // Ajusta la ruta si es necesario
 
 declare global {
   interface Window {
@@ -19,7 +20,7 @@ declare global {
   templateUrl: './podcast-despliegue.component.html',
   styleUrls: ['./podcast-despliegue.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule],
+  imports: [CommonModule, IonicModule, FormsModule, SafePipe],
 })
 export class PodcastDespliegueComponent implements AfterViewInit {
   @ViewChild('spotifyEmbed') spotifyEmbed!: ElementRef;
@@ -43,6 +44,7 @@ export class PodcastDespliegueComponent implements AfterViewInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.podcastService.getPodcastById(id).subscribe((data) => {
       this.podcast = data;
+      console.log(this.podcast)
       this.duration = data.duration * 1000; // Convertir a milisegundos
       this.initSpotifyController();
     });

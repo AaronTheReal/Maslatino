@@ -1,0 +1,26 @@
+.podcast-fullscreen {
+  --background: #000;
+}
+
+.iframe-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #000;
+}
+
+.info {
+  color: white;
+  padding: 1rem;
+}
+
+.author {
+  font-weight: bold;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.desc {
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
