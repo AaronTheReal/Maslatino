@@ -1,15 +1,18 @@
 // src/app/components/features/podcasts/podcasts.component.ts
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-;
-interface RadioItem {
-  id?: any;
+import { PodcastService } from '../../../services/spotify-podcasts';
+
+export interface RadioItem {
+  _id?: string;
+  spotifyId: string;
   title: string;
-  img?: string;         // opcional: si no hay imagen, mostramos icono
-  description?: string; // opcional: podrías usarla en un tooltip o detalle
-  // otros campos que necesites, ej. streamUrl?: string
+  description?: string;
+  image?: string;
+  url?: string;
+  embedUrl?: string;
 }
 
 @Component({
@@ -19,21 +22,27 @@ interface RadioItem {
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
 })
-export class RadioComponent {
-  /** Lista de estaciones de radio */
+export class RadioComponent implements OnInit {
   @Input() radioList: RadioItem[] = [];
   @Output() selectRadio = new EventEmitter<RadioItem>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private podcastService: PodcastService) {}
+
+  ngOnInit(): void {
+    this.podcastService.getPodcasts().subscribe({
+      next: (data) => {
+        this.radioList = data.slice(0, 10); // 👈 Mostrar solo 10
+        console.log(this.radioList);
+      },
+      error: (err) => console.error('Error al cargar podcasts', err),
+    });
+  }
 
   onSelect(item: RadioItem) {
     this.selectRadio.emit(item);
   }
-    /** Navega a la lista completa de podcasts */
+
   viewAll() {
     this.router.navigate(['/radio']);
   }
 }
-
-
-

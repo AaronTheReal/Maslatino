@@ -49,7 +49,19 @@ export class HomePage implements OnInit {
     url?: string;
     embedUrl?: string;
   }> = [];
-  radiosArray: Array<{ id?: any; title: string; img?: string; description?: string }> = [];
+  
+radiosArray: Array<{
+  _id?: string;
+  spotifyId: string;
+  title: string;
+  image?: string;
+  description?: string;
+  url?: string;
+  embedUrl?: string;
+}> = [];
+
+
+  
   categoriesArray: CategoryItem[] = [];
   isLoginPage = false;
   activeTab: string = 'home';
@@ -87,11 +99,7 @@ export class HomePage implements OnInit {
       { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Noticia Relevante', id: 2 },
     ];
 
-    this.radiosArray = [
-      { img: 'assets/imgNews/noticia1.png', title: 'Primera Estación', id: 1 },
-      { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Estación', id: 2 },
-    ];
-
+ 
     this.categoriesArray = [
       { id: 1, name: 'Arte' },
       { id: 2, name: 'Deportes' },

@@ -24,6 +24,11 @@ import {
   IonBackButton   // Añadido para <ion-tab-bar>
 } from '@ionic/angular/standalone';
 import { logoInstagram, logoTiktok, logoFacebook, logoYoutube, logoTwitter } from 'ionicons/icons';
+import { Browser } from '@capacitor/browser';
+
+
+
+
 @Component({
   selector: 'app-siguenos',
   templateUrl: './siguenos.component.html',
@@ -70,4 +75,7 @@ export class SiguenosComponent implements OnInit {
     console.log('Footer seleccionó pestaña:', tabName);
     this.activeTab = tabName;
   }
+async openExternal(url: string) {
+  await Browser.open({ url });
+}
 }

@@ -31,6 +31,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { FooterComponent } from '../../../components/shared/footer/footer.component';
+import { Preferences } from '@capacitor/preferences';
 
 interface UserProfile {
   name: string;
@@ -153,9 +154,10 @@ export class ProfileComponent implements OnInit {
     console.log('Abrir configuración');
   }
 
-  logout() {
-    console.log('Cerrar sesión');
-  }
+async logout() {
+  await Preferences.clear();
+  this.router.navigate(['/login']);
+}
 
   onFooterTabChanged(tabName: string) {
     console.log('Footer seleccionó pestaña:', tabName);
@@ -174,4 +176,8 @@ export class ProfileComponent implements OnInit {
     const last = parts[parts.length - 1].charAt(0).toUpperCase();
     return `${first}${last}`;
   }
+
+
+
+
 }

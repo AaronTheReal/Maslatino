@@ -22,14 +22,14 @@
       >
         <div class="image-wrapper">
           <!-- Si hay imagen, mostrarla; si no, icono por defecto -->
-          <ng-container *ngIf="item.img; else defaultIcon">
-            <img
-              [src]="item.img"
-              [alt]="item.title"
-              class="radio-img"
-              loading="lazy"
-            />
-          </ng-container>
+    <ng-container *ngIf="item.image; else defaultIcon">
+      <img
+        [src]="item.image"
+        [alt]="item.title"
+        class="radio-img"
+        loading="lazy"
+      />
+    </ng-container>
           <ng-template #defaultIcon>
             <div class="radio-default-icon">
               <ion-icon name="radio-outline"></ion-icon>
