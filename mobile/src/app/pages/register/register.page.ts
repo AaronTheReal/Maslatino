@@ -20,7 +20,7 @@ import {
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { UsuariosService, Usuario } from '../../services/usuarios-service';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 
 
 @Component({
@@ -74,7 +74,7 @@ export class RegisterPage implements OnInit {
 
   async onSubmit() {
     if (this.registerForm.valid) {
-      const { value: storedLanguage } = await Storage.get({ key: 'selectedLanguage' });
+      const { value: storedLanguage } = await Preferences.get({ key: 'selectedLanguage' });
         const allowedLanguages = ['es', 'en', 'fr', 'pt'] as const;
         const selectedLanguage = allowedLanguages.includes(storedLanguage as any)
           ? storedLanguage as (typeof allowedLanguages)[number]
@@ -102,7 +102,7 @@ export class RegisterPage implements OnInit {
           });
           await toast.present();
 
-          await Storage.set({ key: 'hasCompletedOnboarding', value: 'true' });
+          await Preferences.set({ key: 'hasCompletedOnboarding', value: 'true' });
           this.router.navigate(['/bienvenida']);
         },
         error: async (err) => {

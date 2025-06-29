@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { PodcastService } from '../services/spotify-podcasts'; // Adjust path as needed
+import { PodcastService } from '../services/spotify-podcasts';
 import { CarruselComponent } from '../components/features/carrusel/carrusel.component';
 import { NavbarComponent } from '../components/shared/navbar/navbar.component';
 import { NoticiasComponent } from '../components/features/noticias/noticias.component';
@@ -67,13 +67,12 @@ export class HomePage implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.authService.getUser().then(user => {
       this.user = user;
       console.log('usuario', this.user);
     });
 
-    // Fetch podcasts data
     this.podcastService.getPodcasts().subscribe(
       (data) => {
         this.podcastsArray = data;
@@ -83,15 +82,16 @@ export class HomePage implements OnInit {
       }
     );
 
-    // Existing static data
     this.noticiasArray = [
       { img: 'assets/imgNews/noticia1.png', title: 'Primera Noticia Importante', id: 1 },
       { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Noticia Relevante', id: 2 },
     ];
+
     this.radiosArray = [
       { img: 'assets/imgNews/noticia1.png', title: 'Primera Estación', id: 1 },
       { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Estación', id: 2 },
     ];
+
     this.categoriesArray = [
       { id: 1, name: 'Arte' },
       { id: 2, name: 'Deportes' },
@@ -107,8 +107,7 @@ export class HomePage implements OnInit {
   }
 
   onPodcastSeleccionado(item: any) {
-    console.log('HomePage reproduce podcast:', item);
-    // Optionally handle navigation here instead of in PodcastsComponent
+    console.log('HomePage reproduce podcast (via iframe):', item);
   }
 
   onRadioSeleccionada(item: any) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonGrid, IonRow, IonCol, ToastController } from '@ionic/angular/standalone';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,7 +32,7 @@ export class SelectLanguagePage implements OnInit {
 
   async onContinue() {
     // Guardar el idioma seleccionado en Storage
-    await Storage.set({ key: 'selectedLanguage', value: this.selectedLanguage });
+    await Preferences.set({ key: 'selectedLanguage', value: this.selectedLanguage });
     const toast = await this.toastController.create({
       message: 'Idioma seleccionado: ' + this.selectedLanguage,
       duration: 2000,

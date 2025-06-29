@@ -1,1 +1,10 @@
-{}
+{
+  "appId": "com.maslatino.realmedia",
+  "appName": "RealMedia",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "iosScheme": "capacitor"
+  }
+}

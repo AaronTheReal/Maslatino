@@ -1,17 +1,24 @@
-<ion-content class="ion-padding podcast-fullscreen" fullscreen>
-  <div class="iframe-wrapper">
-    <iframe
-      [src]="podcast.embedUrl | safe:'resourceUrl'"
-      frameborder="0"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      style="border: none; width: 100%; height: 152px;"
-      loading="lazy"
-    ></iframe>
-  </div>
+<ion-content class="ion-padding">
+  <div class="podcast-background" [style.background-image]="'url(' + podcast?.image + ')'"></div>
 
-  <div class="info">
-    <h2>{{ podcast.title }}</h2>
-    <p class="author">{{ podcast.authorName }}</p>
-    <p class="desc">{{ podcast.description }}</p>
+  <div class="foreground-container">
+
+    <div class="overlay">
+      <h1 class="title">{{ podcast?.title }}</h1>
+      <p class="description">{{ podcast?.description }}</p>
+    </div>
+
+    <div class="iframe-wrapper">
+      <iframe
+        *ngIf="podcast?.embedUrl"
+        [src]="podcast.embedUrl | safe:'resourceUrl'"
+        width="100%"
+        height="380"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+
   </div>
 </ion-content>

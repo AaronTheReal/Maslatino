@@ -12,7 +12,8 @@ import {
   ToastController,
 } from '@ionic/angular/standalone';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
+
 import { AuthService } from '../../services/auth-service';
 
 @Component({
@@ -62,12 +63,12 @@ export class LoginPage {
           });
           await toast.present();
 
-          await Storage.set({ key: 'hasCompletedOnboarding', value: 'true' });
+          await Preferences.set({ key: 'hasCompletedOnboarding', value: 'true' });
 
           // 🔥 Opcional: guardar el idioma actual del usuario
           const user = res?.user;
           if (user?.language) {
-            await Storage.set({ key: 'selectedLanguage', value: user.language });
+
           }
 
           this.router.navigate(['/bienvenida']);

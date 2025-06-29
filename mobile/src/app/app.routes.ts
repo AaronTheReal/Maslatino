@@ -113,8 +113,10 @@ export const routes: Routes = [
   path: 'bienvenida',
   loadComponent: () => import('./pages/bienvenida/bienvenida.page').then(m => m.BienvenidaPage)
 },
-  
-
+  {
+    path: 'callback',
+    loadComponent: () => import('./pages/callback/callback.page').then( m => m.CallbackPage)
+  },
 
 ];
 

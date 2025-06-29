@@ -1,4 +1,3 @@
-import { Storage } from '@capacitor/storage';
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
 import {NavbarComponent} from './components/shared/navbar/navbar.component';
@@ -15,6 +14,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Preferences } from '@capacitor/preferences';
 
 register();
 @Component({
@@ -38,9 +38,9 @@ export class AppComponent {
   }
 
 async checkOnboardingStatus() {
-  const { value: hasCompletedOnboarding } = await Storage.get({ key: 'hasCompletedOnboarding' });
-  const { value: selectedLanguage } = await Storage.get({ key: 'selectedLanguage' });
-
+ const { value: hasCompletedOnboarding } = await Preferences.get({ key: 'hasCompletedOnboarding' });
+const { value: selectedLanguage } = await Preferences.get({ key: 'selectedLanguage' });
+ 
   if (!hasCompletedOnboarding) {
     // Usuario NUEVO: empezar recorrido
     this.router.navigate(['/start']);
