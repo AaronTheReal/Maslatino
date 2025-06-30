@@ -3,20 +3,20 @@
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6" size-lg="4">
         <div class="login-container">
-            <h1>Login</h1>
+         <h1>{{ 'LOGIN_TITLE' | translate }}</h1>
 
-          <p>Inicia sesión para acceder a tu cuenta y personalizar tu experiencia.</p>
+          <p>{{ 'LOGIN_SUBTITLE' | translate }}</p>
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <ion-item>
-              <ion-input type="email" formControlName="email" placeholder="Escribe tu email"></ion-input>
+              <ion-input type="email" formControlName="email" [placeholder]="'EMAIL_PLACEHOLDER' | translate"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input type="password" formControlName="password" placeholder="Escribe tu contraseña"></ion-input>
+              <ion-input type="password" formControlName="password" [placeholder]="'PASSWORD_PLACEHOLDER' | translate"></ion-input>
             </ion-item>
-            <a class="recover-link">¿Olvidaste tu contraseña?</a>
-            <ion-button expand="block" type="submit" class="button-primary">Login</ion-button>
+            <a class="recover-link">{{ 'FORGOT_PASSWORD' | translate }}</a>
+            <ion-button expand="block" type="submit" class="button-primary">{{ 'LOGIN_BUTTON' | translate }}</ion-button>
           </form>
-            <ion-button expand="block" type ="button"class="button-primary" (click)="registrarse()">Registrate</ion-button>
+            <ion-button expand="block" type ="button"class="button-primary" (click)="registrarse()">{{ 'REGISTER_BUTTON' | translate }}</ion-button>
 
           <div class="social-buttons">
 <div class="main">

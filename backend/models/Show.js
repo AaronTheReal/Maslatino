@@ -1,45 +1,57 @@
-  import mongoose from 'mongoose';
-  const { Schema, model, Types } = mongoose;
+import mongoose from 'mongoose';
+const { Schema, model, Types } = mongoose;
 
-  const ShowSchema = new Schema({
-    spotifyId: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    description: { type: String },
-    image: { type: String }, // carátula del episodio
-    url: { type: String },    // enlace a Spotify
-    embedUrl: { type: String }, // link embed iframe (precalculado)
-    duration: { type: Number }, // en segundos (opcional)
-    releaseDate: { type: Date }, // fecha de publicación real
+const EpisodeSchema = new Schema({
+  spotifyId: { type: String, required: true },
+  title: { type: String, required: true },
+  description: String,
+  duration: Number, // en segundos
+  releaseDate: Date,
+  embedUrl: String,
+  image: String
+}, { _id: false }); // Para evitar _id anidados por cada episodio
 
-    // Relación opcional con un autor (creador interno)
-    author: { type: Types.ObjectId, ref: 'User' },
-    authorName: { type: String },
+const ShowSchema = new Schema({
+  spotifyId: { type: String, required: true, unique: true },
+  title: { type: String, required: true },
+  description: { type: String },
+  image: { type: String }, // carátula del show
+  url: { type: String },    // enlace a Spotify
+  embedUrl: { type: String }, // link embed iframe (precalculado para show)
+  duration: { type: Number }, // duración promedio (opcional)
+  releaseDate: { type: Date }, // fecha de lanzamiento original
 
-    // Compatibles con sistema de filtrado del usuario
-    categories: [{
-      type: String,
-      enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
-      required: true
-    }],
-    tags: [{ type: String, trim: true }],
-    language: {
-      type: String,
+  // Relación opcional con un autor (creador interno)
+  author: { type: Types.ObjectId, ref: 'User' },
+  authorName: { type: String },
+
+  // Episodios anidados directamente
+  episodes: [EpisodeSchema],
+
+  categories: [{
+    type: String,
+    enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
+    required: true
+  }],
+  tags: [{ type: String, trim: true }],
+  language: {
+    type: String,
     enum: [
       'es', 'es-MX', 'es-AR', 'es-BO', 'es-CL', 'es-CO', 'es-CR', 'es-CU', 'es-DO',
       'es-EC', 'es-SV', 'es-GT', 'es-HN', 'es-NI', 'es-PA', 'es-PY', 'es-PE', 'es-PR',
       'es-UY', 'es-VE', 'pt', 'pt-BR', 'fr', 'en-US', 'en-GB', 'en-CA'
-    ],      
+    ],
     default: 'es'
-    },
+  },
 
-    meta: {
-      description: { type: String },
-      image: { type: String } // carátula alternativa o específica
-    },
+  meta: {
+    description: { type: String },
+    image: { type: String } // carátula alternativa
+  },
 
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
-  });
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
+});
 
   // Autogenerar embedUrl si falta
   ShowstSchema.pre('save', function (next) {
@@ -50,4 +62,4 @@
     next();
   });
 
-  export default model('Show', ShowSchema);
+export default model('Show', ShowSchema);

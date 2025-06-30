@@ -16,19 +16,19 @@ import {
   IonSelectOption,
   IonButton,
   IonIcon,
-  ToastController,
+  ToastController
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { UsuariosService, Usuario } from '../../services/usuarios-service';
 import { Preferences } from '@capacitor/preferences';
-
+import { TranslateService, TranslateModule } from '@ngx-translate/core'; // 👈
 
 @Component({
   selector: 'app-register',
   standalone: true,
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-imports: [
+  imports: [
     CommonModule,
     ReactiveFormsModule,
     IonContent,
@@ -44,19 +44,27 @@ imports: [
     IonSelect,
     IonSelectOption,
     IonButton,
-    IonIcon]
+    IonIcon,
+    TranslateModule // 👈 ¡IMPORTANTE!
+  ]
 })
 export class RegisterPage implements OnInit {
   registerForm!: FormGroup;
+  currentLanguage = '';
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private usuariosService: UsuariosService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private translate: TranslateService // 👈
   ) {}
 
   ngOnInit() {
+    this.currentLanguage = this.translate.currentLang || 'es';
+    this.translate.use(this.currentLanguage);
+    console.log('Idioma actual en register:', this.currentLanguage);
+
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       gender: ['', Validators.required],
@@ -75,10 +83,11 @@ export class RegisterPage implements OnInit {
   async onSubmit() {
     if (this.registerForm.valid) {
       const { value: storedLanguage } = await Preferences.get({ key: 'selectedLanguage' });
-        const allowedLanguages = ['es', 'en', 'fr', 'pt'] as const;
-        const selectedLanguage = allowedLanguages.includes(storedLanguage as any)
-          ? storedLanguage as (typeof allowedLanguages)[number]
-          : 'es';
+      const allowedLanguages = ['es', 'en', 'fr', 'pt'] as const;
+      const selectedLanguage = allowedLanguages.includes(storedLanguage as any)
+        ? storedLanguage as (typeof allowedLanguages)[number]
+        : 'es';
+
       const nuevoUsuario: Usuario = {
         name: this.name.value,
         email: this.email.value,
@@ -91,12 +100,11 @@ export class RegisterPage implements OnInit {
         categories: [],
         language: selectedLanguage
       };
-      console.log("información usuario", nuevoUsuario)
 
       this.usuariosService.createUsuario(nuevoUsuario).subscribe({
         next: async () => {
           const toast = await this.toastController.create({
-            message: 'Registro exitoso.',
+            message: this.translate.instant('REGISTER_SUCCESS'),
             duration: 2000,
             color: 'success'
           });
@@ -108,7 +116,7 @@ export class RegisterPage implements OnInit {
         error: async (err) => {
           console.error('Error en registro', err);
           const toast = await this.toastController.create({
-            message: 'Error al registrar. Intenta más tarde.',
+            message: this.translate.instant('REGISTER_ERROR'),
             duration: 2500,
             color: 'danger'
           });

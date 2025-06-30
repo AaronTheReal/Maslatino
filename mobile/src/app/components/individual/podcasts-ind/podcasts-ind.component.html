@@ -1,45 +1,64 @@
-<!--
-<div class="title-isla">
-  Podcast
-  <ion-icon name="add"></ion-icon>
-<ion-icon name="newspaper-outline" class="icono-isla"></ion-icon>
-</div>
--->
 <ion-content class="podcasts-content">
-  <!-- Buscador -->
+  <!-- Botón de regreso -->
+  <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+  <!-- Título principal -->
+  <h1 class="page-title">Podcasts</h1>
+
+  <!-- Buscador con ícono dentro -->
   <div class="search-wrapper">
-    <ion-icon name="search-outline"></ion-icon>
+    <div class="search-icon">
+      <ion-icon name="search-outline"></ion-icon>
+    </div>
     <input
       type="text"
-      placeholder="Buscar podcast"
+      [(ngModel)]="searchTerm"
+      (input)="filterPodcasts()"
+      placeholder="Buscar por nombre..."
       class="search-input"
     />
   </div>
 
   <!-- Filtros por categoría -->
-  <div class="filter-tabs">
+  <div class="filter-tabs hide-scrollbar">
     <button class="tab-button selected">Todos</button>
+    <button class="tab-button">Mundo</button>
     <button class="tab-button">Arte</button>
+    <button class="tab-button">Política</button>
+    <button class="tab-button">Finanzas</button>
+    <button class="tab-button">Familia</button>
     <button class="tab-button">Deportes</button>
+    <button class="tab-button">Salud</button>
     <button class="tab-button">Educación</button>
-    <!-- ... -->
   </div>
 
-  <!-- Grid de podcasts -->
-  <div class="podcast-grid">
-    <div class="podcast-card" *ngFor="let pod of [1,2,3,4]">
-      <div class="iframe-wrapper">
-        <iframe
-          [src]="'https://open.spotify.com/embed/episode/ID_' + pod"
-          allow="encrypted-media"
-          frameborder="0"
-          loading="lazy"
-        ></iframe>
-      </div>
-      <div class="podcast-info">
-        <h3 class="podcast-title">Título del Podcast {{ pod }}</h3>
-        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
-      </div>
+  <!-- Skeleton Loading -->
+  <div *ngIf="isLoading" class="podcast-grid">
+    <div class="iframe-item" *ngFor="let n of [1,2,3,4,5,6]">
+      <div class="skeleton-box"></div>
     </div>
   </div>
+
+  <!-- Grid de resultados -->
+  <div *ngIf="!isLoading && filteredPodcasts.length > 0; else noPodcasts" class="podcast-grid">
+    <div class="iframe-item" *ngFor="let pod of filteredPodcasts">
+      <iframe
+        [src]="pod.safeEmbedUrl"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        frameborder="0"
+        loading="lazy"
+        width="100%"
+        height="170"
+      ></iframe>
+    </div>
+  </div>
+
+  <ng-template #noPodcasts>
+    <div class="no-podcasts-message">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <p>No hay podcasts disponibles.</p>
+    </div>
+  </ng-template>
 </ion-content>

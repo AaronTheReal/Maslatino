@@ -29,6 +29,8 @@
     "@capacitor/preferences": "^7.0.1",
     "@capacitor/status-bar": "7.0.1",
     "@ionic/angular": "^8.6.2",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
     "@spotify/web-api-ts-sdk": "^1.2.0",
     "ionic": "^5.4.16",
     "ionicons": "^7.4.0",

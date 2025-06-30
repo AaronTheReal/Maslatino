@@ -1,0 +1,76 @@
+{
+   "SELECT_LANGUAGE_TITLE": "ANTES DE CONTINUAR...",
+  "SELECT_LANGUAGE_SUBTITLE": "Selecciona tu preferencia",
+  "CONTINUE": "CONTINUAR",
+  "LANGUAGE_SELECTED": "Idioma seleccionado",
+    "INTRO_1_TITLE": "Descubre tu podcast favorito",
+  "INTRO_1_SUBTITLE": "Accede a los eventos más recientes y relevantes de todo el mundo en un solo lugar.",
+  "INTRO_2_TITLE": "Personaliza tu contenido",
+  "INTRO_2_SUBTITLE": "Elige tus temas favoritos y recibe noticias personalizadas para ti.",
+  "LOGIN_TITLE": "Login",
+  "LOGIN_SUBTITLE": "Inicia sesión para acceder a tu cuenta y personalizar tu experiencia.",
+  "EMAIL_PLACEHOLDER": "Escribe tu email",
+  "PASSWORD_PLACEHOLDER": "Escribe tu contraseña",
+  "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
+  "LOGIN_BUTTON": "Login",
+  "REGISTER_BUTTON": "Regístrate",
+
+  "LOGIN_SUCCESS": "¡Bienvenido!",
+  "LOGIN_ERROR": "Login fallido. Verifica tus datos.",
+
+
+
+  
+    "REGISTER_TITLE": "Regístrate",
+  "REGISTER_DESCRIPTION": "Estás a solo un paso de unirte a la comunidad más sabrosa que existe. Por favor completa el formulario de registro para crear tu cuenta y comenzar a disfrutar de las noticias.",
+  "NAME_PLACEHOLDER": "Escribe tu Nombre",
+  "NAME_REQUIRED": "Se requiere tu nombre.",
+  "SELECT_GENDER": "Selecciona tu Género:",
+  "GENDER_MALE": "Hombre",
+  "GENDER_FEMALE": "Mujer",
+  "GENDER_REQUIRED": "Se requiere tu Género.",
+  "COUNTRY_LABEL": "País",
+  "COUNTRY_PLACEHOLDER": "Selecciona una Opción",
+  "COUNTRY_MX": "México",
+  "COUNTRY_US": "Estados Unidos",
+  "COUNTRY_ES": "España",
+  "COUNTRY_REQUIRED": "Se requiere tu País.",
+  "EMAIL_REQUIRED": "Se requiere tu Correo.",
+  "EMAIL_INVALID": "Formato de Correo inválido.",
+  "PASSWORD_REQUIRED": "Se requiere tu Contraseña.",
+  "PASSWORD_MIN": "Usa una contraseña de al menos 6 caracteres.",
+  "WELCOME": "Bienvenido",
+  "Noticias":"Noticias",
+  "Ver_Todo": "Ver  todo",
+  "Categorias": "Categorías",
+  "Estaciones de radio":"Estaciones de radio",
+    "Buscar_por_titulo": "Buscar por titulo",
+    "Perfíl" : "Perfíl",
+      "PROFILE": {
+    "TITLE": "Perfíl",
+    "EDIT": "Editar perfil",
+    "SETTINGS": "Configuración",
+    "AVATAR_ALT": "Avatar de {{name}}",
+    "GENERAL": "General",
+    "CATEGORIES": "Categorías",
+    "FAVORITES": "Favoritos",
+    "NOTIFICATIONS": "Notificaciones",
+    "FOLLOW_US": "Síguenos",
+    "CHANGE_LANGUAGE": "Cambiar idioma",
+    "LOGOUT": "Cerrar sesión"
+  },
+  "CATEGORY": {
+    "ART": "Arte",
+    "SPORTS": "Deportes",
+     "WORLD": "Mundo",
+     "FAMILY": "Familia",
+     "POLITICIAN": "Politica",
+     "Finanzas": "Finanzas",
+     "HEALTH": "Salud"
+  }
+
+
+
+
+
+}

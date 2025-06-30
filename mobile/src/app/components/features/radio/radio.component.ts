@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { PodcastService } from '../../../services/spotify-podcasts';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
+
 
 export interface RadioItem {
   _id?: string;
@@ -17,7 +19,7 @@ export interface RadioItem {
 
 @Component({
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule,TranslateModule],
   selector: 'app-radio',
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
@@ -26,10 +28,10 @@ export class RadioComponent implements OnInit {
   @Input() radioList: RadioItem[] = [];
   @Output() selectRadio = new EventEmitter<RadioItem>();
 
-  constructor(private router: Router, private podcastService: PodcastService) {}
+  constructor(private router: Router, private podcastService: PodcastService,public translate: TranslateService) {}
 
   ngOnInit(): void {
-    this.podcastService.getPodcasts().subscribe({
+    this.podcastService.getShows().subscribe({
       next: (data) => {
         this.radioList = data.slice(0, 10); // 👈 Mostrar solo 10
         console.log(this.radioList);

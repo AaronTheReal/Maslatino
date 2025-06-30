@@ -83,19 +83,19 @@ export const routes: Routes = [
     import('./components/individual/profile/siguenos/siguenos.component')
       .then(m => m.SiguenosComponent)
   },
- 
+
   {
 
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
+    loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
   {
     path: 'change-password',
-    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
+    loadComponent: () => import('./pages/change-password/change-password.page').then(m => m.ChangePasswordPage)
   },
   {
   path: 'start',
@@ -104,6 +104,10 @@ export const routes: Routes = [
 {
   path: 'select-language',
   loadComponent: () => import('./pages/select-language/select-language.page').then(m => m.SelectLanguagePage)
+},
+{
+  path: 'select-category',
+  loadComponent: () => import('./pages/select-category/select-category.page').then(m => m.SelectCategoryPage)
 },
 {
   path: 'intro-tour',

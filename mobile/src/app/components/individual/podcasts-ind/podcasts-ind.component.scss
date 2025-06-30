@@ -1,121 +1,147 @@
-:host {
-  --ion-background-color: #fff;
-}
-
 .podcasts-content {
   padding: 16px;
 }
 
-/* Buscador */
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 48px 0 16px 0;
+  text-align: center;
+}
+
+/* Botón de regreso */
+.back-button {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1000;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 24px;
+    color: #000; // o usa #333 si prefieres más suave
+  }
+}
+
+/* Buscador con ícono dentro del input */
 .search-wrapper {
   display: flex;
   align-items: center;
   background: #f2f2f2;
-  padding: 0 12px;
-  border-radius: 8px;
+  padding: 4px 12px;
+  border-radius: 24px;
   margin-bottom: 16px;
+  gap: 8px;
 
-  ion-icon {
-    font-size: 20px;
-    color: #888;
-    margin-right: 8px;
+  .search-icon {
+    ion-icon {
+      font-size: 18px;
+      color: #999;
+    }
   }
 
   .search-input {
     flex: 1;
     border: none;
-    height: 40px;
+    height: 36px;
     font-size: 14px;
     outline: none;
     background: transparent;
     color: #333;
+    border-radius: 24px;
+  }
+
+  .search-input::placeholder {
+    color: #999;
+    font-style: italic;
   }
 }
 
-/* Pestañas de filtro */
 .filter-tabs {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
 
-  .tab-button {
-    flex-shrink: 0;
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 16px;
-    background: #f2f2f2;
-    color: #555;
-    cursor: pointer;
-    transition: background 0.2s;
+.tab-button {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 16px;
+  background: #f2f2f2;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.2s;
 
-    &.selected {
-      background: #000;
-      color: #fff;
-    }
+  &.selected {
+    background: #000;
+    color: #fff;
   }
 }
 
-/* Grid de podcasts */
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .podcast-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
+}
 
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
+.iframe-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  iframe {
+    width: 95%;
+    max-width: 100%;
+    border-radius: 12px;
+    border: none;
+    display: block;
   }
 }
 
-/* Tarjeta de podcast */
-.podcast-card {
-  display: flex;
-  flex-direction: column;
-  background: #f9f9f9;
+/* Skeleton loader */
+.skeleton-box {
+  width: 95%;
+  height: 152px;
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(90deg, #eeeeee 25%, #dddddd 50%, #eeeeee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
 
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.no-podcasts-message {
+  text-align: center;
+  margin-top: 40px;
+
+  ion-icon {
+    font-size: 48px;
+    color: #ccc;
   }
 
-  .iframe-wrapper {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 ratio */
-
-    iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: none;
-      border-bottom: 1px solid #e0e0e0;
-    }
-  }
-
-  .podcast-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px;
-
-    .podcast-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #333;
-      margin: 0;
-      flex: 1;
-      line-height: 1.2;
-    }
-
-    .play-icon {
-      font-size: 24px;
-      color: #333;
-      margin-left: 8px;
-    }
+  p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #777;
   }
 }

@@ -30,6 +30,8 @@
 .podcast-scroll {
   display: flex;
   gap: 16px;
+   scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .podcast-card {

@@ -3,13 +3,12 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NoticiasService } from '../../../services/noticias-service';
 import { Noticia } from '../../../models/noticia.model';
-
+import { FormsModule } from '@angular/forms';
 import {
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
-  IonCard,
   IonGrid,
   IonRow,
   IonCol,
@@ -17,55 +16,71 @@ import {
   IonIcon,
   IonButtons
 } from '@ionic/angular/standalone';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 @Component({
   selector: 'app-noticias-ind',
+  standalone: true,
   templateUrl: './noticias-ind.component.html',
   styleUrls: ['./noticias-ind.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
-    IonCard,
     IonGrid,
     IonRow,
     IonCol,
     IonButton,
     IonIcon,
-    IonButtons
+    IonButtons,
+    TranslateModule
   ]
 })
 export class NoticiasIndComponent implements OnInit {
+  searchTerm = '';
   articles: Noticia[] = [];
+  filtered: Noticia[] = [];
+isFavorite = false;
 
-  constructor(
-    private noticiasService: NoticiasService,
-    private router: Router
-  ) {}
+  constructor(private noticiasService: NoticiasService, private router: Router,public translate: TranslateService
+) {}
 
   ngOnInit(): void {
     this.noticiasService.getNoticias().subscribe({
       next: (data: Noticia[]) => {
         this.articles = data;
+        this.filtered = data;
       },
       error: (err) => console.error('Error al cargar noticias', err)
     });
   }
 
-  onCardClick(id?: string): void {
-    if (id) {
-      this.router.navigate(['/noticia-despliegue', id]);
+  filter(): void {
+    const term = this.normalize(this.searchTerm.trim().toLowerCase());
+    if (!term) {
+      this.filtered = this.articles;
+      return;
     }
+
+    const words = term.split(/\s+/);
+    this.filtered = this.articles.filter(n =>
+      words.every(word => this.normalize(n.title.toLowerCase()).includes(word))
+    );
+  }
+
+  normalize(text: string): string {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  onCardClick(id?: string): void {
+    if (id) this.router.navigate(['/noticia-despliegue', id]);
   }
 
   goBack(): void {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      this.router.navigate(['/home']);
-    }
+    this.router.navigate(['/home']);
   }
+  
 }

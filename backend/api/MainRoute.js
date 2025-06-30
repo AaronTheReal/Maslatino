@@ -34,7 +34,9 @@ export default class MainRoute {
     router.route('/podcast').post(SpotifyController.savePodcast);
     router.route('/podcasts').get(SpotifyController.getAllPodcasts);
     router.route('/podcastIndividual').post(SpotifyController.getPodcastDespliegue);
+    router.post('/showIndividual',SpotifyController.getShowDespliegue.bind(SpotifyController));
 
+    router.route('/shows').get(SpotifyController.getShowsAndEpisodes);
 
     //noticias
     //router.route('/noticiasGet').get(NoticiasController.getAllNoticias);
@@ -46,6 +48,7 @@ export default class MainRoute {
 
     router.route('/registrarUsuario').post(UsuariosController.postNuevoUsuario);
     router.route('/IdiomaUsuarioInicio').put(UsuariosController.postIdiomaUsuario);
+    router.route('/update-language').put(UsuariosController.UpdateLanguagee);
 
     return router;
   }

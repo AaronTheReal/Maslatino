@@ -32,6 +32,16 @@ import {
 
 import { FooterComponent } from '../../../components/shared/footer/footer.component';
 import { Preferences } from '@capacitor/preferences';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
+
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
+import { AuthService } from '../../../services/auth-service';
+import { UsuariosService } from '../../../services/usuarios-service';
+
+import { AlertController } from '@ionic/angular';
+
 
 interface UserProfile {
   name: string;
@@ -42,6 +52,7 @@ interface UserProfile {
 @Component({
   selector: 'app-profile',
   standalone: true,
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     IonHeader,
@@ -58,7 +69,9 @@ interface UserProfile {
     IonButtons,       // Añadido
     IonListHeader,    // Añadido
     IonFooter,        // Añadido
-    FooterComponent
+    FooterComponent,
+    TranslateModule,
+    
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
@@ -80,8 +93,13 @@ export class ProfileComponent implements OnInit {
   }> = [];
   isLoginPage = false;
   activeTab: string = 'profile';
-
-  constructor(private router: Router) {
+  usuario: any;
+  constructor(
+    private router: Router, 
+    public translate: TranslateService, 
+    private alertCtrl: AlertController, 
+    private usuariosService: UsuariosService,
+    private authService: AuthService ) {
     addIcons({
       'create-outline': createOutline,
       'settings-outline': settingsOutline,
@@ -96,47 +114,50 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.authService.getUser().then(user => {
+      this.user = user;
+      console.log('usuario', this.user);
+
+      if (user?.language) {
+        this.translate.use(user.language);
+        console.log('Idioma del usuario aplicado en Home:', user.language);
+      }
+    });
+
     this.menuSections = [
+    {
+    header: 'PROFILE.GENERAL',
+    items: [
       {
-        header: 'General',
-        items: [
-          {
-            label: 'Categorías',
-            icon: 'grid-outline',
-            action: () => this.navigateTo('/categorias'),
-          },
-          {
-            label: 'Favoritos',
-            icon: 'heart-outline',
-            action: () => this.navigateTo('/favoritos'),
-          },
-          {
-            label: 'Notificaciones',
-            icon: 'notifications-outline',
-            action: () => this.navigateTo('/notificaciones'),
-          },
-          {
-            label: 'Síguenos',
-            icon: 'people-outline',
-            action: () => this.navigateTo('/siguenos'),
-          },
-          {
-            label: 'Cambiar idioma',
-            icon: 'language-outline',
-            action: () => this.navigateTo('/settings/language'),
-          },
-          /*
-          {
-            label: 'Admin-Panel',
-            icon: 'construct-outline',
-            action: () => this.navigateTo('/admin-panel'),
-          },
-          */
-          {
-            label: 'Cerrar sesión',
-            icon: 'log-out-outline',
-            action: () => this.logout(),
-          },
+        label: 'PROFILE.CATEGORIES',
+        icon: 'grid-outline',
+        action: () => this.navigateTo('/categorias'),
+      },
+      {
+        label: 'PROFILE.FAVORITES',
+        icon: 'heart-outline',
+        action: () => this.navigateTo('/favoritos'),
+      },
+      {
+        label: 'PROFILE.NOTIFICATIONS',
+        icon: 'notifications-outline',
+        action: () => this.navigateTo('/notificaciones'),
+      },
+      {
+        label: 'PROFILE.FOLLOW_US',
+        icon: 'people-outline',
+        action: () => this.navigateTo('/siguenos'),
+      },
+      {
+        label: 'PROFILE.CHANGE_LANGUAGE',
+        icon: 'language-outline',
+        action: () => this.showLanguageSelector(), // 👈 Aquí el cambio
+      },
+      {
+        label: 'PROFILE.LOGOUT',
+        icon: 'log-out-outline',
+        action: () => this.logout(),
+      },
         ],
       },
     ];
@@ -177,7 +198,44 @@ async logout() {
     return `${first}${last}`;
   }
 
+async showLanguageSelector() {
+  const alert = await this.alertCtrl.create({
+    header: this.translate.instant('PROFILE.CHANGE_LANGUAGE'),
+    inputs: [
+      { type: 'radio', label: 'Español', value: 'es', checked: this.translate.currentLang === 'es' },
+      { type: 'radio', label: 'English', value: 'en', checked: this.translate.currentLang === 'en' },
+      { type: 'radio', label: 'Português', value: 'pt', checked: this.translate.currentLang === 'pt' },
+    ],
+    buttons: [
+      {
+        text: this.translate.instant('CANCEL'),
+        role: 'cancel'
+      },
+      {
+        text: this.translate.instant('OK'),
+        handler: (selectedLanguage: string) => {
+          this.changeLanguage(selectedLanguage);
+        }
+      }
+    ]
+  });
 
+  await alert.present();
+}
 
+changeLanguage(lang: string) {
+  // Cambia idioma local
+  this.translate.use(lang);
+
+  // Guarda preferencia en backend
+  this.usuariosService.updateLanguageUser(lang).subscribe({
+    next: () => {
+      console.log('Idioma actualizado exitosamente');
+    },
+    error: (err) => {
+      console.error('Error al actualizar idioma:', err);
+    }
+  });
+}
 
 }
