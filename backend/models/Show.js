@@ -51,4 +51,3 @@
   });
 
   export default model('Show', ShowSchema);
- 
