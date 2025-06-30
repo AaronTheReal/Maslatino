@@ -9,7 +9,7 @@ import { addIcons } from 'ionicons';
 import { heart, heartOutline, arrowBackOutline, shareOutline } from 'ionicons/icons';
 import { UsuariosService } from '../../../services/usuarios-service';
 import { AuthService } from '../../../services/auth-service';
-
+import { Location } from '@angular/common'; 
 @Component({
   selector: 'app-radio-despliegue',
   standalone: true,
@@ -28,7 +28,8 @@ constructor(
   private router: Router,
   private podcastService: PodcastService,
   private usuarioServce: UsuariosService,
-  private authService: AuthService
+  private authService: AuthService,
+  private location: Location
 ) {
   addIcons({
     heart,
@@ -75,10 +76,9 @@ ngOnInit(): void {
   });
 }
 
-
-  goBack() {
-    this.router.navigate(['/radio']);
-  }
+      goBack() {
+        this.location.back();
+      }
 toggleLike() {
 
   const tipo = "Radio";
@@ -101,6 +101,7 @@ toggleLike() {
     }
   });
 }
+
 
 shareShow() {
   const url = 'https://open.spotify.com/show/' + this.show.spotifyId;

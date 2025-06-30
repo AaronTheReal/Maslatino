@@ -118,6 +118,8 @@ export class ProfileComponent implements OnInit {
       this.user = user;
       console.log('usuario', this.user);
 
+      
+
       if (user?.language) {
         this.translate.use(user.language);
         console.log('Idioma del usuario aplicado en Home:', user.language);

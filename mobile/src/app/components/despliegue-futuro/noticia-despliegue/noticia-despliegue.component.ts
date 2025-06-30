@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
 import { UsuariosService } from '../../../services/usuarios-service';
 import { AuthService } from '../../../services/auth-service';
+import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 
 @Component({
   selector: 'app-noticia-despliegue',
@@ -29,7 +30,8 @@ export class NoticiaDespliegueComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private usuarioService: UsuariosService,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location
   ) {
 
 
@@ -121,8 +123,8 @@ toggleFavorite() {
 
 
 
-  goBack(): void {
-    this.router.navigate(['/home']);
-  }
+        goBack() {
+        this.location.back();
+      }
   
 }

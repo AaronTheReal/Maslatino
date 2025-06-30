@@ -1,5 +1,4 @@
 <ion-content [fullscreen]="true" class="ion-padding">
-
   <!-- Encabezado con botón atrás, título y fecha -->
   <div class="favoritos-header">
     <div class="back-button" (click)="goBack()">
@@ -16,10 +15,8 @@
     showClearButton="focus">
   </ion-searchbar>
 
-
-
-<!-- Filtros por categoría -->
-<div class="filter-tabs hide-scrollbar">
+<!-- Categorías -->
+<div class="filter-tabs categorias-tabs">
   <button
     *ngFor="let cat of categoriasDisponibles"
     class="tab-button"
@@ -29,20 +26,16 @@
   </button>
 </div>
 
-<!-- Filtro por tipo -->
-<ion-item lines="none" class="tipo-select-wrapper">
-  <ion-label position="floating">Tipo</ion-label>
-  <ion-select
-    [(ngModel)]="tipoSeleccionado"
-    interface="popover"
-    placeholder="Todos">
-    <ion-select-option value="">Todos</ion-select-option>
-    <ion-select-option value="Noticia">Noticia</ion-select-option>
-    <ion-select-option value="Podcast">Podcast</ion-select-option>
-    <ion-select-option value="Show">Show</ion-select-option>
-  </ion-select>
-</ion-item>
-
+<!-- Tipos -->
+<div class="filter-tabs tipo-tabs">
+  <button
+    *ngFor="let tipo of tiposDisponibles"
+    class="tab-button"
+    [class.selected]="tipoSeleccionado === tipo"
+    (click)="seleccionarTipo(tipo)">
+    {{ tipo || 'Todos' }}
+  </button>
+</div>
 
 
   <!-- Grid de favoritos -->
@@ -53,22 +46,17 @@
         [sizeMd]="resultadosFiltrados.length === 1 ? '12' : '6'"
         [sizeLg]="resultadosFiltrados.length === 1 ? '12' : '6'"
         *ngFor="let item of resultadosFiltrados">
-
         <div class="favorite-card" (click)="irADetalle(item)">
           <img
             class="favorite-image"
             [src]="item.meta?.image || item.image || 'assets/img/default.jpg'"
-            alt="Imagen"
-          />
+            alt="Imagen" />
           <div class="favorite-info">
             <h3 class="favorite-title">{{ item.title }}</h3>
             {{item._id}}
-      <span class="favorite-tag">{{ item.tipo }}</span>
-
-
+            <span class="favorite-tag">{{ item.tipo }}</span>
           </div>
         </div>
-
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -78,5 +66,4 @@
     <ion-icon name="heart-outline"></ion-icon>
     <p>No tienes favoritos aún.</p>
   </div>
-
 </ion-content>

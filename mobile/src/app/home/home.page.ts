@@ -67,6 +67,7 @@ radiosArray: Array<{
   isLoginPage = false;
   activeTab: string = 'home';
   user: any;
+  idUser:any;
 
   constructor(
     private router: Router,
@@ -82,16 +83,20 @@ radiosArray: Array<{
   }
 
 async ngOnInit(): Promise<void> {
-    this.authService.getUser().then(user => {
-      this.user = user;
-      console.log('usuario', this.user);
+this.authService.getUser().then(user => {
+  this.idUser = user._id;
+  console.log('usuario', user._id);
 
-      if (user?.language) {
-        this.translate.use(user.language);
-        console.log('Idioma del usuario aplicado en Home:', user.language);
-      }
-    });
+  // Ahora sí, una vez que tienes el ID, haces la segunda llamada
+  this.authService.getUserBack(this.idUser).then(userBack => {
+    this.user = userBack;
 
+    if (userBack?.language) {
+      this.translate.use(userBack.language);
+      console.log('Idioma del usuario aplicado en Home:', userBack.language);
+    }
+  });
+});
     this.podcastService.getPodcasts().subscribe(
       (data) => {
         this.podcastsArray = data;
@@ -115,8 +120,6 @@ this.categoriesArray = [
   { id: 5, name: 'CATEGORY.Finanzas' },
   { id: 6, name: 'CATEGORY.HEALTH' },
   { id: 7, name: 'CATEGORY.FAMILY' },
-
-
 ];
 
   }
@@ -134,8 +137,11 @@ this.categoriesArray = [
   }
 
   onCategoriaSeleccionada(item: CategoryItem) {
-    console.log('HomePage: categoría seleccionada:', item);
-  }
+  this.translate.get(item.name).subscribe(translated => {
+    const safeCategory = encodeURIComponent(translated);
+    this.router.navigate(['/categorias-despliegue', safeCategory]);
+  });
+}
 
   onFooterTabChanged(tabName: string) {
     console.log('Footer seleccionó pestaña:', tabName);

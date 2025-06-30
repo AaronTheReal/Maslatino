@@ -306,6 +306,24 @@
   }
 }
 
+.back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  padding: 12px; // Aumenta el área de toque
+  border-radius: 50%;
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+
+  display: flex; // Centrado del icono
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 40px; // Tamaño del icono más grande
+  }
+}
 
 /*
 .podcast-background {

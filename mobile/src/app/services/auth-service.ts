@@ -42,4 +42,10 @@ export class AuthService {
     const { value } = await Preferences.get({ key: 'user' });
     return value ? JSON.parse(value) : null;
   }
+  
+ async getUserBack(id: string,): Promise<any> {
+
+ return this.http.get(`${this.apiUrl}/get-user${id}`);
+  };
+  
 }

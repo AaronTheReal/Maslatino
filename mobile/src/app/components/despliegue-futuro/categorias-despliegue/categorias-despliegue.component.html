@@ -1,3 +1,80 @@
-<p>
-  categorias-despliegue works!
-</p>
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/home">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ categoriaNombreTraducido }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+-->
+<ion-content class="categoria-despliegue-content" scrollY="true">
+  
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+  <!-- Título -->
+  <div class="categoria-titulo">
+    {{ categoriaNombreTraducido }}
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-bar">
+    <ion-icon name="search-outline"></ion-icon>
+    <input type="text" placeholder="Buscar en {{ categoriaNombreTraducido }}" />
+  </div>
+
+  <!-- Noticias -->
+  <div class="categoria-section">
+    <h2>{{'Noticias' | translate}}</h2>
+    <div *ngIf="resultados.noticias.length > 0; else noNoticias" class="horizontal-scroll">
+      <div *ngFor="let noticia of resultados.noticias | slice:0:10" class="horizontal-card">
+        <img [src]="noticia?.meta?.image || 'assets/img/default-news.jpg'" />
+        <div class="card-title">{{ noticia.title }}</div>
+      </div>
+    </div>
+    <ng-template #noNoticias>
+      <div class="no-content-box">
+        <ion-icon name="newspaper-outline"></ion-icon>
+        <p>No hay noticias disponibles</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Podcasts -->
+  <div class="categoria-section">
+    <h2>{{'Podcasts' | translate}}</h2>
+    <div *ngIf="resultados.podcasts.length > 0; else noPodcasts" class="horizontal-scroll">
+      <div *ngFor="let podcast of resultados.podcasts | slice:0:10" class="horizontal-card">
+        <img [src]="podcast.image || 'assets/img/default-podcast.jpg'" />
+        <div class="card-title">{{ podcast.title }}</div>
+      </div>
+    </div>
+    <ng-template #noPodcasts>
+      <div class="no-content-box">
+        <ion-icon name="mic-outline"></ion-icon>
+        <p>{{'No hay podcasts disponibles' | translate }}</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Shows -->
+  <div class="categoria-section">
+    <h2>{{'Shows' | translate}}</h2>
+    <div *ngIf="resultados.shows.length > 0; else noShows" class="horizontal-scroll">
+      <div *ngFor="let show of resultados.shows | slice:0:10" class="horizontal-card">
+        <img [src]="show.image || 'assets/img/default-show.jpg'" />
+        <div class="card-title">{{ show.title }}</div>
+      </div>
+    </div>
+    <ng-template #noShows>
+      <div class="no-content-box">
+        <ion-icon name="radio-outline"></ion-icon>
+        <p>{{'No hay shows disponibles' | translate}}</p>
+      </div>
+    </ng-template>
+  </div>
+
+</ion-content>

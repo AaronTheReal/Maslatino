@@ -17,6 +17,9 @@ import {
   IonButtons
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
+import { addIcons } from 'ionicons';
+import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-noticias-ind',
@@ -46,7 +49,14 @@ export class NoticiasIndComponent implements OnInit {
 isFavorite = false;
 
   constructor(private noticiasService: NoticiasService, private router: Router,public translate: TranslateService
-) {}
+) {
+
+   addIcons({
+  'arrow-back-outline': arrowBackOutline,
+  'search-outline': searchOutline,
+  'alert-circle-outline': alertCircleOutline
+});
+}
 
   ngOnInit(): void {
     this.noticiasService.getNoticias().subscribe({

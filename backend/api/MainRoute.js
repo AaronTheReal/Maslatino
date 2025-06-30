@@ -53,6 +53,9 @@ export default class MainRoute {
     router.route('/remove-favorites').put(UsuariosController.removeFromFavorites);
     router.route('/check-favorite').post(UsuariosController.checkFavorite);
     router.route('/get-favorites/:userId').get(UsuariosController.getFavorites);
+    router.route('/get-by-category/:category').get(UsuariosController.getAllByCategory);
+    router.route('/get-user/:id').get(UsuariosController.getUserBack);
+
 
     return router;
   }

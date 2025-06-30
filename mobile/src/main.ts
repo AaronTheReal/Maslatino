@@ -19,6 +19,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http'; // <-- IMPO
 // 🔥 Importación para ngx-translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Location } from '@angular/common';
 
 // ✅ Función que carga los archivos JSON de traducción
 export function HttpLoaderFactory(http: HttpClient) {
@@ -40,6 +41,7 @@ bootstrapApplication(AppComponent, {
           deps: [HttpClient],
         },
       })
-    )
+    ),
+    Location // ✅ Esto lo hace global
   ]
 });

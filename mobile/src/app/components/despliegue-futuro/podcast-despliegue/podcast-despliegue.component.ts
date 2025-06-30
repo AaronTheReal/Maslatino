@@ -8,7 +8,8 @@ import { SafePipe } from '../../../pipes/safe.pipe';
 import { UsuariosService } from '../../../services/usuarios-service';
 import { AuthService } from '../../../services/auth-service';
 import { addIcons } from 'ionicons';
-import { heartOutline, heart } from 'ionicons/icons';
+import { arrowBackOutline, searchOutline, alertCircleOutline,heart, heartOutline, shareOutline } from 'ionicons/icons';
+import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 
 @Component({
   selector: 'app-podcast-despliegue',
@@ -27,9 +28,15 @@ export class PodcastDespliegueComponent implements OnInit {
     private route: ActivatedRoute,
     private podcastService: PodcastService,
     private usuarioServce: UsuariosService,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location
   ) {
-    addIcons({ 'heart-outline': heartOutline, heart });
+      addIcons({
+        heart,
+        'heart-outline': heartOutline,
+        'arrow-back-outline': arrowBackOutline,
+        'share-outline': shareOutline
+      });
   }
 
   ngOnInit() {
@@ -106,4 +113,8 @@ export class PodcastDespliegueComponent implements OnInit {
       console.log('Web Share API no soportada');
     }
   }
+
+    goBack() {
+        this.location.back();
+      }
 }

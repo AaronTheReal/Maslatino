@@ -1,3 +1,4 @@
+/* Encabezado */
 .favoritos-header {
   display: flex;
   align-items: center;
@@ -30,20 +31,69 @@
   color: #111;
 }
 
-.favoritos-fecha {
-  position: absolute;
-  left: 40px;
-  top: 4px;
-  font-size: 13px;
-  color: #666;
-}
-
+/* Buscador */
 ion-searchbar {
   margin-bottom: 16px;
   border-radius: 12px;
   --box-shadow: none;
 }
 
+/* Contenedor de filtros */
+.filters-container {
+  margin-bottom: 16px; /* Espacio ajustado entre filtros y contenido */
+}
+
+/* Filtros por categoría */
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 8px 0;
+  padding: 4px 8px;
+}
+
+.tab-button {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 16px;
+  background: #f2f2f2;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.tab-button.selected {
+  background: #000;
+  color: #fff;
+}
+
+/* Contenedor para centrar el selector de tipo */
+.tipo-select-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px; /* Espacio inferior reducido */
+}
+
+/* Estilo del selector de tipo */
+.tipo-select-wrapper {
+  max-width: 280px; /* Ancho profesional */
+  width: 100%;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+ion-label {
+  font-weight: 500;
+  color: #444;
+  font-size: 14px;
+}
+
+ion-select {
+  font-size: 14px;
+}
+
+/* Tarjetas de favoritos */
 .favorite-card {
   background: #ffffff;
   border-radius: 16px;
@@ -54,7 +104,7 @@ ion-searchbar {
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin: 8px 0;
+  margin: 4px 0; /* Reducido el margen vertical */
 }
 
 .favorite-card:hover {
@@ -95,6 +145,7 @@ ion-searchbar {
   width: fit-content;
 }
 
+/* Sin favoritos */
 .no-favorites {
   text-align: center;
   margin-top: 40px;
@@ -110,18 +161,8 @@ ion-searchbar {
 
 
 
-.filter-tabs {
-  display: flex;
-  gap: 8px;
-  margin: 16px 0 12px 0; // menos espacio inferior
-  overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-}
-
-
+/* Base estilo de botones */
 .tab-button {
-  flex-shrink: 0;
   padding: 6px 12px;
   font-size: 14px;
   border: none;
@@ -130,27 +171,30 @@ ion-searchbar {
   color: #555;
   cursor: pointer;
   transition: background 0.2s;
-
-  &.selected {
-    background: #000;
-    color: #fff;
-  }
+  flex-shrink: 0;
 }
 
-.tipo-select-wrapper {
-  margin: 0 auto 24px auto; // centrado con espacio inferior
-  max-width: 280px;         // ancho profesional
-  width: 100%;
-  --padding-start: 0;
-  --inner-padding-end: 0;
+.tab-button.selected {
+  background: #000;
+  color: #fff;
+}
 
-  ion-label {
-    font-weight: 500;
-    color: #444;
-    font-size: 14px;
-  }
-
-  ion-select {
-    font-size: 14px;
-  }
+.categorias-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto; /* 👈 habilita scroll */
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 8px;
+  margin: 0 0 12px 0;
+}
+.categorias-tabs::-webkit-scrollbar {
+  display: none; /* para Chrome/Safari */
+}
+/* ✅ Tipos: también centrados, misma lógica */
+.tipo-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
 }

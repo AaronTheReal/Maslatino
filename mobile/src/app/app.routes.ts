@@ -54,6 +54,12 @@ export const routes: Routes = [
       import('./components/despliegue-futuro/podcast-despliegue/podcast-despliegue.component').then((m) => m.PodcastDespliegueComponent),
 
   },
+  {
+    path: 'categorias-despliegue/:id',
+    loadComponent: () =>
+      import('./components/despliegue-futuro/categorias-despliegue/categorias-despliegue.component').then((m) => m.CategoriasDespliegueComponent),
+
+  },
    {
     path: 'radio-despliegue/:id',
     loadComponent: () =>

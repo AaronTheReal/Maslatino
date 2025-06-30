@@ -1,27 +1,20 @@
-<div class="title-isla">
-  Categorías
-  <ion-icon name="add"></ion-icon>
- <!-- <ion-icon name="newspaper-outline" class="icono-isla"></ion-icon> -->
-</div>
-
+<br><br>
 
 <ion-content class="categorias-content">
-  <!-- Barra de búsqueda -->
-  <div class="search-wrapper">
-    <ion-icon name="search-outline"></ion-icon>
-    <input
-      type="text"
-      placeholder="Buscar categoría"
-      class="search-input"
-    />
-  </div>
+
 
   <!-- Grid de categorías -->
   <ion-grid class="categories-grid">
     <ion-row>
-      <ion-col size="6" size-md="4" size-lg="3" *ngFor="let cat of sampleCategories">
-        <div class="category-card" [ngStyle]="{'--card-bg': cat.color}">
-      <span class="category-label">{{ cat.name | translate }}</span>
+      <ion-col
+        size="6"
+        size-md="4"
+        size-lg="3"
+        *ngFor="let cat of sampleCategories"
+        (click)="goToCategoria(cat)"
+      >
+        <div class="category-card" [ngStyle]="{ '--card-bg': cat.color }">
+          <span class="category-label">{{ cat.key | translate }}</span>
         </div>
       </ion-col>
     </ion-row>

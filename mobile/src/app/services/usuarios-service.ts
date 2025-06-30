@@ -78,7 +78,18 @@ getFavorites(userId: string): Observable<{
   }>(`${this.baseUrl}/get-favorites/${userId}`);
 }
 
-  
+getByCategory(categoria: string): Observable<{
+  noticias: any[],
+  podcasts: any[],
+  shows: any[]
+}> {
+  return this.http.get<{
+    noticias: any[],
+    podcasts: any[],
+    shows: any[]
+  }>(`${this.baseUrl}/get-by-category/${categoria}`);
+}
+
 
 }
 
