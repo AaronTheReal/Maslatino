@@ -4,6 +4,10 @@ import { NoticiasService } from '../../../services/noticias-service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular'; // <-- AQUI
+import { addIcons } from 'ionicons';
+import { heart, heartOutline } from 'ionicons/icons';
+import { Router } from '@angular/router';
+import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-noticia-despliegue',
@@ -17,8 +21,21 @@ export class NoticiaDespliegueComponent implements OnInit {
 
   constructor(
     private noticiasService: NoticiasService,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+
+
+ 
+
+   addIcons({
+       heart,
+      'heart-outline': heartOutline,
+      'arrow-back-outline': arrowBackOutline,
+      'search-outline': searchOutline,
+      'alert-circle-outline': alertCircleOutline
+    });
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -34,4 +51,14 @@ export class NoticiaDespliegueComponent implements OnInit {
       });
     }
   }
+
+  isFavorite = false;
+
+toggleFavorite() {
+  this.isFavorite = !this.isFavorite;
+}
+  goBack(): void {
+    this.router.navigate(['/home']);
+  }
+  
 }

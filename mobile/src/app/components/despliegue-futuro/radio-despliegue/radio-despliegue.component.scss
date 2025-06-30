@@ -1,0 +1,105 @@
+.radio-despliegue-content {
+  --background: #ffffff;
+  color: #000;
+  font-family: 'Helvetica Neue', sans-serif;
+  padding: 0 0 100px 0;
+  background-color: #ffffff;
+}
+
+.back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.loading-container {
+  text-align: center;
+  margin-top: 40vh;
+  color: #000;
+}
+
+.show-details {
+  margin-top: 72px;
+  padding: 0 16px;
+}
+
+.main-embed {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0;
+  margin-bottom: 16px;
+}
+.show-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #444;
+  margin: 0 auto 6px auto;
+  max-width: 90%;
+  line-height: 1.5;
+}
+
+
+.icon-placeholder {
+  height: 40px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.episode-list {
+  display: flex;
+  flex-direction: column;
+
+  .episode-wrapper {
+    border-radius: 0;
+    overflow: hidden;
+    padding: 0;
+    border-bottom: 1px solid #e6e6e6;
+    background: transparent;
+
+    iframe {
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 0 !important;
+      background: transparent;
+    }
+  }
+}
+
+.show-meta {
+  text-align: center;
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+
+.icon-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 20px; // 💡 reduce espacio entre descripción e iconos
+}
+
+
+.action-icon {
+  font-size: 26px;
+  color: #000;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+.heart-icon[name="heart"] {
+  color: #ff3b3b;
+}

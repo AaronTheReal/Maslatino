@@ -34,6 +34,7 @@ export default class MainRoute {
     router.route('/podcast').post(SpotifyController.savePodcast);
     router.route('/podcasts').get(SpotifyController.getAllPodcasts);
     router.route('/podcastIndividual').post(SpotifyController.getPodcastDespliegue);
+    router.post('/showIndividual',SpotifyController.getShowDespliegue.bind(SpotifyController));
 
     router.route('/shows').get(SpotifyController.getShowsAndEpisodes);
 

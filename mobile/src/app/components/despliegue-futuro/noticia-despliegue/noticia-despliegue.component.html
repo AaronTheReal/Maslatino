@@ -1,7 +1,12 @@
+
 <ion-content class="noticia-individual" fullscreen *ngIf="noticia">
+  <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+</div>
 
   <!-- Cabecera visual -->
   <div class="noticia-header">
+
     <img
       [src]="noticia.meta?.image || 'assets/default.jpg'"
       [alt]="noticia.title"
@@ -46,4 +51,12 @@
 
     </ng-container>
   </div>
+  <!-- Corazón flotante sin botón -->
+<ion-icon
+  class="floating-heart"
+  [name]="isFavorite ? 'heart' : 'heart-outline'"
+  (click)="toggleFavorite()"
+  [style.color]="isFavorite ? 'red' : 'black'"
+></ion-icon>
+
 </ion-content>

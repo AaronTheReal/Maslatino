@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-radio-ind',
@@ -22,7 +23,8 @@ export class RadioIndComponent implements OnInit {
 
   constructor(
     private podcastService: PodcastService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     addIcons({
       'arrow-back-outline': arrowBackOutline,
@@ -32,6 +34,10 @@ export class RadioIndComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+  console.log('ID recibido:', id);
+  // Usar este id para cargar detalles del show
+
     this.podcastService.getShows().subscribe({
       next: (data) => {
             console.log("🔍 Respuesta cruda del backend:", data);
@@ -64,9 +70,10 @@ export class RadioIndComponent implements OnInit {
     return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   }
 
-  goToShowDetail(showId: string) {
-    this.router.navigate(['/shows', showId]);
-  }
+goToShowDetail(showId: string) {
+  this.router.navigate(['/radio-despliegue', showId]); // <- CAMBIADO
+}
+
 
   goBack() {
     this.router.navigate(['/home']);

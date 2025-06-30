@@ -28,8 +28,8 @@ export class PodcastService {
           );
         }
   // Fetch a specific show by ID (including its episodes)
-  getShowById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/shows/${id}`);
+  getShowById(id: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/showIndividual`, {id});
   }
 
   // Existing methods for individual podcasts (if needed)
