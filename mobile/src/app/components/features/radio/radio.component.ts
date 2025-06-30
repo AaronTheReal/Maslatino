@@ -31,7 +31,7 @@ export class RadioComponent implements OnInit {
   constructor(private router: Router, private podcastService: PodcastService,public translate: TranslateService) {}
 
   ngOnInit(): void {
-    this.podcastService.getPodcasts().subscribe({
+    this.podcastService.getShows().subscribe({
       next: (data) => {
         this.radioList = data.slice(0, 10); // 👈 Mostrar solo 10
         console.log(this.radioList);
