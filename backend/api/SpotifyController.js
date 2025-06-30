@@ -19,6 +19,48 @@ class SpotifyController {
   }
 
 
+ async getShowDespliegue(req, res) {
+  try {
+    console.log("🟢 Entró a getShowDespliegue");
+
+    const showId = req.body.id;
+    const show = await Show.findById(showId);
+
+    if (!show) {
+      return res.status(404).json({ message: 'Show no encontrado' });
+    }
+
+    const spotifyId = show.spotifyId;
+
+    // ⛓️ Obtener token de Spotify
+    const spotifyAccessToken = await this.getSpotifyToken(); // <-- usar el método de clase
+
+    // 🔍 Llamar a Spotify para obtener episodios del show
+    const response = await axios.get(
+      `https://api.spotify.com/v1/shows/${spotifyId}/episodes?limit=20`,
+      {
+        headers: {
+          Authorization: `Bearer ${spotifyAccessToken}`,
+        },
+      }
+    );
+
+    const episodes = response.data.items || [];
+
+    // Combinar datos del show con los episodios
+    const result = {
+      ...show.toObject(),
+      episodes,
+    };
+
+    res.json(result);
+  } catch (error) {
+    console.error('❌ Error en getShowDespliegue:', error);
+    res.status(500).json({ message: 'Error del servidor' });
+  }
+}
+
+
 async getShowsAndEpisodes(req, res) {
     try {
       // Query all shows with relevant fields and their episodes

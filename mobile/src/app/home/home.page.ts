@@ -35,9 +35,9 @@ import { TranslateService } from '@ngx-translate/core'; // 👈 Agrega esto
 })
 export class HomePage implements OnInit {
   slidesArray = [
-    { img: 'assets/img/carousel1.jpg', title: 'Noticias de Interés' },
-    { img: 'assets/img/carousel2.jpg', title: 'Eventos Especiales' },
-    { img: 'assets/img/carousel3.jpg', title: 'Entrevistas Exclusivas' },
+    { img: 'assets/img/carousel1.jpg', title: '' },
+    { img: 'assets/img/carousel2.jpg', title: '' },
+    { img: 'assets/img/carousel3.jpeg', title: '' },
   ];
 
   noticiasArray: Array<{ img: string; title: string; id?: any }> = [];

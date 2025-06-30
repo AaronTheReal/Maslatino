@@ -1,3 +1,72 @@
-<p>
-  radio-despliegue works!
-</p>
+<ion-content class="radio-despliegue-content">
+  <!-- Botón atrás -->
+  <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+  <!-- Cargando -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando estación...</p>
+  </div>
+
+  <!-- Contenido principal -->
+  <div *ngIf="!isLoading && show" class="show-details">
+
+    <!-- Reproductor principal del show -->
+    <div class="main-embed">
+      <iframe
+        [src]="'https://open.spotify.com/embed/show/' + show.spotifyId | safe:'resourceUrl'"
+        width="100%"
+        height="400"
+        frameborder="0"
+        allowtransparency="true"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+   <!-- Descripción centrada + íconos -->
+<div class="show-meta">
+  <p class="show-description">
+    {{ show.description }}
+  </p>
+
+  <div class="icon-actions">
+    <ion-icon
+      name="{{ isLiked ? 'heart' : 'heart-outline' }}"
+      class="action-icon heart-icon"
+      (click)="toggleLike()"
+    ></ion-icon>
+
+    <ion-icon
+      name="share-outline"
+      class="action-icon"
+      (click)="shareShow()"
+    ></ion-icon>
+  </div>
+</div>
+
+
+    <!-- Espacio reservado para dos iconos -->
+    <div class="icon-placeholder">
+      <!-- Aquí se insertarán iconos luego -->
+    </div>
+
+    <!-- Lista de episodios -->
+    <div class="episode-list" *ngIf="show.episodes?.length">
+      <div *ngFor="let ep of show.episodes" class="episode-wrapper">
+        <iframe
+          [src]="'https://open.spotify.com/embed/episode/' + ep.id | safe:'resourceUrl'"
+          width="100%"
+          height="80"
+          frameborder="0"
+          allowtransparency="true"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+  </div>
+</ion-content>

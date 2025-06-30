@@ -43,6 +43,7 @@ export class NoticiasIndComponent implements OnInit {
   searchTerm = '';
   articles: Noticia[] = [];
   filtered: Noticia[] = [];
+isFavorite = false;
 
   constructor(private noticiasService: NoticiasService, private router: Router,public translate: TranslateService
 ) {}
@@ -81,4 +82,5 @@ export class NoticiasIndComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/home']);
   }
+  
 }
