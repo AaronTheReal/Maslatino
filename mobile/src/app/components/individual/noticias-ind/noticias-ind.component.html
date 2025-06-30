@@ -3,7 +3,7 @@
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
 
-  <h1 class="page-title">Noticias</h1>
+  <h1 class="page-title">{{'Noticias' | translate}}</h1>
 
   <div class="search-wrapper">
     <div class="search-icon">
@@ -13,7 +13,7 @@
       type="text"
       [(ngModel)]="searchTerm"
       (input)="filter()"
-      placeholder="Buscar por título..."
+      [placeholder] = "'Buscar_por_titulo' | translate"
       class="search-input"
     />
   </div>

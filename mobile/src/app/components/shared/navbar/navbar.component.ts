@@ -1,5 +1,6 @@
-// src/app/components/shared/navbar/navbar.component.ts
 import { Component, Input } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈
+
 import {
   IonHeader,
   IonToolbar,
@@ -21,9 +22,11 @@ import {
     IonButton,
     IonIcon,
     IonTitle,
+    TranslateModule // 👈 importante
   ],
 })
 export class NavbarComponent {
-  /** Recibe el nombre de usuario desde el padre */
   @Input() username: string = '';
+
+  constructor(public translate: TranslateService) {}
 }

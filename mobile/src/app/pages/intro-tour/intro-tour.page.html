@@ -10,22 +10,24 @@
         alt="Introducción 1"
         class="intro-img"
       />
-      <h1 class="intro-title">Descubre tu
-podcast favorito</h1>
-      <p class="intro-subtitle">Accede a los eventos más recientes y relevantes de todo el mundo en un solo lugar.</p>
+      <h1 class="intro-title">{{ 'INTRO_1_TITLE' | translate }}</h1>
+      <p class="intro-subtitle">{{ 'INTRO_1_SUBTITLE' | translate }}</p>
     </swiper-slide>
+    
     <swiper-slide class="with-button">
       <img
         src="assets/Logo/Intro2.png"
         alt="Introducción 2"
         class="intro-img"
       />
-      <h1 class="intro-title">Personaliza tu
-contenido</h1>
-      <p class="intro-subtitle">Elige tus temas favoritos y recibe noticias personalizadas para ti.</p>
+      <h1 class="intro-title">{{ 'INTRO_2_TITLE' | translate }}</h1>
+      <p class="intro-subtitle">{{ 'INTRO_2_SUBTITLE' | translate }}</p>
       <div class="action-btn">
-        <ion-button expand="block" (click)="proceed()">Continuar</ion-button>
+        <ion-button expand="block" (click)="proceed()">
+          {{ 'CONTINUE' | translate }}
+        </ion-button>
       </div>
     </swiper-slide>
   </swiper-container>
 </ion-content>
+

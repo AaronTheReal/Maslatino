@@ -13,6 +13,7 @@ import { RadioComponent } from '../components/features/radio/radio.component';
 import { CategoriesComponent, CategoryItem } from '../components/features/categorias/categorias.component';
 import { FooterComponent } from '../components/shared/footer/footer.component';
 import { AuthService } from '../services/auth-service';
+import { TranslateService } from '@ngx-translate/core'; // 👈 Agrega esto
 
 @Component({
   standalone: true,
@@ -70,7 +71,8 @@ radiosArray: Array<{
   constructor(
     private router: Router,
     private authService: AuthService,
-    private podcastService: PodcastService
+    private podcastService: PodcastService,
+    private translate: TranslateService 
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -79,10 +81,15 @@ radiosArray: Array<{
       });
   }
 
-  async ngOnInit(): Promise<void> {
+async ngOnInit(): Promise<void> {
     this.authService.getUser().then(user => {
       this.user = user;
       console.log('usuario', this.user);
+
+      if (user?.language) {
+        this.translate.use(user.language);
+        console.log('Idioma del usuario aplicado en Home:', user.language);
+      }
     });
 
     this.podcastService.getPodcasts().subscribe(
@@ -100,14 +107,18 @@ radiosArray: Array<{
     ];
 
  
-    this.categoriesArray = [
-      { id: 1, name: 'Arte' },
-      { id: 2, name: 'Deportes' },
-      { id: 3, name: 'Educación' },
-      { id: 4, name: 'Tecnología' },
-      { id: 5, name: 'Música' },
-      { id: 6, name: 'Cocina' },
-    ];
+this.categoriesArray = [
+  { id: 1, name: 'CATEGORY.ART' },
+  { id: 2, name: 'CATEGORY.SPORTS' },
+  { id: 3, name: 'CATEGORY.WORLD' },
+  { id: 4, name: 'CATEGORY.POLITICIAN' },
+  { id: 5, name: 'CATEGORY.Finanzas' },
+  { id: 6, name: 'CATEGORY.HEALTH' },
+  { id: 7, name: 'CATEGORY.FAMILY' },
+
+
+];
+
   }
 
   onNoticiaSeleccionada(item: any) {

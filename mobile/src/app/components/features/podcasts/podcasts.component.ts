@@ -3,11 +3,12 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {PodcastService} from '../../../services/spotify-podcasts'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 @Component({
   selector: 'app-podcasts',
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule,TranslateModule],
   templateUrl: './podcasts.component.html',
   styleUrls: ['./podcasts.component.scss'],
 })
@@ -24,7 +25,7 @@ export class PodcastsComponent implements OnInit {
 
   @Output() selectPodcast = new EventEmitter<any>();
 
-  constructor(private router: Router, private podcastService :PodcastService) {}
+  constructor(private router: Router, private podcastService :PodcastService, public translate: TranslateService ) {}
 
   ngOnInit(): void {
     this.podcastService.getPodcasts().subscribe({

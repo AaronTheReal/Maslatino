@@ -16,6 +16,7 @@ import {
   IonIcon,
   IonButtons
 } from '@ionic/angular/standalone';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 @Component({
   selector: 'app-noticias-ind',
@@ -34,7 +35,8 @@ import {
     IonCol,
     IonButton,
     IonIcon,
-    IonButtons
+    IonButtons,
+    TranslateModule
   ]
 })
 export class NoticiasIndComponent implements OnInit {
@@ -42,7 +44,8 @@ export class NoticiasIndComponent implements OnInit {
   articles: Noticia[] = [];
   filtered: Noticia[] = [];
 
-  constructor(private noticiasService: NoticiasService, private router: Router) {}
+  constructor(private noticiasService: NoticiasService, private router: Router,public translate: TranslateService
+) {}
 
   ngOnInit(): void {
     this.noticiasService.getNoticias().subscribe({

@@ -47,6 +47,7 @@ export default class MainRoute {
 
     router.route('/registrarUsuario').post(UsuariosController.postNuevoUsuario);
     router.route('/IdiomaUsuarioInicio').put(UsuariosController.postIdiomaUsuario);
+    router.route('/update-language').put(UsuariosController.UpdateLanguagee);
 
     return router;
   }

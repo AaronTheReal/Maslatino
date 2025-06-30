@@ -1,0 +1,78 @@
+{
+  "SELECT_LANGUAGE_TITLE": "BEFORE CONTINUING...",
+  "SELECT_LANGUAGE_SUBTITLE": "Choose your preference",
+  "CONTINUE": "CONTINUE",
+  "LANGUAGE_SELECTED": "Language selected",
+    "INTRO_1_TITLE": "Discover your favorite podcast",
+  "INTRO_1_SUBTITLE": "Access the most recent and relevant events from around the world in one place.",
+  "INTRO_2_TITLE": "Customize your content",
+  "INTRO_2_SUBTITLE": "Choose your favorite topics and receive personalized news.",
+
+
+    "LOGIN_TITLE": "Login",
+  "LOGIN_SUBTITLE": "Log in to access your account and personalize your experience.",
+  "EMAIL_PLACEHOLDER": "Enter your email",
+  "PASSWORD_PLACEHOLDER": "Enter your password",
+  "FORGOT_PASSWORD": "Forgot your password?",
+  "LOGIN_BUTTON": "Login",
+  "REGISTER_BUTTON": "Register",
+    "LOGIN_SUCCESS": "Welcome!",
+  "LOGIN_ERROR": "Login failed. Please check your credentials.",
+
+
+  "REGISTER_TITLE": "Sign up",
+  "REGISTER_DESCRIPTION": "You're just one step away from joining the most flavorful community out there. Please complete the registration form to create your account and start enjoying the news.",
+  "NAME_PLACEHOLDER": "Enter your name",
+  "NAME_REQUIRED": "Your name is required.",
+  "SELECT_GENDER": "Select your gender:",
+  "GENDER_MALE": "Male",
+  "GENDER_FEMALE": "Female",
+  "GENDER_REQUIRED": "Gender is required.",
+  "COUNTRY_LABEL": "Country",
+  "COUNTRY_PLACEHOLDER": "Choose an option",
+  "COUNTRY_MX": "Mexico",
+  "COUNTRY_US": "United States",
+  "COUNTRY_ES": "Spain",
+  "COUNTRY_REQUIRED": "Country is required.",
+  "EMAIL_REQUIRED": "Email is required.",
+  "EMAIL_INVALID": "Invalid email format.",
+  "PASSWORD_REQUIRED": "Password is required.",
+  "PASSWORD_MIN": "Use a password with at least 6 characters.",
+  "WELCOME": "Welcome",
+  "Noticias":"News",
+  "Ver_Todo": "View all",
+  "Categorias": "Categories",
+  "Estaciones de radio":"Radio stations",
+  "Buscar_por_titulo": "Search by title",
+  "Perfíl" : "Profile",
+
+  "PROFILE": {
+    "TITLE": "Profile",
+    "EDIT": "Edit profile",
+    "SETTINGS": "Settings",
+    "AVATAR_ALT": "{{name}}'s avatar",
+    "GENERAL": "General",
+    "CATEGORIES": "Categories",
+    "FAVORITES": "Favorites",
+    "NOTIFICATIONS": "Notifications",
+    "FOLLOW_US": "Follow us",
+    "CHANGE_LANGUAGE": "Change language",
+    "LOGOUT": "Log out"
+  },
+    "CATEGORY": {
+    "ART": "Art",
+    "SPORTS": "Sports",
+     "WORLD": "World",
+     "FAMILY": "Family",
+     "POLITICIAN": "Politics",
+     "Finanzas": "finance",
+     "HEALTH": "Health"
+  }
+
+
+
+
+
+
+
+}

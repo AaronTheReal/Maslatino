@@ -10,89 +10,78 @@
           </ion-button>
 
           <!-- Título y descripción -->
-          <h1>Regístrate</h1>
-        <p>
-  Estás a solo un paso de unirte a la comunidad más sabrosa que existe.
-  Por favor completa el formulario de registro para crear tu cuenta y comenzar a disfrutar de las noticias.
-</p>
-
+          <h1>{{ 'REGISTER_TITLE' | translate }}</h1>
+          <p>{{ 'REGISTER_DESCRIPTION' | translate }}</p>
 
           <!-- Formulario -->
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
             <!-- Nombre -->
             <ion-item>
-              <ion-input type="text" formControlName="name" placeholder="Escribe tu Nombre"></ion-input>
+              <ion-input type="text" formControlName="name" [placeholder]="'NAME_PLACEHOLDER' | translate"></ion-input>
             </ion-item>
             <ion-text color="danger" *ngIf="name.invalid && (name.dirty || name.touched)">
-              <small *ngIf="name.errors?.['required']">Se requiere tu nombre.</small>
+              <small *ngIf="name.errors?.['required']">{{ 'NAME_REQUIRED' | translate }}</small>
             </ion-text>
 
             <!-- Género -->
-            <ion-label class="label-left">Selecciona tu Género:</ion-label>
-<ion-radio-group formControlName="gender">
-  <ion-row>
-    <ion-col size="auto">
-      <ion-item lines="none">
-        <ion-radio slot="start" value="male"></ion-radio>
-        <ion-label>Hombre</ion-label>
-      </ion-item>
-    </ion-col>
-    <ion-col size="auto">
-      <ion-item lines="none">
-        <ion-radio slot="start" value="female"></ion-radio>
-        <ion-label>Mujer</ion-label>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-</ion-radio-group>
+            <ion-label class="label-left">{{ 'SELECT_GENDER' | translate }}</ion-label>
+            <ion-radio-group formControlName="gender">
+              <ion-row>
+                <ion-col size="auto">
+                  <ion-item lines="none">
+                    <ion-radio slot="start" value="male"></ion-radio>
+                    <ion-label>{{ 'GENDER_MALE' | translate }}</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="auto">
+                  <ion-item lines="none">
+                    <ion-radio slot="start" value="female"></ion-radio>
+                    <ion-label>{{ 'GENDER_FEMALE' | translate }}</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
             <ion-text color="danger" *ngIf="gender.invalid && (gender.dirty || gender.touched)">
-              <small>Se requiere tu Género.</small>
+              <small>{{ 'GENDER_REQUIRED' | translate }}</small>
             </ion-text>
 
             <!-- País -->
-           <ion-item lines="none" class="country-item">
-  <ion-label>País</ion-label>
-  <ion-select interface="popover" placeholder="Selecciona una Opción" formControlName="country">
-    <ion-select-option value="mx">México</ion-select-option>
-    <ion-select-option value="us">Estados Unidos</ion-select-option>
-    <ion-select-option value="es">España</ion-select-option>
-  </ion-select>
-</ion-item>
-
-<ion-text color="danger" *ngIf="country.invalid && (country.dirty || country.touched)">
-  <small>Se requiere tu País.</small>
-</ion-text>
-
+            <ion-item lines="none" class="country-item">
+              <ion-label>{{ 'COUNTRY_LABEL' | translate }}</ion-label>
+              <ion-select interface="popover" [placeholder]="'COUNTRY_PLACEHOLDER' | translate" formControlName="country">
+                <ion-select-option value="mx">{{ 'COUNTRY_MX' | translate }}</ion-select-option>
+                <ion-select-option value="us">{{ 'COUNTRY_US' | translate }}</ion-select-option>
+                <ion-select-option value="es">{{ 'COUNTRY_ES' | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
             <ion-text color="danger" *ngIf="country.invalid && (country.dirty || country.touched)">
-              <small>Se requiere tu País.</small>
+              <small>{{ 'COUNTRY_REQUIRED' | translate }}</small>
             </ion-text>
 
             <!-- Correo -->
             <ion-item>
-              <ion-input type="email" formControlName="email" placeholder="Escribe tu Correo"></ion-input>
+              <ion-input type="email" formControlName="email" [placeholder]="'EMAIL_PLACEHOLDER' | translate"></ion-input>
             </ion-item>
             <ion-text color="danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-              <small *ngIf="email.errors?.['required']">Se requiere tu Correo.</small>
-              <small *ngIf="email.errors?.['email']">Formato de Correo inválido.</small>
+              <small *ngIf="email.errors?.['required']">{{ 'EMAIL_REQUIRED' | translate }}</small>
+              <small *ngIf="email.errors?.['email']">{{ 'EMAIL_INVALID' | translate }}</small>
             </ion-text>
 
             <!-- Contraseña -->
             <ion-item>
-              <ion-input type="password" formControlName="password" placeholder="Escribe tu Contraseña"></ion-input>
+              <ion-input type="password" formControlName="password" [placeholder]="'PASSWORD_PLACEHOLDER' | translate"></ion-input>
             </ion-item>
             <ion-text color="danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-              <small *ngIf="password.errors?.['required']">Se requiere tu Contraseña.</small>
-              <small *ngIf="password.errors?.['minlength']">Usa una contraseña de al menos 6 caracteres.</small>
+              <small *ngIf="password.errors?.['required']">{{ 'PASSWORD_REQUIRED' | translate }}</small>
+              <small *ngIf="password.errors?.['minlength']">{{ 'PASSWORD_MIN' | translate }}</small>
             </ion-text>
 
             <!-- Botón de registro -->
             <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="button-primary">
-              Registrar
+              {{ 'REGISTER_BUTTON' | translate }}
             </ion-button>
-
           </form>
-
         </div>
       </ion-col>
     </ion-row>

@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export interface CategoryItem {
   name: string;
@@ -13,7 +14,7 @@ export interface CategoryItem {
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule,TranslateModule],
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.scss'],
 })
@@ -29,7 +30,7 @@ export class CategoriesComponent implements OnInit {
   ];
   categoryColors: string[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,public translate: TranslateService) {}
 
   ngOnInit(): void {
     this.categoryColors = this.categoriesList.map((item, idx) =>

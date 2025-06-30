@@ -6,6 +6,38 @@ dotenv.config();
 
 class UsuariosController {
 
+
+
+// PATCH /api/usuarios/update-language
+async UpdateLanguagee(req, res) {
+  try {
+    const userId = req.userId; // asegúrate de tener el userId autenticado
+    const { language } = req.body;
+
+    // Validar el idioma permitido
+    const allowedLanguages = ['es', 'en', 'pt'];
+    if (!allowedLanguages.includes(language)) {
+      return res.status(400).json({ message: 'Idioma no soportado' });
+    }
+
+    // Actualizar el idioma del usuario
+    const updatedUser = await Usuario.findByIdAndUpdate(
+      userId,
+      { language },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
+    res.json({ message: 'Idioma actualizado', language: updatedUser.language });
+  } catch (error) {
+    console.error('Error al actualizar el idioma:', error);
+    res.status(500).json({ message: 'Error del servidor' });
+  }
+}
+
 async postIdiomaUsuario(req, res) {
   try {
     const { providerId, language } = req.body;

@@ -87,15 +87,15 @@ export const routes: Routes = [
   {
 
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
+    loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
   {
     path: 'change-password',
-    loadComponent: () => import('./pages/change-password/change-password.page').then( m => m.ChangePasswordPage)
+    loadComponent: () => import('./pages/change-password/change-password.page').then(m => m.ChangePasswordPage)
   },
   {
   path: 'start',
