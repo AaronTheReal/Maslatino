@@ -83,6 +83,12 @@ export const routes: Routes = [
     import('./components/individual/profile/siguenos/siguenos.component')
       .then(m => m.SiguenosComponent)
   },
+{
+  path: 'favoritos',
+  loadComponent: () =>
+    import('./components/individual/profile/favoritos/favoritos.component')
+      .then(m => m.FavoritosComponent)
+  },
 
   {
 

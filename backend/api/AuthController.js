@@ -28,7 +28,8 @@ export default class AuthController {
         name: user.name,
         avatar: user.avatar,
         language: user.language,
-        categories: user.categories
+        categories: user.categories,
+       
       }
     });
   } catch (err) {

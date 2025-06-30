@@ -5,7 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { PodcastService } from '../../../services/spotify-podcasts';
 import { FormsModule } from '@angular/forms';
 import { SafePipe } from '../../../pipes/safe.pipe';
-import { addIcons } from 'ionicons'; // Importar addIcons desde ionicons
+import { UsuariosService } from '../../../services/usuarios-service';
+import { AuthService } from '../../../services/auth-service';
+import { addIcons } from 'ionicons';
 import { heartOutline, heart } from 'ionicons/icons';
 
 @Component({
@@ -17,34 +19,78 @@ import { heartOutline, heart } from 'ionicons/icons';
 })
 export class PodcastDespliegueComponent implements OnInit {
   podcast: any;
-  isFavorite: boolean = false;
+  isFavorite = false;
+  user: any;
+  isFlipped = false;
 
   constructor(
     private route: ActivatedRoute,
-    private podcastService: PodcastService
+    private podcastService: PodcastService,
+    private usuarioServce: UsuariosService,
+    private authService: AuthService
   ) {
-    // Registrar los íconos
     addIcons({ 'heart-outline': heartOutline, heart });
   }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    if (!id) return;
+
     this.podcastService.getPodcastById(id).subscribe((data) => {
       this.podcast = data;
       console.log('🎙️ Podcast:', this.podcast);
+
+      // Obtener usuario y verificar si es favorito
+      this.authService.getUser().then(user => {
+        this.user = user;
+
+        const podcastId = this.podcast?._id;
+        const tipo = 'Podcast';
+        const idUsuario = this.user._id;
+
+        if (!podcastId) return;
+
+        this.usuarioServce.isFavorite(podcastId, tipo, idUsuario).subscribe({
+          next: res => {
+            this.isFavorite = res.isFavorite;
+            console.log("¿Es favorito?", this.isFavorite);
+          },
+          error: err => {
+            console.error("Error al verificar favorito", err);
+          }
+        });
+
+      }).catch(err => {
+        console.error("Error al obtener usuario", err);
+      });
     });
   }
 
   toggleFavorite() {
-    this.isFavorite = !this.isFavorite;
+    const podcastId = this.podcast?._id;
+    const tipo = "Podcast";
+    const idUsuario = this.user?._id;
+
+    if (!podcastId || !idUsuario) return;
+
+    const accion = this.isFavorite
+      ? this.usuarioServce.removeFavorite(podcastId, tipo, idUsuario)
+      : this.usuarioServce.addFavoriteToUse(podcastId, tipo, idUsuario);
+
+    accion.subscribe({
+      next: res => {
+        this.isFavorite = !this.isFavorite;
+        console.log("Favorito cambiado:", res);
+      },
+      error: err => {
+        console.error("Error al cambiar favorito", err);
+      }
+    });
   }
 
-  isFlipped = false;
-
-toggleFlip() {
-  this.isFlipped = !this.isFlipped;
-}
-
+  toggleFlip() {
+    this.isFlipped = !this.isFlipped;
+  }
 
   share() {
     if (navigator.share) {

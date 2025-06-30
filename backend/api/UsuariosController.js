@@ -1,10 +1,167 @@
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import Usuario from '../models/Usuarios.js';
+import Podcast from '../models/Podcast.js'; // asegúrate de importar el modelo
+import Show from '../models/Show.js'; // asegúrate de importar el modelo
+import Noticia from '../models/Noticias.js'; // asegúrate de importar el modelo
 
 dotenv.config();
 
 class UsuariosController {
+
+
+ async getFavorites(req, res) {
+    try {
+      const { userId } = req.params;
+
+      if (!userId) {
+        return res.status(400).json({ error: 'Falta el ID del usuario.' });
+      }
+
+      const user = await Usuario.findById(userId);
+
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado.' });
+      }
+
+      const favoritos = user.favorites;
+
+      const noticias = [];
+      const podcasts = [];
+      const shows = [];
+
+      for (const fav of favoritos) {
+        const id = fav.contentId;
+        const tipo = fav.contentType;
+
+        if (tipo === 'Noticia') {
+          const noticia = await Noticia.findById(id).select('_id title meta.image');
+          if (noticia) noticias.push(noticia);
+        } else if (tipo === 'Podcast') {
+          const podcast = await Podcast.findById(id).select('_id title image');
+          if (podcast) podcasts.push(podcast);
+        } else if (tipo === 'Radio') {
+          const show = await Show.findById(id).select('_id title image');
+          if (show) shows.push(show);
+        }
+      }
+
+      res.status(200).json({
+        noticias,
+        podcasts,
+        shows
+      });
+
+    } catch (err) {
+      console.error('Error al obtener favoritos:', err);
+      res.status(500).json({ error: 'Error interno del servidor.' });
+    }
+  }
+
+// controllers/user.controller.js
+
+ async checkFavorite(req, res) {
+  try {
+    const { noticia, Tipo, IdUsuario } = req.body;
+
+    console.log(req.body)
+
+    if (!noticia || !Tipo || !IdUsuario) {
+      return res.status(400).json({ error: 'Datos incompletos' });
+    }
+
+    const user = await Usuario.findById(IdUsuario);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    const isFav = user.favorites.some(fav =>
+      fav.contentId.toString() === noticia && fav.contentType === Tipo
+    );
+
+    return res.status(200).json({ isFavorite: isFav });
+  } catch (err) {
+    console.error('Error al verificar favorito:', err);
+    return res.status(500).json({ error: 'Error interno del servidor' });
+  }
+}
+
+
+async  addToFavorite(req, res) {
+  try {
+    const { noticia, Tipo, IdUsuario } = req.body;
+
+    if (!noticia || !Tipo || !IdUsuario) {
+      return res.status(400).json({ error: 'Faltan datos requeridos.' });
+    }
+
+    const user = await Usuario.findById(IdUsuario);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+
+    // Verificar si ya existe ese favorito
+    const yaExiste = user.favorites.some(fav =>
+      fav.contentId.toString() === noticia &&
+      fav.contentType === Tipo
+    );
+
+    if (yaExiste) {
+      return res.status(409).json({ message: 'Ya está en favoritos.' });
+    }
+
+    // Agregar nuevo favorito
+    user.favorites.push({
+      contentId: noticia,
+      contentType: Tipo
+    });
+
+    await user.save();
+
+    res.status(200).json({ message: 'Agregado a favoritos con éxito.' });
+  } catch (error) {
+    console.error('Error al agregar favorito:', error);
+    res.status(500).json({ error: 'Error interno del servidor.' });
+  }
+}
+
+
+// controllers/user.controller.js
+
+async removeFromFavorites(req, res) {
+  try {
+    const { noticia, Tipo, IdUsuario } = req.body;
+
+    if (!noticia || !Tipo || !IdUsuario) {
+      return res.status(400).json({ error: 'Faltan datos requeridos.' });
+    }
+
+    const user = await Usuario.findById(IdUsuario);
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+
+    // Filtrar y eliminar el favorito correspondiente
+    const favoritosOriginales = user.favorites.length;
+    user.favorites = user.favorites.filter(fav =>
+      !(fav.contentId.toString() === noticia && fav.contentType === Tipo)
+    );
+
+    if (user.favorites.length === favoritosOriginales) {
+      return res.status(404).json({ message: 'El favorito no fue encontrado.' });
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: 'Favorito eliminado con éxito.' });
+  } catch (error) {
+    console.error('Error al eliminar favorito:', error);
+    res.status(500).json({ error: 'Error interno del servidor.' });
+  }
+}
 
 
 

@@ -54,7 +54,7 @@ const ShowSchema = new Schema({
 });
 
   // Autogenerar embedUrl si falta
-  ShowstSchema.pre('save', function (next) {
+  ShowSchema.pre('save', function (next) {
     if (this.spotifyId && !this.embedUrl) {
       this.embedUrl = `https://open.spotify.com/embed/episode/${this.spotifyId}`;
     }

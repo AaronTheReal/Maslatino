@@ -21,7 +21,7 @@ class SpotifyController {
 
  async getShowDespliegue(req, res) {
   try {
-    console.log("🟢 Entró a getShowDespliegue");
+    //console.log("🟢 Entró a getShowDespliegue");
 
     const showId = req.body.id;
     const show = await Show.findById(showId);
@@ -67,7 +67,7 @@ async getShowsAndEpisodes(req, res) {
       const shows = await Show.find()
         .select('spotifyId title image embedUrl episodes')
         .lean(); // Convert to plain JavaScript objects for better performance
-        console.log(shows)
+        //console.log(shows)
  res.status(200).json(shows); // sin `{ success, data }`
 
     } catch (error) {
@@ -180,7 +180,7 @@ async apiSearchPodcast(req, res) {
       embedUrl: `https://open.spotify.com/embed/show/${show.id}`,
     }));
 
-    console.log(results);
+    //console.log(results);
     res.json(results);
   } catch (err) {
     console.error(err);

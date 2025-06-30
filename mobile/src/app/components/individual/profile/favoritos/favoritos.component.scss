@@ -1,0 +1,156 @@
+.favoritos-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 12px;
+  padding-top: 8px;
+}
+
+.back-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: transparent;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.back-button ion-icon {
+  font-size: 22px;
+  color: #000;
+}
+
+.favoritos-titulo {
+  font-weight: bold;
+  font-size: 22px;
+  text-align: center;
+  color: #111;
+}
+
+.favoritos-fecha {
+  position: absolute;
+  left: 40px;
+  top: 4px;
+  font-size: 13px;
+  color: #666;
+}
+
+ion-searchbar {
+  margin-bottom: 16px;
+  border-radius: 12px;
+  --box-shadow: none;
+}
+
+.favorite-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 8px 0;
+}
+
+.favorite-card:hover {
+  transform: scale(1.015);
+}
+
+.favorite-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.favorite-info {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.favorite-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+  line-height: 1.3;
+  height: 2.6em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favorite-tag {
+  font-size: 12px;
+  background-color: #e0e0e0;
+  color: #444;
+  padding: 4px 8px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.no-favorites {
+  text-align: center;
+  margin-top: 40px;
+  color: #777;
+  font-size: 14px;
+}
+
+.no-favorites ion-icon {
+  font-size: 48px;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 12px 0; // menos espacio inferior
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+.tab-button {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 16px;
+  background: #f2f2f2;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &.selected {
+    background: #000;
+    color: #fff;
+  }
+}
+
+.tipo-select-wrapper {
+  margin: 0 auto 24px auto; // centrado con espacio inferior
+  max-width: 280px;         // ancho profesional
+  width: 100%;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+
+  ion-label {
+    font-weight: 500;
+    color: #444;
+    font-size: 14px;
+  }
+
+  ion-select {
+    font-size: 14px;
+  }
+}

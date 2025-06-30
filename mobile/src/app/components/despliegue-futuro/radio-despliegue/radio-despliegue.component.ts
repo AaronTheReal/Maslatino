@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { SafePipe } from '../../../pipes/safe.pipe'; // Asegúrate de tenerlo registrado
 import { addIcons } from 'ionicons';
 import { heart, heartOutline, arrowBackOutline, shareOutline } from 'ionicons/icons';
+import { UsuariosService } from '../../../services/usuarios-service';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-radio-despliegue',
@@ -19,43 +21,85 @@ export class RadioDespliegueComponent implements OnInit {
   show: any;
   isLoading = true;
 isLiked = false;
+user: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private podcastService: PodcastService
-  ) {
+constructor(
+  private route: ActivatedRoute,
+  private router: Router,
+  private podcastService: PodcastService,
+  private usuarioServce: UsuariosService,
+  private authService: AuthService
+) {
+  addIcons({
+    heart,
+    'heart-outline': heartOutline,
+    'arrow-back-outline': arrowBackOutline,
+    'share-outline': shareOutline
+  });
+}
+ngOnInit(): void {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (!id) return;
 
+  this.podcastService.getShowById(id).subscribe({
+    next: (data) => {
+      this.show = data;
+      this.isLoading = false;
 
-    addIcons({
-  heart,
-  'heart-outline': heartOutline,
-  'arrow-back-outline': arrowBackOutline,
-  'share-outline': shareOutline
-});
+      // Obtener usuario y verificar favorito
+      this.authService.getUser().then(user => {
+        this.user = user;
+        const tipo = "Radio";
+        const idUsuario = user._id;
+        const showId = this.show?._id;
 
-  }
+        if (!showId) return;
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+        this.usuarioServce.isFavorite(showId, tipo, idUsuario).subscribe({
+          next: res => {
+            this.isLiked = res.isFavorite;
+            console.log("¿Es favorito?", this.isLiked);
+          },
+          error: err => {
+            console.error("Error al verificar favorito", err);
+          }
+        });
+      }).catch(err => {
+        console.error("Error al obtener usuario", err);
+      });
+    },
+    error: (err) => {
+      console.error('Error al obtener el show:', err);
+      this.isLoading = false;
+    }
+  });
+}
 
-    this.podcastService.getShowById(id).subscribe({
-      next: (data) => {
-        this.show = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error al obtener el show:', err);
-        this.isLoading = false;
-      }
-    });
-  }
 
   goBack() {
     this.router.navigate(['/radio']);
   }
-  toggleLike() {
-  this.isLiked = !this.isLiked;
+toggleLike() {
+
+  const tipo = "Radio";
+  const idUsuario = this.user?._id;
+  const showId = this.show?._id;
+
+  if (!showId || !idUsuario) return;
+
+  const accion = this.isLiked
+    ? this.usuarioServce.removeFavorite(showId, tipo, idUsuario)
+    : this.usuarioServce.addFavoriteToUse(showId, tipo, idUsuario);
+
+  accion.subscribe({
+    next: res => {
+      this.isLiked = !this.isLiked;
+      console.log("Estado de favorito actualizado", res);
+    },
+    error: err => {
+      console.error("Error al cambiar estado de favorito", err);
+    }
+  });
 }
 
 shareShow() {

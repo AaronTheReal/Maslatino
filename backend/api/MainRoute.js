@@ -49,6 +49,10 @@ export default class MainRoute {
     router.route('/registrarUsuario').post(UsuariosController.postNuevoUsuario);
     router.route('/IdiomaUsuarioInicio').put(UsuariosController.postIdiomaUsuario);
     router.route('/update-language').put(UsuariosController.UpdateLanguagee);
+    router.route('/add-favorites').put(UsuariosController.addToFavorite);
+    router.route('/remove-favorites').put(UsuariosController.removeFromFavorites);
+    router.route('/check-favorite').post(UsuariosController.checkFavorite);
+    router.route('/get-favorites/:userId').get(UsuariosController.getFavorites);
 
     return router;
   }

@@ -36,7 +36,7 @@ const UserSchema = new Schema({
 
   categories: [{
     type: String,
-    enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
+    enum: ['Mundo', 'Arte', 'Politica', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
     required: true
   }],
   language: {

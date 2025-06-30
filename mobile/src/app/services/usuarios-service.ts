@@ -49,6 +49,37 @@ updateLanguageUser(language: string): Observable<any> {
   });
 }
 
+
+addFavoriteToUse(noticia: string,Tipo:string,IdUsuario:string ): Observable<any> {
+
+ return this.http.put(`${this.baseUrl}/add-favorites`, {noticia, Tipo,IdUsuario});
+  };
+ removeFavorite(noticia: string,Tipo:string,IdUsuario:string ): Observable<any> {
+
+ return this.http.put(`${this.baseUrl}/remove-favorites`, {noticia, Tipo,IdUsuario});
+  };
+  
+isFavorite(noticia: string, Tipo: string, IdUsuario: string): Observable<{ isFavorite: boolean }> {
+  return this.http.post<{ isFavorite: boolean }>(`${this.baseUrl}/check-favorite`, {
+    noticia,
+    Tipo,
+    IdUsuario
+  });
+}
+getFavorites(userId: string): Observable<{
+  noticias: any[],
+  podcasts: any[],
+  shows: any[]
+}> {
+  return this.http.get<{
+    noticias: any[],
+    podcasts: any[],
+    shows: any[]
+  }>(`${this.baseUrl}/get-favorites/${userId}`);
+}
+
+  
+
 }
 
 
