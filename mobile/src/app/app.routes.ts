@@ -83,7 +83,7 @@ export const routes: Routes = [
     import('./components/individual/profile/siguenos/siguenos.component')
       .then(m => m.SiguenosComponent)
   },
- 
+
   {
 
     path: 'login',
@@ -104,6 +104,10 @@ export const routes: Routes = [
 {
   path: 'select-language',
   loadComponent: () => import('./pages/select-language/select-language.page').then(m => m.SelectLanguagePage)
+},
+{
+  path: 'select-category',
+  loadComponent: () => import('./pages/select-category/select-category.page').then(m => m.SelectCategoryPage)
 },
 {
   path: 'intro-tour',

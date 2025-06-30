@@ -1,0 +1,36 @@
+<ion-content class="ion-padding">
+
+  <ion-grid>
+    <!-- Encabezado -->
+
+  <div class="">
+          <h1>Seleccione una categoría</h1>
+          <p>Elige la categoría de noticias que más te interese y disfruta de un contenido relevante y actualizado a tu alcance.</p>
+        </div>
+    <!-- Categorías en botones -->
+   <ion-row class="ion-no-margin ion-no-padding">
+  <ion-col
+    size="4"
+    *ngFor="let categoria of categorias; let i = index"
+    class="ion-text-center"
+  >
+    <ion-button
+      expand="block"
+      [color]="isSelected(categoria.code) ? randomColors[i % randomColors.length] : 'medium'"
+      [fill]="isSelected(categoria.code) ? 'solid' : 'outline'"
+      (click)="toggleCategory(categoria.code)"
+    >
+      {{ categoria.name }}
+    </ion-button>
+  </ion-col>
+</ion-row>
+
+
+
+        <ion-button   class="continue-btn"  expand="block" (click)="onContinue()">
+          Continuar
+        </ion-button>
+
+  </ion-grid>
+
+</ion-content>

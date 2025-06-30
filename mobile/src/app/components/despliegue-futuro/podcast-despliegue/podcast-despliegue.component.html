@@ -1,8 +1,18 @@
 <ion-content class="ion-padding">
   <div class="podcast-background" [style.background-image]="'url(' + podcast?.image + ')'"></div>
 
-  <div class="foreground-container">
-    <div > <!--class="iframe-wrapper"-->
+
+
+
+<!-- From Uiverse.io by ElSombrero2 -->
+<div class="card">
+ <div class="content" [class.flipped]="isFlipped">
+    <button class="flip-button" (click)="toggleFlip()">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </button>
+    <div class="back">
+      <div class="back-content">
+           <div style=" border-radius: 1rem;"> <!--class="iframe-wrapper"-->
       <iframe
         *ngIf="podcast?.embedUrl"
         [src]="podcast.embedUrl | safe:'resourceUrl'"
@@ -11,17 +21,35 @@
         frameborder="0"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
+        style=" border-radius: 1rem;"
       ></iframe>
     </div>
+      </div>
+    </div>
 
-    <div class="overlay">
+    <div class="front">
+
+      <div class="img">
+        <div class="circle">
+        </div>
+        <div class="circle" id="right">
+        </div>
+        <div class="circle" id="bottom">
+        </div>
+      </div>
+
+      <div class="front-content">
       <div class="heart-icon" [class.active]="isFavorite" (click)="toggleFavorite()">
         <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'"></ion-icon>
       </div>
       <h1 class="title">{{ podcast?.title }}</h1>
       <p class="description">{{ podcast?.description }}</p>
+      </div>
     </div>
   </div>
+</div>
+
+
 </ion-content>
 
 
@@ -32,7 +60,7 @@
 
   <div class="foreground-container">
 
-   
+
 
     <div class="iframe-wrapper">
       <iframe
@@ -51,7 +79,7 @@
       <p class="description">{{ podcast?.description }}</p>
     </div>
  </div>
- 
+
 </ion-content>
 
 
@@ -94,5 +122,5 @@
       <p class="description">{{ podcast?.description }}</p>
     </div>
   </div>
-</ion-content> 
+</ion-content>
 -->

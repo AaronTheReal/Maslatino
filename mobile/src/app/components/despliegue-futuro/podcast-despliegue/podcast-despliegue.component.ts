@@ -39,6 +39,13 @@ export class PodcastDespliegueComponent implements OnInit {
     this.isFavorite = !this.isFavorite;
   }
 
+  isFlipped = false;
+
+toggleFlip() {
+  this.isFlipped = !this.isFlipped;
+}
+
+
   share() {
     if (navigator.share) {
       navigator
