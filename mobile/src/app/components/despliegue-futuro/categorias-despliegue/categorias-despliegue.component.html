@@ -10,7 +10,7 @@
 </ion-header>
 -->
 <ion-content class="categoria-despliegue-content" scrollY="true">
-  
+
  <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
@@ -26,6 +26,9 @@
     <input type="text" placeholder="Buscar en {{ categoriaNombreTraducido }}" />
   </div>
 
+
+
+   <app-carrusel [slides]="slidesArray"></app-carrusel>
   <!-- Noticias -->
   <div class="categoria-section">
     <h2>{{'Noticias' | translate}}</h2>

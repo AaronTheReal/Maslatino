@@ -3,6 +3,7 @@ import { FooterComponent } from '../../../../components/shared/footer/footer.com
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { addIcons } from 'ionicons';
+import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 import {
   IonHeader,
   IonToolbar,
@@ -19,7 +20,7 @@ import {
   IonListHeader,
   IonFooter,
   IonTabButton,
-  IonTabBar, 
+  IonTabBar,
   IonTabs,
   IonBackButton   // Añadido para <ion-tab-bar>
 } from '@ionic/angular/standalone';
@@ -59,7 +60,7 @@ import { Browser } from '@capacitor/browser';
 export class SiguenosComponent implements OnInit {
   activeTab: string = 'siguenos'; // Pestaña activa para el footer
 
-  constructor(private router: Router) {
+  constructor(private router: Router ,  private location: Location,) {
     addIcons({
   'logo-instagram': logoInstagram,
   'logo-tiktok': logoTiktok,
@@ -70,6 +71,10 @@ export class SiguenosComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  goBack() {
+        this.location.back();
+      }
 
   onFooterTabChanged(tabName: string) {
     console.log('Footer seleccionó pestaña:', tabName);

@@ -3,6 +3,8 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-categorias-ind',
@@ -14,7 +16,15 @@ import { Router } from '@angular/router';
 export class CategoriasIndComponent implements OnInit {
   sampleCategories: Array<{ key: string; color: string }> = [];
 
-  constructor(public translate: TranslateService, private router: Router) {}
+  constructor(public translate: TranslateService, private router: Router) {
+  addIcons({
+      'arrow-back-outline': arrowBackOutline,
+      'search-outline': searchOutline,
+      'alert-circle-outline': alertCircleOutline
+    });
+  }
+
+
 
   ngOnInit() {
     this.sampleCategories = [
@@ -34,5 +44,9 @@ export class CategoriasIndComponent implements OnInit {
       console.log("Nombre traducido")
       this.router.navigate(['/categorias-despliegue', urlSafeName]);
     });
+  }
+
+   goBack() {
+    this.router.navigate(['/home']);
   }
 }

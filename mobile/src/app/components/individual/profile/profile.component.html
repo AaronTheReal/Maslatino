@@ -1,4 +1,4 @@
-<ion-header translucent>
+<!-- <ion-header translucent>
   <ion-toolbar>
     <ion-title>{{ 'PROFILE.TITLE' | translate }}</ion-title>
     <ion-buttons slot="end">
@@ -6,9 +6,20 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content class="profile-page">
+
+
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+ <div class="titulo">
+  {{ 'PROFILE.TITLE' | translate }}
+  </div>
+
+
   <div class="profile-header">
     <ion-card class="profile-card">
       <div class="profile-avatar-container">

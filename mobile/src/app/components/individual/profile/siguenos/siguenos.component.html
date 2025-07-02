@@ -1,12 +1,8 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/"></ion-back-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-<br><br><br>
   <ion-content>
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
     <div class="follow-us-container">
       <h1>Follow us</h1>
       <p>You can also follow us on our social networks to get the latest news with flavor.</p>

@@ -29,9 +29,12 @@
 
 .podcast-scroll {
   display: flex;
-  gap: 16px;
-   scrollbar-width: none;
-    -ms-overflow-style: none;
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+    padding-bottom: 8px;
+    scrollbar-width: none;
 }
 
 .podcast-card {

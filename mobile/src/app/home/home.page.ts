@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
     url?: string;
     embedUrl?: string;
   }> = [];
-  
+
 radiosArray: Array<{
   _id?: string;
   spotifyId: string;
@@ -62,7 +62,7 @@ radiosArray: Array<{
 }> = [];
 
 
-  
+
   categoriesArray: CategoryItem[] = [];
   isLoginPage = false;
   activeTab: string = 'home';
@@ -73,7 +73,7 @@ radiosArray: Array<{
     private router: Router,
     private authService: AuthService,
     private podcastService: PodcastService,
-    private translate: TranslateService 
+    private translate: TranslateService
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -111,7 +111,7 @@ this.authService.getUser().then(user => {
       { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Noticia Relevante', id: 2 },
     ];
 
- 
+
 this.categoriesArray = [
   { id: 1, name: 'CATEGORY.ART' },
   { id: 2, name: 'CATEGORY.SPORTS' },

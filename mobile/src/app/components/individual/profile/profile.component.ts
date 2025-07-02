@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
+import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 import {
   createOutline,
   settingsOutline,
@@ -71,7 +72,7 @@ interface UserProfile {
     IonFooter,        // Añadido
     FooterComponent,
     TranslateModule,
-    
+
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
@@ -95,9 +96,10 @@ export class ProfileComponent implements OnInit {
   activeTab: string = 'profile';
   usuario: any;
   constructor(
-    private router: Router, 
-    public translate: TranslateService, 
-    private alertCtrl: AlertController, 
+    private router: Router,
+    public translate: TranslateService,
+       private location: Location,
+    private alertCtrl: AlertController,
     private usuariosService: UsuariosService,
     private authService: AuthService ) {
     addIcons({
@@ -118,7 +120,7 @@ export class ProfileComponent implements OnInit {
       this.user = user;
       console.log('usuario', this.user);
 
-      
+
 
       if (user?.language) {
         this.translate.use(user.language);
@@ -239,5 +241,8 @@ changeLanguage(lang: string) {
     }
   });
 }
+  goBack() {
+        this.location.back();
+      }
 
 }

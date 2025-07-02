@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsuariosService } from './../../../services/usuarios-service';
 import { AuthService } from './../../../services/auth-service';
-
+import { CarruselComponent } from '../../../components/features/carrusel/carrusel.component';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NoticiasService } from '../../../services/noticias-service';
@@ -38,12 +38,18 @@ import { Location } from '@angular/common'; // ✅ ESTA es la correcta
     imports: [
     CommonModule,
     FormsModule,
+    CarruselComponent,
     TranslateModule,
     IonicModule
   ]
 })
 export class CategoriasDespliegueComponent implements OnInit {
   categoriaNombreTraducido = '';
+    slidesArray = [
+    { img: 'assets/img/carousel1.jpg', title: '' },
+    { img: 'assets/img/carousel2.jpg', title: '' },
+    { img: 'assets/img/carousel3.jpeg', title: '' },
+  ]
   resultados: {
     noticias: any[],
     podcasts: any[],
@@ -51,11 +57,12 @@ export class CategoriasDespliegueComponent implements OnInit {
   } = {
     noticias: [],
     podcasts: [],
-    shows: []
+    shows: [],
+
   };
-  constructor(private route: ActivatedRoute, 
-    private authService: AuthService, 
-    private usuariosService: UsuariosService, 
+  constructor(private route: ActivatedRoute,
+    private authService: AuthService,
+    private usuariosService: UsuariosService,
     private router: Router,
     private location: Location
 
@@ -77,16 +84,16 @@ export class CategoriasDespliegueComponent implements OnInit {
     console.log('Categoría traducida seleccionada:', this.categoriaNombreTraducido);
 
     // Llamada al backend (por ejemplo para obtener favoritos de esta categoría)
-    this.usuariosService.getByCategory(this.categoriaNombreTraducido).subscribe({
-      next: (res) => {
-        console.log('Datos recibidos:', res);
-        this.resultados = res;
-        console.log("resultados",this.resultados);
-      },
-      error: (err) => {
-        console.error('Error al obtener datos:', err);
-      }
-    });
+    // this.usuariosService.getByCategory(this.categoriaNombreTraducido).subscribe({
+    //   next: (res) => {
+    //     console.log('Datos recibidos:', res);
+    //     this.resultados = res;
+    //     console.log("resultados",this.resultados);
+    //   },
+    //   error: (err) => {
+    //     console.error('Error al obtener datos:', err);
+    //   }
+    // });
   }
 
        goBack() {
