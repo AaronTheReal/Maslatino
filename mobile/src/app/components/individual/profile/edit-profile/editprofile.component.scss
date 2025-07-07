@@ -19,8 +19,12 @@
       color: #666;
       margin-bottom: 30px;
     }
-
-    .back-button {
+    /* Cabecera de perfil */
+.profile-header {
+  display: flex;
+  justify-content: center;
+}
+.back-button {
   position: fixed;
   top: 16px;
   left: 16px;
@@ -30,6 +34,56 @@
   backdrop-filter: blur(4px);
   color: #000;
 }
+.profile-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.profile-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: none;
+  background-color: var(--ion-card-background, #fff);
+  width: 90%;
+  max-width: 400px;
+}
+
+.profile-avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* Quitamos margen lateral innecesario */
+}
+
+.profile-avatar {
+  --avatar-size: 100px; /* Si no está definida, puedes añadirla aquí */
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+  border: 2px solid var(--ion-color-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  background-color: var(--ion-color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .initials {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+}
+
     .social-buttons {
       width: 100%;
       display: flex;
@@ -136,51 +190,3 @@
     ion-tab-button.tab-selected ion-icon {
       color: #000;
     }
-.calendar-date {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 1rem 1rem 0.5rem;
-}
-
-.event-card {
-  margin: 0.5rem 1rem;
-  border-radius: 12px;
-  padding: 0;
-  overflow: hidden;
-}
-
-.event-card-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.event-image {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: 1rem;
-}
-
-.event-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.event-details {
-  flex: 1;
-  padding: 0.5rem 1rem;
-}
-
-.event-time {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ion-color-medium);
-  margin-bottom: 0.3rem;
-}
-
-.event-description {
-  font-size: 1rem;
-  color: var(--ion-color-dark);
-}

@@ -37,9 +37,10 @@
         <p class="profile-email">{{ user.email }}</p>
       </div>
 
-      <ion-button fill="clear" (click)="openSettings()" aria-label="{{ 'PROFILE.SETTINGS' | translate }}" class="settings-button">
-        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
-      </ion-button>
+     <ion-button fill="clear" (click)="editProfile()" aria-label="{{ 'PROFILE.SETTINGS' | translate }}" class="settings-button">
+  <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+</ion-button>
+
     </ion-card>
   </div>
 

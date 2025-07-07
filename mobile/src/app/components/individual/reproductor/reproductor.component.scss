@@ -30,6 +30,105 @@
   backdrop-filter: blur(4px);
   color: #000;
 }
+.podcast-card {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.podcast-action ion-button:hover {
+  --color: var(--ion-color-primary);
+  transform: scale(1.1);
+}
+
+.podcast-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+.reproductor-expandido {
+  background: var(--ion-color-light);
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+  margin: 1rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.reproductor-imagen img {
+  width: 220px;
+  height: 220px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin: 0 auto 1.2rem auto;
+}
+
+.reproductor-tiempo {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ion-color-medium);
+  margin-bottom: 1rem;
+}
+
+.reproductor-controles {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.reproductor-controles ion-button ion-icon {
+  font-size: 2rem;
+  color: #000;
+}
+
+
+.podcast-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.podcast-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.podcast-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.podcast-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.podcast-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.podcast-episode,
+.podcast-duration {
+  margin: 0.15rem 0;
+  font-size: 0.95rem;
+  color: var(--ion-color-medium);
+}
+
+.podcast-action {
+  display: flex;
+  align-items: center;
+}
+
     .social-buttons {
       width: 100%;
       display: flex;
@@ -136,51 +235,3 @@
     ion-tab-button.tab-selected ion-icon {
       color: #000;
     }
-.calendar-date {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 1rem 1rem 0.5rem;
-}
-
-.event-card {
-  margin: 0.5rem 1rem;
-  border-radius: 12px;
-  padding: 0;
-  overflow: hidden;
-}
-
-.event-card-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.event-image {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: 1rem;
-}
-
-.event-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.event-details {
-  flex: 1;
-  padding: 0.5rem 1rem;
-}
-
-.event-time {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ion-color-medium);
-  margin-bottom: 0.3rem;
-}
-
-.event-description {
-  font-size: 1rem;
-  color: var(--ion-color-dark);
-}

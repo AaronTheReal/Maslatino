@@ -38,7 +38,7 @@ export class FooterComponent {
       home: '/home',
       announcements: '/announcements',
       play: '/play',
-      calendar: '/calendar',
+      calendar: '/calentario',
       profile: '/profile'
 
     }[tabName];

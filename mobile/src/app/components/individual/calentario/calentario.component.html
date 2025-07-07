@@ -1,3 +1,38 @@
-<p>
-  calentario works!
-</p>
+  <ion-content>
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+    <div class="follow-us-container">
+      <h1>Calendario</h1>
+    </div>
+
+
+
+     <div *ngFor="let grupo of eventosAgrupadosPorDia" class="calendar-day-group">
+    <h2 class="calendar-date">{{ grupo.dia }} {{ grupo.mes }}</h2>
+
+    <ion-card *ngFor="let evento of grupo.eventos" class="event-card">
+      <div class="event-card-content"  (click)="irADetalleEvento(evento)">
+        <!-- Imagen del evento -->
+        <div class="event-image">
+          <img [src]="evento.imagenUrl" alt="Imagen del evento" />
+        </div>
+
+        <!-- Detalles del evento -->
+        <div class="event-details">
+          <div class="event-time">{{ evento.hora }}</div>
+          <div class="event-description">{{ evento.descripcion }}</div>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+
+
+  </ion-content>
+
+
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>

@@ -1,0 +1,46 @@
+  <ion-content>
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+   <app-carrusel [slides]="slidesArray"></app-carrusel>
+
+<!-- Título del evento -->
+<div class="evento-titulo">
+  {{ evento.titulo }}
+</div>
+
+<!-- Información del evento -->
+<div class="evento-detalles">
+  <!-- Fecha -->
+  <div class="evento-info-item">
+    <ion-icon name="calendar-outline" class="evento-icon"></ion-icon>
+    <span>{{ evento.fecha | date:'dd MMMM yyyy' }}</span>
+  </div>
+
+  <!-- Hora -->
+  <div class="evento-info-item">
+    <ion-icon name="time-outline" class="evento-icon"></ion-icon>
+    <span>{{ evento.horaInicio }} - {{ evento.horaFin }}</span>
+  </div>
+
+  <!-- Ubicación -->
+  <div class="evento-info-item">
+    <ion-icon name="location-outline" class="evento-icon"></ion-icon>
+    <span>{{ evento.locacion }}</span>
+  </div>
+
+  <!-- URL -->
+  <div class="evento-info-item">
+    <ion-icon name="link-outline" class="evento-icon"></ion-icon>
+    <a [href]="evento.url" target="_blank" rel="noopener">{{ evento.url }}</a>
+  </div>
+</div>
+
+
+  </ion-content>
+
+
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>

@@ -171,9 +171,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate([path]);
   }
 
-  editProfile() {
-    this.router.navigate(['/profile/edit']);
-  }
+editProfile() {
+  this.router.navigate(['/editprofile']);
+}
+
 
   openSettings() {
     console.log('Abrir configuración');

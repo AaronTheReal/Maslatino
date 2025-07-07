@@ -69,6 +69,7 @@
   padding: 1rem;
 }
 
+
 .notification-card {
   border-radius: 15px;
   box-shadow: 12px rgba(0, 0, 0, 0.05);
@@ -89,6 +90,45 @@
   font-size: 1rem;
   color: #444;
 }
+
+.evento-titulo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem;
+  text-align: center;
+}
+.evento-detalles {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente todo */
+  gap: 2rem; /* Más espacio entre elementos */
+  padding: 2.5rem 1rem;
+}
+
+.evento-info-item {
+  display: flex;
+  font-size: 1.4rem; /* Texto más grande */
+  font-weight: 600;
+  color: var(--ion-color-dark);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  border-radius: 14px;
+}
+
+.evento-icon {
+  margin-right: 1rem;
+  font-size: 1.8rem; /* Ícono más grande */
+}
+
+.evento-info-item a {
+  color: var(--ion-color-primary);
+  text-decoration: underline;
+  word-break: break-word;
+  font-size: 1.3rem;
+}
+
 
 .date {
   font-size: 0.8rem;

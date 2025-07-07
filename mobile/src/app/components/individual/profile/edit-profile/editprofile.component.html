@@ -1,0 +1,51 @@
+  <ion-content>
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+    <div class="follow-us-container">
+      <h1>Editar Perfil</h1>
+    </div>
+
+ <div class="profile-header">
+    <ion-card class="profile-card">
+      <div class="profile-avatar-container">
+        <ion-avatar class="profile-avatar">
+          <ng-container *ngIf="user.avatarUrl; else showInitials">
+            <img [src]="user.avatarUrl" [alt]="'PROFILE.AVATAR_ALT' | translate : { name: user.name }" />
+          </ng-container>
+          <ng-template #showInitials>
+            <div class="initials">{{ initials }}</div>
+          </ng-template>
+        </ion-avatar>
+      </div>
+    </ion-card>
+  </div>
+
+  <!-- Campos de edición -->
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">{{ 'profile.name' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.name" type="text" placeholder="Tu nombre completo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">{{ 'profile.emal' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.email" type="email" placeholder="tu@correo.com"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <!-- Botón guardar -->
+  <div style="padding: 1rem;">
+    <ion-button expand="block" (click)="saveProfile()">
+      {{ 'profile.save' | translate }}
+    </ion-button>
+  </div>
+</ion-content>
+
+
+
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>

@@ -20,6 +20,21 @@ export const routes: Routes = [
       import('./components/individual/categorias-ind/categorias-ind.component').then((m) => m.CategoriasIndComponent),
   },
     {
+    path: 'calentario',
+    loadComponent: () =>
+      import('./components/individual/calentario/calentario.component').then((m) => m.CalentarioComponent),
+  },
+   {
+    path: 'reproductor',
+    loadComponent: () =>
+      import('./components/individual/reproductor/reproductor.component').then((m) => m.ReproductorComponent),
+  },
+    {
+    path: 'calendarioDespliegue',
+    loadComponent: () =>
+      import('./components/individual/calentario/calendario-selection/calendario-despliegue.component').then((m) => m.CalentarioDespliegueComponent),
+  },
+    {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
@@ -95,7 +110,18 @@ export const routes: Routes = [
     import('./components/individual/profile/favoritos/favoritos.component')
       .then(m => m.FavoritosComponent)
   },
-
+{
+  path: 'notificaciones',
+  loadComponent: () =>
+    import('./components/individual/profile/notificaciones/notificaciones.component')
+      .then(m => m.NotificacionesComponent)
+  },
+  {
+  path: 'editprofile',
+  loadComponent: () =>
+    import('./components/individual/profile/edit-profile/editprofile.component')
+      .then(m => m.EditprofileComponent)
+  },
   {
 
     path: 'login',

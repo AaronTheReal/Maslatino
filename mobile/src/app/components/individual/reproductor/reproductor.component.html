@@ -1,0 +1,76 @@
+  <ion-content>
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+    <div class="follow-us-container">
+      <h1>Reproductor</h1>
+    </div>
+
+
+<ng-container *ngIf="podcastActivo">
+  <div class="reproductor-expandido">
+    <!-- Imagen centrada -->
+    <div class="reproductor-imagen">
+      <img [src]="podcastActivo.imagenUrl" alt="Podcast actual" />
+    </div>
+
+    <!-- Tiempo de reproducción -->
+    <div class="reproductor-tiempo">
+      {{ tiempoActual }} / {{ podcastActivo.duracion }}
+    </div>
+
+    <!-- Controles -->
+    <div class="reproductor-controles">
+       <ion-button fill="clear" (click)="opciones(podcastActivo)">
+    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+  </ion-button>
+
+      <ion-button fill="clear" (click)="anterior()">
+        <ion-icon name="play-skip-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="togglePlay()">
+        <ion-icon [name]="enReproduccion ? 'pause-circle-outline' : 'play-circle-outline'"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="siguiente()">
+        <ion-icon name="play-skip-forward-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" (click)="toggleFavorito(podcastActivo)">
+        <ion-icon [name]="podcastActivo.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ng-container>
+
+<ion-card *ngFor="let podcast of podcasts" class="podcast-card">
+  <div class="podcast-card-content">
+    <!-- Imagen a la izquierda -->
+    <div class="podcast-image">
+      <img [src]="podcast.imagenUrl" alt="Portada podcast" />
+    </div>
+
+    <!-- Info en el centro -->
+    <div class="podcast-info">
+      <h3 class="podcast-title">{{ podcast.titulo }}</h3>
+      <p class="podcast-episode">Episodio {{ podcast.episodio }}</p>
+      <p class="podcast-duration">{{ podcast.duracion }}</p>
+    </div>
+
+    <!-- Botón a la derecha -->
+    <div class="podcast-action">
+      <ion-button fill="clear" (click)="reproducir(podcast)">
+        <ion-icon name="play-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+</ion-card>
+
+
+
+  </ion-content>
+
+
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>

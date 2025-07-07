@@ -1,0 +1,37 @@
+  <ion-content>
+ <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+    <div class="follow-us-container">
+      <h1>Notificaciónes</h1>
+    </div>
+
+
+      <div class="notifications-list">
+
+    <ion-card *ngFor="let noti of notificaciones" class="notification-card">
+      <ion-card-header>
+        <ion-item lines="none" class="card-header-item">
+        <ion-icon [icon]="noti.icon" slot="start" class="notification-icon"></ion-icon>
+
+          <ion-label>
+            <h2>{{ noti.titulo }}</h2>
+            <p class="date">{{ noti.fecha }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p class="notification-message">{{ noti.mensaje }}</p>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+  </ion-content>
+
+
+
+  <ion-footer>
+    <app-footer></app-footer>
+  </ion-footer>
