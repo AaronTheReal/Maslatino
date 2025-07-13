@@ -35,7 +35,9 @@ import {
   playSkipBackOutline,
   playSkipForwardOutline,
   heart,
-  heartOutline
+  heartOutline,
+  chevronDownOutline,
+  arrowBackOutline
 } from 'ionicons/icons';
 
 
@@ -106,6 +108,8 @@ podcasts = [
     'play-skip-back-outline': playSkipBackOutline,
       'ellipsis-vertical-outline': ellipsisVerticalOutline,
     'play-skip-forward-outline': playSkipForwardOutline,
+        'arrow-back-outline': arrowBackOutline,
+           'chevron-down-outline': chevronDownOutline,
     'heart': heart,
     'heart-outline': heartOutline
   });
@@ -142,6 +146,9 @@ toggleFavorito(podcast: any) {
 opciones(podcast: any) {
   console.log('Opciones para:', podcast);
   // Aquí podrías abrir un ActionSheet o menú contextual
+}
+cerrarReproductor() {
+  this.podcastActivo = null;
 }
 
   goBack() {
