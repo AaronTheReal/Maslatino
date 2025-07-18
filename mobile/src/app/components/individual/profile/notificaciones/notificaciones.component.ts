@@ -28,7 +28,7 @@ import {
   IonBackButton   // Añadido para <ion-tab-bar>
 } from '@ionic/angular/standalone';
 import { Browser } from '@capacitor/browser';
-import { mailOutline, personCircleOutline, walletOutline } from 'ionicons/icons';
+import { mailOutline, personCircleOutline, walletOutline, arrowBackOutline } from 'ionicons/icons';
 
 
 
@@ -93,6 +93,11 @@ export class NotificacionesComponent implements OnInit {
   activeTab: string = 'notificaciones'; // Pestaña activa para el footer
 
   constructor(private router: Router ,  private location: Location,) {
+
+ addIcons({
+  'arrow-back-outline': arrowBackOutline,
+
+});
 
   }
 

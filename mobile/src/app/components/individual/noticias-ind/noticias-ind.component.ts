@@ -92,5 +92,5 @@ isFavorite = false;
   goBack(): void {
     this.router.navigate(['/home']);
   }
-  
+
 }

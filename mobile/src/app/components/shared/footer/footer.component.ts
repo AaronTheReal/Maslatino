@@ -37,7 +37,7 @@ export class FooterComponent {
     const ruta = {
       home: '/home',
       announcements: '/announcements',
-      play: '/play',
+      play: '/reproductor',
       calendar: '/calentario',
       profile: '/profile'
 
