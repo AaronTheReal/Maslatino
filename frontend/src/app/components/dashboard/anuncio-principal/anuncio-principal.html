@@ -1,10 +1,18 @@
-<div class="anuncio container py-4 text-center">
-  <div class="anuncio-poster">
-    <img
-      src="assets/EventoDestacado/Evento2.webp"
-      alt="Póster del evento"
-      class="anuncio-img"
-    />
+<section class="seccion-noticias" *ngIf="noticias.length >= 8">
+
+  <!-- Título centrado -->
+  <h2 class="titulo-seccion">RECOMMENDED FOR YOU</h2>
+
+  <!-- Contenedor de tarjetas -->
+  <div class="contenedor-tarjetas">
+    
+    <div class="tarjeta" *ngFor="let noticia of noticias.slice(5, 8)">
+      <img [src]="noticia.meta?.image || 'assets/default-news.jpg'" [alt]="noticia.title" class="imagen-tarjeta" />
+      <div class="contenido-tarjeta">
+        <h3 class="titulo-noticia">{{ noticia.title }}</h3>
+        <p class="fecha-noticia">{{ noticia.createdAt | date: 'longDate' }}</p>
+      </div>
+    </div>
+
   </div>
-  <p class="anuncio-text">Gana los tickets aquí</p>
-</div>
+</section>

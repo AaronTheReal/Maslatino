@@ -6,6 +6,7 @@ import SpotifyController from './SpotifyController.js';
 import NoticiasController from './NoticiasController.js'
 import UsuariosController from './UsuariosController.js'
 import AuthController from './AuthController.js';
+import streamingController from './StreamingController.js'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -55,8 +56,11 @@ export default class MainRoute {
     router.route('/get-favorites/:userId').get(UsuariosController.getFavorites);
     router.route('/get-by-category/:category').get(UsuariosController.getAllByCategory);
     router.route('/get-user/:id').get(UsuariosController.getUserBack);
-
-
+    router.route('/crear-stream').post(streamingController.apiCrearStreams);
+    router.route('/get-stream/:id').get(streamingController.apiGetStreams);
+    //Stream
+   
+    
     return router;
   }
 }

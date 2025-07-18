@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PrincipalesNoticias } from '../principales-noticias/principales-noticias';
 import { AnuncioPrincipal } from '../anuncio-principal/anuncio-principal';
 import { EventosNoticias } from '../eventos-noticias/eventos-noticias';
 import { Podcast } from '../podcast/podcast';
 import { RecomendadasNoticias } from '../recomendadas-noticias/recomendadas-noticias';
 import { UltimasNoticias } from '../ultimas-noticias/ultimas-noticias';
+import { Unete } from '../unete/unete';
+import { ContactUs } from '../contact-us/contact-us';
+
 import { CommonModule } from '@angular/common';
 
 
@@ -18,10 +21,14 @@ import { CommonModule } from '@angular/common';
     Podcast,
     RecomendadasNoticias,
     UltimasNoticias,
-    CommonModule
+    CommonModule,
+    Unete,
+    ContactUs
+    
   ],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.css'
+  styleUrl: './dashboard.css',
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Dashboard implements OnInit {
 

@@ -14,7 +14,12 @@ export interface Noticia {
   content: any[]; // según tu modelo de bloques
   createdAt?: string;
   updatedAt?: string;
+  meta?: {
+    description?: string;
+    image?: string;
+  };
 }
+
 
 @Injectable({ providedIn: 'root' })
 export class NoticiasService {

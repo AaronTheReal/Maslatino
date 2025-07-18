@@ -1,19 +1,16 @@
-<div class="principales-noticias container py-4">
-  <div class="main-news">
-    <ng-container *ngFor="let n of noticias; let i = index">
-      <div
-        class="news-card"
-        [class.main-left]="i === 0"
-        [class.side-card]="i > 0"
-      >
-        <img [src]="n.img" alt="{{ n.titulo }}" />
-        <div class="news-info">
-          <div class="category-date">
-            {{ n.categoria }} <small>{{ n.fecha }}</small>
-          </div>
-          <h3 class="news-title">{{ n.titulo }}</h3>
-        </div>
-      </div>
-    </ng-container>
+<section class="dashboard-hero">
+  <!-- Contenedor de texto -->
+  <div class="frase-container">
+    <div class="frase-dashboard">
+      <h1><span class="negro">CONECTATE</span></h1>
+      <h1><span class="negro">CON TUS</span></h1>
+      <h1><span class="morado">RAICES</span></h1>
+      <h1><span class="morado">LATINAS</span></h1>
+    </div>
   </div>
-</div>
+
+  <!-- Imagen a la derecha -->
+  <div class="image-right-section">
+    <img src="assets/dashboardiconos/lapiz.png" alt="Raíces Latinas" class="image-right" />
+  </div>
+</section>
