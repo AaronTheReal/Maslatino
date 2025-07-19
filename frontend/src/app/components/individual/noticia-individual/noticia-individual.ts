@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NoticiasService } from '../../../services/noticias-service';
 import { CommonModule } from '@angular/common';
-import { Noticia } from '../../../models/noticia.model'; // ajusta la ruta si es necesario
+import { Noticia } from '../../../models/noticia.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-noticia-individual',
@@ -11,19 +12,24 @@ import { Noticia } from '../../../models/noticia.model'; // ajusta la ruta si es
   styleUrls: ['./noticia-individual.css']
 })
 export class NoticiaIndividual implements OnInit {
-  noticias: Noticia[] = []; // ✅ Ya tiene tipo
+  noticia?: Noticia; // solo una noticia
 
-  constructor(private noticiasService: NoticiasService) {}
+  constructor(
+    private noticiasService: NoticiasService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.noticiasService.getNoticias().subscribe({
-      next: (data) => {
-        this.noticias = data;
-        console.log('Noticias recibidas:', this.noticias);
-      },
-      error: (err) => {
-        console.error('Error al obtener noticias:', err);
-      }
-    });
+    const slug = this.route.snapshot.paramMap.get('slug');
+    if (slug) {
+      this.noticiasService.getNoticias().subscribe({
+        next: (data) => {
+      this.noticia = data.find((n: Noticia) => n.slug === slug);
+        },
+        error: (err) => {
+          console.error('Error al obtener noticias:', err);
+        }
+      });
+    }
   }
 }

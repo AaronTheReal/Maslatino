@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 export interface Noticia {
   _id?: string;
   title: string;
+  slug: string; // ✅ AÑADE ESTA LÍNEA
   summary?: string;
   author: string;
   categories: string[];

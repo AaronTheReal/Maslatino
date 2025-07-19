@@ -8,6 +8,7 @@ import { PanelMultimedia } from './components/admin/panel-multimedia/panel-multi
 import { PanelNoticias } from './components/admin/panel-noticias/panel-noticias';
 import {PanelRadio} from './components/admin/panel-radio/panel-radio'
 import {NoticiaIndividual} from './components/individual/noticia-individual/noticia-individual'
+import {SobreNosotros} from './components/individual/sobre-nosotros/sobre-nosotros'
 
 export const routes: Routes = [
 
@@ -22,7 +23,9 @@ export const routes: Routes = [
       {path: 'radio-panel',component: PanelRadio },
 
 
-      {path: 'noticia-individual',component: NoticiaIndividual },
+      { path: 'noticia/:slug', component: NoticiaIndividual },
+      { path: 'sobre-nosotros', component: SobreNosotros }
+
 
 
     

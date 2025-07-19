@@ -1,0 +1,243 @@
+/* CSS */
+.seccion-conectate {
+  width: 100%;
+  background-color: white;
+  padding: 80px 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.contenedor-flex {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.columna-texto {
+  flex: 1;
+  text-align: center;
+}
+
+.titulo {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: black;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.titulo-destacado {
+  color: #9333ea; /* Tailwind purple-500 */
+}
+
+.columna-imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.imagen {
+  width: 100%;
+  max-width: 600px;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+/* Responsive para pantallas medianas en adelante */
+@media (min-width: 768px) {
+  .contenedor-flex {
+    flex-direction: row;
+    padding: 80px 24px;
+  }
+
+  .columna-texto {
+    text-align: left;
+  }
+
+  .titulo {
+    font-size: 3.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contenedor-flex {
+    padding: 80px 48px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.seccion-proposito {
+  background-color: #000;
+  color: white;
+  padding: 100px 24px;
+  display: flex;
+  justify-content: center;
+  position: relative; /* 👈 necesario para posicionar la serpiente */
+  overflow: hidden;
+}
+
+.contenedor-proposito {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.texto-derecha {
+  text-align: left;
+  color: #ef4444;
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 0.8;
+  flex: 1;
+  min-width: 240px;
+}
+
+.texto-centro {
+  text-align: left;
+  color: #ffffff;
+  font-size: 3.5rem;
+  font-weight: 900;
+  line-height: 0.7;
+  flex: 2;
+  min-width: 240px;
+}
+
+/* Serpiente pegada abajo y derecha */
+.serpiente {
+  position: absolute;
+  right: 0;
+  bottom: 0  ; /* 👈 pega la base de la imagen al fondo del contenedor */
+  z-index: 0;
+  pointer-events: none;
+}
+
+.serpiente img {
+  height: auto;
+  max-height: 480px;
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.seccion-contacto {
+  width: 100%;
+  padding: 80px 24px;
+  background-color: white;
+}
+
+.contenedor-contacto {
+  max-width: 1200px; /* equivalente a max-w-4xl */
+  margin: 0 auto;
+  text-align: center;
+}
+
+.titulo-contacto {
+  font-size: 2rem; /* base size for mobile */
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 48px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .titulo-contacto {
+    font-size: 2.5rem; /* md:text-4xl */
+  }
+}
+
+.formulario-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.fila-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .fila-inputs {
+    flex-direction: row;
+  }
+}
+
+.input-contacto {
+  flex: 1;
+  border: 1px solid #000;
+  border-radius: 9999px; /* rounded-full */
+  padding: 16px 24px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.textarea-contacto {
+  width: 100%;
+  border: 1px solid #000;
+  border-radius: 16px;
+  padding: 20px 24px;
+  font-size: 1rem;
+  resize: none;
+  outline: none;
+}
+
+
+.boton-contacto {
+  background-color: #8e4ef6; /* bg-red-500 */
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  display: inline-block;   /* asegura que solo ocupe el tamaño de su contenido */
+  width: auto;             /* no ocupa todo el ancho */
+  align-self: center;      /* si el contenedor es flex */
+  margin: 0 auto;          /* si el contenedor no es flex, se centra igual */
+}
+
+.boton-contacto:hover {
+  background-color: #dc2626; /* bg-red-600 */
+}

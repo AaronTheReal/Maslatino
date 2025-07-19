@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoticiasService, Noticia } from '../../../services/noticias-service'; // ajusta la ruta si es distinta
+import { RouterModule } from '@angular/router'; // ✅ IMPORTA ESTO
 
 @Component({
   selector: 'app-eventos-noticias',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule ],
   templateUrl: './eventos-noticias.html',
   styleUrl: './eventos-noticias.css'
 })
