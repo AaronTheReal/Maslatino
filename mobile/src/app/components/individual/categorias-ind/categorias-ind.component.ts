@@ -5,6 +5,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-categorias-ind',
@@ -16,7 +18,7 @@ import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/ic
 export class CategoriasIndComponent implements OnInit {
   sampleCategories: Array<{ key: string; color: string }> = [];
 
-  constructor(public translate: TranslateService, private router: Router) {
+  constructor(public translate: TranslateService, private router: Router,private location: Location) {
   addIcons({
       'arrow-back-outline': arrowBackOutline,
       'search-outline': searchOutline,
@@ -46,7 +48,7 @@ export class CategoriasIndComponent implements OnInit {
     });
   }
 
-   goBack() {
-    this.router.navigate(['/home']);
+    goBack() {
+    this.location.back();
   }
 }

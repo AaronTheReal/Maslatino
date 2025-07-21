@@ -14,8 +14,8 @@ const RadioSchema = new Schema({
   authorName: { type: String },
 
   categories: [{
-    type: String,
-    enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
     required: true
   }],
   tags: [{ type: String, trim: true }],

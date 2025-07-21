@@ -8,6 +8,7 @@ import UsuariosController from './UsuariosController.js'
 import AuthController from './AuthController.js';
 import streamingController from './StreamingController.js'
 import RadioController from './RadioController.js';
+import CategoriasController from './CategoriasController.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,6 +66,13 @@ export default class MainRoute {
     router.post('/radioPost', RadioController.guardarRadios);
     router.get('/radios', RadioController.obtenerRadios);
     router.get('/radios/:id', RadioController.obtenerRadioPorId);
+
+    //categorias
+    router.post('/categoriaPost', CategoriasController.crearCategoria);
+    router.get('/categorias', CategoriasController.obtenerCategorias);
+    router.get('/categorias/:id', CategoriasController.obtenerCategoriaPorId);
+    router.put('/categorias/:id', CategoriasController.actualizarCategoria);
+    router.delete('/categorias/:id', CategoriasController.eliminarCategoria);
     return router;
   }
 }

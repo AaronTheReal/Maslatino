@@ -35,8 +35,8 @@ const UserSchema = new Schema({
   avatar: { type: String, trim: true },
 
   categories: [{
-    type: String,
-    enum: ['Mundo', 'Arte', 'Politica', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
     required: true
   }],
   language: {

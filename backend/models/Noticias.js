@@ -113,11 +113,11 @@ const NoticiaSchema = new Schema({
   authorName: { type: String, trim: true },
 
   categories: [{
-    type: String,
-    enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
     required: true
   }],
-  tags: [{ type: String, trim: true }],
+
 
   location: {
     country: { type: String, trim: true },
@@ -143,6 +143,12 @@ NoticiaSchema.pre('save', function (next) {
 });
 
 export default model('Noticia', NoticiaSchema);
+
+
+
+//  enum: ['Mundo','Arte','Política','Finanzas','Familia','Deportes','Salud'],
+
+
 
 /*
 import mongoose from 'mongoose';
