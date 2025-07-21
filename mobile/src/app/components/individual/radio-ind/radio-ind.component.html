@@ -17,11 +17,11 @@
       placeholder="Buscar radio..."
       class="search-input"
       [(ngModel)]="searchTerm"
-      (input)="filterShows()"
+      (input)="filterRadios()"
     />
   </div>
 
-  <!-- Category filters -->
+  <!-- Category filters 
   <div class="filter-tabs hide-scrollbar">
     <button class="tab-button selected">Todos</button>
     <button class="tab-button">Mundo</button>
@@ -31,21 +31,20 @@
     <button class="tab-button">Familia</button>
     <button class="tab-button">Deportes</button>
     <button class="tab-button">Salud</button>
-    <button class="tab-button">Educación</button>
   </div>
-
-  <!-- 💥 Aquí vuelve la grilla -->
+-->
+  <!-- Grilla de radios -->
   <div class="radio-grid">
-    <div
-      class="radio-card"
-      *ngFor="let show of filteredShows"
-      (click)="goToShowDetail(show._id)"
-    >
+      <div
+        class="radio-card"
+        *ngFor="let radio of filteredRadios"
+        (click)="goToRadioDetail(radio.title)"
+      >
       <div class="image-wrapper">
-        <img [src]="show.image" [alt]="show.title" />
+        <img [src]="radio.image" [alt]="radio.title" />
       </div>
       <div class="radio-info">
-        <h3 class="radio-title">{{ show.title }}</h3>
+        <h3 class="radio-title">{{ radio.title }}</h3>
         <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
       </div>
     </div>

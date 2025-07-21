@@ -1,0 +1,32 @@
+
+
+<ion-content class="ion-no-padding">
+    <!-- Botón de regreso -->
+  <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+  </div>
+
+  <div class="radio-wrapper">
+    <div class="radio-text">
+      <h1 class="radio-title">Radio Vida</h1>
+      <p class="radio-description">
+        Ministerio radial cristiano que alienta, evangeliza y sirve a la iglesia con fe y propósito.
+      </p>
+    </div>
+
+    <div class="radio-container">
+      <!-- Imagen de la estación -->
+      <img
+        src="https://maslatino.com/wp-content/uploads/radiovida.png"
+        alt="Radio Vida"
+        class="radio-logo"
+      />
+
+      <!-- Reproductor de audio -->
+      <audio #audioPlayer controls>
+        <source src="https://stream.radio.co/sebe037fbb/listen" type="audio/mpeg" />
+        Tu navegador no soporta el elemento de audio.
+      </audio>
+    </div>
+  </div>
+</ion-content>

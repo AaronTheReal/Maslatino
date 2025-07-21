@@ -77,6 +77,20 @@
               <small *ngIf="password.errors?.['minlength']">{{ 'PASSWORD_MIN' | translate }}</small>
             </ion-text>
 
+            <!-- Confirmar Contraseña -->
+            <ion-item>
+              <ion-input type="password" formControlName="confirmPassword" [placeholder]="'CONFIRM_PASSWORD_PLACEHOLDER' | translate"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+              <small *ngIf="confirmPassword.errors?.['required']">{{ 'CONFIRM_PASSWORD_REQUIRED' | translate }}</small>
+            </ion-text>
+
+            <!-- Validación de coincidencia de contraseñas -->
+            <ion-text color="danger" *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.touched">
+              <small>{{ 'PASSWORDS_DO_NOT_MATCH' | translate }}</small>
+            </ion-text>
+
+
             <!-- Botón de registro -->
             <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="button-primary">
               {{ 'REGISTER_BUTTON' | translate }}

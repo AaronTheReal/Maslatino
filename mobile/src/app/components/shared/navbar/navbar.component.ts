@@ -29,4 +29,5 @@ export class NavbarComponent {
   @Input() username: string = '';
 
   constructor(public translate: TranslateService) {}
+  
 }

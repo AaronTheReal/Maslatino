@@ -5,7 +5,6 @@
     <app-navbar *ngIf="user" [username]="user.name"></app-navbar>
   </ion-toolbar>
 </ion-header>
-
 <ion-content fullscreen class="home-content">
   <app-carrusel [slides]="slidesArray"></app-carrusel>
   <app-noticias [newsList]="noticiasArray" (selectNoticia)="onNoticiaSeleccionada($event)"></app-noticias>

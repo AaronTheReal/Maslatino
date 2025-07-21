@@ -76,9 +76,15 @@ export const routes: Routes = [
 
   },
    {
-    path: 'radio-despliegue/:id',
+    path: 'radio-despliegue',
     loadComponent: () =>
       import('./components/despliegue-futuro/radio-despliegue/radio-despliegue.component').then((m) => m.RadioDespliegueComponent),
+
+  },
+  {
+    path: 'radio-vida',
+    loadComponent: () =>
+      import('./components/despliegue-futuro/radio-vida/radio-vida.component').then((m) => m.RadioVidaComponent),
 
   },
 
@@ -158,6 +164,29 @@ export const routes: Routes = [
   {
     path: 'callback',
     loadComponent: () => import('./pages/callback/callback.page').then( m => m.CallbackPage)
+  },
+
+
+  //admin
+  {
+    path: 'multimedia-panel',
+    loadComponent: () => import('./components/admin/multimedia-panel/multimedia-panel.component').then( m => m.MultimediaPanelComponent)
+  },
+    {
+    path: 'calendario-panel',
+    loadComponent: () => import('./components/admin/calendario-panel/calendario-panel.component').then( m => m.CalendarioPanelComponent)
+  },
+    {
+    path: 'categorias-panel',
+    loadComponent: () => import('./components/admin/categorias-panel/categorias-panel.component').then( m => m.CategoriasPanelComponent)
+  },
+  {
+    path: 'radio-panel',
+    loadComponent: () => import('./components/admin/radio-panel/radio-panel.component').then( m => m.RadioPanelComponent)
+  },
+  {
+    path: 'usuarios-panel',
+    loadComponent: () => import('./components/admin/usuarios-panel/usuarios-panel.component').then( m => m.UsuariosPanelComponent)
   },
 
 ];

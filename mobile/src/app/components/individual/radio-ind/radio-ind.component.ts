@@ -1,30 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { PodcastService } from '../../../services/spotify-podcasts';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
-import { ActivatedRoute } from '@angular/router';
+import { RadioService, RadioData } from '../../../services/radio-service';
 
 @Component({
   selector: 'app-radio-ind',
+  standalone: true,
   templateUrl: './radio-ind.component.html',
   styleUrls: ['./radio-ind.component.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class RadioIndComponent implements OnInit {
-  shows: any[] = [];
-  filteredShows: any[] = [];
+  radios: RadioData[] = [];
+  filteredRadios: RadioData[] = [];
   searchTerm: string = '';
   isLoading = true;
 
   constructor(
-    private podcastService: PodcastService,
-    private router: Router,
-    private route: ActivatedRoute
+    private radioService: RadioService,
+    private router: Router
   ) {
     addIcons({
       'arrow-back-outline': arrowBackOutline,
@@ -34,46 +32,40 @@ export class RadioIndComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-  console.log('ID recibido:', id);
-  // Usar este id para cargar detalles del show
-
-    this.podcastService.getShows().subscribe({
+    this.radioService.obtenerRadios().subscribe({
       next: (data) => {
-            console.log("🔍 Respuesta cruda del backend:", data);
-
-        this.shows = Array.isArray(data) ? data : [];
-        this.filteredShows = this.shows.slice();
+        this.radios = Array.isArray(data) ? data : [];
+        this.filteredRadios = this.radios.slice();
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Error fetching shows:', err);
-        this.shows = [];
-        this.filteredShows = [];
+        console.error('Error al cargar radios:', err);
+        this.radios = [];
+        this.filteredRadios = [];
         this.isLoading = false;
       }
     });
   }
 
-  filterShows() {
+  filterRadios() {
     const term = this.searchTerm.trim().toLowerCase();
-    if (!term) {
-      this.filteredShows = this.shows.slice();
-      return;
+    this.filteredRadios = !term
+      ? this.radios.slice()
+      : this.radios.filter(radio =>
+          radio.title.toLowerCase().includes(term)
+        );
+  }
+
+  goToRadioDetail(title: string) {
+    const lower = title.toLowerCase();
+    if (lower.includes('vida')) {
+      this.router.navigate(['/radio-vida']);
+    } else if (lower.includes('latino')) {
+      this.router.navigate(['/radio-despliegue']);
+    } else {
+      alert('Ruta no definida para esta radio');
     }
-    this.filteredShows = this.shows.filter(show =>
-      show.title.toLowerCase().includes(term)
-    );
   }
-
-  normalize(text: string): string {
-    return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-  }
-
-goToShowDetail(showId: string) {
-  this.router.navigate(['/radio-despliegue', showId]); // <- CAMBIADO
-}
-
 
   goBack() {
     this.router.navigate(['/home']);

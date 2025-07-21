@@ -14,6 +14,7 @@ import { CategoriesComponent, CategoryItem } from '../components/features/catego
 import { FooterComponent } from '../components/shared/footer/footer.component';
 import { AuthService } from '../services/auth-service';
 import { TranslateService } from '@ngx-translate/core'; // 👈 Agrega esto
+import { RadioService, RadioData } from '../services/radio-service';
 
 @Component({
   standalone: true,
@@ -51,15 +52,9 @@ export class HomePage implements OnInit {
     embedUrl?: string;
   }> = [];
 
-radiosArray: Array<{
-  _id?: string;
-  spotifyId: string;
-  title: string;
-  image?: string;
-  description?: string;
-  url?: string;
-  embedUrl?: string;
-}> = [];
+  radiosArray: RadioData[] = [];
+
+
 
 
 
@@ -73,7 +68,9 @@ radiosArray: Array<{
     private router: Router,
     private authService: AuthService,
     private podcastService: PodcastService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private radioService: RadioService,
+
   ) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -85,26 +82,27 @@ radiosArray: Array<{
 async ngOnInit(): Promise<void> {
 this.authService.getUser().then(user => {
   this.idUser = user._id;
-  console.log('usuario', user._id);
+    this.user = user;
 
-  // Ahora sí, una vez que tienes el ID, haces la segunda llamada
-  this.authService.getUserBack(this.idUser).then(userBack => {
-    this.user = userBack;
+   console.log("usuarioo", this.user);
 
-    if (userBack?.language) {
-      this.translate.use(userBack.language);
-      console.log('Idioma del usuario aplicado en Home:', userBack.language);
+
+    if (user?.language) {
+      this.translate.use(user.language);
+      console.log('Idioma del usuario aplicado en Home:', user.language);
     }
-  });
+
+
 });
-    this.podcastService.getPodcasts().subscribe(
-      (data) => {
-        this.podcastsArray = data;
+        this.radioService.obtenerRadios().subscribe({
+      next: (data) => {
+        this.radiosArray = Array.isArray(data) ? data : [];
       },
-      (error) => {
-        console.error('Error loading podcasts', error);
+      error: (err) => {
+        console.error('Error al cargar radios:', err);
       }
-    );
+    });
+
 
     this.noticiasArray = [
       { img: 'assets/imgNews/noticia1.png', title: 'Primera Noticia Importante', id: 1 },

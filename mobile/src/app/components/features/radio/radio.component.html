@@ -1,6 +1,9 @@
-<!-- src/app/components/features/radio/radio.component.html -->
-<div class="radio-section">
-  <!-- Cabecera: título y botón "Ver todo" -->
+
+
+
+<ng-container *ngIf="radioList && radioList.length > 0;">
+  <div class="radio-section"> <!-- ✅ Agregado -->
+      <!-- Cabecera: título y botón "Ver todo" -->
   <div class="radio-header">
     <h2 class="radio-title">{{'Estaciones de radio' | translate}}</h2>
    <ion-button
@@ -12,8 +15,6 @@
     </ion-button>
   </div>
 
-  <!-- Si hay elementos, mostrar scroll horizontal; si no, placeholder -->
-  <ng-container *ngIf="radioList && radioList.length > 0; else noRadios">
     <div class="radio-scroll">
       <div
         class="radio-card"
@@ -21,39 +22,24 @@
         (click)="onSelect(item)"
       >
         <div class="image-wrapper">
-          <!-- Si hay imagen, mostrarla; si no, icono por defecto -->
-    <ng-container *ngIf="item.image; else defaultIcon">
-      <img
-        [src]="item.image"
-        [alt]="item.title"
-        class="radio-img"
-        loading="lazy"
-      />
-    </ng-container>
+          <ng-container *ngIf="item.image; else defaultIcon">
+            <img
+              [src]="item.image"
+              [alt]="item.title"
+              class="radio-img"
+              loading="lazy"
+            />
+          </ng-container>
           <ng-template #defaultIcon>
             <div class="radio-default-icon">
               <ion-icon name="radio-outline"></ion-icon>
             </div>
           </ng-template>
-          <!-- Overlay con título en la parte inferior de la imagen -->
           <div class="overlay">
             <p class="radio-text">{{ item.title }}</p>
           </div>
         </div>
       </div>
     </div>
-  </ng-container>
-
-  <!-- Placeholder cuando no hay estaciones -->
-  <ng-template #noRadios>
-    <div class="radio-placeholder-card">
-      <div class="placeholder-icon">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-      </div>
-      <h3 class="placeholder-title">No hay estaciones disponibles</h3>
-      <p class="placeholder-text">
-        ¡Ups! Aún no tenemos estaciones de radio configuradas. Vuelve pronto o explora otras secciones.
-      </p>
-    </div>
-  </ng-template>
-</div>
+  </div> <!-- ✅ Cierre -->
+</ng-container>

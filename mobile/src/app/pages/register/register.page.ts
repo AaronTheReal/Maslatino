@@ -70,8 +70,10 @@ export class RegisterPage implements OnInit {
       gender: ['', Validators.required],
       country: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordsMatchValidator });
+
   }
 
   get name() { return this.registerForm.get('name')!; }
@@ -131,4 +133,14 @@ export class RegisterPage implements OnInit {
   goBack() {
     this.router.navigate(['/login']);
   }
+
+  private passwordsMatchValidator(formGroup: FormGroup) {
+  const password = formGroup.get('password')?.value;
+  const confirmPassword = formGroup.get('confirmPassword')?.value;
+  return password === confirmPassword ? null : { passwordMismatch: true };
+  }
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword')!;
+  }
+
 }
