@@ -53,7 +53,6 @@ ngOnInit(): void {
     this.noticiasService.getNoticia([id]).subscribe({
       next: (data) => {
         this.noticia = data[0];
-        console.log('Noticia recibida:', this.noticia);
 
         // Ahora que ya tenemos la noticia, obtenemos el usuario
         this.authService.getUser().then(user => {

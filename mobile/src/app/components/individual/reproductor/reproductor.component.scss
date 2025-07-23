@@ -1,3 +1,8 @@
+   ion-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
    .follow-us-container {
       display: flex;
       flex-direction: column;
@@ -30,45 +35,31 @@
   backdrop-filter: blur(4px);
   color: #000;
 }
-.podcast-card {
-  margin: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-.podcast-action ion-button:hover {
-  --color: var(--ion-color-primary);
-  transform: scale(1.1);
-}
 
-.podcast-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
 .reproductor-expandido {
-  background: var(--ion-color-light);
-  padding: 1.5rem;
-  border-radius: 16px;
+  flex: 1; /* ✅ Esto hace que se estire automáticamente entre header y footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  //background: var(--ion-color-light);
   text-align: center;
-  margin: 1rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
-
 .reproductor-imagen img {
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
   border-radius: 16px;
   object-fit: cover;
-  margin: 0 auto 1.2rem auto;
+  margin: 40px auto 20px auto;
 }
 
-.page-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 48px 0 16px 0;
-  text-align: center;
+.episode-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #000;
 }
+
 .reproductor-tiempo {
   font-size: 1.2rem;
   font-weight: 500;
@@ -79,15 +70,32 @@
 .reproductor-controles {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1rem; /* Aumentado de 1.5rem a 2rem para más espacio entre botones */
   align-items: center;
+  padding: 6rem 1rem 2rem 1rem; /* Agregado padding lateral de 1rem para separar de los bordes */
 }
-
 .reproductor-controles ion-button ion-icon {
-  font-size: 2rem;
+  font-size: 2rem; /* Reducido de 2.5rem a 2rem */
   color: #000;
 }
 
+.podcast-card {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.podcast-action ion-button:hover {
+  --color: var(--ion-color-primary);
+  transform: scale(1.1);
+}
+
+.podcast-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
 
 .podcast-card-content {
   display: flex;
@@ -135,109 +143,22 @@
   align-items: center;
 }
 
-    .social-buttons {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 15px; /* Espaciado entre botones */
-    }
-
-    .social-button {
-      width: 100%;
-      height: 70px; /* Aumentado para alargar los botones */
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: bold;
-      font-size: 18px;
-      text-transform: capitalize;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    }
-
-    .back-button {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  font-size: 1.4rem;
-}
-
-.follow-us-container h1 {
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 48px 0 16px 0;
   text-align: center;
-  font-size: 1.8rem;
-  margin-top: 0.5rem;
-  font-weight: 600;
 }
 
-.notifications-list {
-  padding: 1rem;
+ion-tab-bar {
+  background: #fff;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
 }
 
-.notification-card {
-  border-radius: 15px;
-  box-shadow: 12px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1rem;
-  transition: transform 0.2s;
+ion-tab-button ion-icon {
+  color: #666;
 }
 
-.notification-card:hover {
-  transform: scale(1.02);
+ion-tab-button.tab-selected ion-icon {
+  color: #000;
 }
-
-.notification-icon {
-  font-size: 2rem;
-  color: var(--ion-color-primary);
-}
-
-.notification-message {
-  font-size: 1rem;
-  color: #444;
-}
-
-.date {
-  font-size: 0.8rem;
-  color: #888;
-}
-
-    .social-button ion-icon {
-      margin-right: 10px;
-      font-size: 24px;
-    }
-
-    .social-button.instagram {
-      --background: #C13584; /* Morado de Instagram */
-    }
-
-    .social-button.tiktok {
-      --background: #000000; /* Negro de TikTok */
-    }
-
-    .social-button.facebook {
-      --background: #1877F2; /* Azul de Facebook */
-    }
-
-    .social-button.youtube {
-      --background: #FF0000; /* Rojo de YouTube */
-    }
-
-    .social-button.twitter {
-      --background: #1DA1F2; /* Azul claro de Twitter */
-    }
-
-    .social-button:hover {
-      opacity: 0.9; /* Efecto hover para interactividad */
-    }
-
-    ion-tab-bar {
-      background: #fff;
-      box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    ion-tab-button ion-icon {
-      color: #666;
-    }
-
-    ion-tab-button.tab-selected ion-icon {
-      color: #000;
-    }

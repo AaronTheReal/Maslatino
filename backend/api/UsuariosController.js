@@ -10,7 +10,6 @@ dotenv.config();
 class UsuariosController {
 
   async getUserBack(req,res){
-    console.log(req.params)
   }
 
   async getAll(req, res) {
@@ -49,7 +48,6 @@ class UsuariosController {
         }
       }
 
-      console.log(noticias,podcasts,shows)
       res.status(200).json({
         noticias,
         podcasts,
@@ -66,7 +64,6 @@ class UsuariosController {
 async getAllByCategory(req, res) {
   try {
     const categoria = decodeURIComponent(req.params.category); // por si hay tildes o espacios
-    console.log('Buscando por categoría:', categoria);
 
     // Búsqueda en cada colección
     const podcasts = await Podcast.find({ categories: categoria });
@@ -123,7 +120,6 @@ async getAllByCategory(req, res) {
         }
       }
 
-      console.log(noticias,podcasts,shows)
       res.status(200).json({
         noticias,
         podcasts,
@@ -170,6 +166,7 @@ async  addToFavorite(req, res) {
   try {
     const { noticia, Tipo, IdUsuario } = req.body;
 
+    console.log("si llega?",req.body);
     if (!noticia || !Tipo || !IdUsuario) {
       return res.status(400).json({ error: 'Faltan datos requeridos.' });
     }

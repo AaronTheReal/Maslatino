@@ -1,3 +1,222 @@
+   ion-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+   .follow-us-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .follow-us-container h1 {
+      font-size: 28px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 10px;
+    }
+
+    .follow-us-container p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  padding: 8px;
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  color: #000;
+}
+
+.reproductor-expandido {
+  flex: 1; /* ✅ Esto hace que se estire automáticamente entre header y footer */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+  //background: var(--ion-color-light);
+  text-align: center;
+}
+.reproductor-imagen img {
+  width: 350px;
+  height: 350px;
+  border-radius: 16px;
+  object-fit: cover;
+  margin: 40px auto 20px auto;
+}
+
+.episode-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  color: #000;
+}
+
+.reproductor-tiempo {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ion-color-medium);
+  margin-bottom: 1rem;
+}
+
+.reproductor-controles {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Aumentado de 1.5rem a 2rem para más espacio entre botones */
+  align-items: center;
+  padding: 6rem 1rem 2rem 1rem; /* Agregado padding lateral de 1rem para separar de los bordes */
+}
+.reproductor-controles ion-button ion-icon {
+  font-size: 2rem; /* Reducido de 2.5rem a 2rem */
+  color: #000;
+}
+
+.podcast-card {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.podcast-action ion-button:hover {
+  --color: var(--ion-color-primary);
+  transform: scale(1.1);
+}
+
+.podcast-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.podcast-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.podcast-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.podcast-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.podcast-info {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.podcast-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.podcast-episode,
+.podcast-duration {
+  margin: 0.15rem 0;
+  font-size: 0.95rem;
+  color: var(--ion-color-medium);
+}
+
+.podcast-action {
+  display: flex;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 48px 0 16px 0;
+  text-align: center;
+}
+
+ion-tab-bar {
+  background: #fff;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+ion-tab-button ion-icon {
+  color: #666;
+}
+
+ion-tab-button.tab-selected ion-icon {
+  color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 .podcast-background {
   position: fixed;
   top: 0;
@@ -68,7 +287,7 @@
   top: 10px;
   right: 10px;
   font-size: 40px;
-  color: white; /* color de contorno inicial */
+  color: white;
   border-radius: 50%;
   padding: 6px;
   cursor: pointer;
@@ -78,7 +297,7 @@
 }
 
 .heart-icon.active {
-  color: red; /* Rojo cuando está activo */
+  color: red; 
 }
 
 .heart-icon ion-icon {
@@ -95,14 +314,13 @@
   }
 }
 
-/* From Uiverse.io by ElSombrero2 */
 .card {
   overflow: visible;
   width: 100%;
   height: 50%;
     position: relative;
   top: 50%;
-  transform: translateY(-50%); /* vertical center */
+  transform: translateY(-50%); 
 
 }
 
@@ -113,7 +331,7 @@
   transition: transform 300ms;
   box-shadow: 0px 0px 10px 1px #000000ee;
   border-radius: 5px;
-   position: relative; /* para el botón */
+   position: relative; 
 }
 
 .front, .back {
@@ -325,7 +543,7 @@
   }
 }
 
-/*
+
 .podcast-background {
   position: fixed;
   top: 0;

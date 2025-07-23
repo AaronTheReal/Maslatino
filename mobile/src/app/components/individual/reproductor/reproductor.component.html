@@ -7,52 +7,57 @@
     <h2 class="page-title">Reproductor</h2>
   </div>
 
-<ng-container *ngIf="podcastActivo; else listaPodcasts">
-  <div class="reproductor-expandido" style="position: relative;">
+  <ng-container *ngIf="podcastActivo; else listaPodcasts">
+    <div class="reproductor-expandido">
+      <!-- Botón cerrar en esquina superior izquierda -->
+      <ion-button
+        fill="clear"
+        (click)="cerrarReproductor()"
+        style="position: absolute; top: 8px; left: 8px; z-index: 10; color: #000;">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-button>
 
-    <!-- Botón cerrar en esquina superior izquierda -->
-    <ion-button
-      fill="clear"
-      (click)="cerrarReproductor()"
-      style="position: absolute; top: 8px; left: 8px; z-index: 10;   color: #000;">
-      <ion-icon name="chevron-down-outline"></ion-icon>
-    </ion-button>
+      <!-- Imagen centrada -->
+      <div class="reproductor-imagen">
+        <img [src]="podcastActivo.imagenUrl" alt="Podcast actual" />
+      </div>
 
-    <!-- Imagen centrada -->
-    <div class="reproductor-imagen" style="text-align: center; margin-top: 40px;">
-      <img [src]="podcastActivo.imagenUrl" alt="Podcast actual" />
+      <!-- Título del episodio -->
+      <h3 class="episode-title">{{ podcastActivo.titulo }}</h3>
+
+      <!-- Tiempo de reproducción -->
+      <div class="reproductor-tiempo">
+        {{ tiempoActual }} / {{ podcastActivo.duracion }}
+      </div>
+
+      <!-- Controles -->
+      <div class="reproductor-controles">
+            <!-- Botón de opciones (izquierda) -->
+        <ion-button class="control-button lateral" fill="clear" (click)="opciones(podcastActivo)">
+          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </ion-button>
+
+        <!-- Botones centrales sin cambios -->
+        <ion-button fill="clear" (click)="anterior()">
+          <ion-icon name="play-skip-back-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" (click)="togglePlay()">
+          <ion-icon [name]="enReproduccion ? 'pause-circle-outline' : 'play-circle-outline'"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" (click)="siguiente()">
+          <ion-icon name="play-skip-forward-outline"></ion-icon>
+        </ion-button>
+
+        <!-- Botón de favorito (derecha) -->
+        <ion-button class="control-button lateral" fill="clear" (click)="toggleFavorito(podcastActivo)">
+          <ion-icon [name]="podcastActivo.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+        </ion-button>
+
+      </div>
     </div>
-
-    <!-- Tiempo de reproducción -->
-    <div class="reproductor-tiempo">
-      {{ tiempoActual }} / {{ podcastActivo.duracion }}
-    </div>
-
-    <!-- Controles -->
-    <div class="reproductor-controles">
-      <ion-button fill="clear" (click)="opciones(podcastActivo)">
-        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" (click)="anterior()">
-        <ion-icon name="play-skip-back-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" (click)="togglePlay()" >
-        <ion-icon [name]="enReproduccion ? 'pause-circle-outline' : 'play-circle-outline'"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" (click)="siguiente()">
-        <ion-icon name="play-skip-forward-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" (click)="toggleFavorito(podcastActivo)">
-        <ion-icon [name]="podcastActivo.favorito ? 'heart' : 'heart-outline'"></ion-icon>
-      </ion-button>
-    </div>
-  </div>
-</ng-container>
-
+  </ng-container>
 
   <!-- Lista de podcasts -->
   <ng-template #listaPodcasts>

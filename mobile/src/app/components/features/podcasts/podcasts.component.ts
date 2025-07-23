@@ -18,7 +18,7 @@ export class PodcastsComponent implements OnInit {
     spotifyId: string;
     title: string;
     description?: string;
-    image?: string;
+    coverImage?: string;
     url?: string;
     embedUrl?: string;
   }> = [];
@@ -31,7 +31,7 @@ export class PodcastsComponent implements OnInit {
     this.podcastService.getPodcasts().subscribe({
       next: (data) => {
         this.podcastsList = data;
-        console.log(data)
+        console.log("podcast",data)
       },
       error: (err) => console.error('Error al cargar noticias', err)
     });;

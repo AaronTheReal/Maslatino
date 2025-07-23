@@ -2,8 +2,7 @@
   <div class="tabs">
     <button (click)="selectTab('agregar-podcast')" [class.active]="selectedTab === 'agregar-podcast'">Agregar Podcast</button>
     <button (click)="selectTab('administrar-podcasts')" [class.active]="selectedTab === 'administrar-podcasts'">Administrar Podcasts</button>
-    <button (click)="selectTab('agregar-episodio')" [class.active]="selectedTab === 'agregar-episodio'">Agregar Episodio</button>
-    <button (click)="selectTab('administrar-episodios')" [class.active]="selectedTab === 'administrar-episodios'">Administrar Episodios</button>
+   
   </div>
 
   <!-- Sección Agregar Podcast -->
@@ -233,79 +232,4 @@
     </div>
   </div>
 
-
-
-  
-
-  <!-- Sección Agregar Episodio -->
-  <div *ngIf="selectedTab === 'agregar-episodio'" class="form-section">
-    <h2>Agregar Episodio</h2>
-    <div>
-      <label for="podcastSelect">Seleccionar Podcast:</label>
-      <select id="podcastSelect" (change)="onPodcastSelect($event)">
-        <option value="">-- Seleccionar --</option>
-        <option *ngFor="let podcast of podcasts" [value]="podcast._id">{{ podcast.title }}</option>
-      </select>
-    </div>
-    <div *ngIf="selectedPodcast">
-      <form [formGroup]="episodeForm" (ngSubmit)="onSubmitEpisodio()">
-        <div class="form-grid">
-          <div>
-            <label for="episodeTitle">Título:</label>
-            <input id="episodeTitle" formControlName="title" type="text" required />
-          </div>
-          <div>
-            <label for="episodeDescription">Descripción:</label>
-            <textarea id="episodeDescription" formControlName="description"></textarea>
-          </div>
-          <div>
-            <label for="audioUrl">URL del Audio:</label>
-            <input id="audioUrl" formControlName="audioUrl" type="text" required />
-          </div>
-          <div>
-            <label for="episodeImage">Imagen (URL):</label>
-            <input id="episodeImage" formControlName="image" type="text" />
-          </div>
-          <div>
-            <label for="duration">Duración (segundos):</label>
-            <input id="duration" formControlName="duration" type="number" />
-          </div>
-          <div>
-            <label for="releaseDate">Fecha de Lanzamiento:</label>
-            <input id="releaseDate" formControlName="releaseDate" type="date" />
-          </div>
-        </div>
-        <button type="submit" [disabled]="episodeForm.invalid">
-          {{ editingEpisode ? 'Actualizar Episodio' : 'Guardar Episodio' }}
-        </button>
-        <button type="button" (click)="cancelarEpisodio()">Cancelar</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Sección Administrar Episodios -->
-  <div *ngIf="selectedTab === 'administrar-episodios'" class="manage-section">
-    <h2>Administrar Episodios</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Podcast</th>
-          <th>Título del Episodio</th>
-          <th>Duración</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let ep of getAllEpisodes()">
-          <td>{{ ep.podcastTitle }}</td>
-          <td>{{ ep.episode.title }}</td>
-          <td>{{ ep.episode.duration || 'N/A' }}</td>
-          <td>
-            <button (click)="editarEpisodioDesdeAdmin(getPodcastById(ep.podcastId)!, ep.episode)">Editar</button>
-            <button (click)="eliminarEpisodio(ep.podcastId, ep.episode._id!)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </div>

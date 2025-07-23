@@ -8,21 +8,43 @@ import { SafePipe } from '../../../pipes/safe.pipe';
 import { UsuariosService } from '../../../services/usuarios-service';
 import { AuthService } from '../../../services/auth-service';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, searchOutline, alertCircleOutline,heart, heartOutline, shareOutline } from 'ionicons/icons';
-import { Location } from '@angular/common'; // ✅ ESTA es la correcta
+import { arrowBackOutline, searchOutline, alertCircleOutline, heart, heartOutline, shareOutline, playCircleOutline, pauseCircleOutline, ellipsisVerticalOutline, playSkipBackOutline, playSkipForwardOutline, chevronDownOutline } from 'ionicons/icons';
+import { Location } from '@angular/common';
+import { FooterComponent } from '../../shared/footer/footer.component';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-podcast-despliegue',
   templateUrl: './podcast-despliegue.component.html',
   styleUrls: ['./podcast-despliegue.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, SafePipe],
+  imports: [CommonModule, IonicModule, FormsModule, SafePipe, FooterComponent],
 })
 export class PodcastDespliegueComponent implements OnInit {
+  @ViewChild('audio', { static: false }) audioRef!: ElementRef<HTMLAudioElement>;
   podcast: any;
   isFavorite = false;
   user: any;
   isFlipped = false;
+  podcastActivo: any = null;
+  enReproduccion: boolean = true;
+  tiempoActual: string = '00:00';
+  podcasts = [
+    {
+      titulo: 'Inteligencia Artificial Hoy',
+      episodio: 12,
+      duracion: '24:15',
+      imagenUrl: 'https://forbes.es/wp-content/uploads/2024/12/C02541AB-DBAB-4DD9-9355-1FD3B4F76CC1.jpg',
+      audioUrl: 'assets/podcasts/ia-12.mp3'
+    },
+    {
+      titulo: 'Salud Mental en la Era Digital',
+      episodio: 7,
+      duracion: '18:40',
+      imagenUrl: 'https://okdiario.com/img/2019/07/24/cantantes-famosos-regueton.jpeg',
+      audioUrl: 'assets/podcasts/salud-7.mp3'
+    }
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,54 +53,55 @@ export class PodcastDespliegueComponent implements OnInit {
     private authService: AuthService,
     private location: Location
   ) {
-      addIcons({
-        heart,
-        'heart-outline': heartOutline,
-        'arrow-back-outline': arrowBackOutline,
-        'share-outline': shareOutline
-      });
-  }
-
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (!id) return;
-
-    this.podcastService.getPodcastById(id).subscribe((data) => {
-      this.podcast = data;
-      console.log('🎙️ Podcast:', this.podcast);
-
-      // Obtener usuario y verificar si es favorito
-      this.authService.getUser().then(user => {
-        this.user = user;
-
-        const podcastId = this.podcast?._id;
-        const tipo = 'Podcast';
-        const idUsuario = this.user._id;
-
-        if (!podcastId) return;
-
-        this.usuarioServce.isFavorite(podcastId, tipo, idUsuario).subscribe({
-          next: res => {
-            this.isFavorite = res.isFavorite;
-            console.log("¿Es favorito?", this.isFavorite);
-          },
-          error: err => {
-            console.error("Error al verificar favorito", err);
-          }
-        });
-
-      }).catch(err => {
-        console.error("Error al obtener usuario", err);
-      });
+    addIcons({
+      heart,
+      'heart-outline': heartOutline,
+      'arrow-back-outline': arrowBackOutline,
+      'share-outline': shareOutline,
+      'play-circle-outline': playCircleOutline,
+      'pause-circle-outline': pauseCircleOutline,
+      'ellipsis-vertical-outline': ellipsisVerticalOutline,
+      'play-skip-back-outline': playSkipBackOutline,
+      'play-skip-forward-outline': playSkipForwardOutline,
+      'chevron-down-outline': chevronDownOutline
     });
   }
+
+ngOnInit() {
+  const id = this.route.snapshot.paramMap.get('id');
+  if (!id) return;
+
+  this.podcastService.getPodcastById(id).subscribe((data) => {
+    this.podcast = data;
+    this.podcasts = data.episodes.map((ep: any, index: number) => ({
+      titulo: ep.title,
+      episodio: index + 1,
+      duracion: this.formatDuration(ep.duration),
+      imagenUrl: ep.image || this.podcast.coverImage,
+      audioUrl: ep.audioUrl,
+      favorito: false,
+      ...ep
+    }));
+  });
+}
+formatDuration(seconds: number): string {
+  if (!seconds) return '00:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
 
   toggleFavorite() {
     const podcastId = this.podcast?._id;
     const tipo = "Podcast";
+    this.authService.getUser().then(user => {
+    this.user = user;
+
+   
     const idUsuario = this.user?._id;
 
     if (!podcastId || !idUsuario) return;
+
 
     const accion = this.isFavorite
       ? this.usuarioServce.removeFavorite(podcastId, tipo, idUsuario)
@@ -93,6 +116,7 @@ export class PodcastDespliegueComponent implements OnInit {
         console.error("Error al cambiar favorito", err);
       }
     });
+     })
   }
 
   toggleFlip() {
@@ -114,7 +138,61 @@ export class PodcastDespliegueComponent implements OnInit {
     }
   }
 
-    goBack() {
-        this.location.back();
-      }
+  goBack() {
+    this.location.back();
+  }
+
+  // Métodos del reproductor
+    reproducir(podcast: any) {
+      this.podcastActivo = podcast;
+      this.enReproduccion = true;
+      this.tiempoActual = '00:00';
+
+      setTimeout(() => {
+        const audio = this.audioRef.nativeElement;
+        audio.src = podcast.audioUrl;
+        audio.load();
+        audio.play();
+      });
+    }
+ togglePlay() {
+  const audio = this.audioRef.nativeElement;
+  if (this.enReproduccion) {
+    audio.pause();
+  } else {
+    audio.play();
+  }
+  this.enReproduccion = !this.enReproduccion;
+}
+actualizarTiempo() {
+  const audio = this.audioRef.nativeElement;
+  const current = Math.floor(audio.currentTime);
+  this.tiempoActual = this.formatDuration(current);
+}
+onSeek(event: any) {
+  const newTime = event.detail.value;
+  this.audioRef.nativeElement.currentTime = newTime;
+}
+
+
+  anterior() {
+    console.log('Volver 15 seg');
+  }
+
+  siguiente() {
+    console.log('Avanzar 15 seg');
+  }
+
+  toggleFavorito(podcast: any) {
+    podcast.favorito = !podcast.favorito;
+  }
+
+  opciones(podcast: any) {
+    console.log('Opciones para:', podcast);
+    // Aquí podrías abrir un ActionSheet o menú contextual
+  }
+
+  cerrarReproductor() {
+    this.podcastActivo = null;
+  }
 }

@@ -13,11 +13,11 @@
     <div class="podcast-card" *ngFor="let pod of podcastsList | slice:0:10" (click)="onSelect(pod)">
       <!-- Imagen con ícono de reproducción -->
       <div class="podcast-image-container">
-        <img *ngIf="pod.image" [src]="pod.image" [alt]="pod.title" class="podcast-img" loading="lazy" />
-        <div *ngIf="!pod.image" class="podcast-placeholder-image">
+        <img *ngIf="pod.coverImage" [src]="pod.coverImage" [alt]="pod.title" class="podcast-img" loading="lazy" />
+        <div *ngIf="!pod.coverImage" class="podcast-placeholder-image">
           <ion-icon name="mic-circle-outline" class="placeholder-icon"></ion-icon>
         </div>
-        <ion-icon name="play-circle-outline" class="play-icon"></ion-icon>
+        <!--<ion-icon name="play-circle-outline" class="play-icon"></ion-icon>-->
       </div>
       <!-- Texto del podcast -->
       <div class="podcast-text">
