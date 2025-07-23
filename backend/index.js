@@ -43,27 +43,24 @@ const allowedOrigins = [
 
 ];
 
-app.use(cors({
-   origin: '*'
-
-}));
-
-/*
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      console.log('❌ CORS bloqueado para:', origin);
+      callback(new Error('CORS no permitido por esta fuente'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
- */
-app.options('*', cors());
+};
+
+// Middleware CORS – ponerlo justo después de crear app
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use(express.json());
 app.use('/aaron/maslatino', mainRoute.configRoutes(router));
 
@@ -110,3 +107,21 @@ const startServer = async () => {
 };
 
 startServer();
+
+
+/*
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
+*/
