@@ -6,16 +6,22 @@ import mongoose from 'mongoose';
 import multer from 'multer';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import prerender from 'prerender-node';
 
 // Usa exactamente el mismo nombre y casing
 import mainRoute from './api/MainRoute.js'; // Asegúrate que el archivo se llame exactamente 'MainRoute.js'
 
 dotenv.config();
 
+
+
 const app = express();
 const router = express.Router();
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+prerender.set('prerenderToken', 'rDjdSfG9AiLjP4fYB9Xd');
+app.use(prerender); // Esto debe ir antes de tus rutas
 
 const allowedOrigins = [
   'http://localhost:4200',
@@ -28,7 +34,12 @@ const allowedOrigins = [
   'http://localhost:5000',
   'https://maslatinomobile.netlify.app',
   'https://maslatino.netlify.app',
-  'https://super-cajeta-50e752.netlify.app'
+  'https://maslatino.onrender.com',
+  'https://super-cajeta-50e752.netlify.app',
+  'https://service.prerender.io',
+  'https://api.prerender.io'
+
+  
 
 ];
 
