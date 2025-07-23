@@ -25,7 +25,8 @@ export interface Noticia {
 @Injectable({ providedIn: 'root' })
 export class NoticiasService {
   // Ajusta la URL base según tu configuración:
-  private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  //private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient) {}
  // index.js (archivo principal del backend)

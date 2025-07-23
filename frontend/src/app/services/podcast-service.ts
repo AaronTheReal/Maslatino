@@ -32,7 +32,8 @@ export interface PodcastPayload {
 
 @Injectable({ providedIn: 'root' })
 export class PodcastService {
-  private API_URL = 'http://localhost:3000/aaron/maslatino/podcasts'; // cámbialo según tu backend
+  //private API_URL = 'http://localhost:3000/aaron/maslatino/podcasts'; // cámbialo según tu backend
+  private API_URL = 'https://maslatino.onrender.com/aaron/maslatino/podcasts'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient) {}
 

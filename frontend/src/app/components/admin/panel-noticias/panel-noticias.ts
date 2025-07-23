@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NoticiasService } from '../../../services/noticias-service';
 import { VistaPrevia } from '../../admin/panel-noticias/vista-previa/vista-previa';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CategoriaService, CategoriaPayload } from '../../../services/categorias-service';
 
 // Para convertir Markdown a HTML y sanitizarlo
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -26,23 +27,16 @@ import { marked } from 'marked';
 })
 export class PanelNoticias implements OnInit {
   noticiaForm: FormGroup;
+  categoriasDisponibles: CategoriaPayload[] = [];
 
-  categoriasDisponibles: string[] = [
-    'Mundo',
-    'Arte',
-    'Política',
-    'Finanzas',
-    'Familia',
-    'Deportes',
-    'Salud'
-  ];
   previewDataObj: any;
   blockOpenState: boolean[] = [];
 
   constructor(
     private fb: FormBuilder,
     private noticiasService: NoticiasService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private categoriasService: CategoriaService
   ) {
   this.noticiaForm = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(200)]],
@@ -62,6 +56,7 @@ export class PanelNoticias implements OnInit {
   this.noticiaForm.valueChanges.subscribe(() => {
     this.previewDataObj = this.buildPreviewData();
   });
+  this.loadCategories();
     console.log('PanelNoticias inicializado');
   }
 
@@ -181,6 +176,15 @@ private buildPreviewData() {
     if (items.length > 1) items.removeAt(itemIndex);
   }
 
+  loadCategories(){
+        this.categoriasService.obtenerCategorias().subscribe(categories => {
+        this.categoriasDisponibles = categories;
+      
+        console.log("categorias",categories);
+          });
+    }
+
+    
   onSubmit() {
     this.markAllTouched();
     if (this.noticiaForm.invalid) return;

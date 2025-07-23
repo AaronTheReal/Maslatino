@@ -32,13 +32,15 @@
          <label for="summary">Categorías</label>
 
           <ng-select
-            formControlName="categories"
-            [items]="categoriasDisponibles"
-            bindLabel="."
-            [multiple]="true"
-            [closeOnSelect]="false"
-            placeholder="Selecciona categorías">
-          </ng-select>
+        formControlName="categories"
+        [items]="categoriasDisponibles"
+        bindLabel="name"
+        bindValue="_id"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        placeholder="Selecciona categorías">
+      </ng-select>
+
         </div>
             <!-- Ubicación -->
             <div formGroupName="location" class="form-group mb-3">

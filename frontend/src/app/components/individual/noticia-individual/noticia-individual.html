@@ -3,21 +3,24 @@
 
     <!-- Contenido principal de la noticia -->
     <div class="col-lg-9 col-md-12 mb-4">
-      <section class="noticia-card">
-        <h2 class="noticia-title">{{ noticia.title }}</h2>
+      <article class="noticia-card" itemscope itemtype="https://schema.org/NewsArticle">
+
+        <h1 class="noticia-title" itemprop="headline">{{ noticia.title }}</h1>
 
         <div class="noticia-meta mb-3">
-          <span *ngIf="noticia.authorName">Por {{ noticia.authorName }}</span>
-          <span class="ms-2">{{ noticia.createdAt | date: 'mediumDate' }}</span>
+          <span *ngIf="noticia.authorName" itemprop="author">{{ noticia.authorName }}</span>
+          <time class="ms-2" [attr.datetime]="noticia.createdAt" itemprop="datePublished">
+            {{ noticia.createdAt | date: 'mediumDate' }}
+          </time>
         </div>
 
         <div *ngIf="noticia.meta?.image" class="noticia-imagen mb-3">
-          <img [src]="noticia.meta?.image" [alt]="noticia.title" class="img-fluid rounded" />
+          <img [src]="noticia.meta?.image" [alt]="noticia.title" class="img-fluid rounded" itemprop="image" />
         </div>
 
-        <p class="noticia-summary">{{ noticia.summary }}</p>
+        <p class="noticia-summary" itemprop="description">{{ noticia.summary }}</p>
 
-        <div class="noticia-content">
+        <div class="noticia-content" itemprop="articleBody">
           <ng-container *ngFor="let block of noticia.content">
             <ng-container [ngSwitch]="block.type">
 
@@ -51,12 +54,9 @@
         </div>
 
         <hr />
-      </section>
+      </article>
     </div>
 
-
-
-    
     <!-- Sidebar -->
     <div class="col-lg-3 col-md-12">
       <aside class="sidebar">
@@ -76,9 +76,6 @@
         </ul>
       </aside>
     </div>
-
-
-
 
   </div>
 </main>

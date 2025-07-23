@@ -7,6 +7,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import Noticia from '../models/Noticias.js'; // asegúrate de importar el modelo
 import Category from '../models/Categorias.js';
+import { recacheNoticia } from '../utils/prerender-service.js';
 
 
 dotenv.config();
@@ -82,10 +83,7 @@ async getAllNoticias(req, res, next) {
     res.status(500).json({ error: 'Error al obtener noticias' });
   }
 }
-
-
-
-  async createNoticia(req, res, next) {
+ async createNoticia(req, res, next) {
     try {
       // Extraer datos del body
       const {
@@ -96,52 +94,73 @@ async getAllNoticias(req, res, next) {
         location,
         content,
         publishAt, // si usas publicación programada más adelante
-        // author: podrías aceptar desde body temporalmente, pero mejor extraer de req.user
       } = req.body;
 
-      // Validación mínima:
+      console.log("noticias", req.body);
+      // Validación mínima
       if (!title) {
         return res.status(400).json({ message: 'El campo title es obligatorio.' });
       }
-      // Aquí podrías validar que content sea un array y cada elemento tenga estructura válida.
+
       if (!Array.isArray(content)) {
         return res.status(400).json({ message: 'El campo content debe ser un array de bloques.' });
       }
 
-      // Obtener author:
+      // Obtener author
       let authorId;
       if (req.user && req.user.id) {
         authorId = req.user.id;
       } else if (req.body.author) {
-        authorId = req.body.author; // temporal
+        authorId = req.body.author; // Temporal
       } else {
         return res.status(400).json({ message: 'No se proporcionó author.' });
       }
 
-      // Construir objeto de noticia:
+      function generarSlug(texto) {
+        return texto
+          .toString()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      }
+      // Construir objeto de noticia
       const nuevaNoticia = new Noticia({
         title,
+        slug: generarSlug(title), // ✅ slug generado aquí
         summary,
         author: authorId,
-        categories: Array.isArray(categories) ? categories : (typeof categories === 'string' ? categories.split(',').map(s=>s.trim()) : []),
-        tags: Array.isArray(tags) ? tags : (typeof tags === 'string' ? tags.split(',').map(s=>s.trim()) : []),
+        categories: Array.isArray(categories)
+          ? categories
+          : typeof categories === 'string'
+          ? categories.split(',').map((s) => s.trim())
+          : [],
+        tags: Array.isArray(tags)
+          ? tags
+          : typeof tags === 'string'
+          ? tags.split(',').map((s) => s.trim())
+          : [],
         location: location || {},
         content,
-        // createdAt por defecto, updatedAt por pre-save
       });
 
-      // Si manejas publicación futura, podrías guardar publishAt en el esquema y controlar visibilidad.
-      // Aquí no se guarda, pero si tu NoticiaSchema incluyera publishAt, lo harías:
-      // if (publishAt) nuevaNoticia.publishAt = new Date(publishAt);
-
+      // Guardar en base de datos
       const saved = await nuevaNoticia.save();
+
+      // ⚡️ Notificar a Prerender.io que recachee la URL
+      await recacheNoticia(saved.slug);
+
+      // Respuesta al cliente
       return res.status(201).json(saved);
     } catch (error) {
       console.error('Error en createNoticia:', error);
-      // Si es un error de validación de mongoose, puedes enviar 400:
+
       if (error.name === 'ValidationError') {
         return res.status(400).json({ message: error.message });
       }
+
       next(error);
     }
   }

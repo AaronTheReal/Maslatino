@@ -23,6 +23,7 @@
     "bootstrap": "^5.3.7",
     "bootstrap-icons": "^1.13.1",
     "marked": "^15.0.12",
+    "prerender-node": "^3.8.0",
     "rxjs": "~7.8.0",
     "swiper": "^11.2.10",
     "tslib": "^2.3.0",
