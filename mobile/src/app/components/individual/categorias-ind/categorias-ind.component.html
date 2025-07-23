@@ -1,4 +1,3 @@
-
 <ion-content class="categorias-content">
   <!-- Back button -->
   <div class="back-button" (click)="goBack()">
@@ -6,23 +5,32 @@
   </div>
 
   <!-- Main title -->
-  <h1 class="page-title">Categorias</h1>
+  <h1 class="page-title">{{ 'Categorias' | translate }}</h1>
 
+  <!-- Grid solo si ya hay categorías -->
+  <ng-container *ngIf="categorias.length > 0; else loading">
+    <ion-grid class="categories-grid">
+      <ion-row>
+        <ion-col
+          size="6"
+          size-md="4"
+          size-lg="3"
+          *ngFor="let cat of categorias"
+          (click)="goToCategoria(cat)"
+        >
+          <div class="category-card" [ngStyle]="{ '--card-bg': cat.color || '#999' }">
+            <span class="category-label">{{ cat.name | translate }}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
 
-  <!-- Grid de categorías -->
-  <ion-grid class="categories-grid">
-    <ion-row>
-      <ion-col
-        size="6"
-        size-md="4"
-        size-lg="3"
-        *ngFor="let cat of sampleCategories"
-        (click)="goToCategoria(cat)"
-      >
-        <div class="category-card" [ngStyle]="{ '--card-bg': cat.color }">
-          <span class="category-label">{{ cat.key | translate }}</span>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <!-- Placeholder mientras carga -->
+  <ng-template #loading>
+    <div class="categories-placeholder">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>{{ 'Cargando categorías...' | translate }}</p>
+    </div>
+  </ng-template>
 </ion-content>

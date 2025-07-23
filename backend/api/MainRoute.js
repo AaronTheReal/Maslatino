@@ -9,6 +9,7 @@ import AuthController from './AuthController.js';
 import streamingController from './StreamingController.js'
 import RadioController from './RadioController.js';
 import CategoriasController from './CategoriasController.js';
+import PodcastController from './PodcastController.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -73,7 +74,22 @@ export default class MainRoute {
     router.get('/categorias/:id', CategoriasController.obtenerCategoriaPorId);
     router.put('/categorias/:id', CategoriasController.actualizarCategoria);
     router.delete('/categorias/:id', CategoriasController.eliminarCategoria);
+
+    router.post('/podcasts', PodcastController.crearPodcast);
+    router.get('/podcasts', PodcastController.obtenerPodcasts);
+    router.get('/podcasts/:id', PodcastController.obtenerPodcastPorId);
+    router.put('/podcasts/:id', PodcastController.actualizarPodcast);
+    router.delete('/podcasts/:id', PodcastController.eliminarPodcast);
+
+    router.post('/podcasts/:id/episodios', PodcastController.agregarEpisodio);
+    router.put('/podcasts/:id/episodios/:episodioId', PodcastController.editarEpisodio);
+    router.delete('/podcasts/:id/episodios/:episodioId', PodcastController.eliminarEpisodio);
+
+
+    
     return router;
+
+
   }
 }
 

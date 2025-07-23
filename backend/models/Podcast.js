@@ -1,53 +1,58 @@
-  import mongoose from 'mongoose';
-  const { Schema, model, Types } = mongoose;
+import mongoose from 'mongoose';
+const { Schema, model, Types } = mongoose;
 
-  const PodcastSchema = new Schema({
-    spotifyId: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    description: { type: String },
-    image: { type: String }, // carátula del episodio
-    url: { type: String },    // enlace a Spotify
-    embedUrl: { type: String }, // link embed iframe (precalculado)
-    duration: { type: Number }, // en segundos (opcional)
-    releaseDate: { type: Date }, // fecha de publicación real
+// Subdocumento para cada episodio
+const EpisodeSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  audioUrl: { type: String, required: true }, // Ruta del archivo .mp3 u otro
+  image: { type: String }, // Imagen específica del episodio
+  duration: { type: Number }, // en segundos
+  releaseDate: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
+});
 
-    // Relación opcional con un autor (creador interno)
-    author: { type: Types.ObjectId, ref: 'User' },
-    authorName: { type: String },
-
-    // Compatibles con sistema de filtrado del usuario
-    categories: [{
-      type: String,
-      enum: ['Mundo', 'Arte', 'Política', 'Finanzas', 'Familia', 'Deportes', 'Salud'],
-      required: true
-    }],
-    tags: [{ type: String, trim: true }],
-    language: {
-      type: String,
+const PodcastSchema = new Schema({
+  title: { type: String, required: true },
+  description: { type: String },
+  coverImage: { type: String }, // Imagen principal del podcast (carátula)
+  language: {
+    type: String,
     enum: [
       'es', 'es-MX', 'es-AR', 'es-BO', 'es-CL', 'es-CO', 'es-CR', 'es-CU', 'es-DO',
       'es-EC', 'es-SV', 'es-GT', 'es-HN', 'es-NI', 'es-PA', 'es-PY', 'es-PE', 'es-PR',
       'es-UY', 'es-VE', 'pt', 'pt-BR', 'fr', 'en-US', 'en-GB', 'en-CA'
-    ],      
+    ],
     default: 'es'
-    },
+  },
 
-    meta: {
-      description: { type: String },
-      image: { type: String } // carátula alternativa o específica
-    },
+  // Lista de episodios
+  episodes: [EpisodeSchema],
 
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
-  });
+  // Autor interno (si aplica)
+  author: { type: Types.ObjectId, ref: 'User' },
+  authorName: { type: String },
 
-  // Autogenerar embedUrl si falta
-  PodcastSchema.pre('save', function (next) {
-    if (this.spotifyId && !this.embedUrl) {
-      this.embedUrl = `https://open.spotify.com/embed/episode/${this.spotifyId}`;
-    }
-    this.updatedAt = Date.now();
-    next();
-  });
+  categories: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true
+  }],
+  tags: [{ type: String, trim: true }],
 
-  export default model('Podcast', PodcastSchema);
+  meta: {
+    description: { type: String },
+    image: { type: String } // Imagen alternativa para SEO
+  },
+
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
+});
+
+// Actualizar updatedAt antes de guardar
+PodcastSchema.pre('save', function (next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+export default model('Podcast', PodcastSchema);

@@ -6,6 +6,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import Noticia from '../models/Noticias.js'; // asegúrate de importar el modelo
+import Category from '../models/Categorias.js';
 
 
 dotenv.config();
@@ -34,35 +35,42 @@ class noticiasController {
     }
 
 
-    
-async getNoticiaCategorias(req, res, next) {
-
+ async getNoticiaCategorias(req, res, next) {
   try {
-    // 1. Recibe las categorías (simuladas o desde el usuario más adelante)
-    const categorias = req.body.categorias || [];
+    const nombresCategorias = req.body.categorias || [];
 
-    // 2. Si no hay categorías, responde vacío
-    if (!Array.isArray(categorias) || categorias.length === 0) {
+    console.log('Nombres recibidos:', nombresCategorias);
+
+    if (!Array.isArray(nombresCategorias) || nombresCategorias.length === 0) {
       return res.status(400).json({ error: 'Debes proporcionar al menos una categoría.' });
     }
 
-    // 3. Número máximo de noticias (puedes ajustarlo)
+    // 1. Busca los _id correspondientes a los nombres
+    const categorias = await Category.find({
+      name: { $in: nombresCategorias }
+    }).select('_id');
+
+    const idsCategorias = categorias.map(cat => cat._id);
+
+    if (idsCategorias.length === 0) {
+      return res.status(404).json({ error: 'Ninguna categoría encontrada.' });
+    }
+
     const limite = parseInt(req.body.limite) || 10;
 
-    // 4. Consulta filtrando por categorías
+    // 2. Buscar noticias filtradas por ObjectId en categories[]
     const noticias = await Noticia.find({
-      categories: { $in: categorias }
+      categories: { $in: idsCategorias }
     })
       .sort({ createdAt: -1 })
       .limit(limite);
 
     res.status(200).json(noticias);
   } catch (e) {
-    console.error(e);
+    console.error('Error en getNoticiaCategorias:', e);
     res.status(500).json({ error: 'Error al obtener noticias por categoría' });
   }
 }
-
 
   
 async getAllNoticias(req, res, next) {

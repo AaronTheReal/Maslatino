@@ -1,24 +1,25 @@
-// src/app/components/features/categories/categories.component.ts
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CategoriaService } from '../../../services/categorias-service';
 
 export interface CategoryItem {
+  id: string;
   name: string;
   color?: string;
-  id?: any;
+  image?: string;
 }
 
 @Component({
   selector: 'app-categorias',
   standalone: true,
-  imports: [IonicModule, CommonModule,TranslateModule],
+  imports: [IonicModule, CommonModule, TranslateModule],
   templateUrl: './categorias.component.html',
   styleUrls: ['./categorias.component.scss'],
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnChanges {
   @Input() categoriesList: CategoryItem[] = [];
   @Output() selectCategory = new EventEmitter<CategoryItem>();
 
@@ -30,26 +31,25 @@ export class CategoriesComponent implements OnInit {
   ];
   categoryColors: string[] = [];
 
-  constructor(private router: Router,public translate: TranslateService) {}
+  constructor(private router: Router, public translate: TranslateService, private categoriaService: CategoriaService) {}
 
-  ngOnInit(): void {
-    this.categoryColors = this.categoriesList.map((item, idx) =>
-      item.color?.trim() ? item.color : this.palette[idx % this.palette.length]
-    );
+  // ✅ Este método era lo que te faltaba
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['categoriesList'] && this.categoriesList?.length > 0) {
+      this.categoryColors = this.categoriesList.map((item, idx) =>
+        item.color?.trim() ? item.color : this.palette[idx % this.palette.length]
+      );
+    }
   }
 
-  /** Para cada tarjeta */
   getColor(idx: number): string {
     return this.categoryColors[idx];
   }
 
   onSelect(item: CategoryItem, idx: number) {
     this.selectCategory.emit(item);
-    // Si en el futuro quieres navegar a un detalle:
-    // this.router.navigate(['/categorias', item.id]);
   }
 
-  /** Botón “Ver todo” */
   viewAll() {
     this.router.navigate(['/categorias']);
   }

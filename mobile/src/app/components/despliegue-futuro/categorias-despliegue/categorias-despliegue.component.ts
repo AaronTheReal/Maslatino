@@ -27,6 +27,7 @@ import { arrowBackOutline, searchOutline, alertCircleOutline,heart, heartOutline
 import { IonicModule } from '@ionic/angular';
 import { SafePipe } from '../../../pipes/safe.pipe'; // Asegúrate de tenerlo registrado
 import { Location } from '@angular/common'; // ✅ ESTA es la correcta
+import { CategoriaService } from '../../../services/categorias-service';
 
 
 
@@ -45,58 +46,74 @@ import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 })
 export class CategoriasDespliegueComponent implements OnInit {
   categoriaNombreTraducido = '';
-    slidesArray = [
-    { img: 'assets/img/carousel1.jpg', title: '' },
-    { img: 'assets/img/carousel2.jpg', title: '' },
-    { img: 'assets/img/carousel3.jpeg', title: '' },
-  ]
-  resultados: {
-    noticias: any[],
-    podcasts: any[],
-    shows: any[]
-  } = {
-    noticias: [],
-    podcasts: [],
-    shows: [],
+  categoriaImagen: string = '';
 
-  };
-  constructor(private route: ActivatedRoute,
+    resultados: {
+      noticias: Noticia[];
+      podcasts: any[];
+      shows: any[];
+    } = {
+      noticias: [],
+      podcasts: [],
+      shows: [],
+    };
+
+
+  constructor(
+    private route: ActivatedRoute,
     private authService: AuthService,
     private usuariosService: UsuariosService,
     private router: Router,
-    private location: Location
-
+    private location: Location,
+    private categoriaService: CategoriaService,
+    private noticiasService: NoticiasService
   ) {
-
-
-      addIcons({
-        heart,
-        'heart-outline': heartOutline,
-        'arrow-back-outline': arrowBackOutline,
-        'share-outline': shareOutline
-      });
+    addIcons({
+      heart,
+      'heart-outline': heartOutline,
+      'arrow-back-outline': arrowBackOutline,
+      'share-outline': shareOutline,
+    });
   }
 
- ngOnInit() {
+    ngOnInit() {
     const param = this.route.snapshot.paramMap.get('id');
     this.categoriaNombreTraducido = decodeURIComponent(param || '');
 
     console.log('Categoría traducida seleccionada:', this.categoriaNombreTraducido);
 
-    // Llamada al backend (por ejemplo para obtener favoritos de esta categoría)
-    // this.usuariosService.getByCategory(this.categoriaNombreTraducido).subscribe({
-    //   next: (res) => {
-    //     console.log('Datos recibidos:', res);
-    //     this.resultados = res;
-    //     console.log("resultados",this.resultados);
-    //   },
-    //   error: (err) => {
-    //     console.error('Error al obtener datos:', err);
-    //   }
-    // });
+    // Buscar imagen correspondiente
+    this.categoriaService.obtenerCategorias().subscribe({
+      next: (categorias) => {
+        const match = categorias.find(cat =>
+          this.categoriaNombreTraducido.toLowerCase() === cat.name.toLowerCase()
+        );
+        if (match) {
+          this.categoriaImagen = match.image || '';
+        }
+      },
+      error: (err) => {
+        console.error('Error cargando imagen de categoría:', err);
+      }
+    });
+
+    // 🔥 Cargar noticias por categoría seleccionada
+    this.noticiasService.getNoticiasInicio([this.categoriaNombreTraducido]).subscribe({
+      next: (noticias) => {
+        this.resultados.noticias = noticias;
+        console.log('Noticias cargadas:', noticias);
+      },
+      error: (err) => {
+        console.error('Error al obtener noticias por categoría:', err);
+      }
+    });
   }
 
-       goBack() {
-        this.location.back();
-      }
+  verNoticia(id: string) {
+    this.router.navigate(['/noticia-despliegue', id]);
+  }
+
+  goBack() {
+    this.location.back();
+  }
 }

@@ -15,6 +15,7 @@ import { FooterComponent } from '../components/shared/footer/footer.component';
 import { AuthService } from '../services/auth-service';
 import { TranslateService } from '@ngx-translate/core'; // 👈 Agrega esto
 import { RadioService, RadioData } from '../services/radio-service';
+import { CategoriaService } from '../services/categorias-service';
 
 @Component({
   standalone: true,
@@ -70,6 +71,7 @@ export class HomePage implements OnInit {
     private podcastService: PodcastService,
     private translate: TranslateService,
     private radioService: RadioService,
+    private categoriaService: CategoriaService
 
   ) {
     this.router.events
@@ -109,16 +111,20 @@ this.authService.getUser().then(user => {
       { img: 'assets/imgNews/noticia2.jpg', title: 'Segunda Noticia Relevante', id: 2 },
     ];
 
-
-this.categoriesArray = [
-  { id: 1, name: 'CATEGORY.ART' },
-  { id: 2, name: 'CATEGORY.SPORTS' },
-  { id: 3, name: 'CATEGORY.WORLD' },
-  { id: 4, name: 'CATEGORY.POLITICIAN' },
-  { id: 5, name: 'CATEGORY.Finanzas' },
-  { id: 6, name: 'CATEGORY.HEALTH' },
-  { id: 7, name: 'CATEGORY.FAMILY' },
-];
+this.categoriaService.obtenerCategorias().subscribe({
+  next: (categorias) => {
+    // Asumiendo que name ya viene como string para traducir
+    this.categoriesArray = categorias.map(cat => ({
+      id: cat._id!,
+      name: cat.name,
+      color: cat.color,
+      image: cat.image
+    }));
+  },
+  error: (err) => {
+    console.error('Error al cargar categorías dinámicas:', err);
+  }
+});
 
   }
 

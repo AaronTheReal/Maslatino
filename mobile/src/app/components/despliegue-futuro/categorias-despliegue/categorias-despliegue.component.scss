@@ -123,3 +123,24 @@
   backdrop-filter: blur(4px);
   color: #000;
 }
+
+
+.categoria-header-image {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; // Para que se vea como banner
+    display: block;
+  }
+}
+
+.categoria-titulo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}

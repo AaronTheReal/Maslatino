@@ -1,21 +1,18 @@
-<!--<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button routerLink="/home">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>{{ categoriaNombreTraducido }}</ion-title>
-  </ion-toolbar>
-</ion-header>
--->
+
 <ion-content class="categoria-despliegue-content" scrollY="true">
 
- <div class="back-button" (click)="goBack()">
+  
+  <!-- Imagen de categoría pegada arriba -->
+  <div class="categoria-header-image" *ngIf="categoriaImagen">
+    <img [src]="categoriaImagen" alt="Imagen Categoría" />
+  </div>
+
+  <!-- Botón atrás -->
+  <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
 
-  <!-- Título -->
+  <!-- Nombre de la categoría -->
   <div class="categoria-titulo">
     {{ categoriaNombreTraducido }}
   </div>
@@ -26,25 +23,36 @@
     <input type="text" placeholder="Buscar en {{ categoriaNombreTraducido }}" />
   </div>
 
+<!-- Noticias -->
+<div class="categoria-section">
+  <h2>{{ 'Noticias' | translate }}</h2>
 
-
-   <app-carrusel [slides]="slidesArray"></app-carrusel>
-  <!-- Noticias -->
-  <div class="categoria-section">
-    <h2>{{'Noticias' | translate}}</h2>
-    <div *ngIf="resultados.noticias.length > 0; else noNoticias" class="horizontal-scroll">
-      <div *ngFor="let noticia of resultados.noticias | slice:0:10" class="horizontal-card">
-        <img [src]="noticia?.meta?.image || 'assets/img/default-news.jpg'" />
-        <div class="card-title">{{ noticia.title }}</div>
+  <ng-container *ngIf="resultados.noticias.length > 0; else noNoticias">
+    <div class="horizontal-scroll">
+      <div
+        *ngFor="let noticia of resultados.noticias | slice:0:10"
+        class="horizontal-card"
+        (click)="noticia._id && verNoticia(noticia._id)"
+      >
+        <img
+          [src]="noticia?.meta?.image || 'assets/img/default-news.jpg'"
+          [alt]="noticia.title"
+        />
+        <div class="card-title">
+          {{ noticia.title }}
+        </div>
       </div>
     </div>
-    <ng-template #noNoticias>
-      <div class="no-content-box">
-        <ion-icon name="newspaper-outline"></ion-icon>
-        <p>No hay noticias disponibles</p>
-      </div>
-    </ng-template>
-  </div>
+  </ng-container>
+
+  <ng-template #noNoticias>
+    <div class="no-content-box">
+      <ion-icon name="newspaper-outline"></ion-icon>
+      <p>{{ 'No hay noticias disponibles' | translate }}</p>
+    </div>
+  </ng-template>
+</div>
+
 
   <!-- Podcasts -->
   <div class="categoria-section">
@@ -63,7 +71,15 @@
     </ng-template>
   </div>
 
-  <!-- Shows -->
+
+</ion-content>
+
+
+
+
+   <!--<app-carrusel [slides]="slidesArray"></app-carrusel>
+   
+   
   <div class="categoria-section">
     <h2>{{'Shows' | translate}}</h2>
     <div *ngIf="resultados.shows.length > 0; else noShows" class="horizontal-scroll">
@@ -80,4 +96,4 @@
     </ng-template>
   </div>
 
-</ion-content>
+   -->
