@@ -3,11 +3,6 @@
   command = "ng build --configuration=production"
 
 [[redirects]]
-  from = "/.netlify/functions/prerender"
-  to = "/.netlify/functions/prerender"
-  status = 200
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
