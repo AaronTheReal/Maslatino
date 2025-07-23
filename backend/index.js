@@ -43,21 +43,26 @@ const allowedOrigins = [
 
 ];
 
-const corsOptions = {
+app.use(cors({
+   origin: '*'
+
+}));
+
+/*
+app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);  // Permite la solicitud si el origen es válido
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      callback(new Error('CORS no permitido por esta fuente'));
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-
+  credentials: true
+}));
+ */
 app.options('*', cors());
 app.use(express.json());
 app.use('/aaron/maslatino', mainRoute.configRoutes(router));
