@@ -9,7 +9,7 @@
 
   <!-- Botón atrás -->
   <div class="back-button" (click)="goBack()">
-    <ion-icon name="arrow-back-outline"></ion-icon>
+    <ion-icon name="arrow-back-outline"></ion-icon> 
   </div>
 
   <!-- Nombre de la categoría -->
@@ -58,8 +58,11 @@
   <div class="categoria-section">
     <h2>{{'Podcasts' | translate}}</h2>
     <div *ngIf="resultados.podcasts.length > 0; else noPodcasts" class="horizontal-scroll">
-      <div *ngFor="let podcast of resultados.podcasts | slice:0:10" class="horizontal-card">
-        <img [src]="podcast.image || 'assets/img/default-podcast.jpg'" />
+      <div
+        *ngFor="let podcast of resultados.podcasts | slice:0:10"
+        class="horizontal-card"
+        (click)="verPodcast(podcast._id)"
+>    <img [src]="podcast.coverImage || 'assets/img/default-podcast.jpg'" [alt]="podcast.title" />
         <div class="card-title">{{ podcast.title }}</div>
       </div>
     </div>

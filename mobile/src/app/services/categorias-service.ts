@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface CategoriaPayload {
-  _id?: string;
+  _id: string;
   name: string;
   slug?: string;
   description?: string;

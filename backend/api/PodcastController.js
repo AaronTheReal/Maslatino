@@ -2,9 +2,13 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import Podcast from '../models/Podcast.js'; // asegúrate de importar el modelo
+import Category from '../models/Categorias.js';
 
 dotenv.config();
-
+// util pequeñito para escapar regex
+function escapeRegExp(str = '') {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 class PodcastController {
   // 🔹 Crear un nuevo podcast
@@ -40,6 +44,49 @@ class PodcastController {
       res.status(500).json({ mensaje: 'Error al obtener el podcast', error });
     }
   }
+
+   // 🔹 Obtener un podcast por ID
+
+async obtenerPodcastsPorNombreCategoria(req, res) {
+  try {
+    const { name } = req.params;              // p.ej. "Deportes"
+    const { page = 1, limit = 20 } = req.query;
+
+    console.log("si llega?", name);
+    // Busca la categoría por nombre (case-insensitive)
+    const category = await Category.findOne({
+      name: new RegExp(`^${escapeRegExp(name)}$`, 'i')
+    });
+
+    if (!category) {
+      return res.status(404).json({ mensaje: `Categoría '${name}' no encontrada` });
+    }
+
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const [results, total] = await Promise.all([
+      Podcast.find({ categories: category._id })
+        .populate('categories', 'name slug color')
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(Number(limit)),
+      Podcast.countDocuments({ categories: category._id })
+    ]);
+
+    return res.json({
+      total,
+      page: Number(page),
+      limit: Number(limit),
+      category: { _id: category._id, name: category.name, slug: category.slug },
+      results
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ mensaje: 'Error al obtener podcasts por categoría (nombre)', error });
+  }
+};
+
+
 
   // 🔹 Actualizar un podcast
   async actualizarPodcast(req, res) {

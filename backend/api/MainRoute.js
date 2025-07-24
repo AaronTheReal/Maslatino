@@ -80,6 +80,7 @@ export default class MainRoute {
     router.get('/podcasts/:id', PodcastController.obtenerPodcastPorId);
     router.put('/podcasts/:id', PodcastController.actualizarPodcast);
     router.delete('/podcasts/:id', PodcastController.eliminarPodcast);
+    router.get('/podcasts/by-category-name/:name', PodcastController.obtenerPodcastsPorNombreCategoria);
 
     router.post('/podcasts/:id/episodios', PodcastController.agregarEpisodio);
     router.put('/podcasts/:id/episodios/:episodioId', PodcastController.editarEpisodio);

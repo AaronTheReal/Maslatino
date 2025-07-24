@@ -40,4 +40,12 @@ export class PodcastService {
   getPodcastById(id: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/podcastIndividual`, { id });
   }
+    getPodcastCategoria(nombreCategoria: string): Observable<{ results: any[] }> {
+      const nombre = encodeURIComponent(nombreCategoria.trim());
+      return this.http.get<{ results: any[] }>(
+        `http://localhost:3000/aaron/maslatino/podcasts/by-category-name/${nombre}`
+      );
+    }
+
+
 }

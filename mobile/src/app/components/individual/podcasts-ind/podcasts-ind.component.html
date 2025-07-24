@@ -21,17 +21,24 @@
     />
   </div>
 
-  <!-- Filtros por categoría -->
+  <!-- Filtros por categoría (dinámicos) -->
   <div class="filter-tabs hide-scrollbar">
-    <button class="tab-button selected">Todos</button>
-    <button class="tab-button">Mundo</button>
-    <button class="tab-button">Arte</button>
-    <button class="tab-button">Política</button>
-    <button class="tab-button">Finanzas</button>
-    <button class="tab-button">Familia</button>
-    <button class="tab-button">Deportes</button>
-    <button class="tab-button">Salud</button>
-    <button class="tab-button">Educación</button>
+    <button
+      class="tab-button"
+      [class.selected]="!categoriaSeleccionada"
+      (click)="filtrarPorCategoria('')"
+    >
+      Todos
+    </button>
+
+    <button
+      class="tab-button"
+      *ngFor="let cat of categoriesDisponibles"
+      [class.selected]="categoriaSeleccionada === cat._id"
+      (click)="filtrarPorCategoria(cat._id)"
+    >
+      {{ cat.name }}
+    </button>
   </div>
 
   <!-- Skeleton Loading -->
@@ -41,19 +48,24 @@
     </div>
   </div>
 
-  <!-- Grid de resultados -->
-  <div *ngIf="!isLoading && filteredPodcasts.length > 0; else noPodcasts" class="podcast-grid">
-    <div class="iframe-item" *ngFor="let pod of filteredPodcasts">
-      <iframe
-        [src]="pod.safeEmbedUrl"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        frameborder="0"
-        loading="lazy"
-        width="100%"
-        height="170"
-      ></iframe>
+<!-- Grid de resultados -->
+<div *ngIf="!isLoading && filteredPodcasts.length > 0; else noPodcasts" class="podcast-grid">
+  <div class="podcast-card" *ngFor="let pod of filteredPodcasts" (click)="onSelectPodcast(pod)">
+    <!-- Imagen -->
+    <div class="podcast-image-container">
+      <img *ngIf="pod.coverImage" [src]="pod.coverImage" [alt]="pod.title" class="podcast-img" loading="lazy" />
+      <div *ngIf="!pod.coverImage" class="podcast-placeholder-image">
+        <ion-icon name="mic-circle-outline" class="placeholder-icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Texto -->
+    <div class="podcast-text">
+      <p class="podcast-item-title">{{ pod.title }}</p>
+      <p class="podcast-item-desc" *ngIf="pod.description">{{ pod.description | slice:0:60 }}...</p>
     </div>
   </div>
+</div>
 
   <ng-template #noPodcasts>
     <div class="no-podcasts-message">

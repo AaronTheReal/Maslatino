@@ -28,6 +28,7 @@ import { IonicModule } from '@ionic/angular';
 import { SafePipe } from '../../../pipes/safe.pipe'; // Asegúrate de tenerlo registrado
 import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 import { CategoriaService } from '../../../services/categorias-service';
+import { PodcastService } from '../../../services/spotify-podcasts';
 
 
 
@@ -66,7 +67,9 @@ export class CategoriasDespliegueComponent implements OnInit {
     private router: Router,
     private location: Location,
     private categoriaService: CategoriaService,
-    private noticiasService: NoticiasService
+    private noticiasService: NoticiasService,
+    private podcastService: PodcastService,
+
   ) {
     addIcons({
       heart,
@@ -78,6 +81,7 @@ export class CategoriasDespliegueComponent implements OnInit {
 
     ngOnInit() {
     const param = this.route.snapshot.paramMap.get('id');
+    console.log("categoria", param);
     this.categoriaNombreTraducido = decodeURIComponent(param || '');
 
     console.log('Categoría traducida seleccionada:', this.categoriaNombreTraducido);
@@ -107,10 +111,26 @@ export class CategoriasDespliegueComponent implements OnInit {
         console.error('Error al obtener noticias por categoría:', err);
       }
     });
+
+    this.podcastService.getPodcastCategoria(this.categoriaNombreTraducido).subscribe({
+      next: (response) => {
+        // si el backend devuelve { results: [...] }
+        const podcasts = response?.results ?? response;
+        this.resultados.podcasts = podcasts;
+        console.log('Podcasts cargados:', podcasts);
+      },
+      error: (err) => {
+        console.error('Error al obtener podcasts por categoría:', err);
+      }
+    });
+
   }
 
   verNoticia(id: string) {
     this.router.navigate(['/noticia-despliegue', id]);
+  }
+  verPodcast(id: string) {
+    this.router.navigate(['/podcast-despliegue', id]);
   }
 
   goBack() {
