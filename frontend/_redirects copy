@@ -1,0 +1,13 @@
+# Redirige solo a bots conocidos a Prerender.io
+# NOTA: Cambia TU_TOKEN_AQUI por tu prerenderToken
+
+/*  https://service.prerender.io/http/maslatino.netlify.app/:splat  200
+  X-Prerender-Token=rDjdSfG9AiLjP4fYB9Xd
+  User-Agent=googlebot
+  User-Agent=bingbot
+  User-Agent=yahoo
+  User-Agent=baiduspider
+  User-Agent=facebookexternalhit
+  User-Agent=twitterbot
+  User-Agent=rogerbot
+  User-Agent=linkedinbot

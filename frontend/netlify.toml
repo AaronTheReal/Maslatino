@@ -1,8 +1,9 @@
 [build]
-  publish = "dist/maslatino/browser"
   command = "ng build --configuration=production"
+  publish = "dist/mas-latino"  # Reemplaza con tu ruta final de salida
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[plugins]]
+  package = "netlify-plugin-prerender"
+
+  [plugins.inputs]
+  prerenderToken = "rDjdSfG9AiLjP4fYB9Xd" 
