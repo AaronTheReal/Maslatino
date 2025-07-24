@@ -37,7 +37,8 @@ const allowedOrigins = [
   'https://maslatino.onrender.com',
   'https://super-cajeta-50e752.netlify.app',
   'https://service.prerender.io',
-  'https://api.prerender.io'
+  'https://api.prerender.io',
+  'https://maslatino.onrender.com/aaron/maslatino/getNoticias'
 
   
 
