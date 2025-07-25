@@ -2,7 +2,7 @@
   <div class="contenedor">
     <h2 class="titulo-seccion">FEATURES NEWS</h2>
 
-    <div class="grid-news" *ngIf="noticias.length >= 5">
+    <div class="grid-news" *ngIf="noticias.length >= 0">
 
       <!-- TARJETA GRANDE (primera noticia) -->
       <a class="tarjeta tarjeta-grande" [routerLink]="['/noticia', noticias[0].slug]">

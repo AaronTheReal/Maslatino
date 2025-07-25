@@ -5,11 +5,13 @@
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
 
-  <div class="follow-us-container">
-    <h2 class="page-title">Reproductor</h2>
-  </div>
 
   <ng-container *ngIf="podcastActivo; else listaPodcasts">
+
+      <div class="follow-us-container">
+        <h2 class="page-title">Reproductor</h2>
+      </div>
+
     <div class="reproductor-expandido">
       <!-- Botón cerrar en esquina superior izquierda -->
       
@@ -61,9 +63,10 @@
         </ion-button>
 
         <!-- Botón de favorito (derecha) -->
-       <ion-button class="control-button lateral" fill="clear" (click)="toggleFavorite()">
-          <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'"></ion-icon>
+        <ion-button class="control-button lateral" fill="clear" (click)="toggleFavorite()">
+          <ion-icon [name]="podcastActivo?.favorito ? 'heart' : 'heart-outline'"></ion-icon>
         </ion-button>
+
 
       </div>
     </div>
@@ -71,9 +74,29 @@
 
   <!-- Lista de podcasts -->
   <ng-template #listaPodcasts>
+
+
+ <!-- Imagen centrada -->
+
+<div class="reproductor-imagen-centrada">
+  <img [src]="podcast.coverImage" alt="Podcast actual" />
+</div>
+
+<div class="reproductor-info">
+  <h2 class="reproductor-titulo">{{ podcast.title }}</h2>
+  <p class="reproductor-descripcion">{{ podcast.description }}</p>
+</div>
+
+
+      
  <div *ngFor="let podcast of podcasts">
+  
   <ion-card class="podcast-card">
+    
     <div class="podcast-card-content">
+
+
+
       <!-- Imagen a la izquierda -->
       <div class="podcast-image">
         <img [src]="podcast.imagenUrl" alt="Portada podcast" />
@@ -98,8 +121,13 @@
 
   </ng-template>
 </ion-content>
-<audio #audio hidden (timeupdate)="actualizarTiempo()" (ended)="siguiente()"></audio>
-
+<audio #audio hidden (timeupdate)="actualizarTiempo()" (ended)="siguiente()"></audio><audio
+  #audio
+  hidden
+  (timeupdate)="actualizarTiempo()"
+  (ended)="siguiente()"
+  (error)="onAudioError($event)"
+></audio>
 <ion-footer>
   <app-footer></app-footer>
 </ion-footer>
@@ -108,6 +136,174 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<ion-content class="ion-padding">
+
+    <div class="back-button" (click)="goBack()">
+    <ion-icon name="arrow-back-outline"></ion-icon>
+</div>
+
+  <div class="podcast-background" [style.background-image]="'url(' + podcast?.image + ')'"></div>
+
+
+
+
+<div class="card">
+ <div class="content" [class.flipped]="isFlipped">
+    <button class="flip-button" (click)="toggleFlip()">
+      <ion-icon name="refresh-outline"></ion-icon>
+    </button>
+    <div class="back">
+      <div class="back-content">
+           <div style=" border-radius: 1rem;"> 
+    
+    </div>
+      </div>
+    </div>
+
+    <div class="front">
+
+      <div class="img">
+        <div class="circle">
+        </div>
+        <div class="circle" id="right">
+        </div>
+        <div class="circle" id="bottom">
+        </div>
+      </div>
+
+      <div class="front-content">
+      <div class="heart-icon" [class.active]="isFavorite" (click)="toggleFavorite()">
+        <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'"></ion-icon>
+      </div>
+      <h1 class="title">{{ podcast?.title }}</h1>
+      <p class="description">{{ podcast?.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</ion-content>
+
+
+
+-->
+
+
+
+
+
+
+
+
+<!--
+<ion-content class="ion-padding">
+  <div class="podcast-background" [style.background-image]="'url(' + podcast?.image + ')'"></div>
+
+  <div class="foreground-container">
+
+
+
+    <div class="iframe-wrapper">
+      <iframe
+        *ngIf="podcast?.embedUrl"
+        [src]="podcast.embedUrl | safe:'resourceUrl'"
+        width="100%"
+        height="380"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+     <div class="overlay">
+      <h1 class="title">{{ podcast?.title }}</h1>
+      <p class="description">{{ podcast?.description }}</p>
+    </div>
+ </div>
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ion-content class="ion-padding">
+  <div class="podcast-background" [style.background-image]="'url(' + podcast?.image + ')'"></div>
+
+  <div class="foreground-container">
+    <div class="iframe-wrapper">
+      <iframe
+        *ngIf="podcast?.embedUrl"
+        [src]="podcast.embedUrl | safe:'resourceUrl'"
+        width="100%"
+        height="100%"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
+    <div class="overlay">
+      <h1 class="title">{{ podcast?.title }}</h1>
+      <p class="description">{{ podcast?.description }}</p>
+    </div>
+  </div>
+</ion-content>
+-->
 
 
 

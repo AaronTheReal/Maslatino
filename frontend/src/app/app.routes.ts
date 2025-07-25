@@ -25,7 +25,7 @@ export const routes: Routes = [
       {path: 'categorias-panel',component: PanelCategorias },
 
  
-      { path: 'noticia/:slug', component: NoticiaIndividual },
+      { path: 'noticia/:slug', component: NoticiaIndividual, data: { prerender: true } },
       { path: 'sobre-nosotros', component: SobreNosotros }
 
 

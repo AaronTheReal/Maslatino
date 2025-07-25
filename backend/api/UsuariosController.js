@@ -12,53 +12,81 @@ class UsuariosController {
   async getUserBack(req,res){
   }
 
-  async getAll(req, res) {
-    try {
-      const { userId } = req.params;
+async getAll(req, res) {
+  try {
+    const { userId } = req.params;
 
-      if (!userId) {
-        return res.status(400).json({ error: 'Falta el ID del usuario.' });
-      }
+    if (!userId) {
+      return res.status(400).json({ error: 'Falta el ID del usuario.' });
+    }
 
-      const user = await Usuario.findById(userId);
+    const user = await Usuario.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
 
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado.' });
-      }
+    const favoritos = user.favorites;
 
-      const favoritos = user.favorites;
+    const noticias = [];
+    const podcasts = [];
+    const episodios = [];
 
-      const noticias = [];
-      const podcasts = [];
-      const shows = [];
+    for (const fav of favoritos) {
+      const id = fav.contentId;
+      const tipo = fav.contentType;
 
-      for (const fav of favoritos) {
-        const id = fav.contentId;
-        const tipo = fav.contentType;
+      if (tipo === 'Noticia') {
+        const noticia = await Noticia.findById(id).select('_id title meta.image categories');
+        if (noticia) noticias.push(noticia);
+      } else if (tipo === 'Podcast') {
+        const podcast = await Podcast.findById(id).select('_id title coverImage categories');
+        if (podcast) podcasts.push(podcast);
+      } else if (tipo === 'Episodio') {
+        // Buscar el podcast que contiene ese episodio
+        const podcast = await Podcast.findOne(
+          { 'episodes._id': id },
+          {
+            _id: 1,
+            title: 1,
+            coverImage: 1,
+            categories: 1,
+            episodes: { $elemMatch: { _id: id } },
+          }
+        ).populate('categories', 'name slug color');
 
-        if (tipo === 'Noticia') {
-          const noticia = await Noticia.findById(id).select('_id title meta.image categories');
-          if (noticia) noticias.push(noticia);
-        } else if (tipo === 'Podcast') {
-          const podcast = await Podcast.findById(id).select('_id title image categories');
-          if (podcast) podcasts.push(podcast);
-        } else if (tipo === 'Radio') {
-          const show = await Show.findById(id).select('_id title image categories');
-          if (show) shows.push(show);
+        if (podcast && podcast.episodes.length > 0) {
+          const episode = podcast.episodes[0];
+
+          episodios.push({
+            _id: episode._id,
+            title: episode.title,
+            description: episode.description,
+            audioUrl: episode.audioUrl,
+            image: episode.image,
+            duration: episode.duration,
+            releaseDate: episode.releaseDate,
+            podcastId: podcast._id,
+            podcastTitle: podcast.title,
+            podcastCoverImage: podcast.coverImage,
+            categories: podcast.categories,
+          });
         }
       }
-
-      res.status(200).json({
-        noticias,
-        podcasts,
-        shows
-      });
-
-    } catch (err) {
-      console.error('Error al obtener favoritos:', err);
-      res.status(500).json({ error: 'Error interno del servidor.' });
     }
+
+    console.log("Episodios", episodios);
+    res.status(200).json({
+      noticias,
+      podcasts,
+      episodios
+    });
+
+  } catch (err) {
+    console.error('Error al obtener favoritos:', err);
+    res.status(500).json({ error: 'Error interno del servidor.' });
   }
+}
+
 
 
 async getAllByCategory(req, res) {
@@ -81,56 +109,143 @@ async getAllByCategory(req, res) {
     return res.status(500).json({ message: 'Error interno del servidor' });
   }
 }
+async getFavorites(req, res) {
+  try {
+    const { userId } = req.params;
 
+    if (!userId) {
+      return res.status(400).json({ error: 'Falta el ID del usuario.' });
+    }
 
+    const user = await Usuario.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
 
- async getFavorites(req, res) {
-    try {
-      const { userId } = req.params;
+    const favoritos = user.favorites;
 
-      if (!userId) {
-        return res.status(400).json({ error: 'Falta el ID del usuario.' });
-      }
+    const noticias = [];
+    const podcastsMap = new Map();
+    const episodios = [];
 
-      const user = await Usuario.findById(userId);
+    for (const fav of favoritos) {
+      const id = fav.contentId;
+      const tipo = fav.contentType;
 
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado.' });
-      }
+      if (tipo === 'Noticia') {
+        const noticia = await Noticia.findById(id).select('_id title meta.image categories');
+        if (noticia) noticias.push(noticia);
+      } else if (tipo === 'Podcast') {
+        const podcast = await Podcast.findById(id).select('_id title coverImage categories');
+        if (podcast) podcastsMap.set(podcast._id.toString(), podcast);
+      } else if (tipo === 'Episodio') {
+        const podcast = await Podcast.findOne({ 'episodes._id': id }).select('_id title coverImage categories');
+        if (podcast && !podcastsMap.has(podcast._id.toString())) {
+          podcastsMap.set(podcast._id.toString(), podcast);
+        }
 
-      const favoritos = user.favorites;
-
-      const noticias = [];
-      const podcasts = [];
-      const shows = [];
-
-      for (const fav of favoritos) {
-        const id = fav.contentId;
-        const tipo = fav.contentType;
-
-        if (tipo === 'Noticia') {
-          const noticia = await Noticia.findById(id).select('_id title meta.image categories');
-          if (noticia) noticias.push(noticia);
-        } else if (tipo === 'Podcast') {
-          const podcast = await Podcast.findById(id).select('_id title image categories');
-          if (podcast) podcasts.push(podcast);
-        } else if (tipo === 'Radio') {
-          const show = await Show.findById(id).select('_id title image categories');
-          if (show) shows.push(show);
+        // Si quieres seguir devolviendo los episodios como lista
+        const podWithEp = await Podcast.findOne({ 'episodes._id': id }, { 'episodes.$': 1 });
+        if (podWithEp?.episodes?.[0]) {
+          const ep = podWithEp.episodes[0].toObject();
+          ep.podcastId = podWithEp._id;
+          episodios.push(ep);
         }
       }
-
-      res.status(200).json({
-        noticias,
-        podcasts,
-        shows
-      });
-
-    } catch (err) {
-      console.error('Error al obtener favoritos:', err);
-      res.status(500).json({ error: 'Error interno del servidor.' });
     }
+
+    const podcasts = Array.from(podcastsMap.values());
+
+    console.log(noticias,podcasts,episodios);
+    res.status(200).json({
+      noticias,
+      podcasts,
+      episodios
+    });
+
+  } catch (err) {
+    console.error('Error al obtener favoritos:', err);
+    res.status(500).json({ error: 'Error interno del servidor.' });
   }
+}
+
+
+/*
+
+async getFavorites(req, res) {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ error: 'Falta el ID del usuario.' });
+    }
+
+    const user = await Usuario.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+
+    const favoritos = user.favorites;
+
+    const noticias = [];
+    const podcasts = [];
+    const episodios = [];
+
+    for (const fav of favoritos) {
+      const id = fav.contentId;
+      const tipo = fav.contentType;
+
+      if (tipo === 'Noticia') {
+        const noticia = await Noticia.findById(id).select('_id title meta.image categories');
+        if (noticia) noticias.push(noticia);
+      } else if (tipo === 'Podcast') {
+        const podcast = await Podcast.findById(id).select('_id title coverImage categories');
+        if (podcast) podcasts.push(podcast);
+      } else if (tipo === 'Episodio') {
+        const podcast = await Podcast.findOne(
+          { 'episodes._id': id },
+          {
+            _id: 1,
+            title: 1,
+            coverImage: 1,
+            categories: 1,
+            episodes: { $elemMatch: { _id: id } },
+          }
+        ).populate('categories', 'name slug color');
+
+        if (podcast && podcast.episodes.length > 0) {
+          const episode = podcast.episodes[0];
+
+          episodios.push({
+            _id: episode._id,
+            title: episode.title,
+            description: episode.description,
+            audioUrl: episode.audioUrl,
+            image: episode.image,
+            duration: episode.duration,
+            releaseDate: episode.releaseDate,
+            podcastId: podcast._id,
+            podcastTitle: podcast.title,
+            podcastCoverImage: podcast.coverImage,
+            categories: podcast.categories,
+          });
+        }
+      }
+    }
+
+    res.status(200).json({
+      noticias,
+      podcasts,
+      episodios
+    });
+
+  } catch (err) {
+    console.error('Error al obtener favoritos:', err);
+    res.status(500).json({ error: 'Error interno del servidor.' });
+  }
+}
+*/
+
 
 // controllers/user.controller.js
 

@@ -145,11 +145,13 @@ export class ProfileComponent implements OnInit {
         icon: 'heart-outline',
         action: () => this.navigateTo('/favoritos'),
       },
+      /*
       {
         label: 'PROFILE.NOTIFICATIONS',
         icon: 'notifications-outline',
         action: () => this.navigateTo('/notificaciones'),
       },
+      */
       {
         label: 'PROFILE.FOLLOW_US',
         icon: 'people-outline',

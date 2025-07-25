@@ -69,24 +69,24 @@ isFavorite(noticia: string, Tipo: string, IdUsuario: string): Observable<{ isFav
 getFavorites(userId: string): Observable<{
   noticias: any[],
   podcasts: any[],
-  shows: any[]
+  episodios: any[]
 }> {
   return this.http.get<{
     noticias: any[],
     podcasts: any[],
-    shows: any[]
+    episodios: any[]
   }>(`${this.baseUrl}/get-favorites/${userId}`);
 }
 
 getByCategory(categoria: string): Observable<{
   noticias: any[],
   podcasts: any[],
-  shows: any[]
+  episodios: any[]
 }> {
   return this.http.get<{
     noticias: any[],
     podcasts: any[],
-    shows: any[]
+    episodios: any[]
   }>(`${this.baseUrl}/get-by-category/${categoria}`);
 }
 

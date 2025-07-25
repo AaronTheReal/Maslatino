@@ -40,8 +40,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                   "maximumWarning": "2mb", 
-                    "maximumError": "3mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -58,6 +58,49 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/maslatino/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/",
+              "/sobre-nosotros",
+              "/admin-panel",
+              "/usuarios-panel",
+              "/calendario-panel",
+              "/multimedia-panel",
+              "/noticias-panel",
+              "/podcast-panel",
+              "/radio-panel",
+              "/categorias-panel",
+              "/noticia/google-y-microsoft-trabajan-juntas-en-el-framework-de-javascript-angular-2"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "maslatino:build:production",
+              "serverTarget": "maslatino:server:production"
+            }
+          }
         },
         "serve": {
           "builder": "@angular/build:dev-server",
@@ -89,11 +132,9 @@
               }
             ],
             "styles": [
-  "node_modules/bootstrap/dist/css/bootstrap.min.css",
-  "node_modules/bootstrap-icons/font/bootstrap-icons.css",
-  "src/styles.css"
-
-
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "src/styles.css"
             ]
           }
         }

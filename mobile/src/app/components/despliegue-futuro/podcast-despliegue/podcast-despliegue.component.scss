@@ -164,10 +164,43 @@ ion-tab-button.tab-selected ion-icon {
 }
 
 
+.reproductor-imagen-centrada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Espacio igual en todos los lados */
+  height: 40%;
+  box-sizing: border-box;
+}
+
+.reproductor-imagen-centrada img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: -20px; /* 👈 Reduce este valor para acercar el texto */
+}
 
 
+.reproductor-info {
+    text-align: center;
+    padding: 34px 0.5rem;
+    margin-top: -70px;
+}
 
+.reproductor-titulo {
+  font-size: 1.5rem; /* Más grande que texto normal */
+  font-weight: bold;
+  margin: 0.5rem 0;
+  color: #000;
+}
 
+.reproductor-descripcion {
+  font-size: 1rem; /* Más pequeña que el título */
+  font-weight: normal;
+  color: #555;
+  margin: 0;
+}
 
 
 

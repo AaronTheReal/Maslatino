@@ -9,7 +9,7 @@ const FavoriteSchema = new Schema({
   },
   contentType: {
     type: String,
-    enum: ['Noticia', 'Podcast', 'Radio'],
+    enum: ['Noticia', 'Podcast', 'Episodio', 'Radio'],
     required: true
   },
   savedAt: {

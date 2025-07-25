@@ -12,6 +12,17 @@ export interface CategoriaPayload {
   createdAt?: string;
   updatedAt?: string;
 }
+interface Episodio {
+  _id: string;
+  titulo: string;
+  episodio: number;
+  duracion: string;
+  imagenUrl: string;
+  audioUrl: string;
+  favorito: boolean;
+  [key: string]: any; // Para permitir otros campos como description, releaseDate, etc.
+}
+
 
 @Injectable({ providedIn: 'root' })
 export class CategoriaService {

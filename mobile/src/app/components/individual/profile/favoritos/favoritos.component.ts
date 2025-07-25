@@ -69,6 +69,7 @@ export class FavoritosComponent implements OnInit {
   searchTerm = '';
   noticias: any[] = [];
   podcasts: any[] = [];
+  episodios: any [] = [];
   shows: any[] = [];
   combinados: any[] = [];
 
@@ -77,7 +78,7 @@ categoriasDisponibles: string[] = [
 ];
 categoriaSeleccionada: string = 'Todos';
 
-tiposDisponibles: string[] = ['', 'Noticia', 'Podcast', 'Show'];
+tiposDisponibles: string[] = ['', 'Noticia', 'Podcast', 'Episodio'];
 tipoSeleccionado: string = '';
   constructor(
     private usuarioService: UsuariosService,
@@ -98,21 +99,32 @@ ngOnInit() {
     this.usuarioService.getFavorites(user._id).subscribe({
       next: (res) => {
         this.noticias = (res.noticias || []).map(n => ({
-        ...n,
-        tipo: 'Noticia',
-        categoria: n.categories[0] || 'Otros'
-      }));
-      this.podcasts = (res.podcasts || []).map(p => ({
-        ...p,
-        tipo: 'Podcast',
-        categoria: p.categories[0] || 'Otros'
-      }));
+          ...n,
+          tipo: 'Noticia',
+          categoria: n.categories?.[0]?.toString?.() || 'Otros'
+        }));
+        this.podcasts = (res.podcasts || []).map(p => ({
+          ...p,
+          tipo: 'Podcast',
+          categoria: p.categories?.[0]?.toString?.() || 'Otros'
+        }));
+        this.episodios = (res.episodios || []).map(o => ({
+          ...o,
+          tipo: 'Episodio',
+          categoria: o.categories?.[0]?.toString?.() || 'Otros'
+        }));
+
+
+
+      /*
+
       this.shows = (res.shows || []).map(s => ({
         ...s,
         tipo: 'Show',
         categoria: s.categories[0] || 'Otros'
       }));
-        this.combinados = [...this.noticias, ...this.podcasts, ...this.shows];
+      */
+        this.combinados = [...this.noticias, ...this.podcasts];
 
         console.log("combinados", this.combinados);
       },
@@ -169,8 +181,8 @@ get resultadosFiltrados(): any[] {
       this.router.navigate(['/noticia-despliegue', id]);
     } else if (item.tipo === 'Podcast') {
       this.router.navigate(['/podcast-despliegue', id]);
-    } else if (item.tipo === 'Show') {
-      this.router.navigate(['/radio-despliegue', id]);
+    } else if (item.tipo === 'Episodio') {
+      this.router.navigate(['/podcast-despliegue', id]);
     } else {
       console.warn('Tipo desconocido:', item);
     }
