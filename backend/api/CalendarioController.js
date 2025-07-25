@@ -203,6 +203,7 @@ class CalendarioController {
         CalendarItem.countDocuments(filter)
       ]);
 
+      console.log("si llega?",items);
       return res.json({
         ok: true,
         data: items,

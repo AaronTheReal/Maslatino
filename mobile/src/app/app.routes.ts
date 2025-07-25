@@ -29,11 +29,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/individual/reproductor/reproductor.component').then((m) => m.ReproductorComponent),
   },
-    {
-    path: 'calendarioDespliegue',
-    loadComponent: () =>
-      import('./components/individual/calentario/calendario-selection/calendario-despliegue.component').then((m) => m.CalentarioDespliegueComponent),
-  },
+  {
+  path: 'calendarioDespliegue/:slug',
+  loadComponent: () =>
+    import('./components/individual/calentario/calendario-selection/calendario-despliegue.component').then((m) => m.CalentarioDespliegueComponent),
+},
+
     {
     path: '',
     redirectTo: 'home',

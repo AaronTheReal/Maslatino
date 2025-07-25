@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Location } from '@angular/common'; // ✅ ESTA es la correcta
-import { FooterComponent } from '../../../../components/shared/footer/footer.component';
-import { CarruselComponent } from '../../../../components/features/carrusel/carrusel.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+
 import {
   IonHeader,
   IonToolbar,
@@ -16,81 +14,144 @@ import {
   IonList,
   IonItem,
   IonLabel,
-  IonButtons,       // Añadido para <ion-buttons>
-  IonListHeader,    // Añadido para <ion-list-header>
-  IonFooter         // Añadido para <ion-footer>
+  IonButtons,
+  IonListHeader,
+  IonFooter,
+  IonSkeletonText
 } from '@ionic/angular/standalone';
-import { calendarOutline, timeOutline, locationOutline, linkOutline } from 'ionicons/icons';
+
+import { FooterComponent } from '../../../../components/shared/footer/footer.component';
+import { CarruselComponent } from '../../../../components/features/carrusel/carrusel.component';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { addIcons } from 'ionicons';
+import {
+  calendarOutline,
+  timeOutline,
+  locationOutline,
+  linkOutline,
+  globeOutline,
+  arrowBackOutline
+} from 'ionicons/icons';
 
-import { IonicModule } from '@ionic/angular';
-import { SafePipe } from '../../../../pipes/safe.pipe'; // Asegúrate de tenerlo registrado
-
-
+import { CalendarioService, CalendarItem } from '../../../../services/calendario-service';
+import { SafePipe } from '../../../../pipes/safe.pipe';
 
 @Component({
   selector: 'app-calendario-despliegue',
+  standalone: true,
   templateUrl: './calendario-despliegue.component.html',
   styleUrls: ['./calendario-despliegue.component.scss'],
-    imports: [
+  imports: [
     CommonModule,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonContent,
     IonCard,
-      CarruselComponent,
+    CarruselComponent,
     IonAvatar,
     IonButton,
     IonIcon,
     IonList,
     IonItem,
     IonLabel,
-    IonButtons,       // Añadido
-    IonListHeader,    // Añadido
-    IonFooter,        // Añadido
+    IonButtons,
+    IonListHeader,
+    IonFooter,
+    IonSkeletonText,
     FooterComponent,
     TranslateModule,
-
+    SafePipe
   ],
-
 })
+export class CalentarioDespliegueComponent implements OnInit {
 
-export class CalentarioDespliegueComponent  implements OnInit {
-  slidesArray = [
-    { img: 'assets/img/carousel1.jpg', title: '' },
-    { img: 'assets/img/carousel2.jpg', title: '' },
-    { img: 'assets/img/carousel3.jpeg', title: '' },
-  ]
+  private route = inject(ActivatedRoute);
+  private calendarioService = inject(CalendarioService);
+  private location = inject(Location);
 
- evento = {
-  titulo: 'Conferencia de Tecnología 2025',
-  fecha: new Date('2025-07-07'),
-  horaInicio: '10:00 AM',
-  horaFin: '12:00 PM',
-  locacion: 'Centro de Convenciones, CDMX',
-  url: 'https://miapp.com/eventos/tecnologia2025'
-};
+  loading = true;
+  evento: {
+    titulo: string;
+    fecha: Date | null;
+    horaInicio: string | null;
+    horaFin: string | null;
+    allDay: boolean;
+    timezone: string | null;
+    locacion: string | null;
+    url: string | null;
+    urlLabel: string | null;
+    categorias: Array<{ name: string; slug: string; color?: string }> | null;
+    tags: string[] | null;
+    body: string | null;
+    image: string | null;
+  } | null = null;
 
+  slidesArray: { img: string; title?: string }[] = [];
 
-  constructor(
-       private location: Location,
-
-
-  ) {
-addIcons({
-  'calendar-outline': calendarOutline,
-  'time-outline': timeOutline,
-  'location-outline': locationOutline,
-  'link-outline': linkOutline
-});
-
+  constructor() {
+    addIcons({
+      'calendar-outline': calendarOutline,
+      'time-outline': timeOutline,
+      'location-outline': locationOutline,
+      'link-outline': linkOutline,
+      'globe-outline': globeOutline,
+      'arrow-back-outline': arrowBackOutline
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    const slug = this.route.snapshot.paramMap.get('slug') || '';
+    this.fetchEvento(slug);
+  }
 
-    goBack() {
-        this.location.back();
+  private fetchEvento(slug: string) {
+    this.loading = true;
+    this.calendarioService.getBySlug(slug).subscribe({
+      next: (res) => {
+        const item = res.data as CalendarItem;
+        this.evento = this.mapToViewModel(item);
+
+        // Carrusel: usa imagen principal o placeholder
+        const img = this.evento?.image || 'assets/img/carousel1.jpg';
+        this.slidesArray = [{ img }];
+
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error cargando evento:', err);
+        this.loading = false;
+        this.evento = null;
       }
+    });
+  }
 
+  private mapToViewModel(item: CalendarItem) {
+    const start = item.startAt ? new Date(item.startAt) : null;
+    const end = item.endAt ? new Date(item.endAt) : null;
+
+    const formatTime = (d?: Date | null) =>
+      d ? d.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }) : null;
+
+    return {
+      titulo: item.title,
+      fecha: start,
+      horaInicio: formatTime(start),
+      horaFin: formatTime(end),
+      allDay: !!item.allDay,
+      timezone: item.timezone || null,
+      locacion: item.location?.name || item.location?.address || null,
+      url: item.link?.url || null,
+      urlLabel: item.link?.label || null,
+      categorias: (item as any).categories || null,
+      tags: item.tags || null,
+      body: item.body || null,
+      image: item.image || null
+    };
+  }
+
+  goBack() {
+    this.location.back();
+  }
 }

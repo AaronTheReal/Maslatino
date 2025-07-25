@@ -20,6 +20,7 @@ import {
   IonListHeader,    // Añadido para <ion-list-header>
   IonFooter         // Añadido para <ion-footer>
 } from '@ionic/angular/standalone';
+import { CalendarioService } from '../../../services/calendario-service';
 
 
 @Component({
@@ -49,52 +50,79 @@ import {
 
 })
 
-export class CalentarioComponent  implements OnInit {
+export class CalentarioComponent implements OnInit {
+  eventosAgrupadosPorDia: {
+    dia: string;
+    mes: string;
+    eventos: {
+      imagenUrl: string;
+      hora: string;
+      descripcion: string;
+      slug: string;
+    }[];
+  }[] = [];
 
   constructor(
-       private location: Location,
-       private router: Router
+    private location: Location,
+    private router: Router,
+    private calendarioService: CalendarioService
+  ) {}
 
-
-  ) { }
-
-  ngOnInit() {}
-eventosAgrupadosPorDia = [
-  {
-    dia: '04',
-    mes: 'Jul',
-    eventos: [
-      {
-        imagenUrl: 'assets/eventos/evento1.jpg',
-        hora: '10:00 AM',
-        descripcion: 'Reunión con el equipo de diseño'
-      },
-      {
-        imagenUrl: 'assets/eventos/evento2.jpg',
-        hora: '1:00 PM',
-        descripcion: 'Lanzamiento de nueva campaña'
-      }
-    ]
-  },
-  {
-    dia: '05',
-    mes: 'Jul',
-    eventos: [
-      {
-        imagenUrl: 'assets/eventos/evento3.jpg',
-        hora: '9:00 AM',
-        descripcion: 'Desayuno con cliente'
-      }
-    ]
+  ngOnInit(): void {
+    this.cargarEventos();
   }
-];
-irADetalleEvento(evento: any) {
-  // Si quieres pasar data por query params o ID, ajusta aquí
-  this.router.navigate(['/calendarioDespliegue']);
-}
 
-    goBack() {
-        this.location.back();
-      }
+  cargarEventos(): void {
+    this.calendarioService
+      .list({
+        status: 'published',
+        sort: 'startAt:asc',
+        limit: 100
+      })
+      .subscribe({
+        next: (res) => {
+          const eventos = res.data;
+    
+          const agrupados: Record<string, any[]> = {};
 
+          for (const evento of eventos) {
+            const fecha = new Date(evento.startAt);
+            const key = fecha.toISOString().split('T')[0]; // YYYY-MM-DD
+
+            if (!agrupados[key]) agrupados[key] = [];
+
+            agrupados[key].push({
+              imagenUrl: evento.image || 'assets/eventos/default.jpg',
+              hora: fecha.toLocaleTimeString('es-MX', {
+                hour: '2-digit',
+                minute: '2-digit',
+              }),
+              descripcion: evento.title,
+              slug: evento.slug
+            });
+          }
+
+          // Convertir a array ordenado por fecha
+          this.eventosAgrupadosPorDia = Object.entries(agrupados)
+            .sort((a, b) => a[0].localeCompare(b[0]))
+            .map(([fechaStr, eventos]) => {
+              const fecha = new Date(fechaStr);
+              const dia = fecha.getDate().toString().padStart(2, '0');
+              const mes = fecha.toLocaleString('es-MX', { month: 'short' });
+              return { dia, mes, eventos };
+            });
+        },
+        error: (err) => {
+          console.error('Error al cargar eventos del calendario:', err);
+        },
+      });
+  }
+
+  irADetalleEvento(evento: any) {
+    this.router.navigate(['/calendarioDespliegue', evento.slug]);
+  }
+
+  goBack() {
+    this.location.back();
+  }
 }

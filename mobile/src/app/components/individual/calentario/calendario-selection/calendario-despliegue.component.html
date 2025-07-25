@@ -1,46 +1,93 @@
-  <ion-content>
- <div class="back-button" (click)="goBack()">
+<ion-content>
+  <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
-   <app-carrusel [slides]="slidesArray"></app-carrusel>
 
-<!-- Título del evento -->
-<div class="evento-titulo">
-  {{ evento.titulo }}
-</div>
+  <!-- Loading -->
+  <ng-container *ngIf="loading; else contentTpl">
+    <div class="loading">
+      <ion-skeleton-text animated style="width: 60%; height: 28px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 90%; height: 18px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 80%; height: 18px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%; height: 220px;"></ion-skeleton-text>
+    </div>
+  </ng-container>
 
-<!-- Información del evento -->
-<div class="evento-detalles">
-  <!-- Fecha -->
-  <div class="evento-info-item">
-    <ion-icon name="calendar-outline" class="evento-icon"></ion-icon>
-    <span>{{ evento.fecha | date:'dd MMMM yyyy' }}</span>
-  </div>
+  <!-- Contenido -->
+  <ng-template #contentTpl>
+    <ng-container *ngIf="evento; else notFoundTpl">
 
-  <!-- Hora -->
-  <div class="evento-info-item">
-    <ion-icon name="time-outline" class="evento-icon"></ion-icon>
-    <span>{{ evento.horaInicio }} - {{ evento.horaFin }}</span>
-  </div>
+      <!-- Carrusel -->
+      <app-carrusel [slides]="slidesArray"></app-carrusel>
 
-  <!-- Ubicación -->
-  <div class="evento-info-item">
-    <ion-icon name="location-outline" class="evento-icon"></ion-icon>
-    <span>{{ evento.locacion }}</span>
-  </div>
+      <!-- Título del evento -->
+      <div class="evento-titulo">
+        {{ evento.titulo }}
+      </div>
 
-  <!-- URL -->
-  <div class="evento-info-item">
-    <ion-icon name="link-outline" class="evento-icon"></ion-icon>
-    <a [href]="evento.url" target="_blank" rel="noopener">{{ evento.url }}</a>
-  </div>
-</div>
+      <!-- Chips de categorías -->
+      <div class="chips" *ngIf="evento.categorias?.length">
+        <span class="chip" *ngFor="let c of evento.categorias">{{ c.name }}</span>
+      </div>
 
+      <!-- Tags -->
+      <div class="chips" *ngIf="evento.tags?.length">
+        <span class="chip tag" *ngFor="let t of evento.tags">#{{ t }}</span>
+      </div>
 
-  </ion-content>
+      <!-- Información del evento -->
+      <div class="evento-detalles">
+        <!-- Fecha -->
+        <div class="evento-info-item">
+          <ion-icon name="calendar-outline" class="evento-icon"></ion-icon>
+          <span>{{ evento.fecha | date:'fullDate' }}</span>
+        </div>
 
+        <!-- Hora -->
+        <div class="evento-info-item" *ngIf="evento.horaInicio || evento.horaFin">
+          <ion-icon name="time-outline" class="evento-icon"></ion-icon>
+          <span>
+            {{ evento.horaInicio }}
+            <ng-container *ngIf="evento.horaFin">– {{ evento.horaFin }}</ng-container>
+            <ng-container *ngIf="evento.allDay">(todo el día)</ng-container>
+          </span>
+        </div>
 
+        <!-- Zona horaria -->
+        <div class="evento-info-item" *ngIf="evento.timezone">
+          <ion-icon name="globe-outline" class="evento-icon"></ion-icon>
+          <span>{{ evento.timezone }}</span>
+        </div>
 
-  <ion-footer>
-    <app-footer></app-footer>
-  </ion-footer>
+        <!-- Ubicación -->
+        <div class="evento-info-item" *ngIf="evento.locacion">
+          <ion-icon name="location-outline" class="evento-icon"></ion-icon>
+          <span>{{ evento.locacion }}</span>
+        </div>
+
+        <!-- URL -->
+        <div class="evento-info-item" *ngIf="evento.url">
+          <ion-icon name="link-outline" class="evento-icon"></ion-icon>
+          <a [href]="evento.url" target="_blank" rel="noopener">
+            {{ evento.urlLabel || evento.url }}
+          </a>
+        </div>
+      </div>
+
+      <!-- Cuerpo / descripción larga -->
+      <div class="evento-body" *ngIf="evento.body" [innerHTML]="evento.body | safe:'html'"></div>
+
+    </ng-container>
+
+    <ng-template #notFoundTpl>
+      <div class="not-found">
+        <h2>Evento no encontrado</h2>
+        <p>El contenido que buscas no existe o no está publicado.</p>
+      </div>
+    </ng-template>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <app-footer></app-footer>
+</ion-footer>
