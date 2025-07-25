@@ -9,6 +9,93 @@ dotenv.config();
 
 class UsuariosController {
 
+async setLastPlayed(req, res) {
+    try {
+      const userId = req.user?._id || req.params.userId;
+      console.log("usuario", userId);
+      if (!userId) {
+        return res.status(400).json({ error: 'userId no encontrado en el token o los parámetros' });
+      }
+
+      const { podcastId, episodeId, position = 0, isPaused = true } = req.body || {};
+      if (!podcastId || !episodeId) {
+        return res.status(400).json({ error: 'podcastId y episodeId son obligatorios' });
+      }
+
+      const update = {
+        lastPlayedEpisode: {
+          podcastId,
+          episodeId,
+          position,
+          isPaused,
+          playedAt: new Date()
+        }
+      };
+
+      await Usuario.findByIdAndUpdate(userId, { $set: update }, { new: true });
+
+      return res.status(204).send(); // Nada que devolver, solo confirmamos
+    } catch (err) {
+      console.error('setLastPlayed error:', err);
+      return res.status(500).json({ error: 'Error al guardar el último episodio reproducido' });
+    }
+  }
+ async getLastPlayed(req, res) {
+    try {
+      const userId = req.user?._id || req.params.userId;
+      if (!userId) {
+        return res.status(400).json({ error: 'userId no encontrado en el token o los parámetros' });
+      }
+
+      const user = await Usuario.findById(userId)
+        .select('lastPlayedEpisode')
+        .lean();
+
+      if (!user?.lastPlayedEpisode?.episodeId || !user.lastPlayedEpisode.podcastId) {
+        // 204: no hay contenido, así puedes decidir no mostrar reproductor
+        return res.status(204).send();
+      }
+
+      const { podcastId, episodeId, position = 0, isPaused = true, playedAt } = user.lastPlayedEpisode;
+
+      const podcast = await Podcast.findById(podcastId)
+        .select(`
+          title coverImage author authorName
+          episodes._id episodes.title episodes.description episodes.audioUrl
+          episodes.image episodes.duration episodes.releaseDate
+        `)
+        .lean();
+
+      if (!podcast) {
+        return res.status(404).json({ error: 'Podcast no encontrado' });
+      }
+
+      const episode = podcast.episodes?.find(e => e._id.toString() === episodeId.toString());
+      if (!episode) {
+        return res.status(404).json({ error: 'Episodio no encontrado en el podcast' });
+      }
+
+      return res.json({
+        podcast: {
+          _id: podcast._id,
+          title: podcast.title,
+          coverImage: podcast.coverImage,
+          author: podcast.author,
+          authorName: podcast.authorName
+        },
+        episode,
+        playerState: {
+          position,
+          isPaused,
+          playedAt
+        }
+      });
+    } catch (err) {
+      console.error('getLastPlayed error:', err);
+      return res.status(500).json({ error: 'Error al obtener el último episodio reproducido' });
+    }
+  }
+
   async getUserBack(req,res){
   }
 
@@ -133,19 +220,19 @@ async getFavorites(req, res) {
       const tipo = fav.contentType;
 
       if (tipo === 'Noticia') {
-        const noticia = await Noticia.findById(id).select('_id title meta.image categories');
+        const noticia = await Noticia.findById(id).select('_id title meta.image categories').populate('categories', '_id name slug image color');
         if (noticia) noticias.push(noticia);
       } else if (tipo === 'Podcast') {
-        const podcast = await Podcast.findById(id).select('_id title coverImage categories');
+        const podcast = await Podcast.findById(id).select('_id title coverImage categories').populate('categories', '_id name slug image color');
         if (podcast) podcastsMap.set(podcast._id.toString(), podcast);
       } else if (tipo === 'Episodio') {
-        const podcast = await Podcast.findOne({ 'episodes._id': id }).select('_id title coverImage categories');
+        const podcast = await Podcast.findOne({ 'episodes._id': id }).select('_id title coverImage categories').populate('categories', '_id name slug image color');
         if (podcast && !podcastsMap.has(podcast._id.toString())) {
           podcastsMap.set(podcast._id.toString(), podcast);
         }
 
         // Si quieres seguir devolviendo los episodios como lista
-        const podWithEp = await Podcast.findOne({ 'episodes._id': id }, { 'episodes.$': 1 });
+        const podWithEp = await Podcast.findOne({ 'episodes._id': id }, { 'episodes.$': 1 }).populate('categories', '_id name slug image color');
         if (podWithEp?.episodes?.[0]) {
           const ep = podWithEp.episodes[0].toObject();
           ep.podcastId = podWithEp._id;
@@ -156,7 +243,7 @@ async getFavorites(req, res) {
 
     const podcasts = Array.from(podcastsMap.values());
 
-    console.log(noticias,podcasts,episodios);
+    console.log("prueba",podcasts);
     res.status(200).json({
       noticias,
       podcasts,

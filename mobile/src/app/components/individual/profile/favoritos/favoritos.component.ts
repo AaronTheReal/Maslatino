@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../../../../services/usuarios-service';
+import { CategoriaService } from '../../../../services/categorias-service';
 import { AuthService } from '../../../../services/auth-service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -84,7 +85,8 @@ tipoSeleccionado: string = '';
     private usuarioService: UsuariosService,
     private authService: AuthService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private categoriaService: CategoriaService
   ) {
 
      addIcons({
@@ -101,17 +103,19 @@ ngOnInit() {
         this.noticias = (res.noticias || []).map(n => ({
           ...n,
           tipo: 'Noticia',
-          categoria: n.categories?.[0]?.toString?.() || 'Otros'
+          categoria: n.categories?.[0]?.name || 'Otros'
         }));
+
         this.podcasts = (res.podcasts || []).map(p => ({
           ...p,
           tipo: 'Podcast',
-          categoria: p.categories?.[0]?.toString?.() || 'Otros'
+          categoria: p.categories?.[0]?.name || 'Otros'
         }));
+
         this.episodios = (res.episodios || []).map(o => ({
           ...o,
           tipo: 'Episodio',
-          categoria: o.categories?.[0]?.toString?.() || 'Otros'
+          categoria: o.categories?.[0]?.name || 'Otros'
         }));
 
 
@@ -133,6 +137,17 @@ ngOnInit() {
       }
     });
   });
+
+  this.categoriaService.obtenerCategorias().subscribe({
+  next: (categorias) => {
+    this.categoriasDisponibles = ['Todos', ...categorias.map(cat => cat.name)];
+    console.log('categorías dinámicas:', this.categoriasDisponibles);
+  },
+  error: (err) => {
+    console.error('Error al cargar categorías:', err);
+  }
+});
+
 }
 
 get resultadosFiltrados(): any[] {

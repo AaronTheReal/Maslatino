@@ -46,8 +46,24 @@ const UserSchema = new Schema({
   },
 
   favorites: [FavoriteSchema],
+  
+  lastPlayedEpisode: {
+    episodeId: {
+      type: Schema.Types.ObjectId,
+      required: false
+    },
+    podcastId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Podcast'
+    },
+    playedAt: {
+      type: Date,
+      default: Date.now
+    }
+  },
 
   createdAt: { type: Date, default: Date.now }
+  
 });
 
 export default model('User', UserSchema);

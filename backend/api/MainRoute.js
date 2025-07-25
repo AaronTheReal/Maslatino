@@ -10,6 +10,7 @@ import streamingController from './StreamingController.js'
 import RadioController from './RadioController.js';
 import CategoriasController from './CategoriasController.js';
 import PodcastController from './PodcastController.js';
+import CalendarioController from './CalendarioController.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -54,6 +55,12 @@ export default class MainRoute {
     router.route('/IdiomaUsuarioInicio').put(UsuariosController.postIdiomaUsuario);
     router.route('/update-language').put(UsuariosController.UpdateLanguagee);
     router.route('/add-favorites').put(UsuariosController.addToFavorite);
+    router.post('/usuarios/:userId/last-played', UsuariosController.setLastPlayed);
+    router.get('/usuarios/:userId/last-played', UsuariosController.getLastPlayed);
+
+
+
+
     router.route('/remove-favorites').put(UsuariosController.removeFromFavorites);
     router.route('/check-favorite').post(UsuariosController.checkFavorite);
     router.route('/get-favorites/:userId').get(UsuariosController.getFavorites);
@@ -86,8 +93,35 @@ export default class MainRoute {
     router.put('/podcasts/:id/episodios/:episodioId', PodcastController.editarEpisodio);
     router.delete('/podcasts/:id/episodios/:episodioId', PodcastController.eliminarEpisodio);
 
-
     
+
+
+
+        // CRUD + listados
+    router.post('/calendar', /*auth,*/ CalendarioController.crearItem);
+    router.get('/calendar', CalendarioController.listar);
+    router.get('/calendar/upcoming', CalendarioController.listarProximos);
+    router.get('/calendar/past', CalendarioController.listarPasados);
+    router.get('/calendar/stats', /*auth,*/ CalendarioController.stats);
+
+    router.get('/calendar/by-category-name/:name', CalendarioController.obtenerPorNombreCategoria);
+
+    router.get('/calendar/slug/:slug', CalendarioController.obtenerPorSlug);
+    router.get('/calendar/:id', CalendarioController.obtenerPorId);
+
+    router.put('/calendar/:id', /*auth,*/ CalendarioController.actualizarItem);
+    router.patch('/calendar/:id/publish', /*auth,*/ CalendarioController.publicarItem);
+    router.patch('/calendar/:id/archive', /*auth,*/ CalendarioController.archivarItem);
+    router.patch('/calendar/:id/featured', /*auth,*/ CalendarioController.toggleDestacado);
+
+    router.delete('/calendar/:id', /*auth,*/ CalendarioController.eliminarItem);
+
+    // Bulk ops opcionales
+    router.patch('/calendar/bulk/publish', /*auth,*/ CalendarioController.publicarBulk);
+    router.delete('/calendar/bulk', /*auth,*/ CalendarioController.eliminarBulk);
+
+
+
     return router;
 
 

@@ -168,6 +168,7 @@ toggleFavorite() {
 
   // Métodos del reproductor
   reproducir(podcast: any) {
+    console.log("Play al entrar");
     if (!this.audioRef?.nativeElement) {
       console.error('El elemento <audio> no está disponible.');
       return;
@@ -189,10 +190,13 @@ toggleFavorite() {
     audio.src = podcast.audioUrl;
 
     // Manejar errores de carga
+   
     audio.load();
-    audio.play().catch((error) => {
+    audio.play().then(() => {
+      this.guardarUltimoReproducido(podcast); // 👈 Se guarda al iniciar reproducción
+    }).catch((error) => {
       console.error('Error al reproducir el audio:', error);
-      this.enReproduccion = false; // Revertir estado si falla
+      this.enReproduccion = false;
     });
 
     // Depuración adicional
@@ -213,11 +217,28 @@ toggleFavorite() {
     if (this.enReproduccion) {
       audio.pause();
     } else {
-      audio.play().catch((error) => {
+      audio.play().then(() => {
+        this.guardarUltimoReproducido(this.podcastActivo); // 👈 Guarda incluso si se reanuda
+      }).catch((error) => {
         console.error('Error al reanudar el audio:', error);
       });
     }
+
     this.enReproduccion = !this.enReproduccion;
+  }
+
+  guardarUltimoReproducido(podcast: any) {
+    if (!this.user || !this.user._id || !this.podcast?._id || !podcast?._id) return;
+
+  this.usuarioService.setLastPlayed(
+      this.user._id, // 👈 ahora sí lo pasas
+      this.podcast._id,
+      podcast._id,
+      this.audioRef?.nativeElement?.currentTime || 0,
+      !this.enReproduccion
+    ).subscribe({
+      error: (err) => console.error('Error al guardar último episodio reproducido:', err)
+    });
   }
 
   actualizarTiempo() {

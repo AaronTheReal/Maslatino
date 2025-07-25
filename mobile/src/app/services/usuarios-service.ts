@@ -89,7 +89,34 @@ getByCategory(categoria: string): Observable<{
     episodios: any[]
   }>(`${this.baseUrl}/get-by-category/${categoria}`);
 }
+setLastPlayed(userId: string, podcastId: string, episodeId: string, position: number = 0, isPaused: boolean = true): Observable<any> {
+  return this.http.post(`${this.baseUrl}/usuarios/${userId}/last-played`, {
+    podcastId,
+    episodeId,
+    position,
+    isPaused
+  });
+}
 
+getLastPlayed(userId: string): Observable<{
+  podcast: any,
+  episode: any,
+  playerState: {
+    position: number,
+    isPaused: boolean,
+    playedAt: string
+  }
+}> {
+  return this.http.get<{
+    podcast: any,
+    episode: any,
+    playerState: {
+      position: number,
+      isPaused: boolean,
+      playedAt: string
+    }
+  }>(`${this.baseUrl}/usuarios/${userId}/last-played`);
+}
 
 }
 
