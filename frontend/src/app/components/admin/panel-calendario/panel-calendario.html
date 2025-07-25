@@ -135,10 +135,21 @@
 
         <!-- Categorías -->
         <div class="full-width form-group">
+          <!--
           <label for="categories">Categorías:</label>
           <select id="categories" formControlName="categories" multiple>
             <option *ngFor="let c of categorias" [value]="c._id">{{ c.name }}</option>
           </select>
+        -->
+              <mat-form-field appearance="fill">
+        <mat-label>Categorías</mat-label>
+        <mat-select formControlName="categories" multiple>
+          <mat-option *ngFor="let cat of categorias" [value]="cat._id">
+            {{ cat.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+          
         </div>
 
         <!-- Tags -->

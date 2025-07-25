@@ -20,11 +20,13 @@ import {
   CategoriaService,
   CategoriaPayload,
 } from '../../../services/categorias-service';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core'; // necesario para <mat-option>
 @Component({
   selector: 'app-panel-calendario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,MatFormFieldModule,MatSelectModule,MatOptionModule],
   templateUrl: './panel-calendario.html',
   styleUrls: ['./panel-calendario.css'],
 })

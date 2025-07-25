@@ -134,8 +134,8 @@ legend {
 
 button[type="submit"] {
   padding: 0.875rem 2rem;
-  background: var(--primary-color);
-  color: #fff;
+  background: #8391f8f5;
+  color: #000000f5;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -149,7 +149,7 @@ button[type="submit"]:hover {
 }
 
 button[type="submit"]:disabled {
-  background: #cbd5e0;
+  background: #3046eaf5;
   cursor: not-allowed;
   transform: none;
 }

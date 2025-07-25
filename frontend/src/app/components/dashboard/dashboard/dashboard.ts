@@ -7,6 +7,7 @@ import { RecomendadasNoticias } from '../recomendadas-noticias/recomendadas-noti
 import { UltimasNoticias } from '../ultimas-noticias/ultimas-noticias';
 import { Unete } from '../unete/unete';
 import { ContactUs } from '../contact-us/contact-us';
+import '@mux/mux-player';
 
 import { CommonModule } from '@angular/common';
 
