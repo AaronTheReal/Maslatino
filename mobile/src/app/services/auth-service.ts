@@ -2,18 +2,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Preferences } from '@capacitor/preferences';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, from } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  //private apiUrl = 'http://localhost:3000/aaron/maslatino'; // cambia esto por tu URL real
-  private apiUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
+  private apiUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // URL base de tu backend
 
   constructor(private http: HttpClient) {}
 
+  // Login y guarda token/usuario en Preferences
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, password }).pipe(
       tap(async (res: any) => {
@@ -29,24 +29,26 @@ export class AuthService {
     );
   }
 
-  async logout() {
+  // Cierra sesión limpiando storage
+  async logout(): Promise<void> {
     await Preferences.remove({ key: 'token' });
     await Preferences.remove({ key: 'user' });
   }
 
+  // Verifica si hay token activo
   async isLoggedIn(): Promise<boolean> {
     const { value } = await Preferences.get({ key: 'token' });
     return !!value;
   }
 
+  // Obtiene el usuario local (desde Preferences)
   async getUser(): Promise<any> {
     const { value } = await Preferences.get({ key: 'user' });
     return value ? JSON.parse(value) : null;
   }
-  
- async getUserBack(id: string,): Promise<any> {
 
- return this.http.get(`${this.apiUrl}/get-user${id}`);
-  };
-  
+  // Obtiene el usuario desde el backend
+  getUserBack(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/get-user/${id}`);
+  }
 }

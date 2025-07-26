@@ -1,14 +1,20 @@
-import { CanActivateFn, Router } from '@angular/router';
+// src/app/guards/auth.guard.ts
+import { CanMatchFn, Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
+import { AuthService } from './services/auth-service';
+import { from, map } from 'rxjs';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanMatchFn = () => {
+  const router = inject(Router);
+  const auth = inject(AuthService);
 
-
-  const user = localStorage.getItem('user');
-  if (!user) {
-    const router = inject(Router);
-    router.navigate(['/login']);
-    return false;
-  }
-  return true;
+  return from(auth.isLoggedIn()).pipe(
+    map((logged) => {
+      if (logged) {
+        return true;
+      }
+      // Redirige y bloquea la carga del componente
+      return router.parseUrl('/login');
+    })
+  );
 };
