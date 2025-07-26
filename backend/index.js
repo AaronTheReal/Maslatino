@@ -36,16 +36,16 @@ const allowedOrigins = [
 // Configuración avanzada de CORS
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('capacitor://')) {
       callback(null, true);
     } else {
       console.log('❌ CORS bloqueado para:', origin);
       callback(new Error('CORS no permitido por esta fuente'));
     }
   },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 // 🔒 Aplica CORS antes que cualquier ruta o middleware
