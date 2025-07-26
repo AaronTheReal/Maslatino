@@ -9,7 +9,8 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/aaron/maslatino'; // cambia esto por tu URL real
+  //private apiUrl = 'http://localhost:3000/aaron/maslatino'; // cambia esto por tu URL real
+  private apiUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient) {}
 
