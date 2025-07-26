@@ -30,7 +30,9 @@ const allowedOrigins = [
   'https://maslatinomobile.netlify.app',
   'https://maslatino.netlify.app',
   'https://maslatino.onrender.com',
-  'https://super-cajeta-50e752.netlify.app'
+  'https://super-cajeta-50e752.netlify.app',
+  'https://localhost'
+
 ];
 
 // Configuración avanzada de CORS
@@ -52,7 +54,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
-// Middleware para responder correctamente headers CORS
+/*
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -60,7 +62,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
-
+*/
 // Parseo de JSON
 app.use(express.json());
 
