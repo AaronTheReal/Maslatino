@@ -1,4 +1,4 @@
-/* CSS */
+/* === SECCIÓN CONÉCTATE (sin cambios) === */
 .seccion-conectate {
   width: 100%;
   background-color: white;
@@ -47,7 +47,7 @@
   border-radius: 40px;
 }
 
-/* Responsive para pantallas medianas en adelante */
+/* Responsive */
 @media (min-width: 768px) {
   .contenedor-flex {
     flex-direction: row;
@@ -70,33 +70,14 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* === SECCIÓN PROPÓSITO === */
 .seccion-proposito {
   background-color: #000;
   color: white;
   padding: 100px 24px;
   display: flex;
   justify-content: center;
-  position: relative; /* 👈 necesario para posicionar la serpiente */
-  overflow: hidden;
+  position: relative;
 }
 
 .contenedor-proposito {
@@ -106,6 +87,8 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
+  position: relative; /* Para que el texto esté sobre la serpiente */
+  z-index: 0; /* o simplemente elimina esta línea */
 }
 
 .texto-derecha {
@@ -128,16 +111,16 @@
   min-width: 240px;
 }
 
-/* Serpiente pegada abajo y derecha */
-.serpiente {
+.serpiente.serpiente-derecha {
   position: absolute;
   right: 0;
-  bottom: 0  ; /* 👈 pega la base de la imagen al fondo del contenedor */
-  z-index: 0;
-  pointer-events: none;
+  top: 50%;
+  transform: translateY(-100%);
+  z-index: 9999; /* lo más alto, sin miedo */
+  pointer-events: none; /* ❗️para que no bloquee clicks */
 }
 
-.serpiente img {
+.serpiente.serpiente-derecha img {
   height: auto;
   max-height: 480px;
   display: block;
@@ -146,11 +129,20 @@
 
 
 
+.icono-bottom-centro {
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* punto de referencia centrado */
+  transform: translate(400%, 50%); /* 👈 desplaza hacia la DERECHA (X) y hacia ABAJO (Y) */
+  z-index: 9999;
+  pointer-events: none;
+}
 
-
-
-
-
+.icono-bottom-centro img {
+  height: auto;
+  max-height: 160px;
+  display: block;
+}
 
 
 
