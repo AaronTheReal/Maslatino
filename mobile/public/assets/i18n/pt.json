@@ -41,17 +41,57 @@
   "PASSWORD_PLACEHOLDER": "Digite sua senha",
   "PASSWORD_REQUIRED": "Senha é obrigatória.",
   "PASSWORD_MIN": "Use uma senha com pelo menos 6 caracteres.",
-  "CONFIRM_PASSWORD_PLACEHOLDER": "Confirme a senha",
-  "CONFIRM_PASSWORD_REQUIRED": "Confirme sua senha",
-  "PASSWORDS_DO_NOT_MATCH": "As senhas não correspondem",
   "REGISTER_BUTTON": "Cadastrar",
+  "SAVE": "Manter",
+  "FAVORITOS" : "Favoritos",
   "WELCOME": "Bem-vindo",
   "Noticias": "Notícias",
   "Ver_Todo": "Ver tudo",
   "Categorias": "Categorias",
+  "BUSCAR" : "Procurar",
+  "FAVORITOS-VACIO" : "Você ainda não tem favoritos.",
+"PLAYER-TITLE": "Reproductor",
   "Estaciones de radio":"Estações de rádio",
   "Buscar_por_titulo": "pesquisar por título",
-  "Perfíl" : "Perfil",
+  "Profile": "Perfil",
+  "FOLLOW": {
+    "TITLE": "Siga-nos",
+    "DESCRIPTION": "Você também pode nos seguir em nossas redes sociais para receber as últimas novidades com sabor."
+  },
+ "RADIO": {
+  "TITLE": "Radio Latino 99.9 FM Boston",
+  "ESTACIONES": "Estações de rádio",
+  "TITLESSINLGE": "Rádio",
+  "DESCRIPTION": "Estação latina em Boston dedicada a conectar culturas, promover talentos locais e alegrar seus dias com música vibrante.",
+  "AUDIO_NOT_SUPPORTED": "Seu navegador não suporta o elemento de áudio."
+},
+
+"BUSCAR_POR_NOME": "Buscar por nome...",
+
+"VIDA": {
+  "DESCRIPTION": "Ministério de rádio cristão que encoraja, evangeliza e serve à igreja com fé e propósito.",
+  "AUDIO_NOT_SUPPORTED": "Seu navegador não suporta o elemento de áudio."
+},
+"PODCASTS": {
+  "EMPTY": {
+    "TITLE": "Nenhum podcast disponível",
+    "DESCRIPTION": "Ops! Parece que ainda não temos podcasts aqui. Explore outras categorias ou idiomas e descubra mais conteúdos que você vai adorar. Volte em breve!"
+  }
+},
+"NOTIFICATIONS": {
+  "TITLE": "Notificações"
+},
+
+"BUSCAR_RADIO": "Buscar rádio...",
+
+
+"EVENT": {
+  "NOT_FOUND_TITLE": "Evento não encontrado",
+  "NOT_FOUND_CONTENT": "O conteúdo que você procura não existe ou não está publicado."
+},
+"CARGANDO_CATEGORIAS": "Carregando categorias...",
+
+
 
   "PROFILE": {
     "TITLE": "Perfil",
@@ -62,25 +102,20 @@
     "CATEGORIES": "Categorias",
     "FAVORITES": "Favoritos",
     "NOTIFICATIONS": "Notificações",
+     "NAME": "Nome",
+    "EMAIL": "e-mail",
     "FOLLOW_US": "Siga-nos",
     "CHANGE_LANGUAGE": "Mudar idioma",
     "LOGOUT": "Sair"
   },
-   "CATEGORY": {
-    "ART": "Arte",
-    "SPORTS": "Esportes",
-     "WORLD": "Mundo",
-     "FAMILY": "Família",
-     "POLITICIAN": "Política",
-     "Finanzas": "Finanças",
-     "HEALTH": "Saúde"
-  },
+"Arte": "Arte",
+    "Deportes": "Esportes",
+     "Mundo": "Mundo",
+     "Familia": "Família",
+     "Política": "Política",
+     "Finanzas": "FINANÇAS",
+     "Salud": "SAÚDE",
   "calendario": "calendário"
-
-
-
-
-
 
 
 

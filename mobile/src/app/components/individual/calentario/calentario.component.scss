@@ -2,7 +2,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
       text-align: center;
     }
 
@@ -20,16 +19,7 @@
       margin-bottom: 30px;
     }
 
-    .back-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1000;
-  padding: 8px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  color: #000;
-}
+
     .social-buttons {
       width: 100%;
       display: flex;
@@ -51,12 +41,7 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
     }
 
-    .back-button {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  font-size: 1.4rem;
-}
+
 
 .follow-us-container h1 {
   text-align: center;
@@ -150,9 +135,7 @@
 }
 
 .page-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 48px 0 16px 0;
+
   text-align: center;
 }
 .event-card-content {

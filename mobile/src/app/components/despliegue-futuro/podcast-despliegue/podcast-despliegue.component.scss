@@ -25,16 +25,7 @@
       margin-bottom: 30px;
     }
 
-    .back-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1000;
-  padding: 8px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  color: #000;
-}
+
 
 .reproductor-expandido {
   flex: 1; /* ✅ Esto hace que se estire automáticamente entre header y footer */
@@ -330,7 +321,7 @@ ion-tab-button.tab-selected ion-icon {
 }
 
 .heart-icon.active {
-  color: red; 
+  color: red;
 }
 
 .heart-icon ion-icon {
@@ -353,7 +344,7 @@ ion-tab-button.tab-selected ion-icon {
   height: 50%;
     position: relative;
   top: 50%;
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
 
 }
 
@@ -364,7 +355,7 @@ ion-tab-button.tab-selected ion-icon {
   transition: transform 300ms;
   box-shadow: 0px 0px 10px 1px #000000ee;
   border-radius: 5px;
-   position: relative; 
+   position: relative;
 }
 
 .front, .back {

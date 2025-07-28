@@ -15,16 +15,7 @@
   display: flex;
   justify-content: center;
 }
-.back-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1000;
-  padding: 8px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  color: #000;
-}
+
 .profile-card {
   display: flex;
   align-items: center;
@@ -42,6 +33,26 @@
   text-align: center;
   margin: 20px 16px 10px 16px;
 }
+.custom-item-wrapper {
+  margin: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  overflow: hidden; /* para que los bordes redondeados apliquen bien */
+}
+
+.custom-menu-item {
+  --background: transparent;
+  --inner-padding-start: 16px;
+  --padding-end: 16px;
+  border-radius: 0; // no necesario, el wrapper lo tiene
+}
+
+.black-icon {
+  color: #000;
+  font-size: 24px;
+}
+
 
 /* Avatar */
 .profile-avatar-container {
@@ -104,7 +115,6 @@
 /* Lista de menú */
 .menu-container {
  padding: 1rem;
-  background: #f9f9f9;
 }
 
 .menu-section-list {
@@ -119,9 +129,8 @@ background-color: white;
 .menu-section-header {
   font-size: 1rem;
   font-weight: 600;
-  color: #444;
+  color: #000000;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #e0e0e0;
 }
 
 /* Ítems */

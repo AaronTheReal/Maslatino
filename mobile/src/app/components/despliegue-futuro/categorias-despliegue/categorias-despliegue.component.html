@@ -1,7 +1,7 @@
 
-<ion-content class="categoria-despliegue-content" scrollY="true">
+<ion-content  scrollY="true">
 
-  
+
   <!-- Imagen de categoría pegada arriba -->
   <div class="categoria-header-image" *ngIf="categoriaImagen">
     <img [src]="categoriaImagen" alt="Imagen Categoría" />
@@ -9,7 +9,7 @@
 
   <!-- Botón atrás -->
   <div class="back-button" (click)="goBack()">
-    <ion-icon name="arrow-back-outline"></ion-icon> 
+    <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
 
   <!-- Nombre de la categoría -->
@@ -81,8 +81,8 @@
 
 
    <!--<app-carrusel [slides]="slidesArray"></app-carrusel>
-   
-   
+
+
   <div class="categoria-section">
     <h2>{{'Shows' | translate}}</h2>
     <div *ngIf="resultados.shows.length > 0; else noShows" class="horizontal-scroll">

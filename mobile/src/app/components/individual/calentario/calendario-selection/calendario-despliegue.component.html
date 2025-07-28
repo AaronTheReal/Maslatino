@@ -25,12 +25,12 @@
         {{ evento.titulo }}
       </div>
 
-      <!-- Chips de categorías 
+      <!-- Chips de categorías
       <div class="chips" *ngIf="evento.categorias?.length">
         <span class="chip" *ngFor="let c of evento.categorias">{{ c.name }}</span>
       </div>
 -->
-      <!-- Tags 
+      <!-- Tags
       <div class="chips" *ngIf="evento.tags?.length">
         <span class="chip tag" *ngFor="let t of evento.tags">#{{ t }}</span>
       </div>
@@ -81,8 +81,9 @@
 
     <ng-template #notFoundTpl>
       <div class="not-found">
-        <h2>Evento no encontrado</h2>
-        <p>El contenido que buscas no existe o no está publicado.</p>
+       <h2>{{ 'EVENT.NOT_FOUND_TITLE' | translate }}</h2>
+<p>{{ 'EVENT.NOT_FOUND_CONTENT' | translate }}</p>
+
       </div>
     </ng-template>
   </ng-template>

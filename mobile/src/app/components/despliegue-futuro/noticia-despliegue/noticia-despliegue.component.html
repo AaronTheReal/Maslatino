@@ -1,5 +1,5 @@
 
-<ion-content class="noticia-individual" fullscreen *ngIf="noticia">
+<ion-content  fullscreen *ngIf="noticia">
   <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
 </div>
@@ -23,7 +23,7 @@
   <!-- Contenido dinámico renderizado -->
   <div class="noticia-body" *ngIf="noticia.content">
     <ng-container *ngFor="let block of noticia.content">
-      
+
       <!-- TEXTOS -->
       <div *ngIf="block.type === 'text'" [ngClass]="'tag-' + block.tag" [innerHTML]="block.html"></div>
 

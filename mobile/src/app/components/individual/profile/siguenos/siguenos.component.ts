@@ -27,7 +27,7 @@ import {
 import { logoInstagram, logoTiktok, logoFacebook, logoYoutube, logoTwitter } from 'ionicons/icons';
 import { Browser } from '@capacitor/browser';
 
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 
 @Component({
@@ -54,7 +54,8 @@ import { Browser } from '@capacitor/browser';
     FooterComponent,
     IonTabBar,
     IonTabs,
-    IonBackButton
+    IonBackButton,
+          TranslateModule,
   ],
 })
 export class SiguenosComponent implements OnInit {

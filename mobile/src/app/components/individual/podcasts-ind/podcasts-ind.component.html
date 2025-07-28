@@ -1,4 +1,4 @@
-<ion-content class="podcasts-content">
+<ion-content >
   <!-- Botón de regreso -->
   <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
@@ -16,7 +16,7 @@
       type="text"
       [(ngModel)]="searchTerm"
       (input)="filterPodcasts()"
-      placeholder="Buscar por nombre..."
+    placeholder="{{ 'BUSCAR_POR_NOMBRE' | translate }}"
       class="search-input"
     />
   </div>
@@ -28,7 +28,7 @@
       [class.selected]="!categoriaSeleccionada"
       (click)="filtrarPorCategoria('')"
     >
-      Todos
+      {{ 'Todos'| translate }}
     </button>
 
     <button
@@ -37,7 +37,7 @@
       [class.selected]="categoriaSeleccionada === cat._id"
       (click)="filtrarPorCategoria(cat._id)"
     >
-      {{ cat.name }}
+     {{ cat.name | translate }}
     </button>
   </div>
 

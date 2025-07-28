@@ -6,13 +6,17 @@ import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
 import { RadioService, RadioData } from '../../../services/radio-service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 @Component({
   selector: 'app-radio-ind',
   standalone: true,
   templateUrl: './radio-ind.component.html',
   styleUrls: ['./radio-ind.component.scss'],
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule,
+          TranslateModule,
+
+  ]
 })
 export class RadioIndComponent implements OnInit {
   radios: RadioData[] = [];

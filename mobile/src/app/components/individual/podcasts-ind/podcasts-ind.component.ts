@@ -12,11 +12,12 @@ import {
   alertCircleOutline
 } from 'ionicons/icons';
 import { CategoriaService, CategoriaPayload } from '../../../services/categorias-service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 @Component({
   selector: 'app-podcasts-ind',
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [IonicModule, CommonModule, FormsModule, TranslateModule],
   templateUrl: './podcasts-ind.component.html',
   styleUrls: ['./podcasts-ind.component.scss'],
 })

@@ -1,5 +1,5 @@
 {
-   "SELECT_LANGUAGE_TITLE": "ANTES DE CONTINUAR...",
+  "SELECT_LANGUAGE_TITLE": "ANTES DE CONTINUAR...",
   "SELECT_LANGUAGE_SUBTITLE": "Selecciona tu preferencia",
   "CONTINUE": "CONTINUAR",
   "LANGUAGE_SELECTED": "Idioma seleccionado",
@@ -14,13 +14,11 @@
   "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
   "LOGIN_BUTTON": "Login",
   "REGISTER_BUTTON": "Regístrate",
+  "SAVE" : "Guardar",
+  "FAVORITOS" : "Favoritos",
 
   "LOGIN_SUCCESS": "¡Bienvenido!",
   "LOGIN_ERROR": "Login fallido. Verifica tus datos.",
-
-
-
-  
     "REGISTER_TITLE": "Regístrate",
   "REGISTER_DESCRIPTION": "Estás a solo un paso de unirte a la comunidad más sabrosa que existe. Por favor completa el formulario de registro para crear tu cuenta y comenzar a disfrutar de las noticias.",
   "NAME_PLACEHOLDER": "Escribe tu Nombre",
@@ -39,39 +37,81 @@
   "EMAIL_INVALID": "Formato de Correo inválido.",
   "PASSWORD_REQUIRED": "Se requiere tu Contraseña.",
   "PASSWORD_MIN": "Usa una contraseña de al menos 6 caracteres.",
-  "CONFIRM_PASSWORD_PLACEHOLDER": "Confirmar contraseña",
-  "CONFIRM_PASSWORD_REQUIRED": "Confirma tu contraseña",
-  "PASSWORDS_DO_NOT_MATCH": "Las contraseñas no coinciden",
   "WELCOME": "Bienvenido",
   "Noticias":"Noticias",
   "Ver_Todo": "Ver  todo",
+  "BUSCAR" : "Buscar",
+  "FAVORITOS-VACIO" : "No tienes favoritos aún.",
+ "FOLLOW": {
+    "TITLE": "Síguenos",
+    "DESCRIPTION": "También puedes seguirnos en nuestras redes sociales para obtener las últimas noticias con sabor."
+  },
+"RADIO": {
+  "TITLE": "Radio Latino 99.9 FM Boston",
+  "ESTACIONES": "Estaciones de radio",
+  "TITLESSINLGE": "Radio",
+  "DESCRIPTION": "Estación latina en Boston dedicada a conectar culturas, promover el talento local y alegrar tus días con música vibrante.",
+  "AUDIO_NOT_SUPPORTED": "Tu navegador no soporta el elemento de audio."
+},
+
+"VIDA": {
+  "DESCRIPTION": "Ministerio radial cristiano que alienta, evangeliza y sirve a la iglesia con fe y propósito.",
+  "AUDIO_NOT_SUPPORTED": "Tu navegador no soporta el elemento de audio."
+},
+"PODCASTS": {
+  "EMPTY": {
+    "TITLE": "No hay podcasts disponibles",
+    "DESCRIPTION": "¡Ups! Parece que aún no tenemos podcasts aquí. Explora otras categorías o idiomas y descubre más contenido que te encantará. ¡Vuelve pronto!"
+  }
+},
+
+"EVENT": {
+  "NOT_FOUND_TITLE": "Evento no encontrado",
+  "NOT_FOUND_CONTENT": "El contenido que buscas no existe o no está publicado."
+},
+"CARGANDO_CATEGORIAS": "Cargando categorías...",
+"BUSCAR_POR_NOMBRE": "Buscar por nombre...",
+"NOTIFICATIONS": {
+  "TITLE": "Notificaciones"
+},
+
+"BUSCAR_RADIO": "Buscar radio...",
+
+
+  "PLAYER-TITLE": "Reproductor",
   "Categorias": "Categorías",
   "Estaciones de radio":"Estaciones de radio",
-    "Buscar_por_titulo": "Buscar por titulo",
-    "Perfíl" : "Perfíl",
-      "PROFILE": {
+  "Buscar_por_titulo": "Buscar por titulo",
+   "Perfíl" : "Perfíl",
+     "PROFILE": {
     "TITLE": "Perfíl",
     "EDIT": "Editar perfil",
     "SETTINGS": "Configuración",
     "AVATAR_ALT": "Avatar de {{name}}",
     "GENERAL": "General",
+    "NAME": "Nombre",
+    "EMAIL": "Correo",
     "CATEGORIES": "Categorías",
     "FAVORITES": "Favoritos",
     "NOTIFICATIONS": "Notificaciones",
     "FOLLOW_US": "Síguenos",
     "CHANGE_LANGUAGE": "Cambiar idioma",
     "LOGOUT": "Cerrar sesión"
+
   },
-  "CATEGORY": {
-    "ART": "Arte",
-    "SPORTS": "Deportes",
-     "WORLD": "Mundo",
-     "FAMILY": "Familia",
-     "POLITICIAN": "Politica",
+ "Arte": "Arte",
+    "Deportes": "Deportes",
+     "Mundo": "Mundo",
+     "Familia": "Familia",
+     "Política": "Política",
      "Finanzas": "Finanzas",
-     "HEALTH": "Salud"
-  },
-  "calendario": "Calendario"
+     "Salud": "Salud",
+    "calendario": "Calendario"
+
+
+
+
+
 
 
 

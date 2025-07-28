@@ -14,6 +14,7 @@ import {
   playCircleOutline, pauseCircleOutline, ellipsisVerticalOutline, playSkipBackOutline,
   playSkipForwardOutline, heart, heartOutline, chevronDownOutline, arrowBackOutline
 } from 'ionicons/icons';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 import { UsuariosService } from '../../../services/usuarios-service';
 import { PodcastService } from '../../../services/spotify-podcasts';
@@ -28,7 +29,8 @@ import { AuthService } from '../../../services/auth-service';
     CommonModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonAvatar, IonButton, IonIcon,
     IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonButtons,
-    IonListHeader, IonFooter, IonTabButton, FooterComponent, IonTabBar, IonTabs, IonBackButton, IonRange
+    IonListHeader, IonFooter, IonTabButton, FooterComponent, IonTabBar, IonTabs, IonBackButton, IonRange     ,     TranslateModule
+
   ],
 })
 export class ReproductorComponent implements OnInit {

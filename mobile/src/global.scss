@@ -32,11 +32,50 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 /* Evitar que contenido custom choque con notch */
+
 ion-content {
-  --offset-top: 0px;
-  --offset-bottom: 0px;
+  --padding-top: calc(var(--ion-safe-area-top) + 2rem);
+  --padding-bottom: calc(var(--ion-safe-area-bottom) + 2rem);
+}
+.safe-area-padding {
+  padding-top: calc(var(--ion-safe-area-top) + 3rem);
+}
+ ion-button.view-all-button {
+    --padding-start: 4px;
+    --padding-end: 4px;
+    --padding-top: 2px;
+    --padding-bottom: 2px;
+    font-size: 0.9rem;
+  --color:  #000000;
+  }
+* {
+  font-family: 'Poppins', sans-serif !important;
 }
 
+h1, h2, h3, .titulo , .categoria-titulo{
+  font-family: 'Poppins', sans-serif;
+
+  font-weight: 700; /* Bold */
+}
+
+.subtitulo {
+  font-weight: 600; /* SemiBold */
+}
+
+p {
+  font-weight: 400; /* Regular */
+}
+ .back-button {
+     position: absolute;
+    top: 1rem;
+    left: 12px;
+    z-index: 1000;
+    background: transparent;
+    padding: 6px;
+    border-radius: 50%;
+    cursor: pointer;
+        font-size: 22px;
+}
 
 /* Carrusel: limitar ancho en desktop, proporción en mobile */
 .my-swiper {

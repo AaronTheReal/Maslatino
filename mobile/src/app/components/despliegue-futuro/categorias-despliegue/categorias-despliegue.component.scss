@@ -7,6 +7,7 @@
   font-weight: 700;
   text-align: center;
   margin: 20px 16px 10px 16px;
+
 }
 
 .search-bar {
@@ -113,16 +114,7 @@
   }
 }
 
-.back-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1000;
-  padding: 8px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  color: #000;
-}
+
 
 
 .categoria-header-image {

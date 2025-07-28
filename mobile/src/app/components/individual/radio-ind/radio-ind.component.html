@@ -5,7 +5,8 @@
   </div>
 
   <!-- Main title -->
-  <h1 class="page-title">Radio</h1>
+<h1 class="page-title">{{ 'RADIO.ESTACIONES' | translate }}</h1>
+
 
   <!-- Search bar -->
   <div class="search-wrapper">
@@ -14,14 +15,14 @@
     </div>
     <input
       type="text"
-      placeholder="Buscar radio..."
+      placeholder="{{ 'BUSCAR_RADIO' | translate }}"
       class="search-input"
       [(ngModel)]="searchTerm"
       (input)="filterRadios()"
     />
   </div>
 
-  <!-- Category filters 
+  <!-- Category filters
   <div class="filter-tabs hide-scrollbar">
     <button class="tab-button selected">Todos</button>
     <button class="tab-button">Mundo</button>

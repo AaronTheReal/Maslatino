@@ -1,8 +1,4 @@
-   ion-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+
    .follow-us-container {
       display: flex;
       flex-direction: column;
@@ -10,6 +6,8 @@
       padding: 20px;
       text-align: center;
     }
+
+
 
     .follow-us-container h1 {
       font-size: 28px;
@@ -25,16 +23,7 @@
       margin-bottom: 30px;
     }
 
-    .back-button {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1000;
-  padding: 8px;
-  border-radius: 50%;
-  backdrop-filter: blur(4px);
-  color: #000;
-}
+
 
 .reproductor-expandido {
   flex: 1; /* ✅ Esto hace que se estire automáticamente entre header y footer */
@@ -144,9 +133,7 @@
 }
 
 .page-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 48px 0 16px 0;
+
   text-align: center;
 }
 

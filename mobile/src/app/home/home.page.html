@@ -1,18 +1,16 @@
 <!--home.component-->
 
-<ion-header *ngIf="!isLoginPage">
-  <ion-toolbar>
+  <ion-toolbar class="safe-toolbar"  *ngIf="!isLoginPage">
     <app-navbar *ngIf="user" [username]="user.name"></app-navbar>
   </ion-toolbar>
-</ion-header>
-<ion-content fullscreen class="home-content">
+<ion-content >
   <app-carrusel [slides]="slidesArray"></app-carrusel>
   <app-noticias [newsList]="noticiasArray" (selectNoticia)="onNoticiaSeleccionada($event)"></app-noticias>
 
   <app-podcasts [podcastsList]="podcastsArray" (selectPodcast)="onPodcastSeleccionado($event)"></app-podcasts>
   <app-radio [radioList]="radiosArray" (selectRadio)="onRadioSeleccionada($event)"></app-radio>
 
-  
+
   <app-categorias [categoriesList]="categoriesArray" (selectCategory)="onCategoriaSeleccionada($event)"></app-categorias>
 </ion-content>
 

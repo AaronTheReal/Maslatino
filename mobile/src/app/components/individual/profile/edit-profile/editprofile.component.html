@@ -4,7 +4,7 @@
   </div>
 
     <div class="follow-us-container">
-      <h2 class="page-title">Editar Perfil</h2>
+      <h2 class="page-title">{{ 'PROFILE.EDIT' | translate }}</h2>
     </div>
 
  <div class="profile-header">
@@ -25,20 +25,20 @@
   <!-- Campos de edición -->
   <ion-list>
     <ion-item>
-      <ion-label position="stacked">{{ 'profile.name' | translate }}</ion-label>
-      <ion-input [(ngModel)]="user.name" type="text" placeholder="Tu nombre completo"></ion-input>
+      <ion-label position="stacked">{{ 'PROFILE.NAME' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.name" type="text" placeholder="{{ 'PROFILE.NAME' | translate }}"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">{{ 'profile.emal' | translate }}</ion-label>
-      <ion-input [(ngModel)]="user.email" type="email" placeholder="tu@correo.com"></ion-input>
+      <ion-label position="stacked">{{ 'PROFILE.EMAIL' | translate }}</ion-label>
+      <ion-input [(ngModel)]="user.email" type="email" placeholder="{{ 'PROFILE.EMAIL' | translate }}"></ion-input>
     </ion-item>
   </ion-list>
 
   <!-- Botón guardar -->
   <div style="padding: 1rem;">
     <ion-button expand="block" (click)="saveProfile()">
-      {{ 'profile.save' | translate }}
+      {{ 'SAVE' | translate }}
     </ion-button>
   </div>
 </ion-content>

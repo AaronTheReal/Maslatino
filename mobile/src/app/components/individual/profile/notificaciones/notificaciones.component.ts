@@ -29,6 +29,7 @@ import {
 } from '@ionic/angular/standalone';
 import { Browser } from '@capacitor/browser';
 import { mailOutline, personCircleOutline, walletOutline, arrowBackOutline } from 'ionicons/icons';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 
 
@@ -44,6 +45,7 @@ import { mailOutline, personCircleOutline, walletOutline, arrowBackOutline } fro
     IonToolbar,
     IonTitle,
     IonContent,
+          TranslateModule,
     IonCard,
     IonAvatar,
     IonButton,

@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content class="profile-page">
+<ion-content >
 
 
  <div class="back-button" (click)="goBack()">
@@ -43,23 +43,26 @@
 
     </ion-card>
   </div>
+<div class="menu-container">
+  <ng-container *ngFor="let section of menuSections">
+    <ion-list lines="none" class="menu-section-list">
+      <ion-list-header class="menu-section-header" *ngIf="section.header">
+        {{ section.header | translate }}
+      </ion-list-header>
 
-  <div class="menu-container">
-    <ng-container *ngFor="let section of menuSections">
-      <ion-list lines="full" class="menu-section-list">
-    <ion-list-header class="menu-section-header" *ngIf="section.header">
-      {{ section.header | translate }}
-    </ion-list-header>
-
-        <ng-container *ngFor="let item of section.items">
-          <ion-item button detail="true" (click)="item.action()" class="menu-item">
-            <ion-icon slot="start" [name]="item.icon"></ion-icon>
-            <ion-label>{{ item.label | translate }}</ion-label>
-          </ion-item>
-        </ng-container>
-      </ion-list>
-    </ng-container>
+     <ng-container *ngFor="let item of section.items">
+  <div class="custom-item-wrapper">
+    <ion-item button detail="true" (click)="item.action()" class="custom-menu-item">
+      <ion-icon slot="start" [name]="item.icon" class="black-icon"></ion-icon>
+      <ion-label>{{ item.label | translate }}</ion-label>
+    </ion-item>
   </div>
+</ng-container>
+
+    </ion-list>
+  </ng-container>
+</div>
+
 </ion-content>
 
 <ion-footer>

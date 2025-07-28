@@ -6,12 +6,14 @@ import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 
 @Component({
   selector: 'app-radio-despliegue',
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule,          TranslateModule
+  ],
   templateUrl: './radio-despliegue.component.html',
   styleUrls: ['./radio-despliegue.component.scss']
 })
@@ -19,7 +21,7 @@ import { Location } from '@angular/common'; // ✅ ESTA es la correcta
 
 
 export class RadioDespliegueComponent implements AfterViewInit {
-  
+
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
   constructor(
       private router: Router,

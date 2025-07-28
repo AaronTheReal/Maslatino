@@ -5,18 +5,19 @@ import { radioOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'; // ✅ ESTA es la correcta
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 @Component({
   selector: 'app-radio-vida',
   templateUrl: './radio-vida.component.html',
   styleUrls: ['./radio-vida.component.scss'],
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, TranslateModule],
     standalone: true,
 
 })
 export class RadioVidaComponent  {
 
-    
+
   constructor(
 
       private router: Router,

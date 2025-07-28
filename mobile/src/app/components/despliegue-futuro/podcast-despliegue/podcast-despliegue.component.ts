@@ -12,6 +12,7 @@ import { addIcons } from 'ionicons';
 import { arrowBackOutline, heart, heartOutline, shareOutline, playCircleOutline, pauseCircleOutline, ellipsisVerticalOutline, playSkipBackOutline, playSkipForwardOutline, chevronDownOutline } from 'ionicons/icons';
 import { Location } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 
 interface Episodio {
   _id: string;
@@ -29,7 +30,7 @@ interface Episodio {
   templateUrl: './podcast-despliegue.component.html',
   styleUrls: ['./podcast-despliegue.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, FormsModule, SafePipe, FooterComponent],
+  imports: [CommonModule, IonicModule, FormsModule, SafePipe, FooterComponent , TranslateModule],
 })
 export class PodcastDespliegueComponent implements OnInit {
   @ViewChild('audio', { static: false }) audioRef!: ElementRef<HTMLAudioElement>;
@@ -43,7 +44,7 @@ export class PodcastDespliegueComponent implements OnInit {
   tiempoActual: string = '00:00';
   favoriteNewsIds = new Set<string>();
   favoritePodcastIds = new Set<string>();
-  favoriteEpisodeIds = new Set<string>(); 
+  favoriteEpisodeIds = new Set<string>();
   podcasts: Episodio[] = [];
 
 
@@ -190,7 +191,7 @@ toggleFavorite() {
     audio.src = podcast.audioUrl;
 
     // Manejar errores de carga
-   
+
     audio.load();
     audio.play().then(() => {
       this.guardarUltimoReproducido(podcast); // 👈 Se guarda al iniciar reproducción
@@ -396,7 +397,7 @@ formatDuration(seconds: number): string {
     this.authService.getUser().then(user => {
     this.user = user;
 
-   
+
     const idUsuario = this.user?._id;
 
     if (!podcastId || !idUsuario) return;

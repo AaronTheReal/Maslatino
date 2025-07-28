@@ -1,16 +1,22 @@
-ion-content.home-content {
-  --padding-bottom: 72px; // Deja espacio para el footer
-  --offset-top: 0px;
-  --offset-bottom: 0px;
-}
-ion-content {
-  --padding-bottom: calc(56px + env(safe-area-inset-bottom));
-  --offset-top: 0px !important;
-  --offset-bottom: 0px !important;
-}
+
+
 .scroll-wrapper {
   display: flex;
   flex-direction: column;
   gap: 24px;
   padding: 16px;
+}
+
+ion-header {
+   --padding-top: calc(var(--ion-safe-area-top) + 2rem);
+   padding-top: calc(var(--ion-safe-area-top) + 2rem);
+  --padding-bottom: calc(var(--ion-safe-area-bottom) + 2rem);
+}
+ion-content {
+  --padding-top: none;
+
+}
+
+.safe-toolbar {
+  padding-top: calc(env(safe-area-inset-top) + 2rem);
 }

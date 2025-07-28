@@ -9,12 +9,39 @@
   "INTRO_2_SUBTITLE": "Choose your favorite topics and receive personalized news.",
 
 
-   "LOGIN_TITLE": "Login",
+    "LOGIN_TITLE": "Login",
   "LOGIN_SUBTITLE": "Log in to access your account and personalize your experience.",
+  "EMAIL_PLACEHOLDER": "Enter your email",
+  "PASSWORD_PLACEHOLDER": "Enter your password",
   "FORGOT_PASSWORD": "Forgot your password?",
   "LOGIN_BUTTON": "Login",
+  "REGISTER_BUTTON": "Register",
     "LOGIN_SUCCESS": "Welcome!",
   "LOGIN_ERROR": "Login failed. Please check your credentials.",
+  "PLAYER-TITLE": "Player",
+"RADIO": {
+  "TITLE": "Radio Latino 99.9 FM Boston",
+  "ESTACIONES": "Radio stations",
+  "TITLESSINLGE": "Radio",
+  "DESCRIPTION": "Latin station in Boston dedicated to connecting cultures, promoting local talent, and brightening your days with vibrant music.",
+  "AUDIO_NOT_SUPPORTED": "Your browser does not support the audio element."
+},
+"VIDA": {
+  "DESCRIPTION": "Christian radio ministry that encourages, evangelizes, and serves the church with faith and purpose.",
+  "AUDIO_NOT_SUPPORTED": "Your browser does not support the audio element."
+},
+"PODCASTS": {
+  "EMPTY": {
+    "TITLE": "No podcasts available",
+    "DESCRIPTION": "Oops! It looks like we don’t have any podcasts here yet. Explore other categories or languages and discover more content you’ll love. Come back soon!"
+  }
+},
+
+"EVENT": {
+  "NOT_FOUND_TITLE": "Event not found",
+  "NOT_FOUND_CONTENT": "The content you are looking for does not exist or is not published."
+},
+"CARGANDO_CATEGORIAS": "Loading categories...",
 
 
   "REGISTER_TITLE": "Sign up",
@@ -31,16 +58,10 @@
   "COUNTRY_US": "United States",
   "COUNTRY_ES": "Spain",
   "COUNTRY_REQUIRED": "Country is required.",
-  "EMAIL_PLACEHOLDER": "Enter your email",
   "EMAIL_REQUIRED": "Email is required.",
   "EMAIL_INVALID": "Invalid email format.",
-  "PASSWORD_PLACEHOLDER": "Enter your password",
   "PASSWORD_REQUIRED": "Password is required.",
   "PASSWORD_MIN": "Use a password with at least 6 characters.",
-  "CONFIRM_PASSWORD_PLACEHOLDER": "Confirm Password",
-  "CONFIRM_PASSWORD_REQUIRED": "Confirm your password",
-  "PASSWORDS_DO_NOT_MATCH": "Passwords do not match",
-  "REGISTER_BUTTON": "Register",
   "WELCOME": "Welcome",
   "Noticias":"News",
   "Ver_Todo": "View all",
@@ -48,13 +69,24 @@
   "Estaciones de radio":"Radio stations",
   "Buscar_por_titulo": "Search by title",
   "Perfíl" : "Profile",
- 
+  "SAVE" : "Save",
+  "BUSCAR" : "Search",
+  "FAVORITOS" : "Favorites",
+  "FAVORITOS-VACIO" : "You don't have any favorites yet.",
+"NOTIFICATIONS": {
+  "TITLE": "Notifications"
+},
+
+"BUSCAR_RADIO": "Search radio...",
+
   "PROFILE": {
     "TITLE": "Profile",
     "EDIT": "Edit profile",
     "SETTINGS": "Settings",
     "AVATAR_ALT": "{{name}}'s avatar",
     "GENERAL": "General",
+    "NAME": "NAME",
+    "EMAIL": "EMAIL",
     "CATEGORIES": "Categories",
     "FAVORITES": "Favorites",
     "NOTIFICATIONS": "Notifications",
@@ -62,15 +94,23 @@
     "CHANGE_LANGUAGE": "Change language",
     "LOGOUT": "Log out"
   },
-  "CATEGORY": {
-    "ART": "Art",
-    "SPORTS": "Sports",
-     "WORLD": "World",
-     "FAMILY": "Family",
-     "POLITICIAN": "Politics",
-     "Finanzas": "finance",
-     "HEALTH": "Health"
+ "FOLLOW": {
+    "TITLE": "Follow us",
+    "DESCRIPTION": "You can also follow us on our social networks to get the latest news with flavor."
   },
+"BUSCAR_POR_NOMBRE": "Search by name...",
+
+    "Arte": "Art",
+    "Deportes": "Sports",
+     "Mundo": "World",
+     "Familia": "Family",
+     "Política": "Politics",
+     "Finanzas": "Finance",
+     "Salud": "Health",
+     "Todos": "All",
+     "Noticia": "Notices",
+     "Episodio": "Episode",
+
     "calendario": "Calendar"
 
 
@@ -78,7 +118,5 @@
 
 
 
-
-  
 
 }

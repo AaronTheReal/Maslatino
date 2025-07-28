@@ -1,16 +1,18 @@
-<ion-content>
+<ion-content >
+
   <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
 
   <div class="follow-us-container">
-    <h2 class="page-title">Reproductor</h2>
+        <h2 class="page-title">{{ 'PLAYER-TITLE' | translate }}</h2>
+
   </div>
 
   <!-- Player expandido si hay episodio activo -->
   <ng-container *ngIf="podcastActivo; else noActivo">
     <div class="reproductor-expandido">
-      
+
       <ion-button
         fill="clear"
         (click)="cerrarReproductor()"
@@ -81,7 +83,7 @@
 
             <div class="podcast-info">
               <h3 class="podcast-title">{{ p.titulo }}</h3>
-              <p class="podcast-episode">Episodio {{ p.episodio }}</p>
+              <p class="podcast-episode">{{ 'Episodio' | translate }}{{ p.episodio }}</p>
               <p class="podcast-duration">{{ p.duracion }}</p>
             </div>
 

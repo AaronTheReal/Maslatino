@@ -14,6 +14,8 @@
   "FORGOT_PASSWORD": "¿Olvidaste tu contraseña?",
   "LOGIN_BUTTON": "Login",
   "REGISTER_BUTTON": "Regístrate",
+  "SAVE" : "Guardar",
+  "FAVORITOS" : "Favoritos",
 
   "LOGIN_SUCCESS": "¡Bienvenido!",
   "LOGIN_ERROR": "Login fallido. Verifica tus datos.",
@@ -38,6 +40,46 @@
   "WELCOME": "Bienvenido",
   "Noticias":"Noticias",
   "Ver_Todo": "Ver  todo",
+  "BUSCAR" : "Buscar",
+  "FAVORITOS-VACIO" : "No tienes favoritos aún.",
+ "FOLLOW": {
+    "TITLE": "Síguenos",
+    "DESCRIPTION": "También puedes seguirnos en nuestras redes sociales para obtener las últimas noticias con sabor."
+  },
+  "RADIO": {
+  "TITLE": "Radio Latino 99.9 FM Boston",
+  "DESCRIPTION": "Estación latina en Boston dedicada a conectar culturas, promover talentos locales y alegrar tus días con música vibrante.",
+  "AUDIO_NOT_SUPPORTED": "Tu navegador no soporta el elemento de audio."
+},
+"VIDA": {
+  "DESCRIPTION": "Ministerio radial cristiano que alienta, evangeliza y sirve a la iglesia con fe y propósito.",
+  "AUDIO_NOT_SUPPORTED": "Tu navegador no soporta el elemento de audio."
+},
+"PODCASTS": {
+  "EMPTY": {
+    "TITLE": "No hay podcasts disponibles",
+    "DESCRIPTION": "¡Ups! Parece que aún no tenemos podcasts aquí. Explora otras categorías o idiomas y descubre más contenido que te encantará. ¡Vuelve pronto!"
+  }
+},
+"RADIO": {
+  "TITLE": "Estaciones de radio"
+},
+"EVENT": {
+  "NOT_FOUND_TITLE": "Evento no encontrado",
+  "NOT_FOUND_CONTENT": "El contenido que buscas no existe o no está publicado."
+},
+"CARGANDO_CATEGORIAS": "Cargando categorías...",
+"BUSCAR_POR_NOMBRE": "Buscar por nombre...",
+"NOTIFICATIONS": {
+  "TITLE": "Notificaciones"
+},
+"RADIO": {
+  "TITLE": "Radio"
+},
+"BUSCAR_RADIO": "Buscar radio...",
+
+
+  "PLAYER-TITLE": "Reproductor",
   "Categorias": "Categorías",
   "Estaciones de radio":"Estaciones de radio",
   "Buscar_por_titulo": "Buscar por titulo",
@@ -48,22 +90,23 @@
     "SETTINGS": "Configuración",
     "AVATAR_ALT": "Avatar de {{name}}",
     "GENERAL": "General",
+    "NAME": "Nombre",
+    "EMAIL": "Correo",
     "CATEGORIES": "Categorías",
     "FAVORITES": "Favoritos",
     "NOTIFICATIONS": "Notificaciones",
     "FOLLOW_US": "Síguenos",
     "CHANGE_LANGUAGE": "Cambiar idioma",
     "LOGOUT": "Cerrar sesión"
+
   },
-  "CATEGORY": {
-    "ART": "Arte",
-    "SPORTS": "Deportes",
-     "WORLD": "Mundo",
-     "FAMILY": "Familia",
-     "POLITICIAN": "Politica",
+ "Arte": "Arte",
+    "Deportes": "Deportes",
+     "Mundo": "Mundo",
+     "Familia": "Familia",
+     "Política": "Política",
      "Finanzas": "Finanzas",
-     "HEALTH": "Salud"
-  },
+     "Salud": "Salud",
     "calendario": "Calendario"
 
 

@@ -9,12 +9,13 @@
   <ng-container *ngIf="podcastActivo; else listaPodcasts">
 
       <div class="follow-us-container">
-        <h2 class="page-title">Reproductor</h2>
+            <h2 class="page-title">{{ 'PLAYER-TITLE' | translate }}</h2>
+
       </div>
 
     <div class="reproductor-expandido">
       <!-- Botón cerrar en esquina superior izquierda -->
-      
+
       <ion-button
         fill="clear"
         (click)="cerrarReproductor()"
@@ -88,11 +89,11 @@
 </div>
 
 
-      
+
  <div *ngFor="let podcast of podcasts">
-  
+
   <ion-card class="podcast-card">
-    
+
     <div class="podcast-card-content">
 
 
@@ -189,8 +190,8 @@
     </button>
     <div class="back">
       <div class="back-content">
-           <div style=" border-radius: 1rem;"> 
-    
+           <div style=" border-radius: 1rem;">
+
     </div>
       </div>
     </div>
@@ -358,8 +359,8 @@
     </button>
     <div class="back">
       <div class="back-content">
-           <div style=" border-radius: 1rem;"> 
-    
+           <div style=" border-radius: 1rem;">
+
     </div>
       </div>
     </div>
