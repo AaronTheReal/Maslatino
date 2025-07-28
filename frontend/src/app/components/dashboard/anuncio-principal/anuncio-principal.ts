@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NoticiasService, Noticia } from '../../../services/noticias-service'; // ajusta la ruta si es distinta
+import { NoticiasService } from '../../../services/noticias-service'; // ajusta la ruta si es distinta
+import { Noticia } from '../../../models/noticia.model';
 
 @Component({
   selector: 'app-anuncio-principal',

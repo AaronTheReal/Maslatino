@@ -60,21 +60,55 @@
     <!-- Sidebar -->
     <div class="col-lg-3 col-md-12">
       <aside class="sidebar">
-        <h4 class="mb-3">Categorías</h4>
-        <ul class="list-unstyled">
-          <li><a href="#">Cultura</a></li>
-          <li><a href="#">Entrevistas</a></li>
-          <li><a href="#">Deportes</a></li>
-          <li><a href="#">Música</a></li>
-        </ul>
 
-        <h4 class="mt-5 mb-3">Noticias Recientes</h4>
-        <ul class="list-unstyled">
-          <li><a href="#">Cómo los latinos están cambiando los medios</a></li>
-          <li><a href="#">Entrevista exclusiva con artistas locales</a></li>
-          <li><a href="#">La voz de la comunidad en Boston</a></li>
-        </ul>
-      </aside>
+            <!-- Buscador -->
+            <div class="sidebar-search mb-4">
+              <input
+                type="text"
+                placeholder="Buscar"
+                class="form-control"
+                [(ngModel)]="busqueda"
+                (keyup.enter)="buscarNoticia()"
+              />
+            </div>
+
+
+
+        <h4 class="mb-3 mt-5">Entradas Recientes</h4>
+      <ul class="sidebar-recientes">
+        <li *ngFor="let noticia of recientes">
+          <a [routerLink]="['/noticia', noticia.slug]" class="enlace-reciente">
+            {{ noticia.title }}
+          </a>
+        </li>
+      </ul>
+
+
+      <!-- Archivos por mes -->
+      <h4 class="mb-3 mt-5">Archivos</h4>
+      <ul class="sidebar-archivos">
+        <li *ngFor="let mes of archivos">
+          <a [routerLink]="['/archivo', mes.anio, mes.mes]" class="archivo-link">
+            {{ mes.nombre }}
+          </a>
+        </li>
+      </ul>
+
+
+
+
+          <!-- Categorías -->
+          <h4 class="mb-3 mt-5">Categorías</h4>
+          <ul class="sidebar-categorias">
+            <li *ngFor="let cat of categorias">
+              <a [routerLink]="['/categoria', cat.slug]" class="enlace-categoria">
+                {{ cat.name }}
+              </a>
+            </li>
+          </ul>
+
+          </aside>
+
     </div>
 
   </div>

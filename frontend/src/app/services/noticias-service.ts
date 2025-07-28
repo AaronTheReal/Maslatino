@@ -2,24 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-export interface Noticia {
-  _id?: string;
-  title: string;
-  slug: string; // ✅ AÑADE ESTA LÍNEA
-  summary?: string;
-  author: string;
-  categories: string[];
-  tags?: string[];
-  location?: { country?: string; region?: string; city?: string };
-  content: any[]; // según tu modelo de bloques
-  createdAt?: string;
-  updatedAt?: string;
-  meta?: {
-    description?: string;
-    image?: string;
-  };
-}
+import { Noticia } from '../models/noticia.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -38,6 +21,12 @@ export class NoticiasService {
   getNoticias(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/getNoticias`);
   }
+
+getNoticiasRecientes(limit = 5) {
+  return this.http.get<Noticia[]>(`${this.baseUrl}/noticias/recientes?limit=${limit}`);
+}
+
+  
 
 }
 

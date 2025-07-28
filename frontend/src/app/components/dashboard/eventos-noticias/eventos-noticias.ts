@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { NoticiasService, Noticia } from '../../../services/noticias-service';
+import { NoticiasService } from '../../../services/noticias-service';
 import { RouterModule } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
+import { Noticia } from '../../../models/noticia.model';
 
 @Component({
   selector: 'app-eventos-noticias',

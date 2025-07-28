@@ -14,6 +14,24 @@ dotenv.config();
 
 class noticiasController {
 
+async getNoticiasRecientes(req, res, next) {
+  try {
+    const limit = Math.min(parseInt(req.query.limit) || 5, 20);
+
+    const noticias = await Noticia.find(
+      {},
+      'title slug createdAt meta.image' // solo campos necesarios para sidebar
+    )
+      .sort({ createdAt: -1 })
+      .limit(limit)
+      .lean();
+
+    res.status(200).json(noticias);
+  } catch (e) {
+    console.error('Error en getNoticiasRecientes:', e);
+    res.status(500).json({ error: 'Error al obtener noticias recientes' });
+  }
+}
 
     async getNoticiaDespliegue(req,res,next ){
   try {
