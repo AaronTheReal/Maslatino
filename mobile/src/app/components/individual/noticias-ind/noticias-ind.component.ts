@@ -19,6 +19,7 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 @Component({
@@ -40,13 +41,16 @@ import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/ic
     IonIcon,
     IonButtons,
     TranslateModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ aquí lo agregas
 })
+
 export class NoticiasIndComponent implements OnInit {
   searchTerm = '';
   articles: Noticia[] = [];
   filtered: Noticia[] = [];
 isFavorite = false;
+loading = true;
 
   constructor(private noticiasService: NoticiasService, private router: Router,public translate: TranslateService
 ) {
@@ -58,15 +62,19 @@ isFavorite = false;
 });
 }
 
-  ngOnInit(): void {
-    this.noticiasService.getNoticias().subscribe({
-      next: (data: Noticia[]) => {
-        this.articles = data;
-        this.filtered = data;
-      },
-      error: (err) => console.error('Error al cargar noticias', err)
-    });
-  }
+ngOnInit(): void {
+  this.noticiasService.getNoticias().subscribe({
+    next: (data: Noticia[]) => {
+      this.articles = data;
+      this.filtered = data;
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error('Error al cargar noticias', err);
+      this.loading = false;
+    }
+  });
+}
 
   filter(): void {
     const term = this.normalize(this.searchTerm.trim().toLowerCase());
