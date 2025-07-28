@@ -30,7 +30,15 @@ export class RadioComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelect(item: RadioData) {
-    this.selectRadio.emit(item);
+    const lower = item.title?.toLowerCase() || '';
+
+    if (lower.includes('vida')) {
+      this.router.navigate(['/radio-vida']);
+    } else if (lower.includes('latino')) {
+      this.router.navigate(['/radio-despliegue']);
+    } else {
+      alert('Ruta no definida para esta radio');
+    }
   }
 
   viewAll() {

@@ -45,10 +45,13 @@
 
       <!-- Controles -->
       <div class="reproductor-controles">
-            <!-- Botón de opciones (izquierda) -->
-        <ion-button class="control-button lateral" fill="clear" (click)="opciones(podcastActivo)">
-          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-        </ion-button>
+
+        
+      <!-- Botón de opciones (anteriormente solo mostraba consola) -->
+      <ion-button class="control-button lateral" fill="clear" (click)="share()">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+
 
         <!-- Botones centrales sin cambios -->
         <ion-button fill="clear" (click)="anterior()">
