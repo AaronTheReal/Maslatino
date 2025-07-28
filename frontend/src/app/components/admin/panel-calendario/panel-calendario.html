@@ -1,5 +1,15 @@
 <div class="container">
-  <!-- Tabs -->
+    <!-- Botones para cambiar entre versiones -->
+    <div class="space-x-2">
+      <a routerLink="/calendario-panel" routerLinkActive="text-blue-600 font-bold" class="hover:underline">
+        Móvil
+      </a>
+      |
+      <a routerLink="/calendario-panel-pc" routerLinkActive="text-blue-600 font-bold" class="hover:underline">
+        PC
+      </a>
+    </div>
+      <!-- Tabs -->
   <div class="tabs">
     <button (click)="selectTab('agregar')" [class.active]="selectedTab === 'agregar'">Agregar</button>
     <button (click)="selectTab('administrar')" [class.active]="selectedTab === 'administrar'">Administrar</button>
@@ -141,7 +151,7 @@
             <option *ngFor="let c of categorias" [value]="c._id">{{ c.name }}</option>
           </select>
         -->
-              <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill">
         <mat-label>Categorías</mat-label>
         <mat-select formControlName="categories" multiple>
           <mat-option *ngFor="let cat of categorias" [value]="cat._id">

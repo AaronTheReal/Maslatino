@@ -47,9 +47,14 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender
   },
   {
+  path: 'calendario-panel-pc',
+  renderMode: RenderMode.Prerender
+},
+  {
     path: 'sobre-nosotros', // nuestra ruta pública
     renderMode: RenderMode.Prerender
   },
+ 
   {
     path: 'noticia/:slug',
     renderMode: RenderMode.Prerender,
@@ -60,6 +65,7 @@ export const serverRoutes: ServerRoute[] = [
       ];
     }
   }
+    
 ];
 
 

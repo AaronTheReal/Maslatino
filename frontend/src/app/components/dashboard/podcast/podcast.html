@@ -1,36 +1,16 @@
 <section class="seccion-noticias">
   <h2 class="titulo-seccion">Podcasts</h2>
 
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
   <div class="contenedor-tarjetas">
-    <div class="tarjeta">
-      <img src="assets/news/foto1.jpg" alt="Noticia 1" class="imagen-tarjeta">
+    <div class="tarjeta" *ngFor="let podcast of podcasts">
+      <img [src]="podcast.coverImage" [alt]="podcast.title" class="imagen-tarjeta" />
       <div class="contenido-tarjeta oscuro">
-        <h3 class="titulo-noticia">Título de la Noticia</h3>
-        <p class="fecha-noticia">14 de Julio, 2025</p>
-      </div>
-    </div>
-
-    <div class="tarjeta">
-      <img src="assets/news/foto2.jpg" alt="Noticia 2" class="imagen-tarjeta">
-      <div class="contenido-tarjeta oscuro">
-        <h3 class="titulo-noticia">Otra Noticia Interesante</h3>
-        <p class="fecha-noticia">13 de Julio, 2025</p>
-      </div>
-    </div>
-
-    <div class="tarjeta">
-      <img src="assets/news/foto3.jpg" alt="Noticia 3" class="imagen-tarjeta">
-      <div class="contenido-tarjeta oscuro">
-        <h3 class="titulo-noticia">Evento Importante</h3>
-        <p class="fecha-noticia">12 de Julio, 2025</p>
-      </div>
-    </div>
-
-    <div class="tarjeta">
-      <img src="assets/news/foto4.jpg" alt="Noticia 4" class="imagen-tarjeta">
-      <div class="contenido-tarjeta oscuro">
-        <h3 class="titulo-noticia">Nueva Plataforma de Audio</h3>
-        <p class="fecha-noticia">11 de Julio, 2025</p>
+        <h3 class="titulo-noticia">{{ podcast.title }}</h3>
+        <p class="fecha-noticia">{{ podcast.authorName }}</p>
       </div>
     </div>
   </div>

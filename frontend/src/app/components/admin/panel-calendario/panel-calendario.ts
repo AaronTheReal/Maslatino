@@ -23,10 +23,14 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core'; // necesario para <mat-option>
+import {PanelCalendarioPc} from '../../admin/panel-calendario/panel-calendario-pc/panel-calendario-pc'
+import { RouterModule } from '@angular/router';
+
+
 @Component({
   selector: 'app-panel-calendario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,MatFormFieldModule,MatSelectModule,MatOptionModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,MatFormFieldModule,MatSelectModule,MatOptionModule,PanelCalendarioPc,RouterModule],
   templateUrl: './panel-calendario.html',
   styleUrls: ['./panel-calendario.css'],
 })

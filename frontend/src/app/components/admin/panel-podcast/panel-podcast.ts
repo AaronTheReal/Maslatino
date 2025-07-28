@@ -6,11 +6,12 @@ import { CategoriaService, CategoriaPayload } from '../../../services/categorias
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core'; // necesario para <mat-option>
+import {PanelPodcastPc} from '../../admin/panel-podcast/panel-podcast-pc/panel-podcast-pc'
 
 @Component({
   selector: 'app-panel-podcast',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatOptionModule],
+  imports: [PanelPodcastPc,CommonModule, ReactiveFormsModule,MatFormFieldModule,MatSelectModule,MatOptionModule],
   templateUrl: './panel-podcast.html',
   styleUrl: './panel-podcast.css'
 })

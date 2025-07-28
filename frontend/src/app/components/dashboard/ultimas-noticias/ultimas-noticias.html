@@ -12,14 +12,25 @@
         navigation="true"
         class="ultimas-noticias-swiper"
       >
-        <swiper-slide *ngFor="let cat of categorias">
+        <swiper-slide *ngFor="let item of items">
           <div class="noticia-card">
-            <img src="https://via.placeholder.com/300x200" alt="Imagen" class="noticia-imagen" />
+            <img
+              [src]="item.image || 'https://via.placeholder.com/300x200'"
+              alt="Imagen de {{ item.title }}"
+              class="noticia-imagen"
+            />
+
             <div class="noticia-contenido">
-              <p class="noticia-fecha">July, 19th</p>
-              <h3 class="noticia-titulo">Event Title Lorem ipsum dolor sit amet, consectetuer</h3>
+              <p class="noticia-fecha">
+                {{ item.startAt | date: 'longDate' }}
+              </p>
+
+              <h3 class="noticia-titulo">
+                {{ item.title }}
+              </h3>
+
               <p class="noticia-descripcion">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed Lorem ipsum dolor sit amet, consectetuer.
+                {{ item.excerpt }}
               </p>
             </div>
           </div>

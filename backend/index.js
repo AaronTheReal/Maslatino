@@ -38,13 +38,17 @@ const allowedOrigins = [
 // Configuración avanzada de CORS
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin) || origin.startsWith('capacitor://')) {
+    if (!origin || 
+        allowedOrigins.includes(origin) || 
+        origin.startsWith('capacitor://') || 
+        origin.startsWith('http://localhost')) {
       callback(null, true);
     } else {
       console.log('❌ CORS bloqueado para:', origin);
       callback(new Error('CORS no permitido por esta fuente'));
     }
   },
+
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

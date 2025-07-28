@@ -10,6 +10,9 @@ import streamingController from './StreamingController.js'
 import RadioController from './RadioController.js';
 import CategoriasController from './CategoriasController.js';
 import PodcastController from './PodcastController.js';
+import PodcastControllerPC from './PodcastControllerPC.js';
+import CalendarioControllerPC from './CalendarioControllerPC.js';
+
 import CalendarioController from './CalendarioController.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -95,6 +98,26 @@ export default class MainRoute {
 
     
 
+    // CRUD
+    // ✅ Primero las rutas específicas
+    router.get('/podcasts-pc/home', PodcastControllerPC.obtenerPodcastsHome);
+    router.get('/podcasts-pc/by-category-name/:name', PodcastControllerPC.obtenerPodcastsPorNombreCategoria);
+
+    // CRUD
+    router.post('/podcasts-pc', PodcastControllerPC.crearPodcast);
+    router.get('/podcasts-pc', PodcastControllerPC.obtenerPodcasts);
+
+    // ✅ Ruta paramétrica al final y con validación de ObjectId por regex
+    router.get('/podcasts-pc/:id([0-9a-fA-F]{24})', PodcastControllerPC.obtenerPodcastPorId);
+    router.put('/podcasts-pc/:id([0-9a-fA-F]{24})', PodcastControllerPC.actualizarPodcast);
+    router.delete('/podcasts-pc/:id([0-9a-fA-F]{24})', PodcastControllerPC.eliminarPodcast);
+
+    // Episodios (también valida el :id)
+    router.post('/podcasts-pc/:id([0-9a-fA-F]{24})/episodios', PodcastControllerPC.agregarEpisodio);
+    router.put('/podcasts-pc/:id([0-9a-fA-F]{24})/episodios/:episodioId([0-9a-fA-F]{24})', PodcastControllerPC.editarEpisodio);
+    router.delete('/podcasts-pc/:id([0-9a-fA-F]{24})/episodios/:episodioId([0-9a-fA-F]{24})', PodcastControllerPC.eliminarEpisodio);
+
+
 
 
         // CRUD + listados
@@ -119,6 +142,17 @@ export default class MainRoute {
     // Bulk ops opcionales
     router.patch('/calendar/bulk/publish', /*auth,*/ CalendarioController.publicarBulk);
     router.delete('/calendar/bulk', /*auth,*/ CalendarioController.eliminarBulk);
+
+    // OBLIGATORIO: primero rutas fijas, luego las con :id
+    router.post('/calendar-pc', CalendarioControllerPC.crearItem);
+    router.get('/calendar-pc', CalendarioControllerPC.obtenerItems);
+    router.get('/calendar-pc/home', CalendarioControllerPC.obtenerDestacadosHome);
+    router.get('/calendar-pc/by-category-name/:name', CalendarioControllerPC.obtenerPorNombreCategoria);
+
+    // valida que el id sea un ObjectId
+    router.get('/calendar-pc/:id([0-9a-fA-F]{24})', CalendarioControllerPC.obtenerItemPorId);
+    router.put('/calendar-pc/:id([0-9a-fA-F]{24})', CalendarioControllerPC.actualizarItem);
+    router.delete('/calendar-pc/:id([0-9a-fA-F]{24})', CalendarioControllerPC.eliminarItem);
 
 
 

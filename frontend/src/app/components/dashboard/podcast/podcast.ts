@@ -1,18 +1,32 @@
-import { Component } from '@angular/core';
+// Componente: podcast.component.ts
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PodcastPCService, PodcastDesktopPayload } from '../../../services/podcast-servicePC';
 
 @Component({
   selector: 'app-podcast',
   standalone: true,
-  imports: [ CommonModule ],
+  imports: [CommonModule],
   templateUrl: './podcast.html',
   styleUrls: ['./podcast.css']
 })
-export class Podcast {
-  podcasts = [
-    { img: 'assets/Podcast/podcast1.jpg', alt: 'New England Deportes' },
-    { img: 'assets/Podcast/podcast2.jpg', alt: 'Salud Vital' },
-    { img: 'assets/Podcast/podcast3.jpg', alt: 'Las Mujeres Siempre Emprenden' },
-    { img: 'assets/Podcast/podcast4.jpg', alt: 'Meeting Deportivo' }
-  ];
+export class Podcast implements OnInit {
+  podcasts: PodcastDesktopPayload[] = [];
+  errorMessage: string | null = null;
+
+  constructor(private podcastServicePC: PodcastPCService) {}
+
+ngOnInit(): void {
+  this.podcastServicePC.obtenerPodcastsHome().subscribe({
+    next: (data) => {
+      this.podcasts = data;
+      console.log('✅ Podcasts recibidos:', this.podcasts); // <-- AQUÍ
+    },
+    error: (err) => {
+      console.error(err);
+      this.errorMessage = 'No se pudieron cargar los podcasts destacados';
+    }
+  });
+}
+
 }
