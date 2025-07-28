@@ -19,6 +19,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈
 import { UsuariosService } from '../../../services/usuarios-service';
 import { PodcastService } from '../../../services/spotify-podcasts';
 import { AuthService } from '../../../services/auth-service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-reproductor',
@@ -32,6 +33,8 @@ import { AuthService } from '../../../services/auth-service';
     IonListHeader, IonFooter, IonTabButton, FooterComponent, IonTabBar, IonTabs, IonBackButton, IonRange     ,     TranslateModule
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ aquí lo agregas
+
 })
 export class ReproductorComponent implements OnInit {
   @ViewChild('audio', { static: false }) audioRef!: ElementRef<HTMLAudioElement>;
@@ -45,6 +48,7 @@ export class ReproductorComponent implements OnInit {
   podcastActivo: any = null;    // Episodio activo
   enReproduccion = false;
   tiempoActual = '00:00';
+  loading = true;
 
   // estado del backend para retomar posición/pausa
   lastPlayerState: { position: number; isPaused: boolean; playedAt: string } | null = null;
@@ -121,12 +125,17 @@ export class ReproductorComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 204) {
+          this.loading = false;
+
           // No hay último reproducido: no mostramos el player
           return;
         }
+        this.loading = false;
         console.error('Error al traer el lastPlayedEpisode:', err);
       }
     });
+    this.loading = false;
+
   }
 
   // ==== Player ====

@@ -13,6 +13,8 @@ import { arrowBackOutline, heart, heartOutline, shareOutline, playCircleOutline,
 import { Location } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 interface Episodio {
   _id: string;
@@ -31,6 +33,8 @@ interface Episodio {
   styleUrls: ['./podcast-despliegue.component.scss'],
   standalone: true,
   imports: [CommonModule, IonicModule, FormsModule, SafePipe, FooterComponent , TranslateModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // ✅ aquí lo agregas
+
 })
 export class PodcastDespliegueComponent implements OnInit {
   @ViewChild('audio', { static: false }) audioRef!: ElementRef<HTMLAudioElement>;
@@ -46,6 +50,7 @@ export class PodcastDespliegueComponent implements OnInit {
   favoritePodcastIds = new Set<string>();
   favoriteEpisodeIds = new Set<string>();
   podcasts: Episodio[] = [];
+  loading = true;
 
 
   constructor(
@@ -96,6 +101,8 @@ export class PodcastDespliegueComponent implements OnInit {
               favorito: episodiosFav.has(ep._id),
               ...ep,
             }));
+            this.loading = false;
+
           },
           error: (err) => {
             console.error('Error al cargar el podcast:', err);

@@ -1,96 +1,117 @@
-<ion-content >
+<ion-content>
 
   <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
   </div>
 
   <div class="follow-us-container">
-        <h2 class="page-title">{{ 'PLAYER-TITLE' | translate }}</h2>
-
+    <h2 class="page-title">{{ 'PLAYER-TITLE' | translate }}</h2>
   </div>
 
-  <!-- Player expandido si hay episodio activo -->
-  <ng-container *ngIf="podcastActivo; else noActivo">
-    <div class="reproductor-expandido">
+  <!-- Carga SKELETON si aún está cargando -->
+  <ng-container *ngIf="!loading; else skeleton">
 
-      <ion-button
-        fill="clear"
-        (click)="cerrarReproductor()"
-        style="position: absolute; top: 58px; left: 8px; z-index: 10; color: #000;">
-        <ion-icon name="chevron-down-outline"></ion-icon>
-      </ion-button>
+    <!-- Player expandido si hay episodio activo -->
+    <ng-container *ngIf="podcastActivo; else noActivo">
+      <div class="reproductor-expandido">
+        <ion-button
+          fill="clear"
+          (click)="cerrarReproductor()"
+          style="position: absolute; top: 58px; left: 8px; z-index: 10; color: #000;">
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </ion-button>
 
-      <div class="reproductor-imagen">
-        <img [src]="podcastActivo.imagenUrl" alt="Podcast actual" />
+        <div class="reproductor-imagen">
+          <img [src]="podcastActivo.imagenUrl" alt="Podcast actual" />
+        </div>
+
+        <h3 class="episode-title">{{ podcastActivo.titulo }}</h3>
+
+        <div class="reproductor-tiempo">
+          {{ tiempoActual }} / {{ podcastActivo.duracion }}
+        </div>
+
+        <ion-range
+          min="0"
+          [max]="audioRef?.nativeElement?.duration || 0"
+          [value]="audioRef?.nativeElement?.currentTime || 0"
+          (ionChange)="onSeek($event)"
+          step="1">
+        </ion-range>
+
+        <div class="reproductor-controles">
+          <ion-button class="control-button lateral" fill="clear" (click)="opciones(podcastActivo)">
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="anterior()">
+            <ion-icon name="play-skip-back-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="togglePlay()">
+            <ion-icon [name]="enReproduccion ? 'pause-circle-outline' : 'play-circle-outline'"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="siguiente()">
+            <ion-icon name="play-skip-forward-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button class="control-button lateral" fill="clear" (click)="toggleFavorito(podcastActivo)">
+            <ion-icon [name]="podcastActivo?.favorito ? 'heart' : 'heart-outline'"></ion-icon>
+          </ion-button>
+        </div>
       </div>
+    </ng-container>
 
-      <h3 class="episode-title">{{ podcastActivo.titulo }}</h3>
+    <!-- Si no hay activo, mostrar info del podcast -->
+    <ng-template #noActivo>
+      <div *ngIf="podcast">
+        <div class="reproductor-imagen-centrada">
+          <img [src]="podcast?.coverImage" alt="Podcast" />
+        </div>
+        <div class="reproductor-info">
+          <h2 class="reproductor-titulo">{{ podcast?.title }}</h2>
+          <p class="reproductor-descripcion">{{ podcast?.description }}</p>
+        </div>
 
-      <div class="reproductor-tiempo">
-        {{ tiempoActual }} / {{ podcastActivo.duracion }}
+        <div *ngFor="let p of podcasts">
+          <ion-card class="podcast-card">
+            <div class="podcast-card-content">
+              <div class="podcast-image">
+                <img [src]="p.imagenUrl" alt="Portada podcast" />
+              </div>
+              <div class="podcast-info">
+                <h3 class="podcast-title">{{ p.titulo }}</h3>
+                <p class="podcast-episode">{{ 'Episodio' | translate }}{{ p.episodio }}</p>
+                <p class="podcast-duration">{{ p.duracion }}</p>
+              </div>
+              <div class="podcast-action">
+                <ion-button fill="clear" (click)="reproducir(p)">
+                  <ion-icon name="play-circle-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </div>
+            </div>
+          </ion-card>
+        </div>
       </div>
+    </ng-template>
 
-      <ion-range
-        min="0"
-        [max]="audioRef?.nativeElement?.duration || 0"
-        [value]="audioRef?.nativeElement?.currentTime || 0"
-        (ionChange)="onSeek($event)"
-        step="1">
-      </ion-range>
-
-      <div class="reproductor-controles">
-        <ion-button class="control-button lateral" fill="clear" (click)="opciones(podcastActivo)">
-          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-        </ion-button>
-
-        <ion-button fill="clear" (click)="anterior()">
-          <ion-icon name="play-skip-back-outline"></ion-icon>
-        </ion-button>
-
-        <ion-button fill="clear" (click)="togglePlay()">
-          <ion-icon [name]="enReproduccion ? 'pause-circle-outline' : 'play-circle-outline'"></ion-icon>
-        </ion-button>
-
-        <ion-button fill="clear" (click)="siguiente()">
-          <ion-icon name="play-skip-forward-outline"></ion-icon>
-        </ion-button>
-
-        <ion-button class="control-button lateral" fill="clear" (click)="toggleFavorito(podcastActivo)">
-          <ion-icon [name]="podcastActivo?.favorito ? 'heart' : 'heart-outline'"></ion-icon>
-        </ion-button>
-      </div>
-    </div>
   </ng-container>
 
-  <!-- Si no hay activo, podrías no mostrar nada o mostrar un placeholder -->
-  <ng-template #noActivo>
-    <div *ngIf="podcast">
-      <!-- (Opcional) muestra datos del podcast y lista de episodios -->
-      <div class="reproductor-imagen-centrada">
-        <img [src]="podcast?.coverImage" alt="Podcast" />
-      </div>
-      <div class="reproductor-info">
-        <h2 class="reproductor-titulo">{{ podcast?.title }}</h2>
-        <p class="reproductor-descripcion">{{ podcast?.description }}</p>
-      </div>
+  <!-- 🦴 Skeleton Loader -->
+  <ng-template #skeleton>
+    <div style="padding: 16px;">
+      <ion-skeleton-text animated style="width: 60%; height: 24px; margin-bottom: 16px;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%; height: 200px; border-radius: 12px;"></ion-skeleton-text>
 
-      <div *ngFor="let p of podcasts">
+      <div *ngFor="let i of [1,2,3]" style="margin-top: 24px;">
         <ion-card class="podcast-card">
           <div class="podcast-card-content">
-            <div class="podcast-image">
-              <img [src]="p.imagenUrl" alt="Portada podcast" />
-            </div>
-
-            <div class="podcast-info">
-              <h3 class="podcast-title">{{ p.titulo }}</h3>
-              <p class="podcast-episode">{{ 'Episodio' | translate }}{{ p.episodio }}</p>
-              <p class="podcast-duration">{{ p.duracion }}</p>
-            </div>
-
-            <div class="podcast-action">
-              <ion-button fill="clear" (click)="reproducir(p)">
-                <ion-icon name="play-circle-outline" slot="icon-only"></ion-icon>
-              </ion-button>
+            <ion-skeleton-text animated style="width: 100px; height: 100px; border-radius: 12px;"></ion-skeleton-text>
+            <div class="podcast-info" style="flex: 1; padding-left: 16px;">
+              <ion-skeleton-text animated style="width: 70%; height: 16px; margin-bottom: 8px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 50%; height: 14px; margin-bottom: 8px;"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 30%; height: 14px;"></ion-skeleton-text>
             </div>
           </div>
         </ion-card>
