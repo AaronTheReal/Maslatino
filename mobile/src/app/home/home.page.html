@@ -1,9 +1,11 @@
 <!--home.component-->
 
-  <ion-toolbar class="safe-toolbar"  *ngIf="!isLoginPage">
+  <ion-toolbar>
     <app-navbar *ngIf="user" [username]="user.name"></app-navbar>
   </ion-toolbar>
+  
 <ion-content >
+  
   <app-carrusel [slides]="slidesArray"></app-carrusel>
   <app-noticias [newsList]="noticiasArray" (selectNoticia)="onNoticiaSeleccionada($event)"></app-noticias>
 

@@ -1,46 +1,62 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { radioOutline } from 'ionicons/icons';
+import { IonicModule } from '@ionic/angular';
+import { Location } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { AudioPlayerService } from '../../../services/player-service';
 import { addIcons } from 'ionicons';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common'; // ✅ ESTA es la correcta
+import { arrowBackOutline, play, pause, close } from 'ionicons/icons';
 
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
-
+addIcons({
+  'arrow-back-outline': arrowBackOutline,
+  play,
+  pause,
+  close
+});
 
 @Component({
   selector: 'app-radio-despliegue',
   standalone: true,
-  imports: [CommonModule, IonicModule,          TranslateModule
-  ],
+  imports: [CommonModule, IonicModule, TranslateModule],
   templateUrl: './radio-despliegue.component.html',
   styleUrls: ['./radio-despliegue.component.scss']
 })
+export class RadioDespliegueComponent implements OnInit {
 
+  // Si quieres reutilizar, puedes inyectar por ruta estos datos
+  station = {
+    url: 'https://stream.radio.co/s9cb5ee0f7/listen',
+    title: 'Radio Latino 99.9 FM Boston',
+    artwork: 'https://maslatino.com/wp-content/uploads/maslatinoFM-03.png',
+    isLive: true
+  };
 
-
-export class RadioDespliegueComponent implements AfterViewInit {
-
-  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
   constructor(
-      private router: Router,
-      private location: Location
+    private location: Location,
+    private audio: AudioPlayerService
+  ) {}
 
-    ) {
-    addIcons({ 'radio-outline': radioOutline });
-
-  }
-  ngAfterViewInit() {
-    const audio = this.audioPlayer.nativeElement;
-    audio.volume = 0.5; // Volumen inicial al 50%
-    audio.play(); // Iniciar automáticamente (si lo deseas)
+  ngOnInit(): void {
+    // Si quieres que auto-reproduzca al entrar:
+    // this.playRadio();
   }
 
-       goBack() {
-        this.location.back();
-      }
+  playRadio() {
+    this.audio.play({
+      type: 'Radio',
+      url: this.station.url,
+      title: this.station.title,
+      artwork: this.station.artwork,
+      isLive: this.station.isLive
+    });
+  }
+
+  goBack() {
+    this.location.back();
+  }
 }
+
+
 /* import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';

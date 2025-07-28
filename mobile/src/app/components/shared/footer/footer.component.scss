@@ -55,3 +55,9 @@ ion-button{
   width: 100%;
   z-index: 1000;
 }
+
+.footer-wrapper {
+  display: flex;
+  flex-direction: column; /* player arriba, toolbar abajo */
+  width: 100%;
+}

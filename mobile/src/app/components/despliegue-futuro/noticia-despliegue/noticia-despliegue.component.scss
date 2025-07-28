@@ -3,10 +3,20 @@
   --padding-end: 0;
 }
 
+ion-content {
+  --background: #ffffff;
+}
+
+/* CABECERA DE LA NOTICIA */
 .noticia-header {
   position: relative;
   height: 250px;
   overflow: hidden;
+
+  ion-skeleton-text {
+    height: 100% !important;
+    width: 100% !important;
+  }
 }
 
 .noticia-portada {
@@ -19,19 +29,28 @@
 .noticia-header-overlay {
   position: absolute;
   bottom: 0;
+  left: 0;
   padding: 1rem;
   color: white;
-}
+  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+  width: 100%;
 
-.noticia-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0;
-}
+  h1,
+  .noticia-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+  }
 
-.noticia-meta {
-  font-size: 0.9rem;
-  opacity: 0.8;
+  .noticia-meta {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 0.3rem;
+  }
+
+  ion-skeleton-text {
+    margin-top: 0.5rem;
+  }
 }
 
 /* CUERPO DE LA NOTICIA */
@@ -39,8 +58,18 @@
   padding: 1.2rem;
   font-size: 1rem;
   line-height: 1.6;
+  animation: fadeIn 0.4s ease-in;
 }
 
+/* SKELETON BLOQUES DE TEXTO */
+.noticia-body ion-skeleton-text {
+  display: block;
+  height: 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+/* IMÁGENES */
 .block-image {
   margin: 1.5rem 0;
   text-align: center;
@@ -58,7 +87,7 @@
   }
 }
 
-/* Estilos según el tipo de etiqueta HTML */
+/* ENCABEZADOS */
 .tag-h1, .tag-h2, .tag-h3, .tag-h4, .tag-h5, .tag-h6 {
   margin-top: 1.8rem;
   font-weight: bold;
@@ -70,10 +99,12 @@
 .tag-h5 { font-size: 1rem; }
 .tag-h6 { font-size: 0.9rem; }
 
+/* PÁRRAFOS Y TEXTOS */
 .tag-p, .tag-span {
   margin: 1rem 0;
 }
 
+/* CITA DESTACADA */
 .noticia-quote {
   margin: 1.5rem 0;
   padding: 1rem;
@@ -89,21 +120,65 @@
   }
 }
 
+/* ENLACES */
 .noticia-link a {
   color: #007aff;
   text-decoration: underline;
   font-weight: 500;
 }
+
+/* BOTÓN CORAZÓN FLOTANTE */
 .floating-heart {
   position: fixed;
   bottom: 24px;
   right: 24px;
   z-index: 9999;
-  font-size: 40px; // tamaño grande del corazón
+  font-size: 40px;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
 
   &:active {
     transform: scale(1.2);
+  }
+}
+
+/* BOTÓN ATRÁS */
+.back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  ion-icon {
+    color: #000;
+  }
+}
+
+/* ANIMACIÓN DE ENTRADA */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ACCESIBILIDAD: reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .noticia-body {
+    animation: none !important;
+  }
+  ion-skeleton-text {
+    animation: none !important;
   }
 }

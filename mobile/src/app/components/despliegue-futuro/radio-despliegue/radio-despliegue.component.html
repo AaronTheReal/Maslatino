@@ -1,4 +1,4 @@
-<ion-content >
+<ion-content>
   <!-- Botón de regreso -->
   <div class="back-button" (click)="goBack()">
     <ion-icon name="arrow-back-outline"></ion-icon>
@@ -7,32 +7,30 @@
   <div class="radio-wrapper">
     <!-- Título y descripción -->
     <div class="radio-text">
-      <h1 class="radio-title">Radio Latino 99.9 FM Boston</h1>
+      <h1 class="radio-title">{{ station.title }}</h1>
       <p class="radio-description">
-  {{ 'RADIO.DESCRIPTION' | translate }}
-</p>
-</div>
+        {{ 'RADIO.DESCRIPTION' | translate }}
+      </p>
+    </div>
 
-<!-- Contenedor del reproductor -->
-<div class="radio-container">
-  <img
-    src="https://maslatino.com/wp-content/uploads/maslatinoFM-03.png"
-    alt="Radio Latino Boston"
-    class="radio-logo"
-  />
+    <!-- Contenedor del reproductor -->
+    <div class="radio-container">
+      <img
+        [src]="station.artwork"
+        [alt]="station.title"
+        class="radio-logo"
+      />
 
-  <audio #audioPlayer controls>
-    <source src="https://stream.radio.co/s9cb5ee0f7/listen" type="audio/mpeg" />
-    {{ 'RADIO.AUDIO_NOT_SUPPORTED' | translate }}
-  </audio>
-
+      <!-- Botón que dispara el player global -->
+      <ion-button expand="block" (click)="playRadio()">
+        Escuchar Radio 
+      </ion-button>
     </div>
   </div>
 </ion-content>
 
-
-
 <!--
+{{ 'RADIO.LISTEN' | translate: { default: 'Escuchar Radio' } }}
 <ion-content class="ion-padding">
   <audio controls>
     <source src="https://stream.radio.co/s9cb5ee0f7/listen" type="audio/mpeg">

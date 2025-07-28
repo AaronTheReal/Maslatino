@@ -1,4 +1,98 @@
 
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { AudioPlayerService } from './../../services/player-service';
+// Si es en el componente (recomendado para standalone)
+import { addIcons } from 'ionicons';
+import { pause, play, close, arrowBackOutline } from 'ionicons/icons';
+
+addIcons({
+  pause,
+  play,
+  close,
+  'arrow-back-outline': arrowBackOutline
+});
+@Component({
+  selector: 'app-global-player',
+  standalone: true,
+  imports: [CommonModule, IonicModule],
+styles: [`
+  .floating-player {
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    z-index: 9999;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px; /* más cuadrado */
+    width: 90%;
+    max-width: 200px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+  }
+
+  @media (min-width: 768px) {
+    .floating-player {
+      bottom: 24px;
+      right: 24px;
+    }
+  }
+
+  .player-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+  }
+
+  .player-title {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+
+  .player-controls ion-button {
+    margin-left: 4px;
+  }
+`],
+
+  template: `
+    <div class="floating-player" *ngIf="state?.source">
+      <div class="player-toolbar">
+        <div class="player-title">{{ state.source?.title || 'Reproduciendo' }}</div>
+        <div class="player-controls">
+          <ion-button fill="clear" size="small" (click)="toggle()">
+            <ion-icon [name]="state.isPlaying ? 'pause' : 'play'"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" size="small" color="danger" (click)="close()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  `
+})
+
+export class AppGlobalPlayerComponent {
+  state = this.audio.snapshot; // ✅ usa el getter definido en el servicio
+
+  constructor(public audio: AudioPlayerService) {
+    this.audio.state$.subscribe(s => (this.state = s));
+  }
+
+  toggle() {
+    this.audio.toggle();
+  }
+  close() {
+  this.audio.pause();
+  this.audio.clear(); // Limpia el estado (ver siguiente paso)
+}
+
+}
 
 
 

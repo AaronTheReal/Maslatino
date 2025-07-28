@@ -10,6 +10,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Preferences } from '@capacitor/preferences';
 import { TranslateService } from '@ngx-translate/core';
+import { AppGlobalPlayerComponent } from './components/app-global-player/app-global-player.component'; // <-- Asegúrate de crearlo en esa ruta
 
 register();
 
@@ -29,7 +30,8 @@ register();
     IonContent,
     NavbarComponent,
     FooterComponent,
-    CommonModule
+    CommonModule,
+    AppGlobalPlayerComponent
   ],
 })
 export class AppComponent {
