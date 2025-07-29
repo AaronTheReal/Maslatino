@@ -43,10 +43,9 @@ export class CategoriasIndComponent implements OnInit {
   }
 
   goToCategoria(cat: CategoriaPayload) {
-    this.translate.get(cat.name).subscribe(translatedName => {
-      const urlSafeName = encodeURIComponent(translatedName);
-      this.router.navigate(['/categorias-despliegue', urlSafeName]);
-    });
+  
+          this.router.navigate(['/categorias-despliegue', cat._id]);
+
   }
 
   goBack() {

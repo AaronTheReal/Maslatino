@@ -1,6 +1,4 @@
-
-<ion-content  scrollY="true">
-
+<ion-content scrollY="true">
 
   <!-- Imagen de categoría pegada arriba -->
   <div class="categoria-header-image" *ngIf="categoriaImagen">
@@ -20,63 +18,73 @@
   <!-- Barra de búsqueda -->
   <div class="search-bar">
     <ion-icon name="search-outline"></ion-icon>
-    <input type="text" placeholder="Buscar en {{ categoriaNombreTraducido }}" />
+    <input
+      type="text"
+      [(ngModel)]="terminoBusqueda"
+      (ngModelChange)="filtrarResultados()"
+      placeholder="Buscar en {{ categoriaNombreTraducido }}"
+    />
   </div>
 
-<!-- Noticias -->
-<div class="categoria-section">
-  <h2>{{ 'Noticias' | translate }}</h2>
+  <!-- Noticias -->
+  <div class="categoria-section">
+    <h2>{{ 'Noticias' | translate }}</h2>
 
-  <ng-container *ngIf="resultados.noticias.length > 0; else noNoticias">
-    <div class="horizontal-scroll">
-      <div
-        *ngFor="let noticia of resultados.noticias | slice:0:10"
-        class="horizontal-card"
-        (click)="noticia._id && verNoticia(noticia._id)"
-      >
-        <img
-          [src]="noticia?.meta?.image || 'assets/img/default-news.jpg'"
-          [alt]="noticia.title"
-        />
-        <div class="card-title">
-          {{ noticia.title }}
+    <ng-container *ngIf="filtrados.noticias.length > 0; else noNoticias">
+      <div class="horizontal-scroll">
+        <div
+          *ngFor="let noticia of filtrados.noticias | slice:0:10"
+          class="horizontal-card"
+          (click)="verNoticia(noticia._id!)"
+        >
+          <img
+            [src]="noticia?.meta?.image || 'assets/img/default-news.jpg'"
+            [alt]="noticia.title"
+          />
+          <div class="card-title">
+            {{ noticia.title }}
+          </div>
         </div>
       </div>
-    </div>
-  </ng-container>
+    </ng-container>
 
-  <ng-template #noNoticias>
-    <div class="no-content-box">
-      <ion-icon name="newspaper-outline"></ion-icon>
-      <p>{{ 'No hay noticias disponibles' | translate }}</p>
-    </div>
-  </ng-template>
-</div>
-
-
-  <!-- Podcasts -->
-  <div class="categoria-section">
-    <h2>{{'Podcasts' | translate}}</h2>
-    <div *ngIf="resultados.podcasts.length > 0; else noPodcasts" class="horizontal-scroll">
-      <div
-        *ngFor="let podcast of resultados.podcasts | slice:0:10"
-        class="horizontal-card"
-        (click)="verPodcast(podcast._id)"
->    <img [src]="podcast.coverImage || 'assets/img/default-podcast.jpg'" [alt]="podcast.title" />
-        <div class="card-title">{{ podcast.title }}</div>
-      </div>
-    </div>
-    <ng-template #noPodcasts>
+    <ng-template #noNoticias>
       <div class="no-content-box">
-        <ion-icon name="mic-outline"></ion-icon>
-        <p>{{'No hay podcasts disponibles' | translate }}</p>
+        <ion-icon name="newspaper-outline"></ion-icon>
+        <p>{{ 'No hay noticias disponibles' | translate }}</p>
       </div>
     </ng-template>
   </div>
 
+  <!-- Podcasts -->
+  <div class="categoria-section">
+    <h2>{{ 'Podcasts' | translate }}</h2>
+
+    <ng-container *ngIf="filtrados.podcasts.length > 0; else noPodcasts">
+      <div class="horizontal-scroll">
+        <div
+          *ngFor="let podcast of filtrados.podcasts | slice:0:10"
+          class="horizontal-card"
+          (click)="verPodcast(podcast._id)"
+        >
+          <img
+            [src]="podcast.coverImage || 'assets/img/default-podcast.jpg'"
+            [alt]="podcast.title"
+          />
+          <div class="card-title">{{ podcast.title }}</div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #noPodcasts>
+      <div class="no-content-box">
+        <ion-icon name="mic-outline"></ion-icon>
+        <p>{{ 'No hay podcasts disponibles' | translate }}</p>
+      </div>
+    </ng-template>
+  </div>
 
 </ion-content>
-
 
 
 

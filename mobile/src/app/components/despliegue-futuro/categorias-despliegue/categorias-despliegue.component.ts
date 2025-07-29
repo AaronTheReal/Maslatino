@@ -53,7 +53,11 @@ import { Noticia } from '../../../models/noticia.model';
 export class CategoriasDespliegueComponent implements OnInit {
   categoriaNombreTraducido = '';
   categoriaImagen: string = '';
-
+  terminoBusqueda: string = '';
+  filtrados = {
+    noticias: [] as Noticia[],
+    podcasts: [] as any[],
+  };
   resultados: {
     noticias: Noticia[];
     podcasts: any[];
@@ -112,35 +116,37 @@ export class CategoriasDespliegueComponent implements OnInit {
     });
   }
 
-  private cargarNoticiasPorCategoriaId(categoriaId: string) {
-    this.noticiasService.getNoticiasPorCategoriaId(categoriaId).subscribe({
-      next: (noticias) => {
-        this.resultados.noticias = noticias;
-        console.log('Noticias cargadas:', noticias);
-      },
-      error: (err) => {
-        console.error('Error al obtener noticias por categoría:', err);
-      }
-    });
-  }
-
-  private cargarPodcastsPorCategoriaId(categoriaId: string) {
-    this.podcastService.getPodcastCategoriaPorId(categoriaId).subscribe({
-      next: (response) => {
-        const podcasts = Array.isArray(response)
-          ? response
-          : response.results;
-
-        this.resultados.podcasts = podcasts;
-        console.log('Podcasts cargados:', podcasts);
-      },
-      error: (err) => {
-        console.error('Error al obtener podcasts por categoría:', err);
-      }
-    });
+private cargarNoticiasPorCategoriaId(categoriaId: string) {
+  this.noticiasService.getNoticiasPorCategoriaId(categoriaId).subscribe({
+    next: (noticias) => {
+      this.resultados.noticias = noticias;
+      this.filtrados.noticias = noticias;
+    },
+    error: (err) => {
+      console.error('Error al obtener noticias por categoría:', err);
+    }
+  });
 }
 
+ private cargarPodcastsPorCategoriaId(categoriaId: string) {
+  this.podcastService.getPodcastCategoriaPorId(categoriaId).subscribe({
+    next: (response) => {
+      const podcasts = Array.isArray(response) ? response : response.results;
+      this.resultados.podcasts = podcasts;
+      this.filtrados.podcasts = podcasts;
+    },
+    error: (err) => {
+      console.error('Error al obtener podcasts por categoría:', err);
+    }
+  });
+}
 
+filtrarResultados() {
+  const regex = new RegExp(this.terminoBusqueda.trim(), 'i');
+
+  this.filtrados.noticias = this.resultados.noticias.filter(n => regex.test(n.title));
+  this.filtrados.podcasts = this.resultados.podcasts.filter(p => regex.test(p.title));
+}
   verNoticia(id: string) {
     this.router.navigate(['/noticia-despliegue', id]);
   }
