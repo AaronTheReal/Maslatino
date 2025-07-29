@@ -20,8 +20,8 @@ export interface Usuario {
 @Injectable({ providedIn: 'root' })
 export class UsuariosService {
   // Ajusta la URL base según tu configuración:
-  //private baseUrl = 'http://localhost:3000/aaron/maslatino';
-  private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
+  private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  //private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient,public authService:AuthService ) {}
  // index.js (archivo principal del backend)

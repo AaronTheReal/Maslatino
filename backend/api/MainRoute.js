@@ -85,6 +85,11 @@ export default class MainRoute {
     router.get('/categorias/:id', CategoriasController.obtenerCategoriaPorId);
     router.put('/categorias/:id', CategoriasController.actualizarCategoria);
     router.delete('/categorias/:id', CategoriasController.eliminarCategoria);
+    // Obtener noticias por ID de categoría
+    router.get('/noticias/categoria/:id', NoticiasController.obtenerNoticiasPorCategoriaId);
+
+    // Obtener podcasts por ID de categoría
+    router.get('/podcasts/categoria/:id', PodcastController.obtenerPodcastsPorCategoriaId);
 
     router.post('/podcasts', PodcastController.crearPodcast);
     router.get('/podcasts', PodcastController.obtenerPodcasts);

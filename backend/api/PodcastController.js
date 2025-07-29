@@ -11,6 +11,21 @@ function escapeRegExp(str = '') {
 }
 
 class PodcastController {
+
+   async obtenerPodcastsPorCategoriaId(req, res) {
+  try {
+    const categoriaId = req.params.id;
+
+    // Buscar todos los podcasts que contienen esta categoría
+    const podcasts = await Podcast.find({ categories: categoriaId }).sort({ createdAt: -1 });
+
+    res.json(podcasts);
+  } catch (error) {
+    console.error('Error al obtener podcasts por categoría ID:', error);
+    res.status(500).json({ message: 'Error al obtener podcasts por categoría' });
+  }
+}
+
   // 🔹 Crear un nuevo podcast
   async crearPodcast(req, res) {
     try {
@@ -52,7 +67,7 @@ async obtenerPodcastsPorNombreCategoria(req, res) {
     const { name } = req.params;              // p.ej. "Deportes"
     const { page = 1, limit = 20 } = req.query;
 
-    console.log("si llega?", name);
+    console.log("si llega????", name);
     // Busca la categoría por nombre (case-insensitive)
     const category = await Category.findOne({
       name: new RegExp(`^${escapeRegExp(name)}$`, 'i')

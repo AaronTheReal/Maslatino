@@ -13,6 +13,19 @@ import { recacheNoticia } from '../utils/prerender-service.js';
 dotenv.config();
 
 class noticiasController {
+ async obtenerNoticiasPorCategoriaId(req, res) {
+  try {
+    const categoriaId = req.params.id;
+
+    // Buscar todas las noticias con esa categoría
+    const noticias = await Noticia.find({ categories: categoriaId }).sort({ createdAt: -1 });
+
+    res.json(noticias);
+  } catch (error) {
+    console.error('Error al obtener noticias por categoría ID:', error);
+    res.status(500).json({ message: 'Error al obtener noticias por categoría' });
+  }
+}
 
 async getNoticiasRecientes(req, res, next) {
   try {

@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UsuariosService } from './../../../services/usuarios-service';
-import { AuthService } from './../../../services/auth-service';
-import { CarruselComponent } from '../../../components/features/carrusel/carrusel.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { NoticiasService } from '../../../services/noticias-service';
-import { Noticia } from '../../../models/noticia.model';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   IonHeader,
   IonToolbar,
@@ -20,24 +16,33 @@ import {
   IonIcon,
   IonButtons
 } from '@ionic/angular/standalone';
-import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
-import { addIcons } from 'ionicons';
-import { arrowBackOutline, searchOutline, alertCircleOutline,heart, heartOutline, shareOutline } from 'ionicons/icons';
-
 import { IonicModule } from '@ionic/angular';
-import { SafePipe } from '../../../pipes/safe.pipe'; // Asegúrate de tenerlo registrado
-import { Location } from '@angular/common'; // ✅ ESTA es la correcta
+
+import { addIcons } from 'ionicons';
+import {
+  arrowBackOutline,
+  searchOutline,
+  alertCircleOutline,
+  heart,
+  heartOutline,
+  shareOutline
+} from 'ionicons/icons';
+
+import { UsuariosService } from './../../../services/usuarios-service';
+import { AuthService } from './../../../services/auth-service';
 import { CategoriaService } from '../../../services/categorias-service';
+import { NoticiasService } from '../../../services/noticias-service';
 import { PodcastService } from '../../../services/spotify-podcasts';
-
-
+import { CarruselComponent } from '../../../components/features/carrusel/carrusel.component';
+import { SafePipe } from '../../../pipes/safe.pipe';
+import { Noticia } from '../../../models/noticia.model';
 
 @Component({
   selector: 'app-categorias-despliegue',
   templateUrl: './categorias-despliegue.component.html',
   styleUrls: ['./categorias-despliegue.component.scss'],
   standalone: true,
-    imports: [
+  imports: [
     CommonModule,
     FormsModule,
     CarruselComponent,
@@ -49,27 +54,26 @@ export class CategoriasDespliegueComponent implements OnInit {
   categoriaNombreTraducido = '';
   categoriaImagen: string = '';
 
-    resultados: {
-      noticias: Noticia[];
-      podcasts: any[];
-      shows: any[];
-    } = {
-      noticias: [],
-      podcasts: [],
-      shows: [],
-    };
-
+  resultados: {
+    noticias: Noticia[];
+    podcasts: any[];
+    shows: any[];
+  } = {
+    noticias: [],
+    podcasts: [],
+    shows: [],
+  };
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
-    private usuariosService: UsuariosService,
     private router: Router,
     private location: Location,
+    private authService: AuthService,
+    private usuariosService: UsuariosService,
     private categoriaService: CategoriaService,
     private noticiasService: NoticiasService,
     private podcastService: PodcastService,
-
+    private translate: TranslateService
   ) {
     addIcons({
       heart,
@@ -79,30 +83,37 @@ export class CategoriasDespliegueComponent implements OnInit {
     });
   }
 
-    ngOnInit() {
-    const param = this.route.snapshot.paramMap.get('id');
-    console.log("categoria", param);
-    this.categoriaNombreTraducido = decodeURIComponent(param || '');
+  ngOnInit() {
+    const categoriaId = this.route.snapshot.paramMap.get('id');
+    if (!categoriaId) return;
 
-    console.log('Categoría traducida seleccionada:', this.categoriaNombreTraducido);
-
-    // Buscar imagen correspondiente
+    // Obtener categoría completa desde el servicio usando el ID
     this.categoriaService.obtenerCategorias().subscribe({
       next: (categorias) => {
-        const match = categorias.find(cat =>
-          this.categoriaNombreTraducido.toLowerCase() === cat.name.toLowerCase()
-        );
-        if (match) {
-          this.categoriaImagen = match.image || '';
+        const categoria = categorias.find(cat => cat._id === categoriaId);
+
+        if (categoria) {
+          this.categoriaImagen = categoria.image || '';
+
+          this.translate.get(categoria.name).subscribe(traducido => {
+            this.categoriaNombreTraducido = traducido;
+          });
+
+          // 🔥 Cargar contenido desde servicios usando el ID (ajusta si es necesario)
+          this.cargarNoticiasPorCategoriaId(categoriaId);
+          this.cargarPodcastsPorCategoriaId(categoriaId);
+        } else {
+          console.error('No se encontró la categoría con ID:', categoriaId);
         }
       },
       error: (err) => {
-        console.error('Error cargando imagen de categoría:', err);
+        console.error('Error al cargar categorías:', err);
       }
     });
+  }
 
-    // 🔥 Cargar noticias por categoría seleccionada
-    this.noticiasService.getNoticiasInicio([this.categoriaNombreTraducido]).subscribe({
+  private cargarNoticiasPorCategoriaId(categoriaId: string) {
+    this.noticiasService.getNoticiasPorCategoriaId(categoriaId).subscribe({
       next: (noticias) => {
         this.resultados.noticias = noticias;
         console.log('Noticias cargadas:', noticias);
@@ -111,11 +122,15 @@ export class CategoriasDespliegueComponent implements OnInit {
         console.error('Error al obtener noticias por categoría:', err);
       }
     });
+  }
 
-    this.podcastService.getPodcastCategoria(this.categoriaNombreTraducido).subscribe({
+  private cargarPodcastsPorCategoriaId(categoriaId: string) {
+    this.podcastService.getPodcastCategoriaPorId(categoriaId).subscribe({
       next: (response) => {
-        // si el backend devuelve { results: [...] }
-        const podcasts = response?.results ?? response;
+        const podcasts = Array.isArray(response)
+          ? response
+          : response.results;
+
         this.resultados.podcasts = podcasts;
         console.log('Podcasts cargados:', podcasts);
       },
@@ -123,12 +138,13 @@ export class CategoriasDespliegueComponent implements OnInit {
         console.error('Error al obtener podcasts por categoría:', err);
       }
     });
+}
 
-  }
 
   verNoticia(id: string) {
     this.router.navigate(['/noticia-despliegue', id]);
   }
+
   verPodcast(id: string) {
     this.router.navigate(['/podcast-despliegue', id]);
   }

@@ -12,6 +12,17 @@ export interface CategoriaPayload {
   createdAt?: string;
   updatedAt?: string;
 }
+
+interface Noticia {
+  _id: string;
+  title: string;
+  content: string;
+  meta?: {
+    image?: string;
+  };
+  [key: string]: any;
+}
+
 interface Episodio {
   _id: string;
   titulo: string;
@@ -20,14 +31,13 @@ interface Episodio {
   imagenUrl: string;
   audioUrl: string;
   favorito: boolean;
-  [key: string]: any; // Para permitir otros campos como description, releaseDate, etc.
+  [key: string]: any;
 }
-
 
 @Injectable({ providedIn: 'root' })
 export class CategoriaService {
-  //private baseUrl = 'http://localhost:3000/aaron/maslatino'; // Ajusta si tu backend cambia
-  private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
+  private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  // private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino';
 
   constructor(private http: HttpClient) {}
 
@@ -55,4 +65,5 @@ export class CategoriaService {
   eliminarCategoria(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/categorias/${id}`);
   }
+
 }

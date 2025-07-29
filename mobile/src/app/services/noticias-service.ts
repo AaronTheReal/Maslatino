@@ -19,8 +19,8 @@ export interface Noticia {
 @Injectable({ providedIn: 'root' })
 export class NoticiasService {
   // Ajusta la URL base según tu configuración:
-  //private baseUrl = 'http://localhost:3000/aaron/maslatino';
-  private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
+  private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  //private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient) {}
  // index.js (archivo principal del backend)
@@ -44,7 +44,9 @@ export class NoticiasService {
       noticia,
     });
   }
-
+  getNoticiasPorCategoriaId(id: string): Observable<Noticia[]> {
+    return this.http.get<Noticia[]>(`${this.baseUrl}/noticias/categoria/${id}`);
+  }
 }
 
 

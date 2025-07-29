@@ -3,12 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+interface Episodio {
+  _id: string;
+  titulo: string;
+  episodio: number;
+  duracion: string;
+  imagenUrl: string;
+  audioUrl: string;
+  favorito: boolean;
+  [key: string]: any; // Para permitir campos adicionales como descripción, fecha, etc.
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class PodcastService {
-  //private baseUrl = 'http://localhost:3000/aaron/maslatino';
-  private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
+  private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  //private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient) {}
 
@@ -47,6 +60,9 @@ export class PodcastService {
         `http://localhost:3000/aaron/maslatino/podcasts/by-category-name/${nombre}`
       );
     }
-
+  // ✅ Obtener podcasts por ID de categoría
+  getPodcastCategoriaPorId(id: string): Observable<{ results: Episodio[] } | Episodio[]> {
+    return this.http.get<{ results: Episodio[] } | Episodio[]>(`${this.baseUrl}/podcasts/categoria/${id}`);
+  }
 
 }

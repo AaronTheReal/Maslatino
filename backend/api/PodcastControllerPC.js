@@ -60,7 +60,7 @@ class PodcastControllerPC {
 
    // 🔹 Obtener un podcast por ID
 
-async obtenerPodcastsPorNombreCategoria(req, res) {
+async obtenerPodcastsPorNombreCategoria(req, res) {z
   try {
     const { name } = req.params;              // p.ej. "Deportes"
     const { page = 1, limit = 20 } = req.query;

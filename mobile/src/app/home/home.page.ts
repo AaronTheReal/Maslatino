@@ -141,14 +141,29 @@ this.categoriaService.obtenerCategorias().subscribe({
   }
 
   onCategoriaSeleccionada(item: CategoryItem) {
-  this.translate.get(item.name).subscribe(translated => {
-    const safeCategory = encodeURIComponent(translated);
-    this.router.navigate(['/categorias-despliegue', safeCategory]);
-  });
-}
 
+        this.router.navigate(['/categorias-despliegue', item.id]);
+
+  }
   onFooterTabChanged(tabName: string) {
     console.log('Footer seleccionó pestaña:', tabName);
     this.activeTab = tabName;
   }
 }
+
+
+/*  onCategoriaSeleccionada(item: CategoryItem) {
+
+      this.router.navigate(['/categorias-despliegue', item.id]);
+
+}
+
+
+  onCategoriaSeleccionada(item: CategoryItem) {
+  this.translate.get(item.name).subscribe(translated => {
+    const safeCategory = encodeURIComponent(translated);
+    console.log("que es?",safeCategory);
+    this.router.navigate(['/categorias-despliegue', safeCategory]);
+  });
+}
+ */
