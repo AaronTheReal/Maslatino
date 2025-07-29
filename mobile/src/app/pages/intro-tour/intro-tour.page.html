@@ -5,29 +5,33 @@
     class="intro-swiper"
   >
     <swiper-slide>
-      <img
-        src="assets/Logo/Intro1.png"
-        alt="Introducción 1"
-        class="intro-img"
-      />
-      <h1 class="intro-title">{{ 'INTRO_1_TITLE' | translate }}</h1>
-      <p class="intro-subtitle">{{ 'INTRO_1_SUBTITLE' | translate }}</p>
+      <div class="slide-content slide-1">
+        <img
+          src="assets/Logo/Intro1.png"
+          alt="Introducción 1"
+          class="intro-img intro-img-1"
+        />
+        <h1 class="intro-title intro-title-1">{{ 'INTRO_1_TITLE' | translate }}</h1>
+        <p class="intro-subtitle intro-subtitle-1">{{ 'INTRO_1_SUBTITLE' | translate }}</p>
+        <div class="action-btn empty action-btn-1"></div>
+      </div>
     </swiper-slide>
-    
-    <swiper-slide class="with-button">
-      <img
-        src="assets/Logo/Intro2.png"
-        alt="Introducción 2"
-        class="intro-img"
-      />
-      <h1 class="intro-title">{{ 'INTRO_2_TITLE' | translate }}</h1>
-      <p class="intro-subtitle">{{ 'INTRO_2_SUBTITLE' | translate }}</p>
-      <div class="action-btn">
-        <ion-button expand="block" (click)="proceed()">
-          {{ 'CONTINUE' | translate }}
-        </ion-button>
+
+    <swiper-slide>
+      <div class="slide-content slide-2">
+        <img
+          src="assets/Logo/Intro2.png"
+          alt="Introducción 2"
+          class="intro-img intro-img-2"
+        />
+        <h1 class="intro-title intro-title-2">{{ 'INTRO_2_TITLE' | translate }}</h1>
+        <p class="intro-subtitle intro-subtitle-2">{{ 'INTRO_2_SUBTITLE' | translate }}</p>
+        <div class="action-btn action-btn-2">
+          <ion-button expand="block" (click)="proceed()">
+            {{ 'CONTINUE' | translate }}
+          </ion-button>
+        </div>
       </div>
     </swiper-slide>
   </swiper-container>
 </ion-content>
-

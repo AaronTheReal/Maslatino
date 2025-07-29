@@ -51,3 +51,8 @@
     </div>
   </div>
 </ion-content>
+
+
+<ion-footer *ngIf="!isLoginPage">
+  <app-footer [activeTab]="activeTab" (tabChange)="onFooterTabChanged($event)"></app-footer>
+</ion-footer>

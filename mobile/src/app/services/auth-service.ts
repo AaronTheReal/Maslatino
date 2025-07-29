@@ -33,7 +33,10 @@ export class AuthService {
   async logout(): Promise<void> {
     await Preferences.remove({ key: 'token' });
     await Preferences.remove({ key: 'user' });
+    await Preferences.remove({ key: 'hasCompletedOnboarding' });
+    await Preferences.remove({ key: 'selectedLanguage' });
   }
+
 
   // Verifica si hay token activo
   async isLoggedIn(): Promise<boolean> {

@@ -59,6 +59,12 @@ export class AppComponent {
     this.translate.use(userLang);
 
     await this.checkOnboardingStatus();
+
+    const isLoggedIn = await Preferences.get({ key: 'token' });
+
+    if (isLoggedIn?.value) {
+      this.router.navigate(['/home']);
+    }
   }
 
   async checkOnboardingStatus() {

@@ -185,10 +185,19 @@ editProfile() {
     console.log('Abrir configuración');
   }
 
-async logout() {
-  await Preferences.clear();
-  this.router.navigate(['/login']);
-}
+  async logout() {
+    // 🔒 Conservamos 'hasCompletedOnboarding'
+    const onboardingStatus = await Preferences.get({ key: 'hasCompletedOnboarding' });
+
+    await Preferences.clear(); // Borra todo
+
+    // 🔁 Restauramos el flag de onboarding
+    if (onboardingStatus.value) {
+      await Preferences.set({ key: 'hasCompletedOnboarding', value: onboardingStatus.value });
+    }
+
+    this.router.navigate(['/login']);
+  }
 
   onFooterTabChanged(tabName: string) {
     console.log('Footer seleccionó pestaña:', tabName);

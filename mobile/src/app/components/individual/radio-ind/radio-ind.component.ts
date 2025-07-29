@@ -2,19 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, searchOutline, alertCircleOutline } from 'ionicons/icons';
 import { RadioService, RadioData } from '../../../services/radio-service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core'; // 👈 añadido
+import { FooterComponent } from '../../../components/shared/footer/footer.component';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
+
+    
 
 @Component({
   selector: 'app-radio-ind',
   standalone: true,
   templateUrl: './radio-ind.component.html',
   styleUrls: ['./radio-ind.component.scss'],
-  imports: [IonicModule, CommonModule, FormsModule,
-          TranslateModule,
+  imports: [IonicModule, 
+    CommonModule, 
+    FormsModule,
+    TranslateModule,
+    FooterComponent,
 
   ]
 })
@@ -23,6 +31,8 @@ export class RadioIndComponent implements OnInit {
   filteredRadios: RadioData[] = [];
   searchTerm: string = '';
   isLoading = true;
+  activeTab: string = 'home';
+  isLoginPage = false;
 
   constructor(
     private radioService: RadioService,
@@ -33,6 +43,12 @@ export class RadioIndComponent implements OnInit {
       'search-outline': searchOutline,
       'alert-circle-outline': alertCircleOutline
     });
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.isLoginPage = event.url.includes('/login');
+      });
   }
 
   ngOnInit(): void {
@@ -59,7 +75,10 @@ export class RadioIndComponent implements OnInit {
           radio.title.toLowerCase().includes(term)
         );
   }
-
+  onFooterTabChanged(tabName: string) {
+    console.log('Footer seleccionó pestaña:', tabName);
+    this.activeTab = tabName;
+  }
   goToRadioDetail(title: string) {
     const lower = title.toLowerCase();
     if (lower.includes('vida')) {
