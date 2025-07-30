@@ -179,7 +179,24 @@ export class ReproductorComponent implements OnInit {
       console.log('Ready State:', audio.readyState);
     }, { once: true });
   }
-
+  share() {
+  const url = this.podcast.url || `https://open.spotify.com/show/${this.podcast.spotifyId}`;
+  if (navigator.share) {
+    navigator
+      .share({
+        title: this.podcast.title,
+        text: 'Escucha este podcast en Más Latino',
+        url: url,
+      })
+      .then(() => console.log('Compartido exitosamente'))
+      .catch((error) => console.error('Error al compartir', error));
+  } else {
+    // Copiar al portapapeles como alternativa
+    navigator.clipboard.writeText(url)
+      .then(() => alert('Enlace copiado al portapapeles'))
+      .catch(() => alert('No se pudo copiar el enlace'));
+  }
+}
   togglePlay() {
     if (!this.audioRef?.nativeElement) {
       console.error('El elemento <audio> no está disponible.');

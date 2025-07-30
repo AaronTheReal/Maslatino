@@ -1,16 +1,28 @@
 <ion-header>
-  <ion-toolbar id="Cleantoolbar" style="--border-width: 0px;">
+  <ion-toolbar id="Cleantoolbar">
+    <!-- Icono izquierdo -->
+     <!--
     <ion-buttons slot="start">
       <ion-icon name="lock-outline" class="lock-icon"></ion-icon>
     </ion-buttons>
-    <ion-title>
-      <div class="welcome-text">
-        <span class="greeting">{{ 'WELCOME' | translate }}</span>
+-->
+    <!-- Título centrado -->
+    <ion-title class="centered-title">
+      <div class="welcome-wrapper">
+        <span class="greeting-text">{{ 'WELCOME' | translate }}</span>
+        <span class="username-text">{{ username }}</span>
       </div>
     </ion-title>
 
+    <!-- Placeholder derecha para balancear -->
+    <ion-buttons slot="end">
+      <div class="title-placeholder"></div>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+
+
     <!--
     <ion-buttons slot="end">
       <div class="search-icon">

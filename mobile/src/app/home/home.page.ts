@@ -37,8 +37,8 @@ import { CategoriaService } from '../services/categorias-service';
 })
 export class HomePage implements OnInit {
   slidesArray = [
-    { img: 'assets/img/carousel1.jpg', title: '' },
-    { img: 'assets/img/carousel2.jpg', title: '' },
+    { img: 'assets/img/carousel1.jpeg', title: '' },
+    { img: 'assets/img/carousel2.jpeg', title: '' },
     { img: 'assets/img/carousel3.jpeg', title: '' },
   ];
 

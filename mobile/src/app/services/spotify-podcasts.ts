@@ -20,8 +20,8 @@ interface Episodio {
   providedIn: 'root'
 })
 export class PodcastService {
-  private baseUrl = 'http://localhost:3000/aaron/maslatino';
-  //private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
+  //private baseUrl = 'http://localhost:3000/aaron/maslatino';
+  private baseUrl = 'https://maslatino.onrender.com/aaron/maslatino'; // Ajusta si tu backend cambia
 
   constructor(private http: HttpClient) {}
 

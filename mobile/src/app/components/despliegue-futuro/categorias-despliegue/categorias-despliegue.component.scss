@@ -1,3 +1,28 @@
+ion-content {
+    --padding-top: calc(var(--ion-safe-area-top) + '0rem)');
+    --padding-bottom: calc(var(--ion-safe-area-bottom) + 2rem);
+}
+
+/* BOTÓN ATRÁS */
+.back-button {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+  ion-icon {
+    color: #000;
+  }
+}
+
+
 .categoria-despliegue-content {
   --padding-top: 0;
 }
@@ -135,4 +160,7 @@
   font-weight: bold;
   text-align: center;
   margin-top: 10px;
+}
+.noticias-scroll {
+  padding-left: 0px;
 }
