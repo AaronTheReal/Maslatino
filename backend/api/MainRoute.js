@@ -12,7 +12,7 @@ import CategoriasController from './CategoriasController.js';
 import PodcastController from './PodcastController.js';
 import PodcastControllerPC from './PodcastControllerPC.js';
 import CalendarioControllerPC from './CalendarioControllerPC.js';
-
+import SmartLinkController from './SmartLinkController.js';
 import CalendarioController from './CalendarioController.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -160,6 +160,7 @@ export default class MainRoute {
     router.put('/calendar-pc/:id([0-9a-fA-F]{24})', CalendarioControllerPC.actualizarItem);
     router.delete('/calendar-pc/:id([0-9a-fA-F]{24})', CalendarioControllerPC.eliminarItem);
 
+    router.get('/share/podcast/:podcastId/episode/:episodeId', SmartLinkController.redirectPodcastLink);
 
 
     return router;
