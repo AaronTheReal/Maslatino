@@ -77,34 +77,45 @@ export class PodcastDespliegueComponent implements OnInit {
   }
 
   ngOnInit() {
-  const id = this.route.snapshot.paramMap.get('id');
-  if (!id) return;
+  const podcastId = this.route.snapshot.paramMap.get('id');
+  const episodioId = this.route.snapshot.queryParamMap.get('episodio'); // ✅ CAMBIADO a 'episodio'
+
+  if (!podcastId) return;
 
   this.authService.getUser().then((user) => {
     this.user = user;
 
     this.usuarioService.getFavorites(this.user._id).subscribe({
       next: (fav) => {
-        console.log('Favoritos:', fav);
-
-        // Convertimos a Set para acceso rápido
         const episodiosFav = new Set<string>(fav.episodios?.map((e: any) => e._id) ?? []);
 
-        this.podcastService.getPodcastById(id).subscribe({
+        this.podcastService.getPodcastById(podcastId).subscribe({
           next: (data) => {
             this.podcast = data;
 
-            this.podcasts = data.episodes.map((ep: any, index: number) => ({
-              titulo: ep.title,
-              episodio: index + 1,
-              duracion: this.formatDuration(ep.duration),
-              imagenUrl: ep.image || data.coverImage,
-              audioUrl: ep.audioUrl,
-              favorito: episodiosFav.has(ep._id),
-              ...ep,
-            }));
-            this.loading = false;
+            this.podcasts = data.episodes.map((ep: any, index: number) => {
+              const episodioFormateado: Episodio = {
+                titulo: ep.title,
+                episodio: index + 1,
+                duracion: this.formatDuration(ep.duration),
+                imagenUrl: ep.image || data.coverImage,
+                audioUrl: ep.audioUrl,
+                favorito: episodiosFav.has(ep._id),
+                ...ep,
+              };
 
+              return episodioFormateado;
+            });
+
+            // ✅ Si viene episodioId en query, lo reproducimos automáticamente
+            if (episodioId) {
+              const episodioInicial = this.podcasts.find(ep => ep._id === episodioId);
+              if (episodioInicial) {
+                this.reproducir(episodioInicial);
+              }
+            }
+
+            this.loading = false;
           },
           error: (err) => {
             console.error('Error al cargar el podcast:', err);
@@ -115,6 +126,8 @@ export class PodcastDespliegueComponent implements OnInit {
     });
   });
 }
+
+
 
 
   formatDuration(seconds: number): string {
@@ -158,23 +171,28 @@ toggleFavorite() {
   }
 
   share() {
-  const url = this.podcast.url || `https://open.spotify.com/show/${this.podcast.spotifyId}`;
+  const episodio = this.podcastActivo;
+  if (!episodio) return;
+
+  const podcastId = this.podcast._id;
+  const episodioId = episodio._id;
+
+  const url = `https://maslatino.onrender.com/share/podcast/${podcastId}/episode/${episodioId}`;
+
   if (navigator.share) {
-    navigator
-      .share({
-        title: this.podcast.title,
-        text: 'Escucha este podcast en Más Latino',
-        url: url,
-      })
-      .then(() => console.log('Compartido exitosamente'))
+    navigator.share({
+      title: episodio.titulo,
+      text: 'Escucha este episodio en Más Latino',
+      url: url,
+    }).then(() => console.log('Compartido exitosamente'))
       .catch((error) => console.error('Error al compartir', error));
   } else {
-    // Copiar al portapapeles como alternativa
     navigator.clipboard.writeText(url)
       .then(() => alert('Enlace copiado al portapapeles'))
       .catch(() => alert('No se pudo copiar el enlace'));
   }
 }
+
 
 
   goBack() {

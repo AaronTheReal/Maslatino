@@ -42,6 +42,6 @@ bootstrapApplication(AppComponent, {
         },
       })
     ),
-    Location // ✅ Esto lo hace global
+    Location 
   ]
 });

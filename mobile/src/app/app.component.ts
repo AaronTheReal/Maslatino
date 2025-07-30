@@ -10,7 +10,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Preferences } from '@capacitor/preferences';
 import { TranslateService } from '@ngx-translate/core';
-import { AppGlobalPlayerComponent } from './components/app-global-player/app-global-player.component'; // <-- Asegúrate de crearlo en esa ruta
+import { AppGlobalPlayerComponent } from './components/app-global-player/app-global-player.component';
+import { App as CapacitorApp } from '@capacitor/app'; // IMPORTANTE
 
 register();
 
@@ -53,8 +54,7 @@ export class AppComponent {
 
   async initializeApp() {
     const { value: selectedLanguage } = await Preferences.get({ key: 'selectedLanguage' });
-
-    const userLang = selectedLanguage || 'es'; // Si no hay, usa español
+    const userLang = selectedLanguage || 'es';
     this.translate.setDefaultLang('es');
     this.translate.use(userLang);
 
@@ -65,6 +65,30 @@ export class AppComponent {
     if (isLoggedIn?.value) {
       this.router.navigate(['/home']);
     }
+
+    // 👇 LÓGICA PARA ENLACES EXTERNOS (deep links)
+    CapacitorApp.addListener('appUrlOpen', (event: any) => {
+      try {
+        const url = new URL(event.url);
+        const path = url.pathname; // ej. /link/podcast/123/episodio/456
+
+        if (path.startsWith('/link/podcast/')) {
+          const segments = path.split('/');
+
+          // Esperamos: /link/podcast/:podcastId/episodio/:episodioId
+          const podcastId = segments[3];
+          const episodioId = segments[5];
+
+          if (podcastId && episodioId) {
+            this.router.navigate([`/podcast-despliegue/${podcastId}`], {
+              queryParams: { episodio: episodioId }
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Error al procesar deep link:', error);
+      }
+    });
   }
 
   async checkOnboardingStatus() {
