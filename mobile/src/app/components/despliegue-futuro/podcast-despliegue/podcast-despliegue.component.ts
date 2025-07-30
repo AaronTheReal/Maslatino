@@ -177,7 +177,7 @@ toggleFavorite() {
   const podcastId = this.podcast._id;
   const episodioId = episodio._id;
 
-  const url = `https://maslatino.onrender.com/share/podcast/${podcastId}/episode/${episodioId}`;
+  const url = `https://maslatino.onrender.com/aaron/maslatino/share/podcast/${podcastId}/episode/${episodioId}`;
 
   if (navigator.share) {
     navigator.share({
