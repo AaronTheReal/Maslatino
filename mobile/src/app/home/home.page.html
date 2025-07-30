@@ -1,16 +1,16 @@
 <!--home.component-->
 
-  <ion-toolbar>
+  <ion-toolbar  class="safe-toolbar"  >
     <app-navbar *ngIf="user" [username]="user.name"></app-navbar>
   </ion-toolbar>
-  
+
 <ion-content >
-  
+
   <app-carrusel [slides]="slidesArray"></app-carrusel>
   <app-noticias [newsList]="noticiasArray" (selectNoticia)="onNoticiaSeleccionada($event)"></app-noticias>
 
   <app-podcasts [podcastsList]="podcastsArray" (selectPodcast)="onPodcastSeleccionado($event)"></app-podcasts>
-  
+
   <app-radio [radioList]="radiosArray" (selectRadio)="onRadioSeleccionada($event)"></app-radio>
 
 
