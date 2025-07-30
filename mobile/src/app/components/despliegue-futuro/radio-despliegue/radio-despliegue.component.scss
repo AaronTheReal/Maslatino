@@ -7,7 +7,7 @@
   padding-right: 24px;
   padding-bottom: 24px;
   background-color: #ffffff;
-  min-height: 100vh;
+  //min-height: 100vh;
   text-align: center;
 }
 
@@ -19,8 +19,12 @@
   font-size: 2rem;
   font-weight: 700;
   color: #d92d20;
-  margin: 0;
+  background-color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: Arial, sans-serif;
 }
+
 
 .radio-description {
   font-size: 0.95rem;
@@ -79,5 +83,5 @@ audio::-webkit-media-controls-time-remaining-display {
 
 /* Evita scroll innecesario */
 ion-content {
-  --overflow: hidden;
+  --overflow: auto;
 }

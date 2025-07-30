@@ -29,6 +29,10 @@
   </div>
 </ion-content>
 
+<ion-footer>
+  <app-footer [activeTab]="activeTab" (tabChange)="onFooterTabChanged($event)"></app-footer>
+</ion-footer>
+
 <!--
 {{ 'RADIO.LISTEN' | translate: { default: 'Escuchar Radio' } }}
 <ion-content class="ion-padding">

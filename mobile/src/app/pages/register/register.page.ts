@@ -18,11 +18,23 @@ import {
   IonIcon,
   ToastController
 } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { FormsModule } from '@angular/forms';
+
+
 import { Router } from '@angular/router';
 import { UsuariosService, Usuario } from '../../services/usuarios-service';
 import { Preferences } from '@capacitor/preferences';
 import { TranslateService, TranslateModule } from '@ngx-translate/core'; // 👈
-
+import {
+  arrowBackOutline,
+  searchOutline,
+  alertCircleOutline,
+  heart,
+  heartOutline,
+  shareOutline
+} from 'ionicons/icons';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -31,21 +43,9 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core'; // 👈
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    IonContent,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonItem,
-    IonInput,
-    IonRadio,
-    IonRadioGroup,
-    IonLabel,
-    IonText,
-    IonSelect,
-    IonSelectOption,
-    IonButton,
-    IonIcon,
-    TranslateModule // 👈 ¡IMPORTANTE!
+    TranslateModule,
+    IonicModule,
+    FormsModule
   ]
 })
 export class RegisterPage implements OnInit {
@@ -58,7 +58,15 @@ export class RegisterPage implements OnInit {
     private usuariosService: UsuariosService,
     private toastController: ToastController,
     private translate: TranslateService // 👈
-  ) {}
+  ) {
+
+    addIcons({
+          heart,
+          'heart-outline': heartOutline,
+          'arrow-back-outline': arrowBackOutline,
+          'share-outline': shareOutline,
+        });
+  }
 
   ngOnInit() {
     this.currentLanguage = this.translate.currentLang || 'es';

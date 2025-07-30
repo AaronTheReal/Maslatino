@@ -361,7 +361,15 @@
      "Política": "Política",
      "Finanzas": "FINANÇAS",
      "Salud": "SAÚDE",
-  "calendario": "calendário"
+  "calendario": "calendário",
+    "LOGIN_ERROR_USER": "Usuário não encontrado",
+    "LOGIN_ERROR_PASSWORD": "Senha incorreta",
+        "LOGIN_WAITING": "Carregando...",
+                "CONFIRM_PASSWORD_PLACEHOLDER":"Confirme sua senha",
+    "CONFIRM_PASSWORD_REQUIRED":"Confirme sua senha",
+    "PASSWORDS_DO_NOT_MATCH":"As senhas não correspondem"
+
+
 
 
 

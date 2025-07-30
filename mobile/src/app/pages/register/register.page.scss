@@ -91,3 +91,21 @@ ion-input::part(placeholder), ion-select::part(placeholder) {
   --border-color: #000000;
     border: 1px solid var(--border-color);
 }
+
+/* BOTÓN ATRÁS */
+.back-button {
+  position: fixed;
+  top: 10px;
+  left: 16px;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+
+  ion-icon {
+    color: #000;
+  }
+}

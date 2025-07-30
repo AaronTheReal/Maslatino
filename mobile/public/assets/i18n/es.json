@@ -352,7 +352,15 @@
      "Política": "Política",
      "Finanzas": "Finanzas",
      "Salud": "Salud",
-    "calendario": "Calendario"
+    "calendario": "Calendario",
+      "LOGIN_ERROR_USER": "Usuario no encontrado",
+    "LOGIN_ERROR_PASSWORD": "Contraseña Incorrecta",
+        "LOGIN_WAITING": "Cargando...",
+                "CONFIRM_PASSWORD_PLACEHOLDER":"Confirma tu contraseña",
+         "CONFIRM_PASSWORD_REQUIRED":"Confirmación de contraseña requerida",
+    "PASSWORDS_DO_NOT_MATCH":"Las contraseñas no coinciden"
+
+
 
 
 

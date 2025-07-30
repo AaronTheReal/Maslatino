@@ -52,6 +52,8 @@ export class PodcastDespliegueComponent implements OnInit {
   podcasts: Episodio[] = [];
   loading = true;
 
+  isDragging = false;
+  dragValue = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -301,6 +303,21 @@ toggleFavorite() {
   console.log('Ready State:', audio.readyState);
 }
 
+onDragStart() {
+  this.isDragging = true;
+}
+
+onDragMove(event: any) {
+  this.dragValue = event.detail.value;
+}
+
+onDragEnd(event: any) {
+  if (!this.audioRef?.nativeElement) return;
+
+  const newTime = event.detail.value;
+  this.audioRef.nativeElement.currentTime = newTime;
+  this.isDragging = false;
+}
 
 }
 

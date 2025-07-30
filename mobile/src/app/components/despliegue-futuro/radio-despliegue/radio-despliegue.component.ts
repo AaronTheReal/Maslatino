@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AudioPlayerService } from '../../../services/player-service';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline, play, pause, close } from 'ionicons/icons';
+import { FooterComponent } from '../../../components/shared/footer/footer.component';
 
 addIcons({
   'arrow-back-outline': arrowBackOutline,
@@ -17,11 +18,12 @@ addIcons({
 @Component({
   selector: 'app-radio-despliegue',
   standalone: true,
-  imports: [CommonModule, IonicModule, TranslateModule],
+  imports: [CommonModule, IonicModule, TranslateModule,FooterComponent],
   templateUrl: './radio-despliegue.component.html',
   styleUrls: ['./radio-despliegue.component.scss']
 })
 export class RadioDespliegueComponent implements OnInit {
+  activeTab: string = 'radio-despliegue';
 
   // Si quieres reutilizar, puedes inyectar por ruta estos datos
   station = {
@@ -53,6 +55,11 @@ export class RadioDespliegueComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+   onFooterTabChanged(tabName: string) {
+    console.log('Footer seleccionó pestaña:', tabName);
+    this.activeTab = tabName;
   }
 }
 

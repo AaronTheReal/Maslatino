@@ -13,7 +13,7 @@
         <ion-button
           fill="clear"
           (click)="cerrarReproductor()"
-          style="position: absolute; top: 52px; left: 8px; z-index: 10; color: #000;">
+          style="position: absolute; top: 52px; left: 360px; z-index: 10; color: #000;">
           <ion-icon name="chevron-down-outline"></ion-icon>
         </ion-button>
 
@@ -27,11 +27,13 @@
           {{ tiempoActual }} / {{ podcastActivo.duracion }}
         </div>
 
-        <ion-range
+      <ion-range
           min="0"
           [max]="audioRef?.nativeElement?.duration || 0"
-          [value]="audioRef?.nativeElement?.currentTime || 0"
-          (ionChange)="onSeek($event)"
+          [value]="isDragging ? dragValue : audioRef?.nativeElement?.currentTime || 0"
+          (ionKnobMoveStart)="onDragStart()"
+          (ionKnobMove)="onDragMove($event)"
+          (ionKnobMoveEnd)="onDragEnd($event)"
           step="1">
         </ion-range>
 

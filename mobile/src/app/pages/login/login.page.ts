@@ -66,6 +66,12 @@ export class LoginPage implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
 
+      const loading = await this.toastController.create({
+        message: this.translate.instant('LOGIN_WAITING'),
+        duration: 1000,
+      });
+      await loading.present();
+
       this.authService.login(email, password).subscribe({
         next: async (res) => {
           const toast = await this.toastController.create({
@@ -98,14 +104,23 @@ export class LoginPage implements OnInit {
             this.router.navigate(['/bienvenida']);
           }
         },
-        error: async (err) => {
-          const toast = await this.toastController.create({
-            message: this.translate.instant('LOGIN_ERROR'),
-            duration: 3000,
-            color: 'danger'
-          });
-          await toast.present();
-        }
+       error: async (err) => {
+            let errorMessage = this.translate.instant('LOGIN_ERROR_GENERIC');
+
+            if (err?.error?.message === 'Usuario no encontrado') {
+              errorMessage = this.translate.instant('LOGIN_ERROR_USER');
+            } else if (err?.error?.message === 'Contraseña incorrecta') {
+              errorMessage = this.translate.instant('LOGIN_ERROR_PASSWORD');
+            }
+
+            const toast = await this.toastController.create({
+              message: errorMessage,
+              duration: 3000,
+              color: 'danger'
+            });
+            await toast.present();
+          }
+
       });
     }
   }

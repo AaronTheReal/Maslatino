@@ -360,8 +360,13 @@
      "Noticia": "Notices",
      "Episodio": "Episode",
 
-    "calendario": "Calendar"
-
+    "calendario": "Calendar",
+    "LOGIN_ERROR_USER": "User Not Found",
+    "LOGIN_ERROR_PASSWORD": "Wrong Password",
+    "LOGIN_WAITING": "Loading...",
+    "CONFIRM_PASSWORD_PLACEHOLDER":"Confirm your password",
+    "CONFIRM_PASSWORD_REQUIRED":"Confirm password required",
+    "PASSWORDS_DO_NOT_MATCH":"Passwords do not match"
 
 
 
